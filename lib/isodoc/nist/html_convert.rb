@@ -109,6 +109,20 @@ module IsoDoc
         docxml
       end
 
+      def example_parse(node, out)
+        return pseudocode_parse(node, out) if node["type"] == "pseudocode"
+        super
+      end
+
+      def pseudocode_parse(node, out)
+        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
+          div.p { |p| p << example_label(node) }
+          node.children.each do |n|
+            parse(n, div)
+          end
+        end
+      end
+
       def info(isoxml, out)
         @meta.security isoxml, out
         super

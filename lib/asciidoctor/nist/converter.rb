@@ -89,6 +89,21 @@ module Asciidoctor
         nil
       end
 
+      def example(node)
+        return pseudocode_example(node) if node.attr("style") == "pseudocode"
+        super
+      end
+
+      def pseudocode_example(node)
+        noko do |xml|
+          xml.example **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node), 
+                         type: "pseudocode"} do |ex|
+            wrap_in_para(node, ex)
+          end
+        end.join("\n")
+      end
+
+
       def makexml(node)
         result = ["<?xml version='1.0' encoding='UTF-8'?>\n<nist-standard>"]
         @draft = node.attributes.has_key?("draft")

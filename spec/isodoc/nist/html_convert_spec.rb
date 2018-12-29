@@ -111,6 +111,51 @@ RSpec.describe IsoDoc::NIST do
     ).to be_equivalent_to output
   end
 
+    it "processes pseudocode" do
+    input = <<~"INPUT"
+<nist-standard xmlns="https://open.ribose.com/standards/example">
+<preface><foreword>
+<example id="1" type="pseudocode">
+<ol>
+<li>A B C
+<ol><li>D</li>
+<li>E</li>
+</ol>
+</li>
+</ol>
+</example>
+</foreword></preface>
+</nist-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+        #{HTML_HDR}
+                          <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <div id="1" class="pseudocode"><p>EXAMPLE</p>
+       <ol type="a">
+       <li>A B C
+       <ol type="1"><li>D</li>
+       <li>E</li>
+       </ol>
+       </li>
+       </ol>
+       </div>
+       </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+    OUTPUT
+
+    expect(
+      IsoDoc::NIST::HtmlConvert.new({}).
+      convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+  end
+
   it "processes simple terms & definitions" do
     input = <<~"INPUT"
      <nist-standard xmlns="http://riboseinc.com/isoxml">

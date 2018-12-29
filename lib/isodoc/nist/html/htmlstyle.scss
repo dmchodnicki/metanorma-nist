@@ -620,6 +620,20 @@ p.Biblio, p.NormRef {
     margin-top:0;
 }
 
+.pseudocode {
+    background-color: #dddddd;
+    padding: 1.2em;
+    margin: 2em 0 1em 0;
+}
+
+.pseudocode .example-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top:0;
+}
+
+
 /*
     3.9 Tables
 */
