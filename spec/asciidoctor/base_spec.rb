@@ -84,10 +84,10 @@ RSpec.describe Asciidoctor::NIST do
 
     output = <<~"OUTPUT"
     <?xml version="1.0" encoding="UTF-8"?>
-<nist-standard xmlns="https://open.ribose.com/standards/example">
+<nist-standard xmlns="https://open.ribose.com/standards/nist">
 <bibdata type="standard">
 <title language="en" format="text/plain">Main Title</title>
-<docidentifier type="acme">1000(wd):2001</docidentifier>
+<docidentifier type="nist">1000(wd):2001</docidentifier>
 <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>
@@ -97,13 +97,13 @@ RSpec.describe Asciidoctor::NIST do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -113,7 +113,7 @@ RSpec.describe Asciidoctor::NIST do
     <from>2001</from>
     <owner>
       <organization>
-        <name>Acme</name>
+        <name>NIST</name>
       </organization>
     </owner>
   </copyright>
@@ -147,10 +147,10 @@ RSpec.describe Asciidoctor::NIST do
       :language: en
       :title: Main Title
     INPUT
-        <nist-standard xmlns="https://open.ribose.com/standards/example">
+        <nist-standard xmlns="https://open.ribose.com/standards/nist">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="acme">1000(cd)</docidentifier>
+  <docidentifier type="nist">1000(cd)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>
@@ -160,13 +160,13 @@ RSpec.describe Asciidoctor::NIST do
   <contributor>
     <role type="author"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -176,7 +176,7 @@ RSpec.describe Asciidoctor::NIST do
     <from>#{Date.today.year}</from>
     <owner>
       <organization>
-        <name>Acme</name>
+        <name>NIST</name>
       </organization>
     </owner>
   </copyright>
@@ -206,10 +206,10 @@ RSpec.describe Asciidoctor::NIST do
       :language: en
       :title: Main Title
     INPUT
-        <nist-standard xmlns="https://open.ribose.com/standards/example">
+        <nist-standard xmlns="https://open.ribose.com/standards/nist">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="acme">1000(d)</docidentifier>
+  <docidentifier type="nist">1000(d)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>
@@ -218,13 +218,13 @@ RSpec.describe Asciidoctor::NIST do
 </version>   <contributor>
     <role type="author"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -234,7 +234,7 @@ RSpec.describe Asciidoctor::NIST do
     <from>#{Date.today.year}</from>
     <owner>
       <organization>
-        <name>Acme</name>
+        <name>NIST</name>
       </organization>
     </owner>
   </copyright>
@@ -265,10 +265,10 @@ OUTPUT
       :language: en
       :title: Main Title
     INPUT
-    <nist-standard xmlns="https://open.ribose.com/standards/example">
+    <nist-standard xmlns="https://open.ribose.com/standards/nist">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="acme">1000:2001</docidentifier>
+  <docidentifier type="nist">1000:2001</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>
@@ -278,13 +278,13 @@ OUTPUT
  <contributor>
     <role type="author"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>Acme</name>
+      <name>NIST</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -294,7 +294,7 @@ OUTPUT
     <from>2001</from>
     <owner>
       <organization>
-        <name>Acme</name>
+        <name>NIST</name>
       </organization>
     </owner>
   </copyright>
