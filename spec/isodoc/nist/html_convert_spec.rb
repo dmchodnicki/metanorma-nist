@@ -46,7 +46,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-{:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :security=>"Client Confidential", :status=>"Working Draft", :tc=>"TC", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"TC", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -142,6 +142,35 @@ RSpec.describe IsoDoc::NIST do
        </li>
        </ol>
        </div>
+       </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+    OUTPUT
+
+    expect(
+      IsoDoc::NIST::HtmlConvert.new({}).
+      convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+  end
+
+  it "processes nistvariable tag" do 
+        input = <<~"INPUT"
+<nist-standard xmlns="https://open.ribose.com/standards/example">
+<preface><foreword>
+<sourcecode id="_">&lt;xccdf:check system="<nistvariable>http://oval.mitre.org/XMLSchema/oval-definitions-5</nistvariable>"&gt;</sourcecode>
+</foreword></preface>
+</nist-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+        #{HTML_HDR}
+                          <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p id="_" class="Sourcecode">&lt;xccdf:check system="<span class="nistvariable">http://oval.mitre.org/XMLSchema/oval-definitions-5</span>"&gt;</p>
        </div>
              <p class="zzSTDTitle1"/>
            </div>

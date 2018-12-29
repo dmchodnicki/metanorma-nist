@@ -75,14 +75,8 @@ module Asciidoctor
         end
       end
 
-      def metadata_security(node, xml)
-        security = node.attr("security") || return
-        xml.security security
-      end
-
       def metadata(node, xml)
         super
-        metadata_security(node, xml)
       end
 
       def title_validate(root)
@@ -103,6 +97,32 @@ module Asciidoctor
         end.join("\n")
       end
 
+      def cleanup(xmldoc)
+        sourcecode_cleanup(xmldoc)
+        super
+      end
+
+      def nistvariable_insert(n)
+        acc = []
+        n.text.split(/((?<!\{)\{{3}(?!\{)|(?<!\})\}{3}(?!\}))/).each_slice(4).
+          map do |a|
+          acc << Nokogiri::XML::Text.new(a[0], n.document)
+          next unless a.size == 4
+          acc << Nokogiri::XML::Node.new("nistvariable", n)
+          acc[-1].content = a[2]
+        end
+        acc
+      end
+
+      def sourcecode_cleanup(xmldoc)
+        xmldoc.xpath("//sourcecode").each do |x|
+          x.traverse do |n|
+            next unless n.text?
+            n.replace(Nokogiri::XML::NodeSet.new(n.document, 
+                                                 nistvariable_insert(n)))
+          end
+        end
+      end
 
       def makexml(node)
         result = ["<?xml version='1.0' encoding='UTF-8'?>\n<nist-standard>"]

@@ -588,6 +588,11 @@ p.Biblio, p.NormRef {
     text-align: center;
 }
 
+span.nistvariable {
+  font-family: $bodyfont;
+  font-style: italic;
+}
+
 /*
     3.7 Notes
 */
@@ -602,6 +607,18 @@ p.Biblio, p.NormRef {
         margin: 0;
     }
 }
+
+.Admonition {
+    background-color: #ffcccc;
+    color: #47430c;
+    padding: 1.2em;
+    margin: 1em 0 1em 0;
+
+    p {
+        margin: 0;
+    }
+}
+
 
 /*
     3.8 Examples

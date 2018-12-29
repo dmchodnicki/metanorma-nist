@@ -123,8 +123,21 @@ module IsoDoc
         end
       end
 
+      def error_parse(node, out)
+        case node.name
+        when "nistvariable" then nistvariable_parse(node, out)
+        else
+          super
+        end
+      end
+
+      def nistvariable_parse(node, out)
+        out.span **{class: "nistvariable"} do |s|
+          node.children.each { |n| parse(n, s) }
+        end
+      end
+
       def info(isoxml, out)
-        @meta.security isoxml, out
         super
       end
     end

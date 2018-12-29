@@ -121,7 +121,6 @@ RSpec.describe Asciidoctor::NIST do
     <committee type="A">TC</committee>
     <committee type="A1">TC1</committee>
   </editorialgroup>
-  <security>Client Confidential</security>
 </bibdata>
 <sections/>
 </nist-standard>
@@ -467,6 +466,25 @@ OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
+  it "processes variables within sourcecode" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      [source]
+      ----
+      <xccdf:check system="{{{http://oval.mitre.org/XMLSchema/oval-definitions-5}}}">
+      ----
+    INPUT
+
+        output = <<~"OUTPUT"
+            #{BLANK_HDR}
+<sections>
+  <sourcecode id="_">&lt;xccdf:check system="<nistvariable>http://oval.mitre.org/XMLSchema/oval-definitions-5</nistvariable>"&gt;</sourcecode>
+</sections>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
 
 
 end

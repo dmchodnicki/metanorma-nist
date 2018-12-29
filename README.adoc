@@ -56,9 +56,9 @@ Using the `metanorma` CLI:
 
 [source,console]
 ----
-$ metanorma --type ogc a.adoc                   # output HTML
-$ metanorma --type ogc --extensions html a.adoc # output just HTML
-$ metanorma --type ogc --extensions xml a.adoc  # output Metanorma XML
+$ metanorma --type nist a.adoc                   # output HTML
+$ metanorma --type nist --extensions html a.adoc # output just HTML
+$ metanorma --type nist --extensions xml a.adoc  # output Metanorma XML
 ----
 
 
@@ -245,6 +245,20 @@ _Output:_ Shuffled _S=(s1,...,sL)_
 .. Swap _s~j~_ and _s~i~_
 ====
 ----
+
+=== Variables within sourcecode
+
+Variables within sourcecode are rendered as non-monospace italicised text. To indicate
+such variables, `{{{ ... }}}` shall be used as markup within the sourcecode block,
+which will be converted to the tag `nistvariable` in Metanorma XML:
+
+[source,asciidoctor]
+---
+[source]
+----
+<xccdf:check system="{{{http://oval.mitre.org/XMLSchema/oval-definitions-5}}}">
+----
+---
 
 ////
 
