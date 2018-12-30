@@ -120,9 +120,6 @@ Metadata of the document is provided through AsciiDoc document attributes.
 https://github.com/riboseinc/metanorma-standoc[Metanorma-Standoc]
 documents all common Metanorma document attributes.
 
-////
-TODO.
-
 Where these preexisting metanorma attributes correspond to attributes already used
 by NIST in their Asciidoctor template, they are treated as synonyms of the Metanorma
 attributes.
@@ -133,12 +130,24 @@ The attributes relevant to OGC documents include:
 
 `:revdate:`:: The date the document was last updated.
 
-`:copyright-year:` (OGC: `:copyrightYear`):: The year which will be claimed as when the copyright for
+`:copyright-year:`: The year which will be claimed as when the copyright for
 the document was issued.
 
 `:title:`:: The main component of the English title of the document
 (mandatory). (The first line of the AsciiDoc document, which contains the title
 introduced with `=`, is ignored)
+
+`:technical-committee:`:: The name of the relevant committee producing the document (mandatory). 
+
+`:published-date:`:: The publication date for the document.
+
+`:uri:`:: The URI to which this standard is published.
+
+`:docnumber:`:: The internal identifier referring to this document.
+
+`:draft:`:: If present, review notes are included in the
+Metanorma XML output; otherwise they are suppressed.
+////
 
 `:doctype:`:: The document type (mandatory). The permitted types are:
 +
@@ -176,40 +185,18 @@ introduced with `=`, is ignored)
 `:subcommittee:`:: The name of the relevant subcommittee producing the document
 `:workgroup:` (OGC: `:workingGroup:`):: The name of the relevant working group producing the document (mandatory)
 
-`:language:`:: The language of the document (e.g. `en`) (mandatory)
-
 `:published-date:` (OGC: `:publicationDate:`):: The publication date for the document.
 `:issued-date:`  (OGC: `:approvalDate:`):: The approval date for the document.
 `:created-date:`:: The creation date for the document.
 `:received-date:`  (OGC: `:submissionDate:`):: The date at which the document was submitted to the standards body.
 
-`:uri:`:: The URI to which this standard is published.
-`:xml-uri:`:: The URI for the Metanorma XML as which this standard is published.
-`:pdf-uri:`:: The URI for the PDF as which this standard is published.
-`:doc-uri:`:: The URI for the DOC as which this standard is published.
-`:docnumber:`  (OGC: `docReference`):: The internal identifier referring to this document.
-
-`:draft:`:: If present, review notes are included in the
-Metanorma XML output; otherwise they are suppressed.
-
+////
 
 === OGC-specific attributes
 
 The following document attributes are specific to this document class:
 
-`:external-id:`:: The external identifier referring to this document.
-`:referenceURLID:`:: The identifier embedded into a document type-specific
-external URL.
-`:previous-uri:`:: URI of previous version of the document.
-`:subcommittee-type:`:: The type of the relevant subcommittee producing the document
-`:subcommittee-number:`:: The number of the relevant subcommittee producing the document
-`:workgroup-type:`:: The type of the relevant workgroup producing the document
-`:workgroup-number:`:: The number of the relevant workgroup producing the document
-
 `:keywords:`:: Comma-delimited list of the keywords associated with the document.
-`:submitting-organizations:`:: Semicolon-delimited list of the submitting organisations
-for this document. (The organisation names themselves may contain commas; e.g.
-`University of Calgary, Canada; National Central University, Taiwan`.
 
 `:fullname{_i}:`:: The full name of a person who is a contributor to the document.
 A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname_2:`, `fullname_3:`, &c.
@@ -220,13 +207,22 @@ A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname
 they are coded as an `editor`; they can also be represented as an `author`.
 
 OGC `:editor:`:: corresponds to `:fullname:` with `role` = "editor"
-////
 
 == Asciidoctor features specific to NIST
 
 The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
+
+=== Acknwoledgements
+
+Acknwoledgements are recognised as any clause with the title `Acknowledgements`.
+They are rendered in the document preface, under the Metanorma XML tag `acknowlegemnts`.
+
+=== Conformance Testing
+
+Conformance Testing is recognised as any clause with the title `Conformance Testing`.
+They are rendered in the document preface, under the Metanorma XML tag `conformancetesting`.
 
 === Pseudocode
 

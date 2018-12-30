@@ -12,8 +12,8 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        FileUtils.cp html_doc_path('logo.jpg'), "logo.jpg"
-        @files_to_delete << "logo.jpg"
+        FileUtils.cp html_doc_path('logo.png'), "logo.png"
+        @files_to_delete << "logo.png"
       end
 
       def default_fonts(options)
@@ -67,6 +67,54 @@ module IsoDoc
 
       def html_toc(docxml)
         docxml
+      end
+
+      def make_body3(body, docxml)
+        body.div **{ class: "main-section" } do |div3|
+          abstract docxml, div3
+          keywords docxml, div3
+          acknowledgements docxml, div3
+          conformancetesting docxml, div3
+          foreword docxml, div3
+          middle docxml, div3
+          footnotes div3
+          comments div3
+        end
+      end
+
+      def abstract(isoxml, out)
+        f = isoxml.at(ns("//preface/abstract")) || return
+        page_break(out)
+        out.div **attr_code(id: f["id"]) do |s|
+          clause_name(get_anchors[f["id"]][:label], @abstract_lbl, s, class: "AbstractTitle")
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        end
+      end
+
+      def keywords(_docxml, out)
+        kw = @meta.get[:keywords]
+        kw.empty? and return
+        out.div **{ class: "Section3" } do |div|
+          clause_name(RomanNumerals.to_roman(@prefacenum).downcase, "Keywords", div,  class: "IntroTitle")
+          div.p "The following are keywords to be used by search engines and document catalogues."
+          div.p kw.join("; ")
+        end
+      end
+
+      def acknowledgements(docxml, out)
+        f = docxml.at(ns("//acknowledgements")) || return
+        out.div **{ class: "Section3" } do |div|
+          clause_name(get_anchors[f['id']][:label], "Acknowledgements", div,  class: "IntroTitle")
+          f.elements.each { |e| parse(e, div) unless e.name == "title" }
+        end
+      end
+
+      def conformancetesting(docxml, out)
+        f = docxml.at(ns("//conformancetesting")) || return
+        out.div **{ class: "Section3" } do |div|
+          clause_name(get_anchors[f['id']][:label], "Conformance Testing", div,  class: "IntroTitle")
+          f.elements.each { |e| parse(e, div) unless e.name == "title" }
+        end
       end
 
       def annex_name(annex, name, div)
@@ -138,6 +186,7 @@ module IsoDoc
       end
 
       def info(isoxml, out)
+        @meta.keywords isoxml, out
         super
       end
     end

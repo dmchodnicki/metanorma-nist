@@ -61,12 +61,12 @@ RSpec.describe Asciidoctor::NIST do
       :edition: 2
       :revdate: 2000-01-01
       :draft: 3.4
-      :committee: TC
-      :committee-number: 1
-      :committee-type: A
-      :committee_2: TC1
-      :committee-number_2: 11
-      :committee-type_2: A1
+      :technical-committee: TC
+      :technical-committee-number: 1
+      :technical-committee-type: A
+      :technical-committee_2: TC1
+      :technical-committee-number_2: 11
+      :technical-committee-type_2: A1
       :subcommittee: SC
       :subcommittee-number: 2
       :subcommittee-type: B
@@ -80,50 +80,77 @@ RSpec.describe Asciidoctor::NIST do
       :language: en
       :title: Main Title
       :security: Client Confidential
+      :keywords: a, b, c
+      :fullname: Fred Flintstone
+      :role: author
+      :surname_2: Rubble
+      :givenname_2: Barney
+      :role: editor
     INPUT
 
     output = <<~"OUTPUT"
-    <?xml version="1.0" encoding="UTF-8"?>
-<nist-standard xmlns="https://open.ribose.com/standards/nist">
-<bibdata type="standard">
-<title language="en" format="text/plain">Main Title</title>
-<docidentifier type="nist">1000(wd):2001</docidentifier>
-<docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version> 
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-  <language>en</language>
-  <script>Latn</script>
-  <status format="plain">working-draft</status>
-  <copyright>
-    <from>2001</from>
-    <owner>
-      <organization>
-        <name>NIST</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee type="A">TC</committee>
-    <committee type="A1">TC1</committee>
-  </editorialgroup>
-</bibdata>
-<sections/>
-</nist-standard>
+           <?xml version="1.0" encoding="UTF-8"?>
+       <nist-standard xmlns="https://open.ribose.com/standards/nist">
+       <bibdata type="standard">
+         <title language="en" format="text/plain">Main Title</title>
+         <docidentifier type="nist">1000(wd):2001</docidentifier>
+         <docnumber>1000</docnumber>
+         <edition>2</edition>
+         <version>
+           <revision-date>2000-01-01</revision-date>
+           <draft>3.4</draft>
+         </version>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>NIST</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="editor"/>
+           <person>
+             <name>
+               <completename>Fred Flintstone</completename>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="editor"/>
+           <person>
+             <name>
+               <forename>Barney</forename>
+               <surname>Rubble</surname>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>NIST</name>
+           </organization>
+         </contributor>
+         <language>en</language>
+         <script>Latn</script>
+         <status format="plain">working-draft</status>
+         <copyright>
+           <from>2001</from>
+           <owner>
+             <organization>
+               <name>NIST</name>
+             </organization>
+           </owner>
+         </copyright>
+         <editorialgroup>
+           <committee>TC</committee>
+           <subcommittee type="B" number="2">SC</subcommittee>
+           <workgroup type="C" number="3">WG</workgroup>
+         </editorialgroup>
+         <keyword>a</keyword>
+         <keyword>b</keyword>
+         <keyword>c</keyword>
+       </bibdata>
+       <sections/>
+       </nist-standard>
     OUTPUT
 
     expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
@@ -383,6 +410,54 @@ OUTPUT
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^{]+font-family: Andale Mono;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: Zapf Chancery;]m)
     expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
+  end
+
+  it "recognises acknwoledgements and conformance testing" do
+        input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      This is a preamble
+
+      == Abstract
+
+      This is an abstract
+
+      == Acknowledgements
+
+      These are acknolwedgements
+
+      == Conformance Testing
+
+      This is Conformance Testing
+
+      == Clause
+
+      This is a clause
+    INPUT
+
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
+    <preface><foreword obligation="informative">
+         <title>Foreword</title>
+         <p id="_">This is a preamble</p>
+       </foreword><acknowledgements id="_">
+         <p id="_">These are acknolwedgements</p>
+       </acknowledgements><conformancetesting id="_">
+         <p id="_">This is Conformance Testing</p>
+       </conformancetesting></preface><sections>
+       <clause id="_" obligation="normative">
+         <title>Abstract</title>
+         <p id="_">This is an abstract</p>
+       </clause>
+
+
+       <clause id="_" obligation="normative">
+         <title>Clause</title>
+         <p id="_">This is a clause</p>
+       </clause></sections>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
   it "processes inline_quoted formatting" do

@@ -3,6 +3,7 @@ require "asciidoctor/nist"
 require "asciidoctor/standoc/converter"
 require "isodoc/nist/html_convert"
 require "isodoc/nist/word_convert"
+require_relative "front"
 require "fileutils"
 
 module Asciidoctor
@@ -14,70 +15,6 @@ module Asciidoctor
     class Converter < Standoc::Converter
 
       register_for "nist"
-
-      def metadata_author(node, xml)
-        xml.contributor do |c|
-          c.role **{ type: "author" }
-          c.organization do |a|
-            a.name "NIST"
-          end
-        end
-      end
-
-      def metadata_publisher(node, xml)
-        xml.contributor do |c|
-          c.role **{ type: "publisher" }
-          c.organization do |a|
-            a.name "NIST"
-          end
-        end
-      end
-
-      def metadata_committee(node, xml)
-        xml.editorialgroup do |a|
-          a.committee node.attr("committee"),
-            **attr_code(type: node.attr("committee-type"))
-          i = 2
-          while node.attr("committee_#{i}") do
-            a.committee node.attr("committee_#{i}"),
-              **attr_code(type: node.attr("committee-type_#{i}"))
-            i += 1
-          end
-        end
-      end
-
-      def metadata_status(node, xml)
-        xml.status(**{ format: "plain" }) { |s| s << node.attr("status") }
-      end
-
-      def metadata_id(node, xml)
-        docstatus = node.attr("status")
-        dn = node.attr("docnumber")
-        if docstatus
-          abbr = IsoDoc::NIST::Metadata.new("en", "Latn", {}).
-            status_abbr(docstatus)
-          dn = "#{dn}(#{abbr})" unless abbr.empty?
-        end
-        node.attr("copyright-year") and dn += ":#{node.attr("copyright-year")}"
-        xml.docidentifier dn, **{type: "nist"}
-        xml.docnumber { |i| i << node.attr("docnumber") }
-      end
-
-      def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || Date.today.year
-        xml.copyright do |c|
-          c.from from
-          c.owner do |owner|
-            owner.organization do |o|
-              o.name "NIST"
-            end
-          end
-        end
-      end
-
-      def metadata(node, xml)
-        super
-      end
 
       def title_validate(root)
         nil
@@ -174,6 +111,49 @@ module Asciidoctor
         super
         x.xpath("//*[@inline-header]").each do |h|
           h.delete("inline-header")
+        end
+      end
+
+      def make_preface(x, s)
+        super
+        make_acknowledgements(x, s)
+        make_conformancetesting(x, s)
+      end
+
+      def make_acknowledgements(x, s)
+        if x.at("//acknowledgements")
+          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
+          ack = x.at("//acknowledgements").remove
+          preface.add_child ack.remove
+        end
+      end
+
+      def make_conformancetesting(x, s)
+        if x.at("//conformancetesting")
+          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
+          ack = x.at("//conformancetesting").remove
+          preface.add_child ack.remove
+        end
+      end
+
+      def clause_parse(attrs, xml, node)
+        clausetype = node&.attr("heading")&.downcase || node.title.downcase
+        if clausetype == "acknowledgements" then acknowledgements_parse(attrs, xml, node)
+        elsif clausetype == "conformance testing" then conformancetesting_parse(attrs, xml, node)
+        else
+          super
+        end
+      end
+
+      def acknowledgements_parse(attrs, xml, node)
+        xml.acknowledgements **attr_code(attrs) do |xml_section|
+          xml_section << node.content
+        end
+      end
+
+      def conformancetesting_parse(attrs, xml, node)
+        xml.conformancetesting **attr_code(attrs) do |xml_section|
+          xml_section << node.content
         end
       end
 

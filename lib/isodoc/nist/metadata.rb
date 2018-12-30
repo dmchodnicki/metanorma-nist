@@ -65,9 +65,12 @@ module IsoDoc
         return "#{MONTHS[m[:mo].to_sym]} #{m[:yr]}"
       end
 
-      def security(isoxml, _out)
-        security = isoxml.at(ns("//bibdata/security")) || return
-        set(:security, security.text)
+      def keywords(isoxml, _out)
+        keywords = []
+        isoxml.xpath(ns("//bibdata/keyword")).each do |kw|
+          keywords << kw.text
+        end
+        set(:keywords, keywords)
       end
     end
   end

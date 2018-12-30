@@ -10,8 +10,8 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        FileUtils.cp html_doc_path('logo.jpg'), "logo.jpg"
-        @files_to_delete << "logo.jpg"
+        FileUtils.cp html_doc_path('logo.png'), "logo.png"
+        @files_to_delete << "logo.png"
       end
 
       def default_fonts(options)
@@ -107,7 +107,6 @@ module IsoDoc
       end
 
       def info(isoxml, out)
-        @meta.security isoxml, out
         super
       end
     end

@@ -33,8 +33,10 @@ RSpec.describe IsoDoc::NIST do
     </owner>
   </copyright>
   <editorialgroup>
-    <committee type="A">TC</committee>
+    <technical-committee type="A">TC</committee>
   </editorialgroup>
+           <keyword>A</keyword>
+         <keyword>B</keyword>
   <security>Client Confidential</security>
 </bibdata><version>
   <edition>2</edition>
@@ -46,7 +48,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"TC", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -301,6 +303,10 @@ RSpec.describe IsoDoc::NIST do
     input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
+      <abstract obligation="informative">
+         <title>Abstract</title>
+         <p id="AA">This is an Abstract</p>
+      </abstract>
       <foreword obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
@@ -308,7 +314,14 @@ RSpec.describe IsoDoc::NIST do
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
-       </introduction></preface><sections>
+       </introduction>
+      <acknowledgements obligation="informative">
+         <p id="AB">These are acknowledgements</p>
+       </acknowledgements>
+      <conformancetesting obligation="informative">
+         <p id="AC">This is conformance testing</p>
+       </conformancetesting>
+        </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -364,15 +377,21 @@ RSpec.describe IsoDoc::NIST do
         #{HTML_HDR}
              <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p id="A">This is a preamble</p>
+               <h1 class="AbstractTitle">Abstract</h1>
+               <p id="AA">This is an Abstract</p>
+             </div>
+             <div class="Section3">
+               <h1 class="IntroTitle">Acknowledgements</h1>
+               <p id="AB">These are acknowledgements</p>
+             </div>
+             <div class="Section3">
+               <h1 class="IntroTitle">Conformance Testing</h1>
+               <p id="AC">This is conformance testing</p>
              </div>
              <br/>
-             <div class="Section3" id="B">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="C">
-          <h2>Introduction Subsection</h2>
-        </div>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <p id="A">This is a preamble</p>
              </div>
              <p class="zzSTDTitle1"/>
              <div id="D">
