@@ -93,7 +93,7 @@ RSpec.describe Asciidoctor::NIST do
        <nist-standard xmlns="https://open.ribose.com/standards/nist">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
-         <docidentifier type="nist">1000(wd):2001</docidentifier>
+         <docidentifier type="nist">NIST 1000(wd)</docidentifier>
          <docnumber>1000</docnumber>
          <edition>2</edition>
          <version>
@@ -176,7 +176,7 @@ RSpec.describe Asciidoctor::NIST do
         <nist-standard xmlns="https://open.ribose.com/standards/nist">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="nist">1000(cd)</docidentifier>
+  <docidentifier type="nist">NIST 1000(cd)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>
@@ -235,7 +235,7 @@ RSpec.describe Asciidoctor::NIST do
         <nist-standard xmlns="https://open.ribose.com/standards/nist">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="nist">1000(d)</docidentifier>
+  <docidentifier type="nist">NIST 1000(d)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>
@@ -294,7 +294,7 @@ OUTPUT
     <nist-standard xmlns="https://open.ribose.com/standards/nist">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="nist">1000:2001</docidentifier>
+  <docidentifier type="nist">NIST 1000</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>

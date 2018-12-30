@@ -77,7 +77,7 @@ module Asciidoctor
             status_abbr(docstatus)
           dn = "#{dn}(#{abbr})" unless abbr.empty?
         end
-        node.attr("copyright-year") and dn += ":#{node.attr("copyright-year")}"
+        dn and dn = "NIST " + dn
         xml.docidentifier dn, **{type: "nist"}
         xml.docnumber { |i| i << node.attr("docnumber") }
       end

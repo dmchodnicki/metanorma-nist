@@ -86,7 +86,7 @@ module IsoDoc
         f = isoxml.at(ns("//preface/abstract")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name("", @abstract_lbl, s, class: "AbstractTitle")
+          clause_name(nil, @abstract_lbl, s, class: "AbstractTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -95,7 +95,7 @@ module IsoDoc
         kw = @meta.get[:keywords]
         kw.empty? and return
         out.div **{ class: "Section3" } do |div|
-          clause_name("", "Keywords", div,  class: "IntroTitle")
+          clause_name(nil, "Keywords", div,  class: "IntroTitle")
           div.p kw.join("; ")
         end
       end
@@ -103,7 +103,7 @@ module IsoDoc
       def acknowledgements(docxml, out)
         f = docxml.at(ns("//acknowledgements")) || return
         out.div **{ class: "Section3" } do |div|
-          clause_name("", "Acknowledgements", div,  class: "IntroTitle")
+          clause_name(nil, "Acknowledgements", div,  class: "IntroTitle")
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
@@ -111,7 +111,7 @@ module IsoDoc
       def conformancetesting(docxml, out)
         f = docxml.at(ns("//conformancetesting")) || return
         out.div **{ class: "Section3" } do |div|
-          clause_name("", "Conformance Testing", div,  class: "IntroTitle")
+          clause_name(nil, "Conformance Testing", div,  class: "IntroTitle")
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
