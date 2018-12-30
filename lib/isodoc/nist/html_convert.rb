@@ -184,6 +184,15 @@ module IsoDoc
         end
       end
 
+      MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
+
+      def middle(isoxml, out)
+        middle_title(out)
+        clause isoxml, out
+        annex isoxml, out
+        bibliography isoxml, out
+      end
+
       def info(isoxml, out)
         @meta.keywords isoxml, out
         super
