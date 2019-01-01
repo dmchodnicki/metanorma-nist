@@ -73,9 +73,7 @@ module IsoDoc
         body.div **{ class: "main-section" } do |div3|
           abstract docxml, div3
           keywords docxml, div3
-          acknowledgements docxml, div3
-          conformancetesting docxml, div3
-          foreword docxml, div3
+          preface docxml, div3
           middle docxml, div3
           footnotes div3
           comments div3
@@ -96,24 +94,31 @@ module IsoDoc
         kw.empty? and return
         out.div **{ class: "Section3" } do |div|
           clause_name(nil, "Keywords", div,  class: "IntroTitle")
-          div.p kw.join("; ")
+          div.p kw.sort.join("; ")
         end
       end
 
-      def acknowledgements(docxml, out)
-        f = docxml.at(ns("//acknowledgements")) || return
-        out.div **{ class: "Section3" } do |div|
-          clause_name(nil, "Acknowledgements", div,  class: "IntroTitle")
-          f.elements.each { |e| parse(e, div) unless e.name == "title" }
+      FRONT_CLAUSE = "//*[parent::preface][not(local-name() = 'abstract')]".freeze
+
+      def preface(isoxml, out)
+        isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
+          foreword(isoxml, out) and next if c.name == "foreword"
+          next if skip_render(c, isoxml)
+          out.div **attr_code(id: c["id"]) do |s|
+            clause_name(get_anchors[c['id']][:label],
+                        c&.at(ns("./title"))&.content, s, nil)
+            c.elements.reject { |c1| c1.name == "title" }.each do |c1|
+              parse(c1, s)
+            end
+          end
         end
       end
 
-      def conformancetesting(docxml, out)
-        f = docxml.at(ns("//conformancetesting")) || return
-        out.div **{ class: "Section3" } do |div|
-          clause_name(nil, "Conformance Testing", div,  class: "IntroTitle")
-          f.elements.each { |e| parse(e, div) unless e.name == "title" }
-        end
+      def skip_render(c, isoxml)
+        return false unless c.name == "reviewernote"
+        status = isoxml&.at(ns("//bibdata/status"))&.text
+        return true if status.nil?
+        return ["published", "withdrawn"].include? status
       end
 
       def annex_name(annex, name, div)
@@ -184,7 +189,7 @@ module IsoDoc
         end
       end
 
-      MIDDLE_CLAUSE = "//clause[parent::sections]".freeze
+      MIDDLE_CLAUSE = "//clause[parent::sections]|//terms[parent::sections]".freeze
 
       def middle(isoxml, out)
         middle_title(out)
@@ -197,7 +202,36 @@ module IsoDoc
         @meta.keywords isoxml, out
         super
       end
+
+      SECTIONS_XPATH =
+        "//foreword | //introduction | //reviewnote | //execsummary | //annex | "\
+        "//sections/clause | //bibliography/references | "\
+        "//bibliography/clause".freeze
+
+      def initial_anchor_names(d)
+        d.xpath("//xmlns:preface/child::*").each do |c|
+          preface_names(c)
+        end
+        sequential_asset_names(d.xpath("//xmlns:preface/child::*"))
+        middle_section_asset_names(d)
+        clause_names(d, 0)
+        termnote_anchor_names(d)
+        termexample_anchor_names(d)
+      end
+
+      def middle_section_asset_names(d)
+        middle_sections = "//xmlns:preface/child::* | //xmlns:sections/child::*"
+        sequential_asset_names(d.xpath(middle_sections))
+      end
+
+      def clause_names(docxml, sect_num)
+        q = "//xmlns:sections/child::*"
+        docxml.xpath(q).each_with_index do |c, i|
+          section_names(c, (i + sect_num), 1)
+        end
+      end
+
+
     end
   end
 end
-

@@ -214,15 +214,55 @@ The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
 
-=== Acknwoledgements
+=== Preface
 
-Acknwoledgements are recognised as any clause with the title `Acknowledgements`.
-They are rendered in the document preface, under the Metanorma XML tag `acknowlegemnts`.
+The following sections are automatically moved to the document preface.
 
-=== Conformance Testing
+* Abstract
+* Keywords (drawn from document attribute, see above)
 
-Conformance Testing is recognised as any clause with the title `Conformance Testing`.
-They are rendered in the document preface, under the Metanorma XML tag `conformancetesting`.
+In addition, any clause that has the `preface` style attribute is also moved to the document preface,
+regardless of where it appears in the source Asciidoctor document. These clauses
+appear in the document preface in the order they are given in the source document.
+Examples of preface clauses include:
+
+* Supplemental Content
+* Acknowledgements
+* Audience
+* Document Conventions
+* Compliance with NIST Standards and Guidelines
+* Conformance Testing
+* Note to Reviewers
+* Note to Readers
+* Trademark Information
+
+[source,asciidoctor]
+--
+[preface]
+== Acknowledgemnts
+This section will be moved to the document preface, after the abstract and keywords.
+--
+
+
+Note that any clause titled "Note to Reviewers" will be removed from rendering unless
+the document is in draft (has a `:draft:` attribute).
+
+==== Abstract
+
+As with all metanorma gems, Abstracts are recognised as any clause with the style attribute
+`[abstract]`. They are rendered in the document preface, under the Metanorma XML tag `abstract`.
+
+=== Executive Summary
+
+This is any section that appears in the preface with the title Executive Summary.
+It is rendered after all other preface sections.
+
+=== Terms and definitions
+
+NIST documents do not provide for an extensive Terms & Definitions structure, as seen
+in ISO and ISO-derived standards. Instead, they use acronyms and glossary appendixes.
+These should be given as simple definition lists, without extensive embedded notes, examples,
+or sources.
 
 === Pseudocode
 

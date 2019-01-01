@@ -412,19 +412,32 @@ OUTPUT
     expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
   end
 
-  it "recognises acknwoledgements and conformance testing" do
+  it "recognises preface sections" do
         input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
       This is a preamble
 
+      [abstract]
       == Abstract
 
       This is an abstract
 
+      [preface]
       == Acknowledgements
 
       These are acknolwedgements
+       
+      [preface]
+      == Note to Reviewers
 
+      This is Note to Reviewers
+
+      [preface]
+      == Executive Summary
+
+      This is an executive summary
+
+      [preface]
       == Conformance Testing
 
       This is Conformance Testing
@@ -437,18 +450,24 @@ OUTPUT
     output = <<~"OUTPUT"
     #{BLANK_HDR}
     <preface><foreword obligation="informative">
-         <title>Foreword</title>
-         <p id="_">This is a preamble</p>
-       </foreword><acknowledgements id="_">
-         <p id="_">These are acknolwedgements</p>
-       </acknowledgements><conformancetesting id="_">
-         <p id="_">This is Conformance Testing</p>
-       </conformancetesting></preface><sections>
-       <clause id="_" obligation="normative">
-         <title>Abstract</title>
-         <p id="_">This is an abstract</p>
-       </clause>
-
+  <title>Foreword</title>
+  <p id="_">This is a preamble</p>
+</foreword><clause id="_" obligation="normative">
+  <title>Acknowledgements</title>
+  <p id="_">These are acknolwedgements</p>
+</clause><reviewernote id="_" obligation="normative">
+  <title>Note to Reviewers</title>
+  <p id="_">This is Note to Reviewers</p>
+</reviewernote><clause id="_" obligation="normative">
+  <title>Conformance Testing</title>
+  <p id="_">This is Conformance Testing</p>
+</clause><executivesummary id="_" obligation="normative">
+  <title>Executive Summary</title>
+  <p id="_">This is an executive summary</p>
+</executivesummary>
+<abstract id="_">
+  <p id="_">This is an abstract</p>
+</abstract></preface><sections>
 
        <clause id="_" obligation="normative">
          <title>Clause</title>

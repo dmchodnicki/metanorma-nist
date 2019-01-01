@@ -94,7 +94,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-        #{HTML_HDR}
+    #{HTML_HDR}
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -113,7 +113,7 @@ RSpec.describe IsoDoc::NIST do
     ).to be_equivalent_to output
   end
 
-    it "processes pseudocode" do
+  it "processes pseudocode" do
     input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <preface><foreword>
@@ -131,7 +131,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-        #{HTML_HDR}
+    #{HTML_HDR}
                           <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -159,7 +159,7 @@ RSpec.describe IsoDoc::NIST do
   end
 
   it "processes nistvariable tag" do 
-        input = <<~"INPUT"
+    input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <preface><foreword>
 <sourcecode id="_">&lt;xccdf:check system="<nistvariable>http://oval.mitre.org/XMLSchema/oval-definitions-5</nistvariable>"&gt;</sourcecode>
@@ -168,125 +168,13 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-        #{HTML_HDR}
+    #{HTML_HDR}
                           <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="_" class="Sourcecode">&lt;xccdf:check system="<span class="nistvariable">http://oval.mitre.org/XMLSchema/oval-definitions-5</span>"&gt;</p>
        </div>
              <p class="zzSTDTitle1"/>
-           </div>
-         </body>
-    OUTPUT
-
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
-  end
-
-  it "processes simple terms & definitions" do
-    input = <<~"INPUT"
-     <nist-standard xmlns="http://riboseinc.com/isoxml">
-       <sections>
-       <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-         <term id="J">
-         <preferred>Term2</preferred>
-       </term>
-        </terms>
-        </sections>
-        </nist-standard>
-    INPUT
-
-    output = <<~"OUTPUT"
-        #{HTML_HDR}
-             <p class="zzSTDTitle1"/>
-             <div id="H"><h1>1.&#160; Terms and definitions</h1><p>For the purposes of this document,
-           the following terms and definitions apply.</p>
-       <p class="TermNum" id="J">1.1</p>
-         <p class="Terms" style="text-align:left;">Term2</p>
-       </div>
-           </div>
-         </body>
-    OUTPUT
-
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
-  end
-
-  it "processes terms & definitions with external source" do
-    input = <<~"INPUT"
-    <nist-standard xmlns="http://riboseinc.com/isoxml">
-         <termdocsource type="inline" bibitemid="ISO712"/>
-       <sections>
-       <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-         <term id="J">
-         <preferred>Term2</preferred>
-       </term>
-       </terms>
-        </sections>
-        <bibliography>
-        <references id="_normative_references" obligation="informative"><title>Normative References</title>
-<bibitem id="ISO712" type="standard">
-  <title format="text/plain">Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</title>
-  <docidentifier>ISO 712</docidentifier>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>International Organization for Standardization</name>
-    </organization>
-  </contributor>
-</bibitem></references>
-</bibliography>
-        </nist-standard>
-    INPUT
-
-    output = <<~"OUTPUT"
-        #{HTML_HDR}
-             <p class="zzSTDTitle1"/>
-             <div>
-               <h1>1.&#160; Normative references</h1>
-               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                 <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
-                              </div>
-             <div id="H"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document, the terms and definitions
-         given in <a href="#ISO712">ISO 712</a> and the following apply.</p>
-       <p class="TermNum" id="J">2.1</p>
-                <p class="Terms" style="text-align:left;">Term2</p>
-              </div>
-           </div>
-         </body>
-    OUTPUT
-
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
-  end
-
-  it "processes empty terms & definitions" do
-    input = <<~"INPUT"
-    <nist-standard xmlns="http://riboseinc.com/isoxml">
-      <sections>
-        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-        </terms>
-      </sections>
-    </nist-standard>
-    INPUT
-
-    output = <<~"OUTPUT"
-        #{HTML_HDR}
-             <p class="zzSTDTitle1"/>
-             <div id="H"><h1>1.&#160; Terms and definitions</h1><p>No terms and definitions are listed in this document.</p>
-       </div>
            </div>
          </body>
     OUTPUT
@@ -315,37 +203,24 @@ RSpec.describe IsoDoc::NIST do
          <title>Introduction Subsection</title>
        </clause>
        </introduction>
-      <acknowledgements obligation="informative">
+      <clause obligation="informative"><title>Acknowlegdements</title>
          <p id="AB">These are acknowledgements</p>
-       </acknowledgements>
-      <conformancetesting obligation="informative">
+       </clause>
+      <clause obligation="informative"><title>Audience</title>
+         <p id="AD">This are audience</p>
+       </clause>
+      <clause obligation="informative"><title>Conformance Testing</title>
          <p id="AC">This is conformance testing</p>
-       </conformancetesting>
+       </clause>
+      <clause obligation="informative"><title>Executive Summary</title>
+         <p id="AC">This is an executive summary</p>
+       </clause>
         </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
        </clause>
 
-       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
-         <title>Normal Terms</title>
-         <term id="J">
-         <preferred>Term2</preferred>
-       </term>
-       </terms>
-       <definitions id="K">
-         <dl>
-         <dt>Symbol</dt>
-         <dd>Definition</dd>
-         </dl>
-       </definitions>
-       </clause>
-       <definitions id="L">
-         <dl>
-         <dt>Symbol</dt>
-         <dd>Definition</dd>
-         </dl>
-       </definitions>
        <clause id="M" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
          <title>Introduction</title>
        </clause>
@@ -374,60 +249,51 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-        #{HTML_HDR}
+    #{HTML_HDR}
              <br/>
              <div>
                <h1 class="AbstractTitle">Abstract</h1>
                <p id="AA">This is an Abstract</p>
-             </div>
-             <div class="Section3">
-               <h1 class="IntroTitle">Acknowledgements</h1>
-               <p id="AB">These are acknowledgements</p>
-             </div>
-             <div class="Section3">
-               <h1 class="IntroTitle">Conformance Testing</h1>
-               <p id="AC">This is conformance testing</p>
              </div>
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="A">This is a preamble</p>
              </div>
+             <div id="B">
+               <h1>Introduction</h1>
+               <div id="C"><h2>Introduction Subsection</h2>
+          </div>
+             </div>
+             <div>
+               <h1>Acknowlegdements</h1>
+               <p id="AB">These are acknowledgements</p>
+             </div>
+             <div>
+               <h1>Audience</h1>
+               <p id="AD">This are audience</p>
+             </div>
+             <div>
+               <h1>Conformance Testing</h1>
+               <p id="AC">This is conformance testing</p>
+             </div>
+             <div>
+               <h1>Executive Summary</h1>
+               <p id="AC">This is an executive summary</p>
+             </div>
+
              <p class="zzSTDTitle1"/>
              <div id="D">
                <h1>1.&#160; Scope</h1>
                <p id="E">Text</p>
              </div>
-             <div>
-               <h1>2.&#160; Normative references</h1>
-               <p>There are no normative references in this document.</p>
-             </div>
-             <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
-           the following terms and definitions apply.</p>
-       <div id="I">
-          <h2>3.1. Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1</p>
-          <p class="Terms" style="text-align:left;">Term2</p>
-
-        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
-          <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
-        </div></div>
-             <div id="L" class="Symbols">
-               <h1>4.&#160; Symbols and abbreviated terms</h1>
-               <dl>
-                 <dt>
-                   <p>Symbol</p>
-                 </dt>
-                 <dd>Definition</dd>
-               </dl>
-             </div>
              <div id="M">
-               <h1>5.&#160; Clause 4</h1>
+               <h1>2.&#160; Clause 4</h1>
                <div id="N">
-          <h2>5.1. Introduction</h2>
+          <h2>2.1. Introduction</h2>
         </div>
                <div id="O">
-          <h2>5.2. Clause 4.2</h2>
+          <h2>2.2. Clause 4.2</h2>
         </div>
              </div>
              <br/>
@@ -457,6 +323,103 @@ RSpec.describe IsoDoc::NIST do
       gsub(%r{</body>.*}m, "</body>")
     ).to be_equivalent_to output
   end
+
+  it "skips Note to Reviewers if not draft" do
+    input = <<~"INPUT"
+    <nist-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="standard">
+  <status format="plain">published</status>
+  </bibdata>
+      <preface>
+      <abstract obligation="informative">
+         <title>Abstract</title>
+         <p id="AA">This is an Abstract</p>
+      </abstract>
+      <reviewernote obligation="informative"><title>Note for Reviewers</title>
+      <p>Hello reviewer</p>
+      </reviewernote>
+      </preface>
+      </nist-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+        <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
+    <div class="title-section">
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class="prefatory-section">
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class="main-section">
+      <br/>
+      <div>
+        <h1 class="AbstractTitle">Abstract</h1>
+        <p id="AA">This is an Abstract</p>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+    OUTPUT
+
+    expect(
+      IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+  end
+
+  it "renders Note to Reviewers if draft" do
+    input = <<~"INPUT"
+    <nist-standard xmlns="http://riboseinc.com/isoxml">
+    <bibdata type="standard">
+  <status format="plain">working-draft</status>
+  </bibdata>
+      <preface>
+      <abstract obligation="informative">
+         <title>Abstract</title>
+         <p id="AA">This is an Abstract</p>
+      </abstract>
+      <reviewernote obligation="informative"><title>Note for Reviewers</title>
+      <p>Hello reviewer</p>
+      </reviewernote>
+      </preface>
+      </nist-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+            <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
+    <div class="title-section">
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class="prefatory-section">
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class="main-section">
+      <br/>
+      <div>
+        <h1 class="AbstractTitle">Abstract</h1>
+        <p id="AA">This is an Abstract</p>
+      </div>
+      <div>
+  <h1>Note for Reviewers</h1>
+  <p>Hello reviewer</p>
+</div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+    OUTPUT
+
+    expect(
+      IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+  end
+
 
   it "injects JS into blank html" do
     system "rm -f test.html"

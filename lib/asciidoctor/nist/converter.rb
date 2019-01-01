@@ -114,39 +114,42 @@ module Asciidoctor
         end
       end
 
-      def make_preface(x, s)
-        super
-        make_acknowledgements(x, s)
-        make_conformancetesting(x, s)
-      end
-
-      def make_acknowledgements(x, s)
-        if x.at("//acknowledgements")
-          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
-          ack = x.at("//acknowledgements").remove
-          preface.add_child ack.remove
+      def move_sections_into_preface(x, preface)
+        abstract = x.at("//abstract")
+        preface.add_child abstract.remove if abstract
+        foreword = x.at("//foreword")
+        preface.add_child foreword.remove if foreword
+        introduction = x.at("//introduction")
+        preface.add_child introduction.remove if introduction
+        x.xpath("//clause[@preface]").each do |c|
+          c.delete("preface")
+          c.name = "reviewernote" if c&.at("./title")&.text.downcase == "note to reviewers"
+          c.name = "executivesummary" if c&.at("./title")&.text.downcase == "executive summary"
+          preface.add_child c.remove
         end
       end
 
-      def make_conformancetesting(x, s)
-        if x.at("//conformancetesting")
-          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
-          ack = x.at("//conformancetesting").remove
-          preface.add_child ack.remove
+      def make_preface(x, s)
+        if x.at("//foreword | //introduction | //abstract | //preface")
+          preface = s.add_previous_sibling("<preface/>").first
+          move_sections_into_preface(x, preface)
+          summ = x.at("//executivesummary") and preface.add_child summ.remove
         end
       end
 
       def clause_parse(attrs, xml, node)
-        clausetype = node&.attr("heading")&.downcase || node.title.downcase
-        if clausetype == "acknowledgements" then acknowledgements_parse(attrs, xml, node)
-        elsif clausetype == "conformance testing" then conformancetesting_parse(attrs, xml, node)
-        else
-          super
-        end
+        attrs[:preface] = true if node.attr("style") == "preface"
+        super
       end
 
       def acknowledgements_parse(attrs, xml, node)
         xml.acknowledgements **attr_code(attrs) do |xml_section|
+          xml_section << node.content
+        end
+      end
+
+      def audience_parse(attrs, xml, node)
+        xml.audience **attr_code(attrs) do |xml_section|
           xml_section << node.content
         end
       end
@@ -166,21 +169,6 @@ module Asciidoctor
         noko do |xml|
           case sectiontype(node)
           when "normative references" then norm_ref_parse(a, xml, node)
-          when "terms and definitions",
-            "terms, definitions, symbols and abbreviated terms",
-            "terms, definitions, symbols and abbreviations",
-            "terms, definitions and symbols",
-            "terms, definitions and abbreviations",
-            "terms, definitions and abbreviated terms"
-            @term_def = true
-            term_def_parse(a, xml, node, true)
-            @term_def = false
-          when "symbols and abbreviated terms",
-            "symbols",
-            "abbreviated terms",
-            "abbreviations"
-            symbols_parse(a, xml, node)
-          when "bibliography" then bibliography_parse(a, xml, node)
           else
             if @term_def then term_def_subclause_parse(a, xml, node)
             elsif @biblio then bibliography_parse(a, xml, node)
