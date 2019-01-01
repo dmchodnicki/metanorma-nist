@@ -231,7 +231,11 @@ module IsoDoc
         end
       end
 
-
+      def format_ref(ref, prefix, isopub, date, allparts)
+        ref = docid_prefix(prefix, ref)
+        #return "[#{ref}]" if /^\d+$/.match(ref) && !prefix && !/^\[.*\]$/.match(ref)
+        "[#{ref}]"
+      end
     end
   end
 end
