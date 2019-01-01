@@ -241,6 +241,16 @@ module IsoDoc
       # <locality type="section"><reference>3.1</reference></locality></origin>
     end
 
+            def load_yaml(lang, script)
+        y = if @i18nyaml then YAML.load_file(@i18nyaml)
+            elsif lang == "en"
+              YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+            else
+              YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+            end
+        super.merge(y)
+      end
+
     end
   end
 end
