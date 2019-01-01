@@ -213,15 +213,34 @@ module IsoDoc
           preface_names(c)
         end
         sequential_asset_names(d.xpath("//xmlns:preface/child::*"))
-        middle_section_asset_names(d)
         clause_names(d, 0)
+        middle_section_asset_names(d)
         termnote_anchor_names(d)
         termexample_anchor_names(d)
       end
 
+      def prefaceprefix(nodes)
+        i = 0
+        nodes.each do |n|
+          case n.name
+          when "executivesummary" then @anchors[n["id"]][:prefix] = "ES"
+          when "abstract" then @anchors[n["id"]][:prefix] = "ABS"
+          when "reviewernote" then @anchors[n["id"]][:prefix] = "NTR"
+          else
+            @anchors[n["id"]][:prefix] = "PR" + i.to_s
+                     i += 1
+          end
+        end
+      end
+
       def middle_section_asset_names(d)
-        middle_sections = "//xmlns:preface/child::* | //xmlns:sections/child::*"
-        sequential_asset_names(d.xpath(middle_sections))
+        prefaceprefix(d.xpath("//xmlns:preface/child::*"))
+        d.xpath("//xmlns:preface/child::*").each do |s|
+          hierarchical_asset_names(s, @anchors[s["id"]][:prefix])
+        end
+        d.xpath("//xmlns:sections/child::*").each do |s|
+          hierarchical_asset_names(s, @anchors[s["id"]][:label])
+        end
       end
 
       def clause_names(docxml, sect_num)
@@ -232,16 +251,16 @@ module IsoDoc
       end
 
       def get_linkend(node)
-      link = anchor_linkend(node, docid_l10n(node["target"] || "[#{node['citeas']}]"))
-      link += eref_localities(node.xpath(ns("./locality")), link)
-      contents = node.children.select { |c| c.name != "locality" }
-      return link if contents.nil? || contents.empty?
-      Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
-      # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
-      # <locality type="section"><reference>3.1</reference></locality></origin>
-    end
+        link = anchor_linkend(node, docid_l10n(node["target"] || "[#{node['citeas']}]"))
+        link += eref_localities(node.xpath(ns("./locality")), link)
+        contents = node.children.select { |c| c.name != "locality" }
+        return link if contents.nil? || contents.empty?
+        Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
+        # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
+        # <locality type="section"><reference>3.1</reference></locality></origin>
+      end
 
-            def load_yaml(lang, script)
+      def load_yaml(lang, script)
         y = if @i18nyaml then YAML.load_file(@i18nyaml)
             elsif lang == "en"
               YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
@@ -249,6 +268,23 @@ module IsoDoc
               YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
             end
         super.merge(y)
+      end
+
+      def annex_name_lbl(clause, num)
+        l10n("<b>#{@annex_lbl} #{num}</b>")
+      end
+
+      def annex_name(annex, name, div)
+        div.h1 **{ class: "Annex" } do |t|
+          t << "#{get_anchors[annex['id']][:label]} &mdash;"
+          t.b do |b|
+            name&.children&.each { |c2| parse(c2, b) }
+          end
+        end
+      end
+
+      def hiersep
+        "-"
       end
 
     end

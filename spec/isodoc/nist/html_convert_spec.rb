@@ -193,11 +193,11 @@ RSpec.describe IsoDoc::NIST do
     input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <abstract obligation="informative">
+      <abstract id="S1" obligation="informative">
          <title>Abstract</title>
          <p id="AA">This is an Abstract</p>
       </abstract>
-      <foreword obligation="informative">
+      <foreword id="S2" obligation="informative">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
@@ -205,18 +205,18 @@ RSpec.describe IsoDoc::NIST do
          <title>Introduction Subsection</title>
        </clause>
        </introduction>
-      <clause obligation="informative"><title>Acknowlegdements</title>
+      <clause id="S3" obligation="informative"><title>Acknowlegdements</title>
          <p id="AB">These are acknowledgements</p>
        </clause>
-      <clause obligation="informative"><title>Audience</title>
+      <clause id="S4" obligation="informative"><title>Audience</title>
          <p id="AD">This are audience</p>
        </clause>
-      <clause obligation="informative"><title>Conformance Testing</title>
+      <clause id="S5" obligation="informative"><title>Conformance Testing</title>
          <p id="AC">This is conformance testing</p>
        </clause>
-      <clause obligation="informative"><title>Executive Summary</title>
+      <executivesummary id="S6" obligation="informative"><title>Executive Summary</title>
          <p id="AC">This is an executive summary</p>
-       </clause>
+       </executivesummary>
         </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
@@ -253,37 +253,37 @@ RSpec.describe IsoDoc::NIST do
     output = <<~"OUTPUT"
     #{HTML_HDR}
              <br/>
-             <div>
+             <div id="S1">
                <h1 class="AbstractTitle">Abstract</h1>
                <p id="AA">This is an Abstract</p>
              </div>
              <br/>
-             <div>
+             <div id="S2">
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="A">This is a preamble</p>
              </div>
              <div id="B">
                <h1>Introduction</h1>
                <div id="C"><h2>Introduction Subsection</h2>
+
           </div>
              </div>
-             <div>
+             <div id="S3">
                <h1>Acknowlegdements</h1>
                <p id="AB">These are acknowledgements</p>
              </div>
-             <div>
+             <div id="S4">
                <h1>Audience</h1>
                <p id="AD">This are audience</p>
              </div>
-             <div>
+             <div id="S5">
                <h1>Conformance Testing</h1>
                <p id="AC">This is conformance testing</p>
              </div>
-             <div>
+             <div id="S6">
                <h1>Executive Summary</h1>
                <p id="AC">This is an executive summary</p>
              </div>
-
              <p class="zzSTDTitle1"/>
              <div id="D">
                <h1>1.&#160; Scope</h1>
@@ -291,22 +291,22 @@ RSpec.describe IsoDoc::NIST do
              </div>
              <div id="M">
                <h1>2.&#160; Clause 4</h1>
-               <div id="N">
-          <h2>2.1. Introduction</h2>
-        </div>
-               <div id="O">
-          <h2>2.2. Clause 4.2</h2>
-        </div>
+               <div id="N"><h2>2.1. Introduction</h2>
+
+          </div>
+               <div id="O"><h2>2.2. Clause 4.2</h2>
+
+          </div>
              </div>
              <br/>
              <div id="P" class="Section3">
-               <h1 class="Annex"><b>Annex A</b><br/>(normative) <br/><b>Annex</b></h1>
-               <div id="Q">
-          <h2>A.1. Annex A.1</h2>
-          <div id="Q1">
-          <h3>A.1.1. Annex A.1a</h3>
+               <h1 class="Annex"><b>Appendix A</b> &#8212;<b>Annex</b></h1>
+               <div id="Q"><h2>A.1. Annex A.1</h2>
+
+            <div id="Q1"><h3>A.1.1. Annex A.1a</h3>
+
+            </div>
           </div>
-        </div>
              </div>
              <br/>
              <div>

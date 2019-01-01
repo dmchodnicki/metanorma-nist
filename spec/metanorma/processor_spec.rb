@@ -44,11 +44,9 @@ RSpec.describe Metanorma::NIST::Processor do
     input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
-        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
-          <term id="J">
-            <preferred>Term2</preferred>
-          </term>
-        </terms>
+        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+            <p>Term2</p>
+        </clause>
       </sections>
     </nist-standard>
     INPUT
@@ -57,10 +55,11 @@ RSpec.describe Metanorma::NIST::Processor do
     <main class="main-section">
       <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
       <p class="zzSTDTitle1"></p>
-     <div id="H"><h1>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1><h2 class="TermNum" id="J">1.1&#xA0;<p class="Terms" style="text-align:left;">Term2</p></h2>
-
-     </div>
-   </main>
+   <div id="H">
+     <h1>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+     <p>Term2</p>
+   </div>
+ </main>
     OUTPUT
 
     processor.output(input, "test.html", :html)
