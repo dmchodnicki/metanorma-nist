@@ -11,7 +11,7 @@ module Asciidoctor
     class Converter < Standoc::Converter
 
       def metadata_author(node, xml)
-                xml.contributor do |c|
+        xml.contributor do |c|
           c.role **{ type: "author" }
           c.organization do |a|
             a.name "NIST"
@@ -120,10 +120,31 @@ module Asciidoctor
         end
       end
 
+      def metadata_source(node, xml)
+        super
+        node.attr("email") && xml.source(node.attr("email"), type: "email")
+      end
+
+      def title(node, xml)
+        super
+        subtitle(node, xml)
+      end
+
+      def subtitle(node, xml)
+        return unless node.attr("subtitle")
+        ["en"].each do |lang|
+          at = { language: lang, format: "text/plain" }
+          xml.subtitle **attr_code(at) do |t|
+            t << asciidoc_sub(node.attr("subtitle"))
+          end
+        end
+      end
+
       def metadata(node, xml)
         super
         metadata_keywords(node, xml)
       end
+
     end
   end
 end

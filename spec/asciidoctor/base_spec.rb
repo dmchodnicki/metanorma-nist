@@ -85,7 +85,9 @@ RSpec.describe Asciidoctor::NIST do
       :role: author
       :surname_2: Rubble
       :givenname_2: Barney
-      :role: editor
+      :role_2: editor
+      :subtitle: Subtitle
+      :email: email@example.com
     INPUT
 
     output = <<~"OUTPUT"
@@ -93,6 +95,8 @@ RSpec.describe Asciidoctor::NIST do
        <nist-standard xmlns="https://open.ribose.com/standards/nist">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
+         <subtitle language="en" format="text/plain">Subtitle</subtitle>
+        <source type="email">email@example.com</source>
          <docidentifier type="nist">NIST 1000(wd)</docidentifier>
          <docnumber>1000</docnumber>
          <edition>2</edition>
@@ -107,7 +111,7 @@ RSpec.describe Asciidoctor::NIST do
            </organization>
          </contributor>
          <contributor>
-           <role type="editor"/>
+           <role type="author"/>
            <person>
              <name>
                <completename>Fred Flintstone</completename>

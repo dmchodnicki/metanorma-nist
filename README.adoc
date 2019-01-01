@@ -192,9 +192,11 @@ Metanorma XML output; otherwise they are suppressed.
 
 ////
 
-=== OGC-specific attributes
+=== NIST-specific attributes
 
 The following document attributes are specific to this document class:
+
+`:subtitle:`:: Document subtitle.
 
 `:keywords:`:: Comma-delimited list of the keywords associated with the document.
 
@@ -206,7 +208,7 @@ A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname
 `:role{_i}:`:: The role of a a person who is a contributor to the document. By default,
 they are coded as an `editor`; they can also be represented as an `author`.
 
-OGC `:editor:`:: corresponds to `:fullname:` with `role` = "editor"
+`:email:`:: Email contact for document
 
 == Asciidoctor features specific to NIST
 

@@ -14,8 +14,9 @@ module IsoDoc
         set(:doctitle, main)
       end
 
-      def subtitle(_isoxml, _out)
-        nil
+      def subtitle(isoxml, _out)
+        main = isoxml&.at(ns("//bibdata/subtitle[@language='en']"))&.text
+        set(:docsubtitle, main)
       end
 
       def author(isoxml, _out)
@@ -72,6 +73,12 @@ module IsoDoc
         end
         set(:keywords, keywords)
       end
+
+      def url(xml, _out)
+        super
+        a = xml.at(ns("//bibdata/source[@type = 'email']")) and set(:email, a.text)
+      end
+
     end
   end
 end
