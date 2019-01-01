@@ -231,11 +231,16 @@ module IsoDoc
         end
       end
 
-      def format_ref(ref, prefix, isopub, date, allparts)
-        ref = docid_prefix(prefix, ref)
-        #return "[#{ref}]" if /^\d+$/.match(ref) && !prefix && !/^\[.*\]$/.match(ref)
-        "[#{ref}]"
-      end
+      def get_linkend(node)
+      link = anchor_linkend(node, docid_l10n(node["target"] || "[#{node['citeas']}]"))
+      link += eref_localities(node.xpath(ns("./locality")), link)
+      contents = node.children.select { |c| c.name != "locality" }
+      return link if contents.nil? || contents.empty?
+      Nokogiri::XML::NodeSet.new(node.document, contents).to_xml
+      # so not <origin bibitemid="ISO7301" citeas="ISO 7301">
+      # <locality type="section"><reference>3.1</reference></locality></origin>
+    end
+
     end
   end
 end
