@@ -316,6 +316,21 @@ which will be converted to the tag `nistvariable` in Metanorma XML:
 ----
 ---
 
+=== Errata
+
+Errata are marked up as an Asciidoctor table with style attribute `[errata]`.
+Errata tables must have a header row containing the headings _Date, Type, Change, Pages_:
+
+[source, asciidoctor]
+----
+[errata]
+|===
+|Date |Type |Change |Page
+
+|2019-01-01 |Minor |Repaginated |1-12
+|===
+----
+
 ////
 
 == Examples

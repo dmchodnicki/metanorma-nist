@@ -193,6 +193,7 @@ module IsoDoc
         when "recommendation" then recommendation_parse(node, out)
         when "requirement" then requirement_parse(node, out)
         when "permission" then permission_parse(node, out)
+        when "errata" then errata_parse(node, out)
         else
           super
         end
@@ -234,6 +235,43 @@ module IsoDoc
         end
       end
 
+      def errata_parse(node, out)
+        out.table **make_table_attr(node) do |t|
+          t.thead do |h|
+            h.tr do |tr|
+              %w(Date Type Change Pages).each do |hdr|
+                tr.th hdr
+              end
+            end
+          end
+          t.tbody do |b|
+            node.xpath(ns("./row")).each do |row|
+              b.tr do |tr|
+                tr.td do |td|
+                  row&.at(ns("./date"))&.children.each do |n|
+                    parse(n, td)
+                  end
+                end
+                tr.td do |td|
+                  row&.at(ns("./type"))&.children.each do |n|
+                    parse(n, td)
+                  end
+                end
+                tr.td do |td|
+                  row&.at(ns("./change"))&.children.each do |n|
+                    parse(n, td)
+                  end
+                end
+                tr.td do |td|
+                  row&.at(ns("./pages"))&.children.each do |n|
+                    parse(n, td)
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
 
       MIDDLE_CLAUSE = "//clause[parent::sections]|//terms[parent::sections]".freeze
 

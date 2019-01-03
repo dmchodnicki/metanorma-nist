@@ -647,5 +647,42 @@ OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
+  it "processes errata" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      [errata]
+      |===
+      |Pages |Change |Type |Date
+
+      |12-13 |_Repaginate_ |Major |2012-01-01
+      |9-12 |Revert |Minor |2012-01-02
+      |===
+    INPUT
+
+        output = <<~"OUTPUT"
+            #{BLANK_HDR}
+<sections>
+  <errata>
+  <row>
+    <date>2012-01-01</date>
+    <type>Major</type>
+    <change>
+      <em>Repaginate</em>
+    </change>
+    <pages>12-13</pages>
+  </row>
+  <row>
+    <date>2012-01-02</date>
+    <type>Minor</type>
+    <change>Revert</change>
+    <pages>9-12</pages>
+  </row>
+</errata>
+</sections>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
 
 end

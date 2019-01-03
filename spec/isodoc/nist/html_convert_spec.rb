@@ -189,6 +189,72 @@ RSpec.describe IsoDoc::NIST do
     ).to be_equivalent_to output
   end
 
+  it "processes errata tag" do
+    input = <<~"INPUT"
+    <nist-standard xmlns="https://open.ribose.com/standards/example">
+<preface><foreword>
+    <errata>
+  <row>
+    <date>2012-01-01</date>
+    <type>Major</type>
+    <change>
+      <em>Repaginate</em>
+    </change>
+    <pages>12-13</pages>
+  </row>
+  <row>
+    <date>2012-01-02</date>
+    <type>Minor</type>
+    <change>Revert</change>
+    <pages>9-12</pages>
+  </row>
+</errata>
+</foreword></preface>
+</nist-standard>
+INPUT
+    output = <<~"OUTPUT"
+          #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">Foreword</h1>
+               <table id="" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+                 <thead>
+                   <tr>
+                     <th>Date</th>
+                     <th>Type</th>
+                     <th>Change</th>
+                     <th>Pages</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td>2012-01-01</td>
+                     <td>Major</td>
+                     <td><i>Repaginate</i></td>
+                     <td>12-13</td>
+                   </tr>
+                   <tr>
+                     <td>2012-01-02</td>
+                     <td>Minor</td>
+                     <td>Revert</td>
+                     <td>9-12</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+OUTPUT
+
+    expect(
+      IsoDoc::NIST::HtmlConvert.new({}).
+      convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+  end
+
   it "processes section names" do
     input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
