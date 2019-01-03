@@ -168,6 +168,7 @@ module IsoDoc
           title.name = "b"
           n = title.next_element
           n&.children&.first&.add_previous_sibling(title.remove)
+          n&.children&.first&.add_previous_sibling(" ")
         end
         docxml
       end
