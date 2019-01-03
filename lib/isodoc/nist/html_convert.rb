@@ -150,6 +150,7 @@ module IsoDoc
       def cleanup(docxml)
         super
         term_cleanup(docxml)
+        requirement_cleanup(docxml)
       end
 
       def term_cleanup(docxml)
@@ -157,6 +158,15 @@ module IsoDoc
           h2 = d.at("./preceding-sibling::*[@class = 'TermNum'][1]")
           h2.add_child("&nbsp;")
           h2.add_child(d.remove)
+        end
+        docxml
+      end
+
+      def requirement_cleanup(docxml)
+        docxml.xpath("//div[@class = 'recommend'][title]").each do |d|
+          title = d.at("./title")
+          n = title.next_element
+          n&.children&.first&.add_previous_sibling(title.remove.children)
         end
         docxml
       end
@@ -195,7 +205,7 @@ module IsoDoc
       def recommendation_parse(node, out)
         name = node["type"]
         out.div **{ class: "recommend" } do |t|
-          t.b { |b| b << "Recommendation #{get_anchors[node['id']][:label]}:" }
+          t.title { |b| b << "Recommendation #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
           end
@@ -205,7 +215,7 @@ module IsoDoc
       def requirement_parse(node, out)
         name = node["type"]
         out.div **{ class: "recommend" } do |t|
-          t.b { |b| b << "Requirement #{get_anchors[node['id']][:label]}:" }
+          t.title { |b| b << "Requirement #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
           end
@@ -215,7 +225,7 @@ module IsoDoc
       def permission_parse(node, out)
         name = node["type"]
         out.div **{ class: "recommend" } do |t|
-          t.b { |b| b << "Permission #{get_anchors[node['id']][:label]}:" }
+          t.title { |b| b << "Permission #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
           end

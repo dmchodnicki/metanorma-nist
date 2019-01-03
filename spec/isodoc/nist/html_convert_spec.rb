@@ -463,7 +463,6 @@ RSpec.describe IsoDoc::NIST do
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </recommendation>
     <recommendation id="note2">
-  <name>Split-it-right sample divider</name>
   <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
   </recommendation>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
@@ -504,11 +503,11 @@ INPUT
     </div>
     <div id="intro">
     <h1/>
-    <div class="recommend"><b>Recommendation PR1.1:</b>
+    <div class="recommend"><title>Recommendation PR1.1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="recommend"><b>Recommendation PR1.2:</b>
+               <div class="recommend"><title>Recommendation PR1.2:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
@@ -516,7 +515,7 @@ INPUT
              <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="recommend"><b>Recommendation 1.1:</b>
+               <div class="recommend"><title>Recommendation 1.1:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
@@ -529,11 +528,10 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="recommend"><b>Recommendation 3.1:</b>
+    <div class="recommend"><title>Recommendation 3.1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><b>Recommendation 3.2:</b>
-    <para><b role="strong">&lt;name&gt;Split-it-right sample divider&lt;/name&gt;</b></para>
+    <div class="recommend"><title>Recommendation 3.2:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
          <p>    <a href="#note1">Recommendation 3.1</a> <a href="#note2">Recommendation 3.2</a> </p>
@@ -542,15 +540,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="recommend"><b>Recommendation A.1:</b>
+    <div class="recommend"><title>Recommendation A.1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="recommend"><b>Recommendation A.2:</b>
+    <div class="recommend"><title>Recommendation A.2:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><b>Recommendation A.3:</b>
+    <div class="recommend"><title>Recommendation A.3:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
@@ -581,5 +579,29 @@ INPUT
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})
   end
+
+    it "cleans up requirements" do
+    expect(IsoDoc::NIST::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+    <html>
+    <body>
+      <div class="recommend">
+        <title><b>Warning:</b></title>
+        <p>Text</p>
+      </div>
+    </body>
+    </html>
+    INPUT
+           <?xml version="1.0"?>
+       <html>
+       <body>
+         <div class="recommend">
+
+           <p><b>Warning:</b> Text</p>
+         </div>
+       </body>
+       </html>
+    OUTPUT
+  end
+
 
 end
