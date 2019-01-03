@@ -319,6 +319,20 @@ module IsoDoc
         termexample_anchor_names(d)
       end
 
+      def back_anchor_names(docxml)
+        docxml.xpath(ns("//annex")).each_with_index do |c, i|
+          annex_names(c, (65 + i).chr.to_s)
+        end
+        docxml.xpath(ns("//bibliography/clause | "\
+                        "//bibliography/references")).each do |b|
+          preface_names(b)
+        end
+        docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
+          reference_names(ref)
+        end
+      end
+
+
       def prefaceprefix(nodes)
         i = 0
         nodes.each do |n|
