@@ -165,8 +165,9 @@ module IsoDoc
       def requirement_cleanup(docxml)
         docxml.xpath("//div[@class = 'recommend'][title]").each do |d|
           title = d.at("./title")
+          title.name = "b"
           n = title.next_element
-          n&.children&.first&.add_previous_sibling(title.remove.children)
+          n&.children&.first&.add_previous_sibling(title.remove)
         end
         docxml
       end

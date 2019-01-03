@@ -585,7 +585,7 @@ INPUT
     <html>
     <body>
       <div class="recommend">
-        <title><b>Warning:</b></title>
+        <title><i>Warning:</i></title>
         <p>Text</p>
       </div>
     </body>
@@ -596,7 +596,7 @@ INPUT
        <body>
          <div class="recommend">
 
-           <p><b>Warning:</b> Text</p>
+           <p><b><i>Warning:</i></b> Text</p>
          </div>
        </body>
        </html>
