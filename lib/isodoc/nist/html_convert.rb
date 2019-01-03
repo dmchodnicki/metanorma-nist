@@ -288,7 +288,7 @@ module IsoDoc
         isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
           out.div do |div|
             div.h1 **{ class: "Section3" } do |h1|
-              b.at(ns("./title")).each { |n| parse(n, h1) }
+              f.at(ns("./title")).each { |n| parse(n, h1) }
             end
             f.elements.reject do |e|
               ["reference", "title", "bibitem"].include? e.name
