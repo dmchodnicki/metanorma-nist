@@ -195,7 +195,7 @@ module IsoDoc
       def recommendation_parse(node, out)
         name = node["type"]
         out.div **{ class: "recommend" } do |t|
-          t.title { |b| b << "Recommendation #{get_anchors[node['id']][:label]}" }
+          t.b { |b| b << "Recommendation #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
           end
@@ -205,7 +205,7 @@ module IsoDoc
       def requirement_parse(node, out)
         name = node["type"]
         out.div **{ class: "recommend" } do |t|
-          t.title { |b| b << "Requirement #{get_anchors[node['id']][:label]}" }
+          t.b { |b| b << "Requirement #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
           end
@@ -215,7 +215,7 @@ module IsoDoc
       def permission_parse(node, out)
         name = node["type"]
         out.div **{ class: "recommend" } do |t|
-          t.title { |b| b << "Permission #{get_anchors[node['id']][:label]}" }
+          t.b { |b| b << "Permission #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
           end

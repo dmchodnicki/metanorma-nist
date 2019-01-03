@@ -504,11 +504,11 @@ INPUT
     </div>
     <div id="intro">
     <h1/>
-    <div class="recommend"><title>Recommendation PR1.1</title>
+    <div class="recommend"><b>Recommendation PR1.1:</b>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="recommend"><title>Recommendation PR1.2</title>
+               <div class="recommend"><b>Recommendation PR1.2:</b>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
@@ -516,7 +516,7 @@ INPUT
              <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="recommend"><title>Recommendation 1.1</title>
+               <div class="recommend"><b>Recommendation 1.1:</b>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
@@ -529,10 +529,10 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="recommend"><title>Recommendation 3.1</title>
+    <div class="recommend"><b>Recommendation 3.1:</b>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><title>Recommendation 3.2</title>
+    <div class="recommend"><b>Recommendation 3.2:</b>
     <para><b role="strong">&lt;name&gt;Split-it-right sample divider&lt;/name&gt;</b></para>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
@@ -542,15 +542,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="recommend"><title>Recommendation A.1</title>
+    <div class="recommend"><b>Recommendation A.1:</b>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="recommend"><title>Recommendation A.2</title>
+    <div class="recommend"><b>Recommendation A.2:</b>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><title>Recommendation A.3</title>
+    <div class="recommend"><b>Recommendation A.3:</b>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
