@@ -282,6 +282,22 @@ module IsoDoc
         bibliography isoxml, out
       end
 
+      def bibliography(isoxml, out)
+        f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
+        page_break(out)
+        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |b|
+          out.div do |div|
+            div.h1 **{ class: "Section3" } do |h1|
+              b.at(ns("./title")).each { |n| parse(n, h1) }
+            end
+            f.elements.reject do |e|
+              ["reference", "title", "bibitem"].include? e.name
+            end.each { |e| parse(e, div) }
+            biblio_list(f, div, true)
+          end
+        end
+      end
+
       def info(isoxml, out)
         @meta.keywords isoxml, out
         super
