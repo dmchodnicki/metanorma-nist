@@ -422,6 +422,144 @@ RSpec.describe IsoDoc::NIST do
     ).to be_equivalent_to output
   end
 
+  it "cross-references recommendations" do
+    expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+    <foreword id="fwd">
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+        <introduction id="intro">
+        <recommendation id="N1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+  <clause id="xyz"><title>Preparatory</title>
+        <recommendation id="N2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+</clause>
+    </introduction>
+    </preface>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+        <recommendation id="N">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+<p><xref target="N"/></p>
+    </clause>
+    <clause id="widgets"><title>Empty Clause</title></clause>
+    <clause id="widgets"><title>Widgets</title>
+    <clause id="widgets1">
+        <recommendation id="note1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+    <recommendation id="note2">
+  <name>Split-it-right sample divider</name>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
+    </clause>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <clause id="annex1a">
+        <recommendation id="AN">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+    </clause>
+    <clause id="annex1b">
+        <recommendation id="Anote1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+    <recommendation id="Anote2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </recommendation>
+    </clause>
+    </annex>
+    </iso-standard>
+INPUT
+#{HTML_HDR}
+<br/>
+    <div id="fwd">
+    <h1 class="ForewordTitle">Foreword</h1>
+    <p>
+    <a href="#N1">Introduction, Recommendation PR1.1</a>
+    <a href="#N2">Preparatory, Recommendation PR1.2</a>
+    <a href="#N">Section 1, Recommendation 1.1</a>
+    <a href="#note1">Section 3.1, Recommendation 3.1</a>
+    <a href="#note2">Section 3.1, Recommendation 3.2</a>
+    <a href="#AN">Appendix A.1, Recommendation A.1</a>
+    <a href="#Anote1">Appendix A.2, Recommendation A.2</a>
+    <a href="#Anote2">Appendix A.2, Recommendation A.3</a>
+    </p>
+    </div>
+    <div id="intro">
+    <h1/>
+    <div class="recommend"><title>Recommendation PR1.1</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+               <div id="xyz"><h2>Preparatory</h2>
+               <div class="recommend"><title>Recommendation PR1.2</title>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+       </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="scope">
+               <h1>1.&#160; Scope</h1>
+               <div class="recommend"><title>Recommendation 1.1</title>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+               <p>
+                 <a href="#N">Recommendation 1.1</a>
+    </p>
+    </div>
+    <div id="widgets">
+    <h1>3.&#160; Empty Clause</h1>
+      </div>
+    <div id="widgets">
+    <h1>3.&#160; Widgets</h1>
+      <div id="widgets1"><h2>3.1. </h2>
+    <div class="recommend"><title>Recommendation 3.1</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    <div class="recommend"><title>Recommendation 3.2</title>
+    <para><b role="strong">&lt;name&gt;Split-it-right sample divider&lt;/name&gt;</b></para>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+         <p>    <a href="#note1">Recommendation 3.1</a> <a href="#note2">Recommendation 3.2</a> </p>
+    </div>
+    </div>
+    <br/>
+    <div id="annex1" class="Section3">
+    <div id="annex1a"><h2>A.1. </h2>
+    <div class="recommend"><title>Recommendation A.1</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    </div>
+    <div id="annex1b"><h2>A.2. </h2>
+    <div class="recommend"><title>Recommendation A.2</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    <div class="recommend"><title>Recommendation A.3</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    </div>
+    </div>
+    </div>
+    </body>
+    </html>
+    OUTPUT
+  end
 
   it "injects JS into blank html" do
     system "rm -f test.html"

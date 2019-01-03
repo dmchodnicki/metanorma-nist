@@ -92,7 +92,7 @@ RSpec.describe Asciidoctor::NIST do
 
     output = <<~"OUTPUT"
            <?xml version="1.0" encoding="UTF-8"?>
-       <nist-standard xmlns="https://open.ribose.com/standards/nist">
+       <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <subtitle language="en" format="text/plain">Subtitle</subtitle>
@@ -177,7 +177,7 @@ RSpec.describe Asciidoctor::NIST do
       :language: en
       :title: Main Title
     INPUT
-        <nist-standard xmlns="https://open.ribose.com/standards/nist">
+        <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
   <docidentifier type="nist">NIST 1000(cd)</docidentifier>
@@ -236,7 +236,7 @@ RSpec.describe Asciidoctor::NIST do
       :language: en
       :title: Main Title
     INPUT
-        <nist-standard xmlns="https://open.ribose.com/standards/nist">
+        <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
   <docidentifier type="nist">NIST 1000(d)</docidentifier>
@@ -295,7 +295,7 @@ OUTPUT
       :language: en
       :title: Main Title
     INPUT
-    <nist-standard xmlns="https://open.ribose.com/standards/nist">
+    <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
   <docidentifier type="nist">NIST 1000</docidentifier>
@@ -557,6 +557,69 @@ OUTPUT
 </ol>
   </li>
 </ol></example>
+       </sections>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
+    it "processes recommendation" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      [recommendation]
+      ====
+      I recommend this
+      ====
+    INPUT
+             output = <<~"OUTPUT"
+            #{BLANK_HDR}
+       <sections>
+  <recommendation id="_">
+  <p id="_">I recommend this</p>
+</recommendation>
+       </sections>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
+    it "processes requirement" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      [requirement]
+      ====
+      I recommend this
+      ====
+    INPUT
+             output = <<~"OUTPUT"
+            #{BLANK_HDR}
+       <sections>
+  <requirement id="_">
+  <p id="_">I recommend this</p>
+</requirement>
+       </sections>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
+        it "processes permission" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      [permission]
+      ====
+      I recommend this
+      ====
+    INPUT
+             output = <<~"OUTPUT"
+            #{BLANK_HDR}
+       <sections>
+  <permission id="_">
+  <p id="_">I recommend this</p>
+</permission>
        </sections>
        </nist-standard>
     OUTPUT

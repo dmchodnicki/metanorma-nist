@@ -22,6 +22,9 @@ module Asciidoctor
 
       def example(node)
         return pseudocode_example(node) if node.attr("style") == "pseudocode"
+        return recommendation(node) if node.attr("style") == "recommendation"
+        return requirement(node) if node.attr("style") == "requirement"
+        return permission(node) if node.attr("style") == "permission"
         super
       end
 
@@ -29,6 +32,30 @@ module Asciidoctor
         noko do |xml|
           xml.example **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node), 
                          type: "pseudocode"} do |ex|
+            wrap_in_para(node, ex)
+          end
+        end.join("\n")
+      end
+
+      def recommendation(node)
+        noko do |xml|
+          xml.recommendation **id_attr(node) do |ex|
+            wrap_in_para(node, ex)
+          end
+        end.join("\n")
+      end
+
+      def requirement(node)
+        noko do |xml|
+          xml.requirement **id_attr(node) do |ex|
+            wrap_in_para(node, ex)
+          end
+        end.join("\n")
+      end
+
+      def permission(node)
+        noko do |xml|
+          xml.permission **id_attr(node) do |ex|
             wrap_in_para(node, ex)
           end
         end.join("\n")

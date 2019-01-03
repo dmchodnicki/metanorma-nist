@@ -1,7 +1,7 @@
 module Asciidoctor
   module NIST
 
-    EXAMPLE_NAMESPACE = "https://open.ribose.com/standards/nist"
+    EXAMPLE_NAMESPACE = "http://www.nist.gov/metanorma"
 
   end
 end

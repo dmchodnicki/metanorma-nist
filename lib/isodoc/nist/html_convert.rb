@@ -178,6 +178,9 @@ module IsoDoc
       def error_parse(node, out)
         case node.name
         when "nistvariable" then nistvariable_parse(node, out)
+        when "recommendation" then recommendation_parse(node, out)
+        when "requirement" then requirement_parse(node, out)
+        when "permission" then permission_parse(node, out)
         else
           super
         end
@@ -188,6 +191,37 @@ module IsoDoc
           node.children.each { |n| parse(n, s) }
         end
       end
+
+      def recommendation_parse(node, out)
+        name = node["type"]
+        out.div **{ class: "recommend" } do |t|
+          t.title { |b| b << "Recommendation #{get_anchors[node['id']][:label]}" }
+          node.children.each do |n|
+            parse(n, t)
+          end
+        end
+      end
+
+      def requirement_parse(node, out)
+        name = node["type"]
+        out.div **{ class: "recommend" } do |t|
+          t.title { |b| b << "Requirement #{get_anchors[node['id']][:label]}" }
+          node.children.each do |n|
+            parse(n, t)
+          end
+        end
+      end
+
+      def permission_parse(node, out)
+        name = node["type"]
+        out.div **{ class: "recommend" } do |t|
+          t.title { |b| b << "Permission #{get_anchors[node['id']][:label]}" }
+          node.children.each do |n|
+            parse(n, t)
+          end
+        end
+      end
+
 
       MIDDLE_CLAUSE = "//clause[parent::sections]|//terms[parent::sections]".freeze
 
@@ -228,7 +262,7 @@ module IsoDoc
           when "reviewernote" then @anchors[n["id"]][:prefix] = "NTR"
           else
             @anchors[n["id"]][:prefix] = "PR" + i.to_s
-                     i += 1
+            i += 1
           end
         end
       end
@@ -240,6 +274,37 @@ module IsoDoc
         end
         d.xpath("//xmlns:sections/child::*").each do |s|
           hierarchical_asset_names(s, @anchors[s["id"]][:label])
+        end
+      end
+
+      def hierarchical_asset_names(clause, num)
+        super
+        hierarchical_permission_names(clause, num)
+        hierarchical_requirement_names(clause, num)
+        hierarchical_recommendation_names(clause, num)
+      end
+
+      def hierarchical_permission_names(clause, num)
+        clause.xpath(ns(".//permission")).each_with_index do |t, i|
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+                                            t, "Permission", "permission")
+        end
+      end
+
+      def hierarchical_requirement_names(clause, num)
+        clause.xpath(ns(".//requirement")).each_with_index do |t, i|
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+                                            t, "Requirement", "requirement")
+        end
+      end
+
+      def hierarchical_recommendation_names(clause, num)
+        clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+                                            t, "Recommendation", "recommendation")
         end
       end
 

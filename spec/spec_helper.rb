@@ -57,7 +57,7 @@ HDR
 
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
-       <nist-standard xmlns="https://open.ribose.com/standards/nist">
+       <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
         <title language="en" format="text/plain">Document title</title>
 

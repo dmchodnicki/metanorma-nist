@@ -284,6 +284,24 @@ _Output:_ Shuffled _S=(s1,...,sL)_
 ====
 ----
 
+=== Recommendations, requirements, and permissions
+
+Recommendations, requirements, and permissions shall be marked up as examples,
+with style attribute "recommendation", "requirement", "permission":
+
+[source,asciidoctor]
+----
+[[recommend63]]
+[recommendation]
+====
+Because having on-card role and permission information would raise difficult challenges concerning update and revocation, PACS permissions should generally be stored in a PACS facilities-based component, such as a panel or controller database.
+====
+----
+
+Recommendations, requirements, and permissions are treated like other assets in
+text, and automatically numbered and labelled: do not include a "Recommendation" etc.
+label with them.
+
 === Variables within sourcecode
 
 Variables within sourcecode are rendered as non-monospace italicised text. To indicate
