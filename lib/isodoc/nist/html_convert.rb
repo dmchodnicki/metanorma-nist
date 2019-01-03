@@ -285,7 +285,7 @@ module IsoDoc
       def bibliography(isoxml, out)
         f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
         page_break(out)
-        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |b|
+        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
           out.div do |div|
             div.h1 **{ class: "Section3" } do |h1|
               b.at(ns("./title")).each { |n| parse(n, h1) }
