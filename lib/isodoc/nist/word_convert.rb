@@ -12,11 +12,12 @@ module IsoDoc
         @libdir = File.dirname(__FILE__)
         super
         FileUtils.cp html_doc_path('logo.png'), "logo.png"
+        FileUtils.cp html_doc_path('deptofcommerce.png'), "deptofcommerce.png"
       end
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Arial",sans-serif'),
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Times New Roman",serif'),
           headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Arial",sans-serif'),
           monospacefont: '"Courier New",monospace'
         }
@@ -53,9 +54,25 @@ module IsoDoc
           info docxml, div2
           abstract docxml, div2
           keywords docxml, div2
+          preface docxml, div2
           div2.p { |p| p << "&nbsp;" } # placeholder
         end
         section_break(body)
+      end
+
+      def cleanup(docxml)
+        super
+        term_cleanup(docxml)
+        requirement_cleanup(docxml)
+        toc_insert(docxml)
+      end
+
+      def toc_insert(docxml)
+        insertion = docxml.at("//div[h1 = 'Executive Summary']") ||
+          docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
+        insertion.next = make_WordToC(docxml)
+        insertion.next = %{<p class="zzContents" style='margin-top:0cm'><span lang="EN-GB">Table of Contents</span></p>"}
+        docxml
       end
 
       # Henceforth identical to html
@@ -125,12 +142,6 @@ module IsoDoc
 
       def fileloc(loc)
         File.join(File.dirname(__FILE__), loc)
-      end
-
-      def cleanup(docxml)
-        super
-        term_cleanup(docxml)
-        requirement_cleanup(docxml)
       end
 
       def term_cleanup(docxml)

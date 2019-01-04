@@ -4,10 +4,8 @@ require "fileutils"
 
 module IsoDoc
   module NIST
-
     # A {Converter} implementation that generates HTML output, and a document
     # schema encapsulation of the document for validation
-    #
     class HtmlConvert < IsoDoc::HtmlConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
@@ -67,6 +65,12 @@ module IsoDoc
 
       def html_toc(docxml)
         docxml
+      end
+
+            def cleanup(docxml)
+        super
+        term_cleanup(docxml)
+        requirement_cleanup(docxml)
       end
 
       def make_body3(body, docxml)
@@ -145,12 +149,6 @@ module IsoDoc
 
       def fileloc(loc)
         File.join(File.dirname(__FILE__), loc)
-      end
-
-      def cleanup(docxml)
-        super
-        term_cleanup(docxml)
-        requirement_cleanup(docxml)
       end
 
       def term_cleanup(docxml)
