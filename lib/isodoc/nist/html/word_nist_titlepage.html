@@ -18,17 +18,8 @@ lang=EN-US style='font-size:14.0pt;color:black;mso-themecolor:text1'><o:p>&nbsp;
 
 </div>
 
-    {% capture tags %}
-  {% for tag in contributors %}
-    {{ tag[0] }}
-  {% endfor %}
-{% endcapture %}
-{% assign sortedtags = tags | split:' ' | sort %}
-
-  {% for tag in sortedtags %}
-  {% for name in contributors[tag] %}
-  <p class="Author">{{ contributors[tag] }}</p>
-  {% endfor %}
+  {% for author in authors %}
+  <p class="Author">{{ author }}</p>
   {% endfor %}
 
 

@@ -22,6 +22,25 @@ module IsoDoc
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
         set(:tc, tc.text) if tc
+        authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author' "\
+                                  "or xmlns:role/@type = 'editor']/person/name"))
+        set(:authors, extract_person_names(authors))
+      end
+
+            def extract_person_names(authors)
+        ret = []
+        authors.each do |a|
+          if a.at(ns("./completename"))
+            ret << a.at(ns("./completename")).text
+          else
+            fn = []
+            forenames = a.xpath(ns("./forename"))
+            forenames.each { |f| fn << f.text }
+            surname = a&.at(ns("./surname"))&.text
+            ret << fn.join(" ") + " " + surname
+          end
+        end
+        ret
       end
 
       def docid(isoxml, _out)

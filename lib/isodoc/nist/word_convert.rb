@@ -11,8 +11,8 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        FileUtils.cp html_doc_path('logo.png'), "logo.png"
-        FileUtils.cp html_doc_path('deptofcommerce.png'), "deptofcommerce.png"
+        FileUtils.cp html_doc_path("logo.png"), "logo.png"
+        FileUtils.cp html_doc_path("deptofcommerce.png"), "deptofcommerce.png"
       end
 
       def default_fonts(options)
