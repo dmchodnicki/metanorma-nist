@@ -58,9 +58,9 @@ time, mark, audio, video {
 }
 
 html, body, div, span, applet, object, iframe,
-p, blockquote, 
-a, abbr, acronym, address, big, cite, 
-del, dfn, em, img, ins, q, s, 
+p, blockquote,
+a, abbr, acronym, address, big, cite,
+del, dfn, em, img, ins, q, s,
 small, strike, strong, sub, sup, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
@@ -214,12 +214,12 @@ table {
 }
 
 @media screen {
-  div.figure > img { 
-      width: 100%;   
+  div.figure > img {
+      width: 100%;
       height: auto;
   }
 }
-    
+
 
 
 #toc ul {
@@ -858,8 +858,15 @@ h2 p {
 
   .coverpage-logo span, .coverpage-tc-name span {
     font-family: $bodyfont;
-      text-transform: none;
-      font-weight: 300;
+    text-transform: none;
+    font-weight: 300;
+  }
+
+  .coverpage-logo img {
+    display: block;
+    width: 250px;
+    height: auto;
+    margin-left: auto;
   }
 
   .coverpage-tc-name {
@@ -989,10 +996,10 @@ To top button
     page-break-inside: avoid;
   }
 
-  .info-section {
+/*  .info-section {
     display: none;
   }
-
+*/
   .coverpage {
       height: 23cm;
   }
