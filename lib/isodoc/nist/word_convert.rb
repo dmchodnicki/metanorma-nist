@@ -71,7 +71,7 @@ module IsoDoc
         insertion = docxml.at("//div[h1 = 'Executive Summary']") ||
           docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
         insertion.next = make_WordToC(docxml)
-        insertion.next = %{<p class="zzContents" style='margin-top:0cm'><span lang="EN-GB">Table of Contents</span></p>"}
+        insertion.next = %{<h1>Table of Contents</h1>}
         docxml
       end
 

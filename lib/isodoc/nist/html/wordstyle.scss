@@ -329,6 +329,7 @@ h1
 	margin-left:0cm;
 	text-indent:0cm;
 	line-height:13.5pt;
+	text-align:center;
 	mso-pagination:widow-orphan;
 	page-break-after:avoid;
 	mso-outline-level:1;
@@ -546,9 +547,9 @@ p.MsoToc1, li.MsoToc1, div.MsoToc1
 	mso-hyphenate:none;
 	tab-stops:20.15pt 36.0pt right dotted 487.6pt;
 	font-size:12pt;
-	font-family:$bodyfont;
-	mso-fareast-font-family:$bodyfont;
-	mso-bidi-font-family:$bodyfont;
+	font-family:$headerfont;
+	mso-fareast-font-family:$headerfont;
+	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
@@ -569,11 +570,10 @@ p.MsoToc2, li.MsoToc2, div.MsoToc2
 	mso-hyphenate:none;
 	tab-stops:20.15pt 36.0pt right dotted 487.6pt;
 	font-size:12pt;
-	font-family:$bodyfont;
-	mso-fareast-font-family:$bodyfont;
-	mso-bidi-font-family:$bodyfont;
+	font-family:$headerfont;
+	mso-fareast-font-family:$headerfont;
+	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
-	font-weight:bold;
 	mso-bidi-font-weight:normal;}
 p.MsoToc3, li.MsoToc3, div.MsoToc3
 	{mso-style-noshow:yes;
@@ -593,10 +593,9 @@ p.MsoToc3, li.MsoToc3, div.MsoToc3
 	tab-stops:20.15pt 36.0pt right dotted 487.6pt;
 	font-size:12pt;
 	font-family:$bodyfont;
-	mso-fareast-font-family:$bodyfont;
-	mso-bidi-font-family:$bodyfont;
+	mso-fareast-font-family:$headerfont;
+	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
-	font-weight:bold;
 	mso-bidi-font-weight:normal;}
 span.MsoFootnoteReference
 	{mso-style-priority:99;

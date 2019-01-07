@@ -31,7 +31,6 @@ module IsoDoc
         }
       end
 
-
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
       end
@@ -67,7 +66,7 @@ module IsoDoc
         docxml
       end
 
-            def cleanup(docxml)
+      def cleanup(docxml)
         super
         term_cleanup(docxml)
         requirement_cleanup(docxml)
