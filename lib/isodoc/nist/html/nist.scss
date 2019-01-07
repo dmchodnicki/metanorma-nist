@@ -568,22 +568,23 @@ p.Formula, li.Formula, div.Formula
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
 	mso-ansi-language:EN-GB;}
-@page WordSection1
-	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:35.45pt;
-	mso-footer-margin:14.2pt;
+@page WordSection1 {
+  size:8.5in 11.0in;
+  margin:1.0in 1.0in 1.0in 1.0in;
+	mso-header-margin:0.5in;
+	mso-footer-margin:0.5in;
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh1;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef1;
-	mso-paper-source:0;}
+	mso-paper-source:0;
+}
 div.WordSection1
 	{page:WordSection1;}
-@page WordSection2
-	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:35.45pt;
-	mso-footer-margin:14.2pt;
+@page WordSection2 {
+  size:8.5in 11.0in;
+  margin:1.0in 1.0in 1.0in 1.0in;
+	mso-header-margin:0.5in;
+	mso-footer-margin:0.5in;
 	mso-page-numbers:roman-lower;
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
@@ -592,11 +593,11 @@ div.WordSection1
 	mso-paper-source:0;}
 div.WordSection2
 	{page:WordSection2;}
-@page WordSection3
-	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:35.45pt;
-	mso-footer-margin:14.2pt;
+@page WordSection3 {
+  size:8.5in 11.0in;
+  margin:1.0in 1.0in 1.0in 1.0in;
+	mso-header-margin:0.5in;
+	mso-footer-margin:0.5in;
 	mso-page-numbers:1;
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
@@ -610,7 +611,7 @@ ol
 ul
 	{margin-bottom:0cm;}
 table.MsoISOTable
-	{mso-style-name:"Table ISO";
+	{mso-style-name:"Table NIST";
 	mso-tstyle-rowband-size:0;
 	mso-tstyle-colband-size:0;
 	mso-style-noshow:yes;
