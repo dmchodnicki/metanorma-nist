@@ -71,7 +71,7 @@ module IsoDoc
         insertion = docxml.at("//div[h1 = 'Executive Summary']") ||
           docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
         insertion.next = make_WordToC(docxml)
-        insertion.next = %{<h1 style="page-break-before: always;">Table of Contents</h1>}
+        insertion.next = %{<p class="TOCTitle" style="page-break-before: always;">Table of Contents</p>}
         docxml
       end
 
@@ -97,6 +97,7 @@ module IsoDoc
 
       FRONT_CLAUSE = "//*[parent::preface][not(local-name() = 'abstract')]".freeze
 
+      # All "[preface]" sections should have class "IntroTitle" to prevent page breaks
       def preface(isoxml, out)
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
           foreword(isoxml, out) and next if c.name == "foreword"
