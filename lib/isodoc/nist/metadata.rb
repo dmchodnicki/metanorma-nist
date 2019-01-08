@@ -21,7 +21,7 @@ module IsoDoc
 
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
-        set(:tc, tc.text) if tc
+        set(:tc, tc.text.upcase) if tc
         authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author' "\
                                   "or xmlns:role/@type = 'editor']/person/name"))
         set(:authors, extract_person_names(authors))
