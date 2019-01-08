@@ -79,7 +79,6 @@ module IsoDoc
 
       def abstract(isoxml, out)
         f = isoxml.at(ns("//preface/abstract")) || return
-        page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
           clause_name(nil, @abstract_lbl, s, class: "AbstractTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
@@ -104,7 +103,7 @@ module IsoDoc
           next if skip_render(c, isoxml)
           out.div **attr_code(id: c["id"]) do |s|
             clause_name(get_anchors[c['id']][:label],
-                        c&.at(ns("./title"))&.content, s, nil)
+                        c&.at(ns("./title"))&.content, s, class: "IntroTitle")
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)
             end
