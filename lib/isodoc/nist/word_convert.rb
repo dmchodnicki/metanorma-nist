@@ -267,7 +267,8 @@ module IsoDoc
       MIDDLE_CLAUSE = "//clause[parent::sections]|//terms[parent::sections]".freeze
 
       def middle(isoxml, out)
-        middle_title(out)
+        # NIST documents don't repeat the title
+        # middle_title(out)
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
