@@ -328,7 +328,6 @@ h1
 	text-align:justify;
 	text-indent:-.4in;
 	mso-pagination:none;
-/*  page-break-before:always;*/
 	page-break-after:avoid;
 	mso-outline-level:1;
 	mso-list:l78 level1 lfo4;
@@ -354,7 +353,6 @@ h1.AbstractTitle, h1.IntroTitle {
   background:white;
   color:black;
   text-align: center;
-/*  page-break-before:avoid;*/
 	mso-border-alt:none;
 }
 
@@ -1122,9 +1120,6 @@ table.MsoNormalTable
 br.section
     {page-break-before:always;
     mso-break-type:section-break;}
-br.pagebreak
-    {page-break-before:always;
-    mso-special-character:line-break;}
 ol
 	{margin-bottom:0cm;
 	margin-left:18pt;}
