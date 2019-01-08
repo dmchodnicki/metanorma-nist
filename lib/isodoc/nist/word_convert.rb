@@ -403,7 +403,7 @@ module IsoDoc
 
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
-          t << "#{get_anchors[annex['id']][:label]} &mdash ;"
+          t << "#{get_anchors[annex['id']][:label]} &mdash; "
           t.b do |b|
             name&.children&.each { |c2| parse(c2, b) }
           end
