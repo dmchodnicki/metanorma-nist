@@ -124,16 +124,6 @@ module IsoDoc
         return ["published", "withdrawn"].include? status
       end
 
-      def annex_name(annex, name, div)
-        div.h1 **{ class: "Annex" } do |t|
-          t << "#{get_anchors[annex['id']][:label]} "
-          t.br
-          t.b do |b|
-            name&.children&.each { |c2| parse(c2, b) }
-          end
-        end
-      end
-
       def term_defs_boilerplate(div, source, term, preface)
         if source.empty? && term.nil?
           div << @no_terms_boilerplate
