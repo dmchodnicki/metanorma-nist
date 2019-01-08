@@ -44,8 +44,11 @@ module IsoDoc
       end
 
       def docid(isoxml, _out)
-        docnumber = isoxml.at(ns("//bibdata/docidentifier"))
-        set(:docnumber, docnumber&.text)
+        docnumber_node = isoxml.at(ns("//bibdata/docidentifier"))
+        docnumber = docnumber_node&.text
+        set(:docnumber, docnumber)
+        # TODO: for NIST SPs only!!!
+        set(:docnumber_long, docnumber.gsub("NIST SP", "NIST Special Publication"))
       end
 
       def status_abbr(status)
