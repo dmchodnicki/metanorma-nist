@@ -160,7 +160,10 @@ p.TableTitle
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
-	mso-ansi-language:EN-GB;}
+	mso-ansi-language:EN-GB;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;
+}
 p.Note, div.Note, li.Note, p.TableFootnote, div.TableFootnote, li.TableFootnote
 	{mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -313,7 +316,8 @@ p.Terms, li.Terms, div.Terms
         mso-bidi-font-family:$headerfont;
         mso-ansi-language:EN-GB;
         font-weight:bold;
-        mso-bidi-font-weight:normal;}
+        mso-bidi-font-weight:bold;
+      }
 p.AltTerms, li.AltTerms, div.AltTerms
         {mso-style-name:"AltTerm\(s\)";
         mso-style-priority:8;
