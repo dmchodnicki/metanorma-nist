@@ -66,7 +66,7 @@ module IsoDoc
         draftinfo = ""
         if draft
           draftinfo = " #{@labels["draft_label"]} #{draft}"
-          draftinfo += ", #{revdate}" if revdate
+          #draftinfo += ", #{revdate}" if revdate
         end
         IsoDoc::Function::I18n::l10n(draftinfo, @lang, @script)
       end
