@@ -64,7 +64,15 @@ module IsoDoc
         super
         term_cleanup(docxml)
         requirement_cleanup(docxml)
+        h1_cleanup(docxml)
         toc_insert(docxml)
+      end
+
+      # create fallback h1 class to deal with page breaks
+      def h1_cleanup(docxml)
+        docxml.xpath("//h1[not(@class)]").each do |h|
+          h["class"] = "NormalTitle"
+        end
       end
 
       def toc_insert(docxml)
@@ -154,19 +162,37 @@ module IsoDoc
         docxml
       end
 
-      def example_parse(node, out)
+           def figure_parse(node, out)
         return pseudocode_parse(node, out) if node["type"] == "pseudocode"
         super
       end
 
       def pseudocode_parse(node, out)
+        @in_figure = true
+        name = node.at(ns("./name"))
+        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
+          node.children.each do |n|
+            parse(n, div) unless n.name == "name"
+          end
+          figure_name_parse(node, div, name) if name
+        end
+        @in_figure = false
+      end
+
+
+      def pseudocode_parse(node, out)
+        @in_figure = true
+        name = node.at(ns("./name"))
         out.table **attr_code(id: node["id"], class: "pseudocode") do |div|
           div.tr do |tr|
             tr.td do |td|
-              node.children.each { |n| parse(n, div) }
+              node.children.do |n| 
+                parse(n, div) unless n.name == "name"
             end
           end
+          figure_name_parse(node, div, name) if name
         end
+        @in_figure = false
       end
 
       def dl_parse(node, out)

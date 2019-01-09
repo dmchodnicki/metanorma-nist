@@ -284,6 +284,8 @@ _Output:_ Shuffled _S=(s1,...,sL)_
 ====
 ----
 
+They will be rendered as figures, and included in the count of figures of the document.
+
 === Recommendations, requirements, and permissions
 
 Recommendations, requirements, and permissions shall be marked up as examples,

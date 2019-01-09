@@ -160,37 +160,41 @@ module IsoDoc
         docxml
       end
 
-      def example_parse(node, out)
+      def figure_parse(node, out)
         return pseudocode_parse(node, out) if node["type"] == "pseudocode"
         super
       end
 
       def pseudocode_parse(node, out)
+        @in_figure = true
+        name = node.at(ns("./name"))
         out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
           node.children.each do |n|
-            parse(n, div)
+            parse(n, div) unless n.name == "name"
           end
+          figure_name_parse(node, div, name) if name
         end
+        @in_figure = false
       end
 
-          def dl_parse(node, out)
-            return glossary_parse(node, out) if node["type"] == "glossary"
-            super
-          end
+      def dl_parse(node, out)
+        return glossary_parse(node, out) if node["type"] == "glossary"
+        super
+      end
 
-          def glossary_parse(node, out)
-      out.dl  **attr_code(id: node["id"], class: "glossary") do |v|
-        node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
-          v.dt **attr_code(id: dt["id"]) do |term|
-            dt_parse(dt, term)
-          end
-          v.dd  **attr_code(id: dd["id"]) do |listitem|
-            dd.children.each { |n| parse(n, listitem) }
+      def glossary_parse(node, out)
+        out.dl  **attr_code(id: node["id"], class: "glossary") do |v|
+          node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
+            v.dt **attr_code(id: dt["id"]) do |term|
+              dt_parse(dt, term)
+            end
+            v.dd  **attr_code(id: dd["id"]) do |listitem|
+              dd.children.each { |n| parse(n, listitem) }
+            end
           end
         end
+        node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, out) }
       end
-      node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, out) }
-    end
 
       def error_parse(node, out)
         case node.name

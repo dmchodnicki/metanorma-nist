@@ -525,6 +525,8 @@ OUTPUT
   it "processes pseudocode" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
+      
+      .Label
       [pseudocode]
       ====
       _Input: S=(s1, sL)_
@@ -540,7 +542,7 @@ OUTPUT
         output = <<~"OUTPUT"
             #{BLANK_HDR}
        <sections>
-         <example id="_" type="pseudocode"><p id="_">
+         <figure id="_" type="pseudocode"><name>Label</name><p id="_">
   <em>Input: S=(s1, sL)</em>
 </p>
 <p id="_"><em>Output:</em> Shuffled <em>S=(s1, sL)</em></p>
@@ -556,7 +558,7 @@ OUTPUT
   </li>
 </ol>
   </li>
-</ol></example>
+</ol></figure>
        </sections>
        </nist-standard>
     OUTPUT

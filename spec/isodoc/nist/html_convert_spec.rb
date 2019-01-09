@@ -136,7 +136,8 @@ RSpec.describe IsoDoc::NIST do
     input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <preface><foreword>
-<example id="1" type="pseudocode">
+<figure id="1" type="pseudocode">
+<name>First figure</name>
 <ol>
 <li>A B C
 <ol><li>D</li>
@@ -144,7 +145,7 @@ RSpec.describe IsoDoc::NIST do
 </ol>
 </li>
 </ol>
-</example>
+</figure>
 </foreword></preface>
 </nist-standard>
     INPUT
@@ -162,6 +163,7 @@ RSpec.describe IsoDoc::NIST do
        </ol>
        </li>
        </ol>
+       <p class="FigureTitle" align="center">Figure PR0-1&#160;&#8212; First figure</p>
        </div>
        </div>
              <p class="zzSTDTitle1"/>

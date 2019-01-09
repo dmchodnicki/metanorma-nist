@@ -26,8 +26,9 @@ module Asciidoctor
 
       def pseudocode_example(node)
         noko do |xml|
-          xml.example **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node), 
+          xml.figure **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node), 
                          type: "pseudocode"} do |ex|
+                        figure_title(node, ex)
             wrap_in_para(node, ex)
           end
         end.join("\n")
