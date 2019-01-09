@@ -160,9 +160,11 @@ module IsoDoc
       end
 
       def pseudocode_parse(node, out)
-        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
-          node.children.each do |n|
-            parse(n, div)
+        out.table **attr_code(id: node["id"], class: "pseudocode") do |div|
+          div.tr do |tr|
+            tr.td do |td|
+              node.children.each { |n| parse(n, div) }
+            end
           end
         end
       end
