@@ -170,24 +170,12 @@ module IsoDoc
       def pseudocode_parse(node, out)
         @in_figure = true
         name = node.at(ns("./name"))
-        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
-          node.children.each do |n|
-            parse(n, div) unless n.name == "name"
-          end
-          figure_name_parse(node, div, name) if name
-        end
-        @in_figure = false
-      end
-
-
-      def pseudocode_parse(node, out)
-        @in_figure = true
-        name = node.at(ns("./name"))
         out.table **attr_code(id: node["id"], class: "pseudocode") do |div|
           div.tr do |tr|
             tr.td do |td|
-              node.children.do |n| 
-                parse(n, div) unless n.name == "name"
+              node.children.each do |n| 
+                parse(n, td) unless n.name == "name"
+              end
             end
           end
           figure_name_parse(node, div, name) if name
