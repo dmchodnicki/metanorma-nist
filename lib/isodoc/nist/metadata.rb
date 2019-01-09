@@ -48,7 +48,8 @@ module IsoDoc
         docnumber = docnumber_node&.text
         set(:docnumber, docnumber)
         # TODO: for NIST SPs only!!!
-        set(:docnumber_long, docnumber.gsub("NIST SP", "NIST Special Publication"))
+        docnumber and set(:docnumber_long, 
+                          docnumber.gsub("NIST SP", "NIST Special Publication"))
       end
 
       def status_abbr(status)

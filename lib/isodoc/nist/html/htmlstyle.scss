@@ -104,6 +104,11 @@ dd p, dt p {
   margin-top: 0px;
 }
 
+dl.glossary dt {
+  font-weight: bold;
+}
+
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {

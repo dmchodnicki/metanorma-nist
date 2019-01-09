@@ -168,6 +168,24 @@ module IsoDoc
         end
       end
 
+               def dl_parse(node, out)
+            return glossary_parse(node, out) if node["type"] == "glossary"
+          end
+
+          def glossary_parse(node, out)
+      out.dl  **attr_code(id: node["id"], class: "glossary") do |v|
+        node.elements.select { |n| dt_dd? n }.each_slice(2) do |dt, dd|
+          v.dt **attr_code(id: dt["id"]) do |term|
+            dt_parse(dt, term)
+          end
+          v.dd  **attr_code(id: dd["id"]) do |listitem|
+            dd.children.each { |n| parse(n, listitem) }
+          end
+        end
+      end
+      node.elements.reject { |n| dt_dd? n }.each { |n| parse(n, out) }
+    end
+
       def error_parse(node, out)
         case node.name
         when "nistvariable" then nistvariable_parse(node, out)

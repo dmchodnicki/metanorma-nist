@@ -685,4 +685,32 @@ OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
+    it "processes glossaries" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      [glossary]
+      a:: b
+      c:: d
+    INPUT
+
+        output = <<~"OUTPUT"
+            #{BLANK_HDR}
+<sections>
+  <dl id="_" type="glossary">
+  <dt>a</dt>
+  <dd>
+    <p id="_">b</p>
+  </dd>
+  <dt>c</dt>
+  <dd>
+    <p id="_">d</p>
+  </dd>
+</dl>
+</sections>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
 end

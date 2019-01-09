@@ -87,6 +87,23 @@ module Asciidoctor
         end
       end
 
+            def dlist(node)
+              return glossary(node) if node.attr("style") == "glossary"
+              super
+            end
+
+            def glossary(node)
+        noko do |xml|
+          xml.dl **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node),
+                         type: "glossary"} do |xml_dl|
+            node.items.each do |terms, dd|
+              dt(terms, xml_dl)
+              dd(dd, xml_dl)
+            end
+          end
+        end.join("\n")
+      end
+
       def cleanup(xmldoc)
         sourcecode_cleanup(xmldoc)
         super

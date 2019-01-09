@@ -331,6 +331,16 @@ Errata tables must have a header row containing the headings _Date, Type, Change
 |===
 ----
 
+=== Glosaries
+
+Glossaries are given as definition lists with style attribute `glossary`:
+
+[source,asciidoctor]
+----
+[glossary]
+stem:[A= {x_1, x_2, ..., x_k}]:: The alphabet, i.e., the set of all possible symbols that a (digitized) noise source produces.
+----
+
 ////
 
 == Examples

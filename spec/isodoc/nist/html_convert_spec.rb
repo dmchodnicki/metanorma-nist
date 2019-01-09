@@ -67,7 +67,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -271,6 +271,57 @@ OUTPUT
       gsub(%r{</body>.*}m, "</body>")
     ).to be_equivalent_to output
   end
+
+   it "processes glossaries" do
+    input = <<~"INPUT"
+    <nist-standard xmlns="https://open.ribose.com/standards/example">
+<preface><foreword>
+  <dl id="A" type="glossary">
+  <dt>a</dt>
+  <dd>
+    <p id="B">b</p>
+  </dd>
+  <dt>c</dt>
+  <dd>
+    <p id="C">d</p>
+  </dd>
+</dl>
+</foreword></preface>
+</nist-standard>
+INPUT
+    output = <<~"OUTPUT"
+          #{HTML_HDR}
+          <br/>
+      <div>
+        <h1 class="ForewordTitle">Foreword</h1>
+        <dl id="A" class="glossary">
+          <dt>
+            <p>a</p>
+          </dt>
+          <dd>
+    <p id="B">b</p>
+  </dd>
+          <dt>
+            <p>c</p>
+          </dt>
+          <dd>
+    <p id="C">d</p>
+  </dd>
+        </dl>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+ OUTPUT
+
+    expect(
+      IsoDoc::NIST::HtmlConvert.new({}).
+      convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+  end
+
 
   it "processes section names" do
     input = <<~"INPUT"
