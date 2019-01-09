@@ -1,12 +1,13 @@
-<p class=ReportNumber><span lang=EN-US>{{ docnumber_long }}<o:p></o:p></span></p>
+<p class=ReportNumber><span lang=EN-US>{{ docnumber_long }}
+  {% if draftinfo %}
+    <br/>{{ draftinfo }}
+    {% endif %}
+    <o:p></o:p></span></p>
 
 <div style='mso-element:para-border-div;border:none;border-top:double windowtext 4.5pt;
 mso-border-top-alt:thin-thick-small-gap windowtext 4.5pt;padding:6.0pt 0cm 0cm 0cm'>
 
   <p class=CoverTitle><span lang=EN-US>{{ doctitle }}
-    {% if draftinfo %}
-    <br/>{{ draftinfo }}
-    {% endif %}
     <o:p></o:p></span></p>
 
 {% if docsubtitle %}
