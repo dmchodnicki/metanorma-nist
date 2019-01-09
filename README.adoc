@@ -146,7 +146,9 @@ introduced with `=`, is ignored)
 `:docnumber:`:: The internal identifier referring to this document.
 
 `:draft:`:: If present, review notes are included in the
-Metanorma XML output; otherwise they are suppressed.
+Metanorma XML output; otherwise they are suppressed. The value of
+this attribute will be displayed as part of the heading, prefixed with "Revision".
+
 ////
 
 `:doctype:`:: The document type (mandatory). The permitted types are:

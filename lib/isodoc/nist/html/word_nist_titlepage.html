@@ -3,7 +3,11 @@
 <div style='mso-element:para-border-div;border:none;border-top:double windowtext 4.5pt;
 mso-border-top-alt:thin-thick-small-gap windowtext 4.5pt;padding:6.0pt 0cm 0cm 0cm'>
 
-  <p class=CoverTitle><span lang=EN-US>{{ doctitle }}<o:p></o:p></span></p>
+  <p class=CoverTitle><span lang=EN-US>{{ doctitle }}
+    {% if draftinfo %}
+    <br/>{{ draftinfo }}
+    {% endif %}
+    <o:p></o:p></span></p>
 
 {% if docsubtitle %}
   <p class=CoverSubtitle><span lang=EN-US>{{ docsubtitle }}<o:p></o:p></span></p>
@@ -68,6 +72,13 @@ style='mso-spacerun:yes'> </span><o:p></o:p></span></p>
 
 <p><img width=179 height=76
 src="logo.png" align=right hspace=12
+   style="position:absolute;margin-left:127.9pt;margin-top:0;width:179.1pt;
+ height:75.95pt;z-index:251658240;mso-wrap-edited:f;mso-width-percent:0;
+ mso-height-percent:0;mso-wrap-distance-left:12pt;mso-wrap-distance-top:0;
+ mso-wrap-distance-right:12pt;mso-wrap-distance-bottom:0;
+ mso-position-horizontal:right;mso-position-horizontal-relative:text;
+ mso-position-vertical:bottom;
+ mso-position-vertical-relative:margin;mso-width-percent:0;mso-height-percent:0"
 alt="NIST Identifier: NIST, National Institute of Standards and Technology, U.S. Department of Commerce">
 </p>
 

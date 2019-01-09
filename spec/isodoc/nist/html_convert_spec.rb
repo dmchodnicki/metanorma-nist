@@ -10,6 +10,12 @@ RSpec.describe IsoDoc::NIST do
   <title language="en" format="plain">Main Title</title>
   <subtitle language="en" format="plain">Subtitle</subtitle>
   <docidentifier>1000(wd)</docidentifier>
+  <docnumber>1000</docnumber>
+  <edition>2</edition>
+  <version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
   <contributor>
     <role type="author"/>
     <organization>
@@ -57,17 +63,13 @@ RSpec.describe IsoDoc::NIST do
            <keyword>A</keyword>
          <keyword>B</keyword>
   <security>Client Confidential</security>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
+</bibdata>
 <sections/>
 </nist-standard>
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" Revision 3.4, 2000-01-01", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>false, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)

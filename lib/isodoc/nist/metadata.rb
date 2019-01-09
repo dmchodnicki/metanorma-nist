@@ -27,7 +27,7 @@ module IsoDoc
         set(:authors, extract_person_names(authors))
       end
 
-            def extract_person_names(authors)
+      def extract_person_names(authors)
         ret = []
         authors.each do |a|
           if a.at(ns("./completename"))
@@ -60,6 +60,15 @@ module IsoDoc
         else
           ""
         end
+      end
+
+      def draftinfo(draft, revdate)
+        draftinfo = ""
+        if draft
+          draftinfo = " #{@labels["draft_label"]} #{draft}"
+          draftinfo += ", #{revdate}" if revdate
+        end
+        IsoDoc::Function::I18n::l10n(draftinfo, @lang, @script)
       end
 
       def version(isoxml, _out)
