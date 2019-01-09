@@ -344,6 +344,7 @@ h1
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
   color:white;
+  page-break-before:always;
 	mso-font-kerning:0pt;
 	mso-ansi-language:EN-GB;
 	mso-fareast-language:JA;
@@ -354,6 +355,7 @@ h1.AbstractTitle, h1.IntroTitle {
   color:black;
   text-align: center;
 	mso-border-alt:none;
+        page-break-before:avoid;
 }
 
 h1.Annex {
