@@ -162,7 +162,7 @@ module IsoDoc
         docxml
       end
 
-           def figure_parse(node, out)
+      def figure_parse(node, out)
         return pseudocode_parse(node, out) if node["type"] == "pseudocode"
         super
       end
