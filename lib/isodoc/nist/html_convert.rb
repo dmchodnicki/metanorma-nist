@@ -167,7 +167,6 @@ module IsoDoc
 
       def pseudocode_parse(node, out)
         out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
-          div.p { |p| p << example_label(node) }
           node.children.each do |n|
             parse(n, div)
           end
@@ -176,6 +175,7 @@ module IsoDoc
 
           def dl_parse(node, out)
             return glossary_parse(node, out) if node["type"] == "glossary"
+            super
           end
 
           def glossary_parse(node, out)

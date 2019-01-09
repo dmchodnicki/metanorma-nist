@@ -556,6 +556,11 @@ p.Code, li.Code, div.Code
 	mso-fareast-font-family:Calibri;
 	mso-bidi-font-family:"Source Sans Pro";
 	mso-ansi-language:EN-GB;}
+div.pseudocode {
+  background-color: #dddddd;
+  border:none;
+  mso-border-alt:solid windowtext .5pt;
+}
 p.Formula, li.Formula, div.Formula
 	{mso-style-name:Formula;
 	mso-style-noshow:yes;

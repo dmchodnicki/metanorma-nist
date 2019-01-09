@@ -154,7 +154,7 @@ RSpec.describe IsoDoc::NIST do
                           <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <div id="1" class="pseudocode"><p>EXAMPLE</p>
+               <div id="1" class="pseudocode">
        <ol type="a">
        <li>A B C
        <ol type="1"><li>D</li>
