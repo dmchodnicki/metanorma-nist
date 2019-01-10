@@ -76,7 +76,7 @@ module IsoDoc
       end
 
       def toc_insert(docxml)
-        insertion = docxml.at("//div[h1 = 'Executive Summary']/preceding-sibling::div[h1]") ||
+        insertion = docxml.at("//div[h1 = 'Executive Summary']/preceding-sibling::div[h1][1]") ||
           docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
         insertion.next = make_WordToC(docxml)
         insertion.next = %{<p class="TOCTitle" style="page-break-before: always;">Table of Contents</p>}
