@@ -302,7 +302,7 @@ module IsoDoc
             f.elements.reject do |e|
               ["reference", "title", "bibitem"].include? e.name
             end.each { |e| parse(e, div) }
-            biblio_list(f, div, true)
+            biblio_list(f, div, false)
           end
         end
       end
