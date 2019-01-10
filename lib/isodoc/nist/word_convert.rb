@@ -115,13 +115,15 @@ module IsoDoc
       FRONT_CLAUSE = "//*[parent::preface][not(local-name() = 'abstract')]".freeze
 
       # All "[preface]" sections should have class "IntroTitle" to prevent page breaks
+      # But for the Exec Summary
       def preface(isoxml, out)
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
           foreword(isoxml, out) and next if c.name == "foreword"
           next if skip_render(c, isoxml)
           out.div **attr_code(id: c["id"]) do |s|
             clause_name(get_anchors[c['id']][:label],
-                        c&.at(ns("./title"))&.content, s, class: "IntroTitle")
+                        c&.at(ns("./title"))&.content, s, 
+                        class: c.name == execsummary ? "" : "IntroTitle")
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)
             end
