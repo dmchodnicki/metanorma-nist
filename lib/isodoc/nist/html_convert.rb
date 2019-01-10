@@ -10,10 +10,10 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        FileUtils.cp html_doc_path('logo.png'), "logo.png"
-        FileUtils.cp html_doc_path('commerce-logo-color.png'), "commerce-logo-color.png"
-        @files_to_delete << "logo.png"
-        @files_to_delete << "commerce-logo-color.png"
+        FileUtils.cp html_doc_path('logo.png'), "#{@localdir}/logo.png"
+        FileUtils.cp html_doc_path('commerce-logo-color.png'), "#{@localdir}/commerce-logo-color.png"
+        @files_to_delete << "#{@localdir}/logo.png"
+        @files_to_delete << "#{@localdir}/commerce-logo-color.png"
       end
 
       def default_fonts(options)
