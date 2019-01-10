@@ -85,10 +85,10 @@ module IsoDoc
 
       def make_WordToC(docxml)
         toc = ""
-        docxml.xpath("//h1[not(ancestor::*[@class = 'Section3'])] |"\
+        docxml.xpath("//h1[not(ancestor::*[@class = 'WordSection2'])] |"\
                      "//h1[contains(., 'Executive Summary')] |"\
-                     "//h2[not(ancestor::*[@class = 'Section3'])] |"\
-                     "//h3[not(ancestor::*[@class = 'Section3'])]").each do |h|
+                     "//h2[not(ancestor::*[@class = 'WordSection2'])] |"\
+                     "//h3[not(ancestor::*[@class = 'WordSection2'])]").each do |h|
           toc += word_toc_entry(h.name[1].to_i, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
