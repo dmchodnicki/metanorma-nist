@@ -16,10 +16,12 @@
   <div class="coverpage">
     <div class="wrapper-top">
 
+              <div class="rule-2"></div>
+
   <div class="coverpage-doc-identity">
     <div class="doc-number">
-      <span class="docnumber">{{ docnumber }}</span>
-      <span class="docyear"> {{ draftinfo }}</span>
+      <div>{{ docnumber }}</div>
+      <div> {{ draftinfo }}</div>
     </div>
 
     <div class="coverpage-title">
@@ -30,33 +32,61 @@
     </div>
   </div>
 
+  <div class="coverpage-logo">
+    <span>National Institute of Standards and Technology {{ docyear }}</span>
+  </div>
+
   <div class="coverpage-tc-name">
     <span>{{ tc }}</span>
   </div>
   </div>
 
-  <div class="coverpage-tc-name"><span>
-    {{ authors | join: ", " }}
-    </span></div>
+  <div class="rule-thick"></div>
 
+  <div class="authors-container">
+    {% for author in authors %}
+<div class="author">{{ author }}</div>
+<!-- <div class="affiliation"></div> -->
+{% endfor %} 
+    </div>
 
-  <div class="wrapper-top-bottom"></div>
+    <div class="download-info">
 
-  <div class="WordSection11">
-  <div class="coverpage-stage-block" >
-    <span class="coverpage-stage" id="{{ doctype | replace: ' ', '-' | downcase }}">NIST {{ doctype }}</span>
+This publication is available free of charge from: <br>
+<a href="{{url}}">{{ url }}</a>
+
+<div class="category">{{ tc }}</div>
+
+    </div>
+
   </div>
 
-  <div class="coverpage-stage-block" >
-    <p><span class="coverpage-maturity" id="{{ status | replace: ' ', '-' | downcase }}">{{ status }}</span></p>
-{% if security %}
-<p><span class="coverpage-maturity">Classification: {{ security }}</span></p>
-{% endif %}
+    <div class="logo-wrapper">
+
+    <img id="NIST-logo" src="nist-logo.png">
+    <img id="commerce-logo" src="commerce-logo-color.png">
+  </div>
+
+  <div class="logo-info">
+      <p>U.S. Department of Commerce</p>
+      <p><i>Wilbur L. Ross, Jr., Secretary</i></p>
+  </div>
+
+  <div class="logo-info">
+      <p>National Institute of Standards and Technology</p>
+      <p><i>Walter Copan, NIST Director and Under Secretary of Commerce for Standards and Technology </i></p>
+  </div>
+
+  <div class="WordSection11">
+  <div class="coverpage-stage-block">
+    <span class="coverpage-stage" id="{{ doctype | downcase | replace: " ", "-" }}">{{ doctype }}</span>
+  </div>
+
+  <div class="coverpage-stage-block">
+    <span class="coverpage-maturity" id="{{ status }}">{{ status }}</span>
+
 </div>
 
-{% if doctype == "Policy And Procedures" or doctype == "Proposal" %}
-<div  class="coverpage-stage-block" >{{ revdate }}</div>
-{% endif %}
 
 {% if unpublished %}
   <div class="coverpage-warning">
@@ -72,23 +102,8 @@
   </div>
 {% endif %}
 
-<div class="coverpage-logo">
-  <p><img src="logo.png"/></p>
-  <p><img src="deptofcommerce.png"/></p>
-</div>
-
-
 <div class="info-section">
 <div class="copyright">
-  <p class="message">
-    <i><span>U.S. Department of Commerce</span></i><br>
-    <i><span>Wilbur L. Ross, Jr., Secretary</span></i><br>
-  </p>
-
-  <p class="message">
-    <i><span>National Institute of Standards and Technology</span></i><br>
-    <i><span>Walter Copan, NIST Director and Under Secretary of Commerce for Standards and Technology</span></i><br>
-  </p>
 
   <p class="year">
     &copy; {{ docyear }} NIST.
@@ -101,6 +116,19 @@
     internet or an intranet, without prior written permission. Permission can
     be requested from the address below.
   </p>
+
+  <div class="contact-info">
+  <p class="name">National Institute of Standards and Technology</p>
+  <p class="address">
+  Attn: Computer Security Division, Information Technology Laboratory<br/>
+  100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930<br/>
+  United States of America<br/>
+    <br />
+    <a href="mailto:{{ email }}">{{ email }}</a><br />
+    <a href="www.nist.gov">www.nist.gov</a>
+  </p>
+</div>
+
 
 </div>
 

@@ -16,8 +16,8 @@ module IsoDoc
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Libre Baskerville",serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Libre Baskerville",serif'),
           monospacefont: '"Space Mono",monospace'
         }
       end
@@ -160,7 +160,7 @@ module IsoDoc
         docxml
       end
 
-     def figure_parse(node, out)
+      def figure_parse(node, out)
         return pseudocode_parse(node, out) if node["type"] == "pseudocode"
         super
       end
