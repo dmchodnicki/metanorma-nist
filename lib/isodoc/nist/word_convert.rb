@@ -83,6 +83,18 @@ module IsoDoc
         docxml
       end
 
+      def toclevel(name)
+
+      def make_WordToC(docxml)
+        toc = ""
+        docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])] |"\
+                     "//h3[not(ancestor::*[@class = 'Section3'])]").each do |h|
+          toc += word_toc_entry(h.name[1].to_i, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_PREFACE1}}) +  WORD_TOC_SUFFIX1
+      end
+
       # Henceforth identical to html
 
       def abstract(isoxml, out)
