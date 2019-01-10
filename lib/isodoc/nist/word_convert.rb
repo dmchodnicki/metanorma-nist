@@ -83,8 +83,6 @@ module IsoDoc
         docxml
       end
 
-      def toclevel(name)
-
       def make_WordToC(docxml)
         toc = ""
         docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])] |"\
