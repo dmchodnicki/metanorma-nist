@@ -85,7 +85,9 @@ module IsoDoc
 
       def make_WordToC(docxml)
         toc = ""
-        docxml.xpath("//h1 | //h2[not(ancestor::*[@class = 'Section3'])] |"\
+        docxml.xpath("//h1[not(ancestor::*[@class = 'Section3'])] |"\
+                     "//h1[contains(., 'Executive Summary')] |"\
+                     "//h2[not(ancestor::*[@class = 'Section3'])] |"\
                      "//h3[not(ancestor::*[@class = 'Section3'])]").each do |h|
           toc += word_toc_entry(h.name[1].to_i, header_strip(h))
         end
@@ -123,7 +125,7 @@ module IsoDoc
           out.div **attr_code(id: c["id"]) do |s|
             clause_name(get_anchors[c['id']][:label],
                         c&.at(ns("./title"))&.content, s, 
-                        class: c.name == "executivesummary" ? "" : "IntroTitle")
+                        class: c.name == "executivesummary" ? "NormalTitle" : "IntroTitle")
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)
             end
