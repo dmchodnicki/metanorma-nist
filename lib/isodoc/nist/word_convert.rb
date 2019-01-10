@@ -123,7 +123,7 @@ module IsoDoc
           out.div **attr_code(id: c["id"]) do |s|
             clause_name(get_anchors[c['id']][:label],
                         c&.at(ns("./title"))&.content, s, 
-                        class: c.name == "execsummary" ? "" : "IntroTitle")
+                        class: c.name == "executivesummary" ? "" : "IntroTitle")
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)
             end
@@ -332,7 +332,7 @@ module IsoDoc
       end
 
       SECTIONS_XPATH =
-        "//foreword | //introduction | //reviewnote | //execsummary | //annex | "\
+        "//foreword | //introduction | //reviewnote | //executivesummary | //annex | "\
         "//sections/clause | //bibliography/references | "\
         "//bibliography/clause".freeze
 
