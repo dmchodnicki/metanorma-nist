@@ -10,10 +10,14 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
+      end
+
+      def convert1(docxml, filename, dir)
         FileUtils.cp html_doc_path('logo.png'), "#{@localdir}/logo.png"
         FileUtils.cp html_doc_path('commerce-logo-color.png'), "#{@localdir}/commerce-logo-color.png"
         @files_to_delete << "#{@localdir}/logo.png"
         @files_to_delete << "#{@localdir}/commerce-logo-color.png"
+        super
       end
 
       def default_fonts(options)
