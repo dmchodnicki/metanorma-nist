@@ -44,10 +44,10 @@
 
   <div class="authors-container">
     {% for affiliation in authors_affiliations %}
-    {% for author in authors_affiliations[affiliation] %}
+    {% for author in affiliation[1] %}
 <div class="author">{{ author }}</div>
 {% endfor %} 
-<div class="affiliation">{{affiliation}}</div>
+<div class="affiliation">{{affiliation[0]}}</div>
 {% endfor %} 
     </div>
 

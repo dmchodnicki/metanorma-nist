@@ -36,7 +36,7 @@ RSpec.describe IsoDoc::NIST do
       <surname>Rubble</surname>
       </name>
       <affiliation>
-      <organization><name>Bedrock Inc.</name></organization>
+      <org><name>Bedrock Inc.</name></org>
       </affiliation>
     </person>
   </contributor>

@@ -48,7 +48,7 @@ module IsoDoc
         names = extract_person_names(authors)
         affils = []
         authors.each do |a|
-          affils << (a&.at(ns("./affiliation/organization/name"))&.text || "")
+          affils << (a&.at(ns("./affiliation/org/name"))&.text || "")
         end
         ret = {}
         affils.each_with_index do |a, i|

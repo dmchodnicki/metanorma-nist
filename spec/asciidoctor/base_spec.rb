@@ -86,6 +86,7 @@ RSpec.describe Asciidoctor::NIST do
       :surname_2: Rubble
       :givenname_2: Barney
       :role_2: editor
+      :affiliation_2: Bedrock Inc.
       :subtitle: Subtitle
       :doc-email: email@example.com
     INPUT
@@ -125,6 +126,11 @@ RSpec.describe Asciidoctor::NIST do
                <forename>Barney</forename>
                <surname>Rubble</surname>
              </name>
+              <affiliation>
+   <org>
+     <name>Bedrock Inc.</name>
+   </org>
+ </affiliation>
            </person>
          </contributor>
          <contributor>
