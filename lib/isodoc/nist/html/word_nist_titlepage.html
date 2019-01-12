@@ -152,13 +152,14 @@ mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-la
 EN-US;mso-bidi-language:AR-SA;margin-bottom:0.0pt'><br clear="all" style='page-break-before:auto;'/>
 </span>
 
-<div>
-
-{% for author in authors %}
+    <div class="authors-container">
+    {% for affiliation in authors_affiliations %}
+    {% for author in authors_affiliations[affiliation] %}
 <p class="Author">{{ author }}</p>
 {% endfor %}
-
-</div>
+<p class="Affiliation">{{affiliation}}</div>
+{% endfor %}
+    </div>
 
 <span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;
 mso-fareast-font-family:"Times New Roman";color:black;mso-ansi-language:EN-US;

@@ -43,9 +43,11 @@
   <div class="rule-thick"></div>
 
   <div class="authors-container">
-    {% for author in authors %}
+    {% for affiliation in authors_affiliations %}
+    {% for author in authors_affiliations[affiliation] %}
 <div class="author">{{ author }}</div>
-<!-- <div class="affiliation"></div> -->
+{% endfor %} 
+<div class="affiliation">{{affiliation}}</div>
 {% endfor %} 
     </div>
 

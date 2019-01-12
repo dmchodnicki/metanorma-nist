@@ -20,46 +20,6 @@ module Asciidoctor
         personal_author(node, xml)
       end
 
-      def personal_author(node, xml)
-        personal_editor(node, xml)
-        if node.attr("fullname") || node.attr("surname")
-          personal_author1(node, xml, "")
-        end
-        i = 2
-        while node.attr("fullname_#{i}") || node.attr("surname_#{i}")
-          personal_author1(node, xml, "_#{i}")
-          i += 1
-        end
-      end
-
-      def personal_editor(node, xml)
-        return unless node.attr("editor")
-        xml.contributor do |c|
-          c.role **{ type: "editor" }
-          c.person do |p|
-            p.name do |n|
-              n.completename node.attr("editor")
-            end
-          end
-        end
-      end
-
-      def personal_author1(node, xml, suffix)
-        xml.contributor do |c|
-          c.role **{ type: node&.attr("role#{suffix}")&.downcase || "editor" }
-          c.person do |p|
-            p.name do |n|
-              if node.attr("fullname#{suffix}")
-                n.completename node.attr("fullname#{suffix}")
-              else
-                n.forename node.attr("givenname#{suffix}")
-                n.surname node.attr("surname#{suffix}")
-              end
-            end
-          end
-        end
-      end
-
       def metadata_publisher(node, xml)
         xml.contributor do |c|
           c.role **{ type: "publisher" }
@@ -122,7 +82,7 @@ module Asciidoctor
 
       def metadata_source(node, xml)
         super
-        node.attr("email") && xml.source(node.attr("email"), type: "email")
+        node.attr("doc-email") && xml.source(node.attr("doc-email"), type: "email")
       end
 
       def title(node, xml)

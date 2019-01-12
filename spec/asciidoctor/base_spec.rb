@@ -87,7 +87,7 @@ RSpec.describe Asciidoctor::NIST do
       :givenname_2: Barney
       :role_2: editor
       :subtitle: Subtitle
-      :email: email@example.com
+      :doc-email: email@example.com
     INPUT
 
     output = <<~"OUTPUT"
