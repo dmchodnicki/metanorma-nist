@@ -1,7 +1,7 @@
 = metanorma-nist: Metanorma processor for the NIST SP 800 document classes
 
 image:https://img.shields.io/gem/v/metanorma-nist.svg["Gem Version", link="https://rubygems.org/gems/metanorma-nist"]
-image:https://img.shields.io/travis/riboseinc/metanorma-nist/master.svg["Build Status", link="https://travis-ci.org/riboseinc/metanorma-nist"]
+image:https://img.shields.io/travis/riboseinc/metanorma-nist/master.svg["Build Status", link="https://travis-ci.com/riboseinc/metanorma-nist"]
 image:https://codeclimate.com/github/riboseinc/metanorma-nist/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/metanorma-nist"]
 
 WARNING: This gem is still under development.
