@@ -99,6 +99,19 @@ module IsoDoc
                 %{\\1#{WORD_TOC_PREFACE1}}) +  WORD_TOC_SUFFIX1
       end
 
+      def word_preface_cleanup(docxml)
+        docxml.xpath("//h1[@class = 'AbstractTitle'] | //h1[@class = 'IntroTitle']").each do |h2|
+          h2.name = "p"
+          h2["class"] = "h1Preface"
+        end
+      end
+
+      def word_cleanup
+        super
+        word_preface_cleanup(docxml)
+        docxml
+      end
+
       # Henceforth identical to html
 
       def abstract(isoxml, out)
