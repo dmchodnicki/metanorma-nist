@@ -106,7 +106,7 @@ module IsoDoc
         end
       end
 
-      def word_cleanup
+      def word_cleanup(docxml)
         super
         word_preface_cleanup(docxml)
         docxml
