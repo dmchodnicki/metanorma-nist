@@ -90,7 +90,7 @@ module IsoDoc
 
       def url(xml, _out)
         super
-        a = xml.at(ns("//bibdata/source[@type = 'email']")) and set(:email, a.text)
+        a = xml.at(ns("//bibdata/uri[@type = 'email']")) and set(:email, a.text)
       end
 
     end

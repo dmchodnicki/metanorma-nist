@@ -97,7 +97,7 @@ RSpec.describe Asciidoctor::NIST do
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <subtitle language="en" format="text/plain">Subtitle</subtitle>
-        <source type="email">email@example.com</source>
+        <uri type="email">email@example.com</uri>
          <docidentifier type="nist">NIST 1000(wd)</docidentifier>
          <docnumber>1000</docnumber>
          <edition>2</edition>
