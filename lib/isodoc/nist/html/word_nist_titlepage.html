@@ -1,4 +1,5 @@
 <p class="ReportNumber"><span lang="EN-US">{{ docnumber_long }}
+  {% if edition %} <br/> Revision {{ edition }} {% endif %}
   {% if draftinfo %}
     <br/>{{ draftinfo }}
     {% endif %}
