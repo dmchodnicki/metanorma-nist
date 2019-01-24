@@ -158,7 +158,8 @@ module IsoDoc
       end
 
       def requirement_cleanup(docxml)
-        docxml.xpath("//div[@class = 'recommend'][title]").each do |d|
+        docxml.xpath("//div[@class = 'recommend' or @class = 'require' "\
+                     "or @class = 'permission'][title]").each do |d|
           title = d.at("./title")
           title.name = "b"
           n = title.next_element
@@ -234,7 +235,7 @@ module IsoDoc
 
       def requirement_parse(node, out)
         name = node["type"]
-        out.div **{ class: "recommend" } do |t|
+        out.div **{ class: "require" } do |t|
           t.title { |b| b << "Requirement #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
@@ -244,7 +245,7 @@ module IsoDoc
 
       def permission_parse(node, out)
         name = node["type"]
-        out.div **{ class: "recommend" } do |t|
+        out.div **{ class: "permission" } do |t|
           t.title { |b| b << "Permission #{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)

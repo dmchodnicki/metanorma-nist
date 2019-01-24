@@ -724,11 +724,336 @@ INPUT
     expect(html).to match(%r{Baskerville})
   end
 
+    it "cross-references requirements" do
+    expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+    <foreword id="fwd">
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+        <introduction id="intro">
+        <requirement id="N1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+  <clause id="xyz"><title>Preparatory</title>
+        <requirement id="N2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+</clause>
+    </introduction>
+    </preface>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+        <requirement id="N">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+<p><xref target="N"/></p>
+    </clause>
+    <clause id="widgets"><title>Empty Clause</title></clause>
+    <clause id="widgets"><title>Widgets</title>
+    <clause id="widgets1">
+        <requirement id="note1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+    <requirement id="note2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
+    </clause>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <clause id="annex1a">
+        <requirement id="AN">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+    </clause>
+    <clause id="annex1b">
+        <requirement id="Anote1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+    <requirement id="Anote2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </requirement>
+    </clause>
+    </annex>
+    </iso-standard>
+INPUT
+#{HTML_HDR}
+<br/>
+    <div id="fwd">
+    <h1 class="ForewordTitle">Foreword</h1>
+    <p>
+    <a href="#N1">Introduction, Requirement PR1.1</a>
+    <a href="#N2">Preparatory, Requirement PR1.2</a>
+    <a href="#N">Section 1, Requirement 1.1</a>
+    <a href="#note1">Section 3.1, Requirement 3.1</a>
+    <a href="#note2">Section 3.1, Requirement 3.2</a>
+    <a href="#AN">Appendix A.1, Requirement A.1</a>
+    <a href="#Anote1">Appendix A.2, Requirement A.2</a>
+    <a href="#Anote2">Appendix A.2, Requirement A.3</a>
+    </p>
+    </div>
+    <div id="intro">
+    <h1/>
+    <div class="require"><title>Requirement PR1.1:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+               <div id="xyz"><h2>Preparatory</h2>
+               <div class="require"><title>Requirement PR1.2:</title>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+       </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="scope">
+               <h1>1.&#160; Scope</h1>
+               <div class="require"><title>Requirement 1.1:</title>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+               <p>
+                 <a href="#N">Requirement 1.1</a>
+    </p>
+    </div>
+    <div id="widgets">
+    <h1>3.&#160; Empty Clause</h1>
+      </div>
+    <div id="widgets">
+    <h1>3.&#160; Widgets</h1>
+      <div id="widgets1"><h2>3.1. </h2>
+    <div class="require"><title>Requirement 3.1:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    <div class="require"><title>Requirement 3.2:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+         <p>    <a href="#note1">Requirement 3.1</a> <a href="#note2">Requirement 3.2</a> </p>
+    </div>
+    </div>
+    <br/>
+    <div id="annex1" class="Section3">
+    <div id="annex1a"><h2>A.1. </h2>
+    <div class="require"><title>Requirement A.1:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    </div>
+    <div id="annex1b"><h2>A.2. </h2>
+    <div class="require"><title>Requirement A.2:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    <div class="require"><title>Requirement A.3:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    </div>
+    </div>
+    </div>
+    </body>
+    </html>
+    OUTPUT
+  end
+
+  it "injects JS into blank html" do
+    system "rm -f test.html"
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :novalid:
+    INPUT
+
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
+<sections/>
+</nist-standard>
+    OUTPUT
+
+    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
+    html = File.read("test.html", encoding: "utf-8")
+    expect(html).to match(%r{jquery\.min\.js})
+    expect(html).to match(%r{Baskerville})
+  end
+
+  it "cross-references permissions" do
+    expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+    <foreword id="fwd">
+    <p>
+    <xref target="N1"/>
+    <xref target="N2"/>
+    <xref target="N"/>
+    <xref target="note1"/>
+    <xref target="note2"/>
+    <xref target="AN"/>
+    <xref target="Anote1"/>
+    <xref target="Anote2"/>
+    </p>
+    </foreword>
+        <introduction id="intro">
+        <permission id="N1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+  <clause id="xyz"><title>Preparatory</title>
+        <permission id="N2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+</clause>
+    </introduction>
+    </preface>
+    <sections>
+    <clause id="scope"><title>Scope</title>
+        <permission id="N">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+<p><xref target="N"/></p>
+    </clause>
+    <clause id="widgets"><title>Empty Clause</title></clause>
+    <clause id="widgets"><title>Widgets</title>
+    <clause id="widgets1">
+        <permission id="note1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+    <permission id="note2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+  <p>    <xref target="note1"/> <xref target="note2"/> </p>
+    </clause>
+    </clause>
+    </sections>
+    <annex id="annex1">
+    <clause id="annex1a">
+        <permission id="AN">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+    </clause>
+    <clause id="annex1b">
+        <permission id="Anote1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+    <permission id="Anote2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+    </clause>
+    </annex>
+    </iso-standard>
+INPUT
+#{HTML_HDR}
+<br/>
+    <div id="fwd">
+    <h1 class="ForewordTitle">Foreword</h1>
+    <p>
+    <a href="#N1">Introduction, Permission PR1.1</a>
+    <a href="#N2">Preparatory, Permission PR1.2</a>
+    <a href="#N">Section 1, Permission 1.1</a>
+    <a href="#note1">Section 3.1, Permission 3.1</a>
+    <a href="#note2">Section 3.1, Permission 3.2</a>
+    <a href="#AN">Appendix A.1, Permission A.1</a>
+    <a href="#Anote1">Appendix A.2, Permission A.2</a>
+    <a href="#Anote2">Appendix A.2, Permission A.3</a>
+    </p>
+    </div>
+    <div id="intro">
+    <h1/>
+    <div class="permission"><title>Permission PR1.1:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+               <div id="xyz"><h2>Preparatory</h2>
+               <div class="permission"><title>Permission PR1.2:</title>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+       </div>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div id="scope">
+               <h1>1.&#160; Scope</h1>
+               <div class="permission"><title>Permission 1.1:</title>
+         <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+               <p>
+                 <a href="#N">Permission 1.1</a>
+    </p>
+    </div>
+    <div id="widgets">
+    <h1>3.&#160; Empty Clause</h1>
+      </div>
+    <div id="widgets">
+    <h1>3.&#160; Widgets</h1>
+      <div id="widgets1"><h2>3.1. </h2>
+    <div class="permission"><title>Permission 3.1:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    <div class="permission"><title>Permission 3.2:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+         </div>
+         <p>    <a href="#note1">Permission 3.1</a> <a href="#note2">Permission 3.2</a> </p>
+    </div>
+    </div>
+    <br/>
+    <div id="annex1" class="Section3">
+    <div id="annex1a"><h2>A.1. </h2>
+    <div class="permission"><title>Permission A.1:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    </div>
+    <div id="annex1b"><h2>A.2. </h2>
+    <div class="permission"><title>Permission A.2:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    <div class="permission"><title>Permission A.3:</title>
+    <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+    </div>
+    </div>
+    </div>
+    </div>
+    </body>
+    </html>
+    OUTPUT
+  end
+
+  it "injects JS into blank html" do
+    system "rm -f test.html"
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :novalid:
+    INPUT
+
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
+<sections/>
+</nist-standard>
+    OUTPUT
+
+    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
+    html = File.read("test.html", encoding: "utf-8")
+    expect(html).to match(%r{jquery\.min\.js})
+    expect(html).to match(%r{Baskerville})
+  end
+
+
     it "cleans up requirements" do
     expect(IsoDoc::NIST::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
     <html>
     <body>
       <div class="recommend">
+        <title><i>Warning:</i></title>
+        <p>Text</p>
+      </div>
+      <div class="require">
+        <title><i>Warning:</i></title>
+        <p>Text</p>
+      </div>
+      <div class="permission">
         <title><i>Warning:</i></title>
         <p>Text</p>
       </div>
@@ -739,9 +1064,16 @@ INPUT
        <html>
        <body>
          <div class="recommend">
-
+   <p><b><i>Warning:</i></b> Text</p>
+ </div>
+ <div class="require">
+   
+   <p><b><i>Warning:</i></b> Text</p>
+ </div>
+ <div class="permission">
            <p><b><i>Warning:</i></b> Text</p>
          </div>
+
        </body>
        </html>
     OUTPUT
