@@ -348,7 +348,7 @@ h1
 	mso-ansi-language:EN-GB;
 	mso-fareast-language:JA;
 	mso-bidi-font-weight:normal;}
-.h1Preface
+.h1Preface, .h1Annex
         {mso-style-priority:1;
         mso-style-unhide:no;
         mso-style-qformat:yes;
@@ -448,7 +448,7 @@ h2
 	font-family:$headerfont;
 	mso-font-kerning:14.0pt;
 	mso-fareast-font-family:$headerfont;
-  color:#000000;
+        color:#000000;
 	mso-ansi-language:EN-GB;
 	mso-fareast-language:JA;
 	font-weight:bold;
@@ -477,12 +477,42 @@ h3
 	mso-bidi-font-size:10.0pt;
 	font-family:$headerfont;
 	mso-font-kerning:14.0pt;
-  color:#000000;
+        color:#000000;
 	mso-fareast-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
 	mso-fareast-language:JA;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
+.h3Annex
+        {mso-style-priority:3;
+        mso-style-unhide:no;
+        mso-style-qformat:yes;
+        mso-style-parent:"Heading 1";
+        mso-style-link:"Heading 3 Char";
+        mso-style-next:Normal;
+        mso-margin-top-alt:auto;
+        margin-right:0in;
+        margin-bottom:12.0pt;
+        margin-left:0in;
+        text-align:left;
+        text-indent:0in;
+        mso-pagination:none;
+        page-break-after:avoid;
+        mso-outline-level:3;
+        mso-hyphenate:none;
+        tab-stops:.5in;
+        mso-layout-grid-align:none;
+        font-size:11.0pt;
+        mso-bidi-font-size:10.0pt;
+        font-family:$headerfont;
+        mso-font-kerning:14.0pt;
+        color:#000000;
+        mso-fareast-font-family:$headerfont;
+        mso-ansi-language:EN-GB;
+        mso-fareast-language:JA;
+        font-weight:bold;
+        mso-bidi-font-weight:normal;}
+
 h4
 	{mso-style-priority:4;
 	mso-style-unhide:no;
@@ -507,12 +537,42 @@ h4
 	mso-bidi-font-size:10.0pt;
 	mso-font-kerning:14.0pt;
 	font-family:$headerfont;
-  color:#000000;
+        color:#000000;
 	mso-fareast-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
 	mso-fareast-language:JA;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
+.h4Annex
+        {mso-style-priority:4;
+        mso-style-unhide:no;
+        mso-style-qformat:yes;
+        mso-style-parent:"Heading 3";
+        mso-style-link:"Heading 4 Char";
+        mso-style-next:Normal;
+        mso-margin-top-alt:auto;
+        margin-right:0in;
+        margin-bottom:12.0pt;
+        margin-left:.6in;
+        text-align:left;
+        text-indent:-.6in;
+        mso-pagination:widow-orphan;
+        page-break-after:avoid;
+        mso-outline-level:4;
+        mso-hyphenate:none;
+        tab-stops:list .6in left .75in;
+        mso-layout-grid-align:auto;
+        font-size:11.0pt;
+        mso-bidi-font-size:10.0pt;
+        mso-font-kerning:14.0pt;
+        font-family:$headerfont;
+        color:#000000;
+        mso-fareast-font-family:$headerfont;
+        mso-ansi-language:EN-GB;
+        mso-fareast-language:JA;
+        font-weight:bold;
+        mso-bidi-font-weight:normal;}
+
 h5
 	{mso-style-priority:5;
 	mso-style-unhide:no;
@@ -543,6 +603,37 @@ h5
 	mso-font-kerning:14.0pt;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
+.h5Annex
+        {mso-style-priority:5;
+        mso-style-unhide:no;
+        mso-style-qformat:yes;
+        mso-style-parent:"Heading 4";
+        mso-style-link:"Heading 5 Char";
+        mso-style-next:Normal;
+        mso-margin-top-alt:auto;
+        margin-right:0in;
+        margin-bottom:12.0pt;
+        margin-left:.7in;
+        text-align:left;
+        text-indent:-.7in;
+        mso-pagination:widow-orphan;
+        page-break-after:avoid;
+        mso-outline-level:5;
+        mso-list:l78 level5 lfo4;
+        mso-hyphenate:none;
+        tab-stops:list .7in left .75in;
+        mso-layout-grid-align:auto;
+        font-size:11.0pt;
+        mso-bidi-font-size:10.0pt;
+        font-family:$headerfont;
+        mso-fareast-font-family:$headerfont;
+        color:#000000;
+        mso-ansi-language:EN-GB;
+        mso-fareast-language:JA;
+        mso-font-kerning:14.0pt;
+        font-weight:bold;
+        mso-bidi-font-weight:normal;}
+
 h6
 	{mso-style-priority:6;
 	mso-style-unhide:no;
@@ -569,13 +660,46 @@ h6
 	mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt;
 	font-size:11.0pt;
 	mso-bidi-font-size:10.0pt;
-  color:white;
+        color:#000000;
 	font-weight:bold;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
 	mso-fareast-language:JA;
 	mso-bidi-font-weight:normal;}
+.h6Annex
+        {mso-style-priority:6;
+        mso-style-unhide:no;
+        mso-style-qformat:yes;
+        mso-style-parent:"Heading 5";
+        mso-style-link:"Heading 6 Char";
+        mso-style-next:Normal;
+        margin-top:0in;
+        margin-right:0in;
+        margin-bottom:12.0pt;
+        margin-left:116.1pt;
+        text-align:justify;
+        text-indent:-.8in;
+        mso-pagination:none;
+        page-break-after:avoid;
+        mso-outline-level:6;
+        mso-list:l78 level6 lfo4;
+        mso-hyphenate:none;
+        background:black;
+        mso-layout-grid-align:none;
+        border:none;
+        mso-border-alt:solid windowtext .5pt;
+        padding:0in;
+        mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt;
+        font-size:11.0pt;
+        mso-bidi-font-size:10.0pt;
+        color:#000000;
+        font-weight:bold;
+        font-family:$headerfont;
+        mso-fareast-font-family:$headerfont;
+        mso-ansi-language:EN-GB;
+        mso-fareast-language:JA;
+        mso-bidi-font-weight:normal;}
 
 p.TOCTitle, li.TOCTitle, div.TOCTitle
 	{mso-style-name:"TOC Title";

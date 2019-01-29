@@ -91,6 +91,24 @@ module IsoDoc
         end
       end
 
+            def bibliography(isoxml, out)
+        f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
+        page_break(out)
+        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
+          out.div do |div|
+            div.h1 **{ class: "Section3" } do |h1|
+              f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
+            end
+            f.elements.reject do |e|
+              ["reference", "title", "bibitem"].include? e.name
+            end.each { |e| parse(e, div) }
+            biblio_list(f, div, false)
+          end
+        end
+      end
+
+      # common from here on
+
       def abstract(isoxml, out)
         f = isoxml.at(ns("//preface/abstract")) || return
         page_break(out)
@@ -300,22 +318,6 @@ module IsoDoc
         bibliography isoxml, out
       end
 
-      def bibliography(isoxml, out)
-        f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
-        page_break(out)
-        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
-          out.div do |div|
-            div.h1 **{ class: "Section3" } do |h1|
-              f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
-            end
-            f.elements.reject do |e|
-              ["reference", "title", "bibitem"].include? e.name
-            end.each { |e| parse(e, div) }
-            biblio_list(f, div, false)
-          end
-        end
-      end
-
       def info(isoxml, out)
         @meta.keywords isoxml, out
         super
@@ -349,7 +351,6 @@ module IsoDoc
           reference_names(ref)
         end
       end
-
 
       def prefaceprefix(nodes)
         i = 0

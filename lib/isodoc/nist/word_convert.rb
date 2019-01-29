@@ -69,6 +69,7 @@ module IsoDoc
         term_cleanup(docxml)
         requirement_cleanup(docxml)
         h1_cleanup(docxml)
+        word_annex_cleanup(docxml) # need it earlier
         toc_insert(docxml)
       end
 
@@ -79,12 +80,62 @@ module IsoDoc
         end
       end
 
+      def word_annex_cleanup(docxml)
+        super
+        docxml.xpath("//h1[ancestor::*[@class = 'Section3']]").each do |h2|
+          h2.name = "p"
+          h2["class"] = "h1Annex"
+        end
+        docxml.xpath("//h3[ancestor::*[@class = 'Section3']]").each do |h2|
+          h2.name = "p"
+          h2["class"] = "h3Annex"
+        end
+        docxml.xpath("//h4[ancestor::*[@class = 'Section3']]").each do |h2|
+          h2.name = "p"
+          h2["class"] = "h4Annex"
+        end
+        docxml.xpath("//h5[ancestor::*[@class = 'Section3']]").each do |h2|
+          h2.name = "p"
+          h2["class"] = "h5Annex"
+        end
+        docxml.xpath("//h6[ancestor::*[@class = 'Section3']]").each do |h2|
+          h2.name = "p"
+          h2["class"] = "h6Annex"
+        end
+      end
+
       def toc_insert(docxml)
         insertion = docxml.at("//div[h1 = 'Executive Summary']/preceding-sibling::div[h1][1]") ||
           docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
+        if docxml.at("//p[@class = 'h1Annex']")
+          insertion.next = make_AppendixWordToC(docxml)
+          insertion.next = %{<p class="TOCTitle" style="page-break-before: always;">List of Appendices</p>}
+        end
         insertion.next = make_WordToC(docxml)
         insertion.next = %{<p class="TOCTitle" style="page-break-before: always;">Table of Contents</p>}
         docxml
+      end
+
+      WORD_TOC_APPENDIX_PREFACE1 = <<~TOC.freeze
+      <span lang="EN-GB"><span
+        style='mso-element:field-begin'></span><span
+        style='mso-spacerun:yes'>&#xA0;</span>TOC
+        \\h \\z \\t &quot;h1Annex,1,h2Annex,2,h3Annex,3&quot; <span
+        style='mso-element:field-separator'></span></span>
+      TOC
+
+      def header_strip(h)
+       h = h.to_s.gsub(/<\/?p[^>]*>/, "")
+       super
+      end
+
+      def make_AppendixWordToC(docxml)
+        toc = ""
+        docxml.xpath("//p[@class = 'h1Annex'] | //p[@class = 'h2Annex'] | p[@class = 'h3Annex']").each do |h|
+          toc += word_toc_entry(h["class"][1].to_i, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_APPENDIX_PREFACE1}}) +  WORD_TOC_SUFFIX1
       end
 
       def make_WordToC(docxml)
@@ -110,6 +161,22 @@ module IsoDoc
         super
         word_preface_cleanup(docxml)
         docxml
+      end
+
+      def bibliography(isoxml, out)
+        f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
+        page_break(out)
+        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
+          out.div do |div|
+            div.p **{ class: "h1Annex" } do |h1|
+              f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
+            end
+            f.elements.reject do |e|
+              ["reference", "title", "bibitem"].include? e.name
+            end.each { |e| parse(e, div) }
+            biblio_list(f, div, false)
+          end
+        end
       end
 
       # Henceforth identical to html
@@ -328,22 +395,6 @@ module IsoDoc
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
-      end
-
-      def bibliography(isoxml, out)
-        f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
-        page_break(out)
-        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
-          out.div do |div|
-            div.h1 **{ class: "Section3" } do |h1|
-              f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
-            end
-            f.elements.reject do |e|
-              ["reference", "title", "bibitem"].include? e.name
-            end.each { |e| parse(e, div) }
-            biblio_list(f, div, false)
-          end
-        end
       end
 
       def info(isoxml, out)
