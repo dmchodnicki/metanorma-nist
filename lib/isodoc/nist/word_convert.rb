@@ -15,14 +15,17 @@ module IsoDoc
 
             def convert1(docxml, filename, dir)
         FileUtils.cp html_doc_path("logo.png"), "#{@localdir}/logo.png"
-        FileUtils.cp html_doc_path("deptofcommerce.png"), "#{@localdir}/deptofcommerce.png"
+        FileUtils.cp html_doc_path("deptofcommerce.png"),
+          "#{@localdir}/deptofcommerce.png"
         super
       end
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Times New Roman",serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Arial",sans-serif'),
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' :
+                     '"Times New Roman",serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
+                       '"Arial",sans-serif'),
           monospacefont: '"Courier New",monospace'
         }
       end
@@ -105,14 +108,24 @@ module IsoDoc
       end
 
       def toc_insert(docxml)
-        insertion = docxml.at("//div[h1 = 'Executive Summary']/preceding-sibling::div[h1][1]") ||
-          docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
+        insertion = docxml.at("//div[h1 = 'Executive Summary']/"\
+                              "preceding-sibling::div[h1][1]") ||
+        docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
+        if docxml.at("//p[@class = 'TableTitle']")
+          insertion.next = make_TableWordToC(docxml)
+          insertion.next = %{<p class="TOCTitle">List of Tables</p>}
+        end
+        if docxml.at("//p[@class = 'FigureTitle']")
+          insertion.next = make_FigureWordToC(docxml)
+          insertion.next = %{<p class="TOCTitle">List of Figures</p>}
+        end
         if docxml.at("//p[@class = 'h1Annex']")
           insertion.next = make_AppendixWordToC(docxml)
-          insertion.next = %{<p class="TOCTitle" style="page-break-before: always;">List of Appendices</p>}
+          insertion.next = %{<p class="TOCTitle">List of Appendices</p>}
         end
         insertion.next = make_WordToC(docxml)
-        insertion.next = %{<p class="TOCTitle" style="page-break-before: always;">Table of Contents</p>}
+        insertion.next = %{<p class="TOCTitle" style="page-break-before:
+        always;">Table of Contents</p>}
         docxml
       end
 
@@ -124,14 +137,49 @@ module IsoDoc
         style='mso-element:field-separator'></span></span>
       TOC
 
+      WORD_TOC_TABLE_PREFACE1 = <<~TOC.freeze
+      <span lang="EN-GB"><span
+        style='mso-element:field-begin'></span><span
+        style='mso-spacerun:yes'>&#xA0;</span>TOC
+        \\h \\z \\t &quot;TableTitle,1&quot; <span
+        style='mso-element:field-separator'></span></span>
+      TOC
+
+      WORD_TOC_FIGURE_PREFACE1 = <<~TOC.freeze
+      <span lang="EN-GB"><span
+        style='mso-element:field-begin'></span><span
+        style='mso-spacerun:yes'>&#xA0;</span>TOC
+        \\h \\z \\t &quot;FigureTitle,1&quot; <span
+        style='mso-element:field-separator'></span></span>
+      TOC
+
       def header_strip(h)
-       h = h.to_s.gsub(/<\/?p[^>]*>/, "")
-       super
+        h = h.to_s.gsub(/<\/?p[^>]*>/, "")
+        super
+      end
+
+      def make_TableWordToC(docxml)
+        toc = ""
+        docxml.xpath("//p[@class = 'TableTitle']").each do |h|
+          toc += word_toc_entry(1, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) +  WORD_TOC_SUFFIX1
+      end
+
+      def make_FigureWordToC(docxml)
+        toc = ""
+        docxml.xpath("//p[@class = 'FigureTitle']").each do |h|
+          toc += word_toc_entry(1, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) +  WORD_TOC_SUFFIX1
       end
 
       def make_AppendixWordToC(docxml)
         toc = ""
-        docxml.xpath("//p[@class = 'h1Annex'] | //p[@class = 'h2Annex'] | p[@class = 'h3Annex']").each do |h|
+        docxml.xpath("//p[@class = 'h1Annex'] | //p[@class = 'h2Annex'] | "\
+                     "p[@class = 'h3Annex']").each do |h|
           toc += word_toc_entry(h["class"][1].to_i, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
@@ -151,7 +199,8 @@ module IsoDoc
       end
 
       def word_preface_cleanup(docxml)
-        docxml.xpath("//h1[@class = 'AbstractTitle'] | //h1[@class = 'IntroTitle']").each do |h2|
+        docxml.xpath("//h1[@class = 'AbstractTitle'] | "\
+                     "//h1[@class = 'IntroTitle']").each do |h2|
           h2.name = "p"
           h2["class"] = "h1Preface"
         end
@@ -164,9 +213,11 @@ module IsoDoc
       end
 
       def bibliography(isoxml, out)
-        f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
+        f = isoxml.at(ns("//bibliography/clause | "\
+                         "//bibliography/references")) || return
         page_break(out)
-        isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
+        isoxml.xpath(ns("//bibliography/clause | "\
+                        "//bibliography/references")).each do |f|
           out.div do |div|
             div.p **{ class: "h1Annex" } do |h1|
               f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
@@ -198,9 +249,11 @@ module IsoDoc
         end
       end
 
-      FRONT_CLAUSE = "//*[parent::preface][not(local-name() = 'abstract')]".freeze
+      FRONT_CLAUSE = "//*[parent::preface]"\
+        "[not(local-name() = 'abstract')]".freeze
 
-      # All "[preface]" sections should have class "IntroTitle" to prevent page breaks
+      # All "[preface]" sections should have class "IntroTitle" to prevent 
+      # page breaks
       # But for the Exec Summary
       def preface(isoxml, out)
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
@@ -209,7 +262,8 @@ module IsoDoc
           out.div **attr_code(id: c["id"]) do |s|
             clause_name(get_anchors[c['id']][:label],
                         c&.at(ns("./title"))&.content, s, 
-                        class: c.name == "executivesummary" ? "NormalTitle" : "IntroTitle")
+                        class: c.name == "executivesummary" ? "NormalTitle" :
+                        "IntroTitle")
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)
             end
@@ -322,7 +376,8 @@ module IsoDoc
       def recommendation_parse(node, out)
         name = node["type"]
         out.div **{ class: "recommend" } do |t|
-          t.title { |b| b << "Recommendation #{get_anchors[node['id']][:label]}:" }
+          t.title { |b| b << "Recommendation "\
+                    "#{get_anchors[node['id']][:label]}:" }
           node.children.each do |n|
             parse(n, t)
           end
@@ -387,7 +442,8 @@ module IsoDoc
         end
       end
 
-      MIDDLE_CLAUSE = "//clause[parent::sections]|//terms[parent::sections]".freeze
+      MIDDLE_CLAUSE = "//clause[parent::sections] | "\
+        "//terms[parent::sections]".freeze
 
       def middle(isoxml, out)
         # NIST documents don't repeat the title
@@ -403,8 +459,8 @@ module IsoDoc
       end
 
       SECTIONS_XPATH =
-        "//foreword | //introduction | //reviewnote | //executivesummary | //annex | "\
-        "//sections/clause | //bibliography/references | "\
+        "//foreword | //introduction | //reviewnote | //executivesummary | "\
+        "//annex | //sections/clause | //bibliography/references | "\
         "//bibliography/clause".freeze
 
       def initial_anchor_names(d)
@@ -482,8 +538,8 @@ module IsoDoc
       def hierarchical_recommendation_names(clause, num)
         clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
-                                            t, "Recommendation", "recommendation")
+          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}", t, 
+                                            "Recommendation", "recommendation")
         end
       end
 
@@ -495,7 +551,8 @@ module IsoDoc
       end
 
       def get_linkend(node)
-        link = anchor_linkend(node, docid_l10n(node["target"] || "[#{node['citeas']}]"))
+        link = anchor_linkend(node, docid_l10n(node["target"] || 
+                                               "[#{node['citeas']}]"))
         link += eref_localities(node.xpath(ns("./locality")), link)
         contents = node.children.select { |c| c.name != "locality" }
         return link if contents.nil? || contents.empty?
