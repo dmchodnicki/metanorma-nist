@@ -6,15 +6,15 @@ RSpec.describe Asciidoctor::NIST do
     expect(Metanorma::NIST::VERSION).not_to be nil
   end
 
-  it "generates output for the Rice document" do
-    FileUtils.rm_f %w(spec/examples/rfc6350.doc spec/examples/rfc6350.html spec/examples/rfc6350.pdf)
-    FileUtils.cd "spec/examples"
-    Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"nist"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-nist"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
-    FileUtils.cd "../.."
-    expect(File.exist?("spec/examples/rfc6350.doc")).to be true
-    expect(File.exist?("spec/examples/rfc6350.html")).to be true
-    expect(File.exist?("spec/examples/rfc6350.pdf")).to be true
-  end
+  #it "generates output for the Rice document" do
+  #  FileUtils.rm_f %w(spec/examples/rfc6350.doc spec/examples/rfc6350.html spec/examples/rfc6350.pdf)
+  #  FileUtils.cd "spec/examples"
+  #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"nist"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-nist"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
+  #  FileUtils.cd "../.."
+  #  expect(File.exist?("spec/examples/rfc6350.doc")).to be true
+  #  expect(File.exist?("spec/examples/rfc6350.html")).to be true
+  #  expect(File.exist?("spec/examples/rfc6350.pdf")).to be true
+  #end
 
   it "processes a blank document" do
     input = <<~"INPUT"
