@@ -219,7 +219,8 @@ module IsoDoc
         isoxml.xpath(ns("//bibliography/clause | "\
                         "//bibliography/references")).each do |f|
           out.div do |div|
-            div.p **{ class: "h1Annex" } do |h1|
+            #div.p **{ class: "h1Annex" } do |h1|
+            div.h1 do |h1|
               f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
             end
             f.elements.reject do |e|
@@ -243,7 +244,8 @@ module IsoDoc
       def keywords(_docxml, out)
         kw = @meta.get[:keywords]
         kw.empty? and return
-        out.div **{ class: "Section3" } do |div|
+        #out.div **{ class: "Section3" } do |div|
+        out.div do |div|
           clause_name(nil, "Keywords", div,  class: "IntroTitle")
           div.p kw.sort.join("; ")
         end
@@ -449,8 +451,8 @@ module IsoDoc
         # NIST documents don't repeat the title
         # middle_title(out)
         clause isoxml, out
-        annex isoxml, out
         bibliography isoxml, out
+        annex isoxml, out
       end
 
       def info(isoxml, out)

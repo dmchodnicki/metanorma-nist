@@ -295,8 +295,8 @@ module IsoDoc
       def middle(isoxml, out)
         middle_title(out)
         clause isoxml, out
-        annex isoxml, out
         bibliography isoxml, out
+        annex isoxml, out
       end
 
       def bibliography(isoxml, out)

@@ -91,7 +91,7 @@ module IsoDoc
         end
       end
 
-            def bibliography(isoxml, out)
+      def bibliography(isoxml, out)
         f = isoxml.at(ns("//bibliography/clause | //bibliography/references")) || return
         page_break(out)
         isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
@@ -314,8 +314,8 @@ module IsoDoc
       def middle(isoxml, out)
         middle_title(out)
         clause isoxml, out
-        annex isoxml, out
         bibliography isoxml, out
+        annex isoxml, out
       end
 
       def info(isoxml, out)
