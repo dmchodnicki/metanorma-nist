@@ -261,10 +261,12 @@ module IsoDoc
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
           foreword(isoxml, out) and next if c.name == "foreword"
           next if skip_render(c, isoxml)
+          title = c&.at(ns("./title"))
+          patent = ["Call for Patent Claims", "Patent Disclosure Notice"].include? title&.text
           out.div **attr_code(id: c["id"]) do |s|
-            clause_name(get_anchors[c['id']][:label],
-                        c&.at(ns("./title"))&.content, s, 
-                        class: c.name == "executivesummary" ? "NormalTitle" :
+            page_break(s) if patent
+            clause_name(get_anchors[c['id']][:label], title&.content, s, 
+                        class: (c.name == "executivesummary") ? "NormalTitle" :
                         "IntroTitle")
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
               parse(c1, s)

@@ -27,8 +27,8 @@ module Asciidoctor
       def pseudocode_example(node)
         noko do |xml|
           xml.figure **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node), 
-                         type: "pseudocode"} do |ex|
-                        figure_title(node, ex)
+                        type: "pseudocode"} do |ex|
+            figure_title(node, ex)
             wrap_in_para(node, ex)
           end
         end.join("\n")
@@ -88,15 +88,15 @@ module Asciidoctor
         end
       end
 
-            def dlist(node)
-              return glossary(node) if node.attr("style") == "glossary"
-              super
-            end
+      def dlist(node)
+        return glossary(node) if node.attr("style") == "glossary"
+        super
+      end
 
-            def glossary(node)
+      def glossary(node)
         noko do |xml|
           xml.dl **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node),
-                         type: "glossary"} do |xml_dl|
+                    type: "glossary"} do |xml_dl|
             node.items.each do |terms, dd|
               dt(terms, xml_dl)
               dd(dd, xml_dl)
@@ -156,6 +156,12 @@ module Asciidoctor
         d
       end
 
+      def init(node)
+        @callforpatentclaims = node.attr("call-for-patent-claims")
+        @commitmenttolicence = node.attr("commitment-to-licence")
+        super
+      end
+
       def document(node)
         init(node)
         ret1 = makexml(node)
@@ -198,10 +204,66 @@ module Asciidoctor
           c.name = "executivesummary" if c&.at("./title")&.text.downcase == "executive summary"
           preface.add_child c.remove
         end
+        callforpatentclaims(x, preface)
+      end
+
+      CALL_FOR_PATENT_CLAIMS = <<~END
+      <clause><title>Call for Patent Claims</title>
+      <p>This public review includes a call for information on essential patent claims (claims whose use would be required for compliance with the guidance or requirements in this Information Technology Laboratory (ITL) draft publication). Such guidance and/or requirements may be directly stated in this ITL Publication or by reference to another publication. This call also includes disclosure, where known, of the existence of pending U.S. or foreign patent applications relating to this ITL draft publication and of any relevant unexpired U.S. or foreign patents.</p>
+
+<p>ITL may require from the patent holder, or a party authorized to make assurances on its behalf, in written or electronic form, either:</p>
+
+<ol><li><p>assurance in the form of a general disclaimer to the effect that such party does not hold and does not currently intend holding any essential patent claim(s); or</p></li>
+
+<li><p>assurance that a license to such essential patent claim(s) will be made available to applicants desiring to utilize the license for the purpose of complying with the guidance or requirements in this ITL draft publication either:</p>
+
+	<ol><li><p>under reasonable terms and conditions that are demonstrably free of any unfair discrimination; or</p></li>
+
+        <li><p>without compensation and under reasonable terms and conditions that are demonstrably free of any unfair discrimination.</p></li></ol>
+</li></ol>
+
+<p>Such assurance shall indicate that the patent holder (or third party authorized to make assurances on its behalf) will include in any documents transferring ownership of patents subject to the assurance, provisions sufficient to ensure that the commitments in the assurance are binding on the transferee, and that the transferee will similarly include appropriate provisions in the event of future transfers with the goal of binding each successor-in-interest.</p>
+
+<p>The assurance shall also indicate that it is intended to be binding on successors-in-interest regardless of whether such provisions are included in the relevant transfer documents.</p>
+
+<p>Such statements should be addressed to: ITL-POINT-OF_CONTACT.</p>
+</clause>
+      END
+
+      PATENT_DISCLOSURE_NOTICE1 = <<~END
+            <clause><title>Patent Disclosure Notice</title>
+      <p>NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
+<p>Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
+<p>By publication, no position is taken by ITL with respect to the validity or scope of any patent claim or of any rights in connection therewith. The known patent holder(s) has (have), however, provided to NIST a letter of assurance stating either (1) a general disclaimer to the effect that it does (they do) not hold and does (do) not currently intend holding any essential patent claim(s), or (2) that it (they) will negotiate royalty-free or royalty-bearing licenses with other parties on a demonstrably nondiscriminatory basis with reasonable terms and conditions. </p>
+<p>Details may be obtained from ITL-POINT-OF_CONTACT. </p>
+<p>No representation is made or implied that this is the only license that may be required to avoid patent infringement in the use of this publication. </p>
+</clause>
+      END
+
+      PATENT_DISCLOSURE_NOTICE2 = <<~END
+            <clause><title>Patent Disclosure Notice</title>
+      <p>NOTICE: ITL has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication.</p>
+<p>As of the date of publication and following call(s) for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, no such patent claims have been identified to ITL.</p>
+<p>No representation is made or implied by ITL that licenses are not required to avoid patent infringement in the use of this publication.</p>
+</clause>
+      END
+
+      def callforpatentclaims(x, preface)
+        if @callforpatentclaims
+          docemail = x&.at("//uri[@type = 'email']")&.text || "???"
+          docnumber = x&.at("//docnumber")&.text || "???"
+          status = x&.at("//bibdata/status")&.text 
+          published = status.nil? || status == "published"
+          patent = !published ? CALL_FOR_PATENT_CLAIMS : 
+            (@commitmenttolicence ? PATENT_DISCLOSURE_NOTICE1 : PATENT_DISCLOSURE_NOTICE2)
+          patent.gsub!(/ITL-POINT-OF_CONTACT/, published ? docemail :
+                     "#{docemail}, with the Subject: #{docnumber} Call for Patent Claims")
+          preface.add_child patent
+        end
       end
 
       def make_preface(x, s)
-        if x.at("//foreword | //introduction | //abstract | //preface")
+        if x.at("//foreword | //introduction | //abstract | //preface") || @callforpatentclaims
           preface = s.add_previous_sibling("<preface/>").first
           move_sections_into_preface(x, preface)
           summ = x.at("//executivesummary") and preface.add_child summ.remove
@@ -255,6 +317,7 @@ module Asciidoctor
           end
         end.join("\n")
       end
+
       def html_converter(node)
         IsoDoc::NIST::HtmlConvert.new(html_extract_attributes(node))
       end

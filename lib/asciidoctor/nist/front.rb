@@ -62,7 +62,8 @@ module Asciidoctor
       end
 
       def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || node.attr("copyrightyear") || Date.today.year
+        from = node.attr("copyright-year") || node.attr("copyrightyear") ||
+          Date.today.year
         xml.copyright do |c|
           c.from from
           c.owner do |owner|

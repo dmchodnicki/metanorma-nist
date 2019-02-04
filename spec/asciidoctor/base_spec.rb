@@ -49,6 +49,210 @@ RSpec.describe Asciidoctor::NIST do
     expect(File.exist?("test.html")).to be true
   end
 
+    it "includes Patent Disclosure Notice" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :call-for-patent-claims:
+      :doc-email: x@example.com
+      :docnumber: ABC
+      :novalid:
+    INPUT
+
+    output = <<~"OUTPUT"
+        <nist-standard xmlns="http://www.nist.gov/metanorma">
+<bibdata type="standard">
+  <title language="en" format="text/plain">Document title</title>
+  <uri type="email">x@example.com</uri>
+  <docidentifier type="nist">NIST ABC</docidentifier>
+  <docnumber>ABC</docnumber>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>NIST</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>NIST</name>
+    </organization>
+  </contributor>
+
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">published</status>
+  <copyright>
+    <from>2019</from>
+    <owner>
+      <organization>
+        <name>NIST</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+</bibdata>
+
+       <preface>            <clause obligation="normative"><title>Patent Disclosure Notice</title>
+             <p id="_">NOTICE: ITL has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication.</p>
+       <p id="_">As of the date of publication and following call(s) for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, no such patent claims have been identified to ITL.</p>
+       <p id="_">No representation is made or implied by ITL that licenses are not required to avoid patent infringement in the use of this publication.</p>
+       </clause>
+       </preface><sections/>
+       </nist-standard>
+
+    OUTPUT
+
+    FileUtils.rm_f "test.html"
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(File.exist?("test.html")).to be true
+  end
+
+        it "includes Patent Disclosure Notice when notice and commitment to license have been received by ITL" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :call-for-patent-claims:
+      :commitment-to-licence:
+      :doc-email: x@example.com
+      :docnumber: ABC
+      :novalid:
+    INPUT
+
+    output = <<~"OUTPUT"
+        <nist-standard xmlns="http://www.nist.gov/metanorma">
+<bibdata type="standard">
+  <title language="en" format="text/plain">Document title</title>
+  <uri type="email">x@example.com</uri>
+  <docidentifier type="nist">NIST ABC</docidentifier>
+  <docnumber>ABC</docnumber>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>NIST</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>NIST</name>
+    </organization>
+  </contributor>
+
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">published</status>
+  <copyright>
+    <from>2019</from>
+    <owner>
+      <organization>
+        <name>NIST</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+</bibdata>
+
+<preface>            <clause obligation="normative"><title>Patent Disclosure Notice</title>
+             <p id="_">NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
+       <p id="_">Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
+       <p id="_">By publication, no position is taken by ITL with respect to the validity or scope of any patent claim or of any rights in connection therewith. The known patent holder(s) has (have), however, provided to NIST a letter of assurance stating either (1) a general disclaimer to the effect that it does (they do) not hold and does (do) not currently intend holding any essential patent claim(s), or (2) that it (they) will negotiate royalty-free or royalty-bearing licenses with other parties on a demonstrably nondiscriminatory basis with reasonable terms and conditions. </p>
+       <p id="_">Details may be obtained from x@example.com. </p>
+       <p id="_">No representation is made or implied that this is the only license that may be required to avoid patent infringement in the use of this publication. </p>
+       </clause>
+       </preface><sections/>
+       </nist-standard>
+
+    OUTPUT
+
+    FileUtils.rm_f "test.html"
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(File.exist?("test.html")).to be true
+  end
+
+    it "includes Call for Patent Claims" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :call-for-patent-claims:
+      :status: draft
+      :doc-email: x@example.com
+      :docnumber: ABC
+      :novalid:
+    INPUT
+
+    output = <<~"OUTPUT"
+    <nist-standard xmlns="http://www.nist.gov/metanorma">
+<bibdata type="standard"> 
+  <title language="en" format="text/plain">Document title</title> 
+  <uri type="email">x@example.com</uri> 
+  <docidentifier type="nist">NIST ABC</docidentifier> 
+  <docnumber>ABC</docnumber> 
+  <contributor> 
+    <role type="author"/> 
+    <organization> 
+      <name>NIST</name> 
+    </organization> 
+  </contributor> 
+  <contributor> 
+    <role type="publisher"/> 
+    <organization> 
+      <name>NIST</name> 
+    </organization> 
+  </contributor> 
+   
+  <language>en</language> 
+  <script>Latn</script> 
+  <status format="plain">draft</status> 
+  <copyright> 
+    <from>2019</from> 
+    <owner> 
+      <organization> 
+        <name>NIST</name> 
+      </organization> 
+    </owner> 
+  </copyright> 
+  <editorialgroup> 
+    <committee/> 
+  </editorialgroup> 
+</bibdata>
+           <preface>      <clause obligation="normative"><title>Call for Patent Claims</title>
+             <p id="_">This public review includes a call for information on essential patent claims (claims whose use would be required for compliance with the guidance or requirements in this Information Technology Laboratory (ITL) draft publication). Such guidance and/or requirements may be directly stated in this ITL Publication or by reference to another publication. This call also includes disclosure, where known, of the existence of pending U.S. or foreign patent applications relating to this ITL draft publication and of any relevant unexpired U.S. or foreign patents.</p>
+
+       <p id="_">ITL may require from the patent holder, or a party authorized to make assurances on its behalf, in written or electronic form, either:</p>
+
+       <ol><li><p id="_">assurance in the form of a general disclaimer to the effect that such party does not hold and does not currently intend holding any essential patent claim(s); or</p></li>
+
+       <li><p id="_">assurance that a license to such essential patent claim(s) will be made available to applicants desiring to utilize the license for the purpose of complying with the guidance or requirements in this ITL draft publication either:</p>
+
+       	<ol><li><p id="_">under reasonable terms and conditions that are demonstrably free of any unfair discrimination; or</p></li>
+
+               <li><p id="_">without compensation and under reasonable terms and conditions that are demonstrably free of any unfair discrimination.</p></li></ol>
+       </li></ol>
+
+       <p id="_">Such assurance shall indicate that the patent holder (or third party authorized to make assurances on its behalf) will include in any documents transferring ownership of patents subject to the assurance, provisions sufficient to ensure that the commitments in the assurance are binding on the transferee, and that the transferee will similarly include appropriate provisions in the event of future transfers with the goal of binding each successor-in-interest.</p>
+
+       <p id="_">The assurance shall also indicate that it is intended to be binding on successors-in-interest regardless of whether such provisions are included in the relevant transfer documents.</p>
+
+       <p id="_">Such statements should be addressed to: x@example.com, with the Subject: ABC Call for Patent Claims.</p>
+       </clause>
+       </preface><sections/>
+       </nist-standard>
+    OUTPUT
+
+    FileUtils.rm_f "test.html"
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(File.exist?("test.html")).to be true
+  end
+
+
   it "processes default metadata" do
     input = <<~"INPUT"
       = Document title

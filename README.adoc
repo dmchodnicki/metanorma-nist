@@ -124,13 +124,13 @@ Where these preexisting metanorma attributes correspond to attributes already us
 by NIST in their Asciidoctor template, they are treated as synonyms of the Metanorma
 attributes.
 
-The attributes relevant to OGC documents include:
+The attributes relevant to NIST documents include:
 
 `:edition:`:: The document version; e.g. `2.0`.
 
 `:revdate:`:: The date the document was last updated.
 
-`:copyright-year:`: The year which will be claimed as when the copyright for
+`:copyright-year:`:: The year which will be claimed as when the copyright for
 the document was issued.
 
 `:title:`:: The main component of the English title of the document
@@ -202,6 +202,12 @@ The following document attributes are specific to this document class:
 `:keywords:`:: Comma-delimited list of the keywords associated with the document.
 
 `:doc-email:`:: Email contact for document
+
+`:call-for-patent-claims:`:: Include the Call for Patent Claims in document drafts, 
+and the Patent Disclosure Notice in finalised documents.
+
+`:commitment-to-licence:`:: Indicate in the Patent Disclosure Notice that
+notice and commitment to license have been received.
 
 == Asciidoctor features specific to NIST
 
