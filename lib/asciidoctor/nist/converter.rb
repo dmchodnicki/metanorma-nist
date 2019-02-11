@@ -318,6 +318,17 @@ module Asciidoctor
         end.join("\n")
       end
 
+      def section_validate(doc)
+        super
+        f = doc.xpath("//references[not(parent::clause)]/title | //clause[descendant::references][not(parent::clause)]/title")
+        names = f.map { |s| s&.text }
+        return if names.empty?
+        return if names == ["References"]
+        return if names == ["Bibliography"]
+        return if names == ["References", "Bibliography"]
+        warn "Reference clauses #{names.join(', ')} do not follow expected pattern in NIST"
+      end
+
       def html_converter(node)
         IsoDoc::NIST::HtmlConvert.new(html_extract_attributes(node))
       end
