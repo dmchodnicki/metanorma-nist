@@ -111,6 +111,73 @@ RSpec.describe Asciidoctor::NIST do
     expect(File.exist?("test.html")).to be true
   end
 
+  it "includes Patent Disclosure Notice with specific patent contact" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :call-for-patent-claims:
+      :commitment-to-licence:
+      :doc-email: x@example.com
+      :docnumber: ABC
+      :patent-contact: The Patent Office, NIST, (1) 555 6666
+      :novalid:
+    INPUT
+
+    output = <<~"OUTPUT"
+        <nist-standard xmlns="http://www.nist.gov/metanorma">
+<bibdata type="standard">
+  <title language="en" format="text/plain">Document title</title>
+  <uri type="email">x@example.com</uri>
+  <docidentifier type="nist">NIST ABC</docidentifier>
+  <docnumber>ABC</docnumber>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>NIST</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>NIST</name>
+    </organization>
+  </contributor>
+
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">published</status>
+  <copyright>
+    <from>2019</from>
+    <owner>
+      <organization>
+        <name>NIST</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+</bibdata>
+
+<preface>            <clause obligation="normative"><title>Patent Disclosure Notice</title>
+             <p id="_">NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
+       <p id="_">Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
+       <p id="_">By publication, no position is taken by ITL with respect to the validity or scope of any patent claim or of any rights in connection therewith. The known patent holder(s) has (have), however, provided to NIST a letter of assurance stating either (1) a general disclaimer to the effect that it does (they do) not hold and does (do) not currently intend holding any essential patent claim(s), or (2) that it (they) will negotiate royalty-free or royalty-bearing licenses with other parties on a demonstrably nondiscriminatory basis with reasonable terms and conditions. </p>
+       <p id="_">Details may be obtained from The Patent Office, NIST, (1) 555 6666. </p>
+       <p id="_">No representation is made or implied that this is the only license that may be required to avoid patent infringement in the use of this publication. </p>
+       </clause>
+       </preface><sections/>
+       </nist-standard>
+
+    OUTPUT
+
+    FileUtils.rm_f "test.html"
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(File.exist?("test.html")).to be true
+  end
+
+
         it "includes Patent Disclosure Notice when notice and commitment to license have been received by ITL" do
     input = <<~"INPUT"
       = Document title

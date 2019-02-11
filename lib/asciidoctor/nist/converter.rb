@@ -159,6 +159,7 @@ module Asciidoctor
       def init(node)
         @callforpatentclaims = node.attr("call-for-patent-claims")
         @commitmenttolicence = node.attr("commitment-to-licence")
+        @patentcontact = node.attr("patent-contact")
         super
       end
 
@@ -207,7 +208,7 @@ module Asciidoctor
         callforpatentclaims(x, preface)
       end
 
-      CALL_FOR_PATENT_CLAIMS = <<~END
+      CALL_FOR_PATENT_CLAIMS = <<~END.freeze
       <clause><title>Call for Patent Claims</title>
       <p>This public review includes a call for information on essential patent claims (claims whose use would be required for compliance with the guidance or requirements in this Information Technology Laboratory (ITL) draft publication). Such guidance and/or requirements may be directly stated in this ITL Publication or by reference to another publication. This call also includes disclosure, where known, of the existence of pending U.S. or foreign patent applications relating to this ITL draft publication and of any relevant unexpired U.S. or foreign patents.</p>
 
@@ -230,7 +231,7 @@ module Asciidoctor
 </clause>
       END
 
-      PATENT_DISCLOSURE_NOTICE1 = <<~END
+      PATENT_DISCLOSURE_NOTICE1 = <<~END.freeze
             <clause><title>Patent Disclosure Notice</title>
       <p>NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
 <p>Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
@@ -240,7 +241,7 @@ module Asciidoctor
 </clause>
       END
 
-      PATENT_DISCLOSURE_NOTICE2 = <<~END
+      PATENT_DISCLOSURE_NOTICE2 = <<~END.freeze
             <clause><title>Patent Disclosure Notice</title>
       <p>NOTICE: ITL has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication.</p>
 <p>As of the date of publication and following call(s) for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, no such patent claims have been identified to ITL.</p>
@@ -254,16 +255,24 @@ module Asciidoctor
           docnumber = x&.at("//docnumber")&.text || "???"
           status = x&.at("//bibdata/status")&.text 
           published = status.nil? || status == "published"
-          patent = !published ? CALL_FOR_PATENT_CLAIMS : 
-            (@commitmenttolicence ? PATENT_DISCLOSURE_NOTICE1 : PATENT_DISCLOSURE_NOTICE2)
-          patent.gsub!(/ITL-POINT-OF_CONTACT/, published ? docemail :
-                     "#{docemail}, with the Subject: #{docnumber} Call for Patent Claims")
-          preface.add_child patent
+          preface.add_child patent_text(published, docemail, docnumber)
         end
       end
 
+      def patent_text(published, docemail, docnumber)
+        patent = (!published ? CALL_FOR_PATENT_CLAIMS :
+                  (@commitmenttolicence ? PATENT_DISCLOSURE_NOTICE1 :
+                   PATENT_DISCLOSURE_NOTICE2)).clone
+        patent.gsub(/ITL-POINT-OF_CONTACT/, published ?
+                    (@patentcontact || docemail) :
+                    (@patentcontact ||
+                     "#{docemail}, with the Subject: #{docnumber} "\
+                     "Call for Patent Claims"))
+      end
+
       def make_preface(x, s)
-        if x.at("//foreword | //introduction | //abstract | //preface") || @callforpatentclaims
+        if x.at("//foreword | //introduction | //abstract | //preface") ||
+            @callforpatentclaims
           preface = s.add_previous_sibling("<preface/>").first
           move_sections_into_preface(x, preface)
           summ = x.at("//executivesummary") and preface.add_child summ.remove

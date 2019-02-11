@@ -209,6 +209,9 @@ and the Patent Disclosure Notice in finalised documents.
 `:commitment-to-licence:`:: Indicate in the Patent Disclosure Notice that
 notice and commitment to license have been received.
 
+`:patent-contact:`:: Contact for the Call for Patent Claims or Patent Disclosure Notice.
+If not supplied, `:doc-email:` is used.
+
 == Asciidoctor features specific to NIST
 
 The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
