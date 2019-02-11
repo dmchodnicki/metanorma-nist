@@ -168,7 +168,7 @@ RSpec.describe IsoDoc::NIST do
        </ol>
        </li>
        </ol>
-       <p class="FigureTitle" align="center">Figure PR0-1&#160;&#8212; First figure</p>
+       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; First figure</p>
        </div>
        </div>
              <p class="zzSTDTitle1"/>
@@ -198,7 +198,7 @@ RSpec.describe IsoDoc::NIST do
                           <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
-               <p id="_" class="Sourcecode">&lt;xccdf:check system="<span class="nistvariable">http://oval.mitre.org/XMLSchema/oval-definitions-5</span>"&gt;</p>
+               <pre id="_" class="prettyprint ">&lt;xccdf:check system="<span class="nistvariable">http://oval.mitre.org/XMLSchema/oval-definitions-5</span>"&gt;</pre>
        </div>
              <p class="zzSTDTitle1"/>
            </div>
