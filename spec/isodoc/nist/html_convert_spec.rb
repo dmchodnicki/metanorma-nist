@@ -635,11 +635,11 @@ INPUT
     <div id="fwd">
     <h1 class="ForewordTitle">Foreword</h1>
     <p>
-    <a href="#N1">Introduction, Recommendation PR1.1</a>
-    <a href="#N2">Preparatory, Recommendation PR1.2</a>
-    <a href="#N">Section 1, Recommendation 1.1</a>
-    <a href="#note1">Section 3.1, Recommendation 3.1</a>
-    <a href="#note2">Section 3.1, Recommendation 3.2</a>
+    <a href="#N1">Introduction, Recommendation 1</a>
+    <a href="#N2">Preparatory, Recommendation 2</a>
+    <a href="#N">Section 1, Recommendation 3</a>
+    <a href="#note1">Section 3.1, Recommendation 4</a>
+    <a href="#note2">Section 3.1, Recommendation 5</a>
     <a href="#AN">Appendix A.1, Recommendation A.1</a>
     <a href="#Anote1">Appendix A.2, Recommendation A.2</a>
     <a href="#Anote2">Appendix A.2, Recommendation A.3</a>
@@ -647,11 +647,11 @@ INPUT
     </div>
     <div id="intro">
     <h1/>
-    <div class="recommend"><title>Recommendation PR1.1:</title>
+    <div class="recommend"><title>Recommendation 1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="recommend"><title>Recommendation PR1.2:</title>
+               <div class="recommend"><title>Recommendation 2:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
@@ -659,11 +659,11 @@ INPUT
              <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="recommend"><title>Recommendation 1.1:</title>
+               <div class="recommend"><title>Recommendation 3:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
-                 <a href="#N">Recommendation 1.1</a>
+                 <a href="#N">Recommendation 3</a>
     </p>
     </div>
     <div id="widgets">
@@ -672,13 +672,13 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="recommend"><title>Recommendation 3.1:</title>
+    <div class="recommend"><title>Recommendation 4:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><title>Recommendation 3.2:</title>
+    <div class="recommend"><title>Recommendation 5:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
-         <p>    <a href="#note1">Recommendation 3.1</a> <a href="#note2">Recommendation 3.2</a> </p>
+         <p>    <a href="#note1">Recommendation 4</a> <a href="#note2">Recommendation 5</a> </p>
     </div>
     </div>
     <br/>
@@ -793,11 +793,11 @@ INPUT
     <div id="fwd">
     <h1 class="ForewordTitle">Foreword</h1>
     <p>
-    <a href="#N1">Introduction, Requirement PR1.1</a>
-    <a href="#N2">Preparatory, Requirement PR1.2</a>
-    <a href="#N">Section 1, Requirement 1.1</a>
-    <a href="#note1">Section 3.1, Requirement 3.1</a>
-    <a href="#note2">Section 3.1, Requirement 3.2</a>
+    <a href="#N1">Introduction, Requirement 1</a>
+    <a href="#N2">Preparatory, Requirement 2</a>
+    <a href="#N">Section 1, Requirement 3</a>
+    <a href="#note1">Section 3.1, Requirement 4</a>
+    <a href="#note2">Section 3.1, Requirement 5</a>
     <a href="#AN">Appendix A.1, Requirement A.1</a>
     <a href="#Anote1">Appendix A.2, Requirement A.2</a>
     <a href="#Anote2">Appendix A.2, Requirement A.3</a>
@@ -805,11 +805,11 @@ INPUT
     </div>
     <div id="intro">
     <h1/>
-    <div class="require"><title>Requirement PR1.1:</title>
+    <div class="require"><title>Requirement 1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="require"><title>Requirement PR1.2:</title>
+               <div class="require"><title>Requirement 2:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
@@ -817,11 +817,11 @@ INPUT
              <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="require"><title>Requirement 1.1:</title>
+               <div class="require"><title>Requirement 3:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
-                 <a href="#N">Requirement 1.1</a>
+                 <a href="#N">Requirement 3</a>
     </p>
     </div>
     <div id="widgets">
@@ -830,13 +830,13 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="require"><title>Requirement 3.1:</title>
+    <div class="require"><title>Requirement 4:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="require"><title>Requirement 3.2:</title>
+    <div class="require"><title>Requirement 5:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
-         <p>    <a href="#note1">Requirement 3.1</a> <a href="#note2">Requirement 3.2</a> </p>
+         <p>    <a href="#note1">Requirement 4</a> <a href="#note2">Requirement 5</a> </p>
     </div>
     </div>
     <br/>
@@ -859,27 +859,6 @@ INPUT
     </body>
     </html>
     OUTPUT
-  end
-
-  it "injects JS into blank html" do
-    system "rm -f test.html"
-    input = <<~"INPUT"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :novalid:
-    INPUT
-
-    output = <<~"OUTPUT"
-    #{BLANK_HDR}
-<sections/>
-</nist-standard>
-    OUTPUT
-
-    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r{jquery\.min\.js})
-    expect(html).to match(%r{Baskerville})
   end
 
   it "cross-references permissions" do
@@ -951,11 +930,11 @@ INPUT
     <div id="fwd">
     <h1 class="ForewordTitle">Foreword</h1>
     <p>
-    <a href="#N1">Introduction, Permission PR1.1</a>
-    <a href="#N2">Preparatory, Permission PR1.2</a>
-    <a href="#N">Section 1, Permission 1.1</a>
-    <a href="#note1">Section 3.1, Permission 3.1</a>
-    <a href="#note2">Section 3.1, Permission 3.2</a>
+    <a href="#N1">Introduction, Permission 1</a>
+    <a href="#N2">Preparatory, Permission 2</a>
+    <a href="#N">Section 1, Permission 3</a>
+    <a href="#note1">Section 3.1, Permission 4</a>
+    <a href="#note2">Section 3.1, Permission 5</a>
     <a href="#AN">Appendix A.1, Permission A.1</a>
     <a href="#Anote1">Appendix A.2, Permission A.2</a>
     <a href="#Anote2">Appendix A.2, Permission A.3</a>
@@ -963,11 +942,11 @@ INPUT
     </div>
     <div id="intro">
     <h1/>
-    <div class="permission"><title>Permission PR1.1:</title>
+    <div class="permission"><title>Permission 1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="permission"><title>Permission PR1.2:</title>
+               <div class="permission"><title>Permission 2:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
@@ -975,11 +954,11 @@ INPUT
              <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="permission"><title>Permission 1.1:</title>
+               <div class="permission"><title>Permission 3:</title>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
-                 <a href="#N">Permission 1.1</a>
+                 <a href="#N">Permission 3</a>
     </p>
     </div>
     <div id="widgets">
@@ -988,13 +967,13 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="permission"><title>Permission 3.1:</title>
+    <div class="permission"><title>Permission 4:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="permission"><title>Permission 3.2:</title>
+    <div class="permission"><title>Permission 5:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
-         <p>    <a href="#note1">Permission 3.1</a> <a href="#note2">Permission 3.2</a> </p>
+         <p>    <a href="#note1">Permission 4</a> <a href="#note2">Permission 5</a> </p>
     </div>
     </div>
     <br/>
@@ -1018,28 +997,6 @@ INPUT
     </html>
     OUTPUT
   end
-
-  it "injects JS into blank html" do
-    system "rm -f test.html"
-    input = <<~"INPUT"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :novalid:
-    INPUT
-
-    output = <<~"OUTPUT"
-    #{BLANK_HDR}
-<sections/>
-</nist-standard>
-    OUTPUT
-
-    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r{jquery\.min\.js})
-    expect(html).to match(%r{Baskerville})
-  end
-
 
     it "cleans up requirements" do
     expect(IsoDoc::NIST::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"

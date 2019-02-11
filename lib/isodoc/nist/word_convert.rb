@@ -491,30 +491,40 @@ module IsoDoc
         end
       end
 
+            def middle_section_asset_names(d)
+        middle_sections =
+          "//xmlns:preface/child::* | //xmlns:sections/child::*"
+        sequential_asset_names(d.xpath(middle_sections))
+      end
 
-      def prefaceprefix(nodes)
-        i = 0
-        nodes.each do |n|
-          case n.name
-          when "executivesummary" then @anchors[n["id"]][:prefix] = "ES"
-          when "abstract" then @anchors[n["id"]][:prefix] = "ABS"
-          when "reviewernote" then @anchors[n["id"]][:prefix] = "NTR"
-          else
-            @anchors[n["id"]][:prefix] = "PR" + i.to_s
-            i += 1
-          end
+      def sequential_asset_names(clause)
+        super
+        sequential_permission_names(clause)
+        sequential_requirement_names(clause)
+        sequential_recommendation_names(clause)
+      end
+
+      def sequential_permission_names(clause)
+        clause.xpath(ns(".//permission")).each_with_index do |t, i|
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct(i + 1, t, "Permission", "permission")
         end
       end
 
-      def middle_section_asset_names(d)
-        prefaceprefix(d.xpath("//xmlns:preface/child::*"))
-        d.xpath("//xmlns:preface/child::*").each do |s|
-          hierarchical_asset_names(s, @anchors[s["id"]][:prefix])
-        end
-        d.xpath("//xmlns:sections/child::*").each do |s|
-          hierarchical_asset_names(s, @anchors[s["id"]][:label])
+      def sequential_requirement_names(clause)
+        clause.xpath(ns(".//requirement")).each_with_index do |t, i|
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct(i + 1, t, "Requirement", "requirement")
         end
       end
+
+      def sequential_recommendation_names(clause)
+        clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
+          next if t["id"].nil? || t["id"].empty?
+          @anchors[t["id"]] = anchor_struct(i + 1, t, "Recommendation", "recommendation")
+        end
+      end
+
 
       def hierarchical_asset_names(clause, num)
         super
