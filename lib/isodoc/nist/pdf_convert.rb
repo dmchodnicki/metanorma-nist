@@ -12,10 +12,10 @@ module IsoDoc
         super
               end
       def convert1(docxml, filename, dir)
-        FileUtils.cp html_doc_path('logo.png'), "logo.png"
-        FileUtils.cp html_doc_path('commerce-logo-color.png'), "commerce-logo-color.png"
-        @files_to_delete << "logo.png"
-        @files_to_delete << "commerce-logo-color.png"
+        FileUtils.cp html_doc_path('logo.png'), File.join(@localdir, "logo.png")
+        FileUtils.cp html_doc_path('commerce-logo-color.png'), File.join(@localdir, "commerce-logo-color.png")
+        @files_to_delete << File.join(@localdir, "logo.png")
+        @files_to_delete << File.join(@localdir, "commerce-logo-color.png")
         super
       end
 
