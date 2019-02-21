@@ -541,7 +541,8 @@ p.Admonition, li.Admonition, div.Admonition
 	padding:0cm;
 	mso-padding-alt:10.0pt 10.0pt 10.0pt 10.0pt;
 	font-size:12.0pt;
-	font-family:$bodyfont;
+	font-family:$headerfont;
+        background-color: #dddddd;
 	mso-ascii-font-family:$bodyfont;
 	mso-ascii-theme-font:minor-latin;
 	mso-fareast-font-family:$bodyfont;
@@ -550,8 +551,6 @@ p.Admonition, li.Admonition, div.Admonition
 	mso-hansi-theme-font:minor-latin;
 	mso-bidi-font-family:$bodyfont;
 	mso-bidi-theme-font:minor-bidi;
-	color:#4472C4;
-	mso-themecolor:accent1;
 	mso-ansi-language:EN-AU;
 	font-style:italic;}
 p.Code, li.Code, div.Code
