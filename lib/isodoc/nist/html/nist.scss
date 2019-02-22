@@ -527,27 +527,49 @@ p.QuoteAttribution
         mso-bidi-font-family:$bodyfont;
         mso-ansi-language:EN-GB;
         }
-p.Admonition, li.Admonition, div.Admonition
+div.Admonition {
+  mso-style-priority:99;
+        mso-pagination:widow-orphan;
+        padding:18.0pt 12.0pt 18.0pt 12.0pt;
+        margin-left:14.2pt;
+        margin-right:14.2pt;
+        border:none;
+        mso-element:para-border-div;
+        border:solid windowtext 1.0pt;
+        mso-border-alt:solid windowtext .5pt;
+        mso-padding-alt:7.0pt 4.0pt 7.0pt 4.0pt;
+        font-size:12.0pt;
+        font-family:$headerfont;
+        background-color: #dddddd;
+        mso-ascii-font-family:$headerfont;
+        mso-ascii-theme-font:minor-latin;
+        mso-fareast-font-family:$headerfont;
+        mso-fareast-theme-font:minor-fareast;
+        mso-hansi-font-family:$headerfont;
+        mso-hansi-theme-font:minor-latin;
+        mso-bidi-font-family:$headerfont;
+        mso-bidi-theme-font:minor-bidi;
+        mso-ansi-language:EN-AU;
+        font-style:italic;}
+}
+p.Admonition, li.Admonition
 	{mso-style-priority:99;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:0cm;
 	mso-pagination:widow-orphan;
+        padding:0cm;
+        padding:18.0pt 12.0pt 18.0pt 12.0pt;
 	border:none;
 	mso-border-alt:solid .25pt;
-	padding:0cm;
 	mso-padding-alt:7.0pt 4.0pt 7.0pt 4.0pt;
 	font-size:12.0pt;
 	font-family:$headerfont;
         background-color: #dddddd;
-	mso-ascii-font-family:$bodyfont;
+	mso-ascii-font-family:$headerfont;
 	mso-ascii-theme-font:minor-latin;
-	mso-fareast-font-family:$bodyfont;
+	mso-fareast-font-family:$headerfont;
 	mso-fareast-theme-font:minor-fareast;
-	mso-hansi-font-family:$bodyfont;
+	mso-hansi-font-family:$headerfont;
 	mso-hansi-theme-font:minor-latin;
-	mso-bidi-font-family:$bodyfont;
+	mso-bidi-font-family:$headerfont;
 	mso-bidi-theme-font:minor-bidi;
 	mso-ansi-language:EN-AU;
 	font-style:italic;}
