@@ -635,11 +635,11 @@ module IsoDoc
         pref = node.at(ns("./preferred"))
         out.table **{ class: "terms_dl" } do |dl|
           dl.tr do |tr|
-            tr.dt **{ valign: "top", align: "left" } do |dt|
+            tr.td **{ valign: "top", align: "left" } do |dt|
               pref.children.each { |n| parse(n, dt) }
             end
             set_termdomain("")
-            tr.dd **{ valign: "top" } do |dd|
+            tr.td **{ valign: "top" } do |dd|
               node.children.each { |n| parse(n, dd) unless n.name == "preferred" }
             end
           end
