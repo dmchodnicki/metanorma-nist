@@ -366,7 +366,6 @@ module IsoDoc
         when "requirement" then requirement_parse(node, out)
         when "permission" then permission_parse(node, out)
         when "errata" then errata_parse(node, out)
-                  when "terms" then terms_defs(node, out)
         else
           super
         end
@@ -620,7 +619,7 @@ module IsoDoc
         end
       end
 
-            def terms_defs(isoxml, out, num)
+            def terms_parse(isoxml, out, num)
         out.div **attr_code(id: f["id"]) do |div|
           node.at(ns("./title")) and
                   clause_parse_title(node, div, node.at(ns("./title")), out)
