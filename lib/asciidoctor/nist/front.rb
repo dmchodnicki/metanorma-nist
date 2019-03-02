@@ -87,15 +87,20 @@ module Asciidoctor
       end
 
       def title(node, xml)
-        super
+        ["en"].each do |lang|
+          at = { type: "main", language: lang, format: "text/plain" }
+          xml.title **attr_code(at) do |t|
+            t << asciidoc_sub(node.attr("title") || node.title)
+          end
+        end
         subtitle(node, xml)
       end
 
       def subtitle(node, xml)
         return unless node.attr("subtitle")
         ["en"].each do |lang|
-          at = { language: lang, format: "text/plain" }
-          xml.subtitle **attr_code(at) do |t|
+          at = { type: "subtitle", language: lang, format: "text/plain" }
+          xml.title **attr_code(at) do |t|
             t << asciidoc_sub(node.attr("subtitle"))
           end
         end

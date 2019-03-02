@@ -7,8 +7,8 @@ RSpec.describe IsoDoc::NIST do
     input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <bibdata type="standard">
-  <title language="en" format="plain">Main Title</title>
-  <subtitle language="en" format="plain">Subtitle</subtitle>
+  <title type="main" language="en" format="plain">Main Title</title>
+  <title type="subtitle" language="en" format="plain">Subtitle</title>
   <docidentifier>1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>

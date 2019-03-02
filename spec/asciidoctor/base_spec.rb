@@ -63,7 +63,7 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title language="en" format="text/plain">Document title</title>
+  <title type="main" language="en" format="text/plain">Document title</title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
@@ -127,7 +127,7 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title language="en" format="text/plain">Document title</title>
+  <title type="main" language="en" format="text/plain">Document title</title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
@@ -193,7 +193,7 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title language="en" format="text/plain">Document title</title>
+  <title type="main" language="en" format="text/plain">Document title</title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
@@ -258,7 +258,7 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
     <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard"> 
-  <title language="en" format="text/plain">Document title</title> 
+  <title type="main" language="en" format="text/plain">Document title</title> 
   <uri type="email">x@example.com</uri> 
   <docidentifier type="nist">NIST ABC</docidentifier> 
   <docnumber>ABC</docnumber> 
@@ -366,8 +366,8 @@ RSpec.describe Asciidoctor::NIST do
            <?xml version="1.0" encoding="UTF-8"?>
        <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
-         <title language="en" format="text/plain">Main Title</title>
-         <subtitle language="en" format="text/plain">Subtitle</subtitle>
+         <title type="main" language="en" format="text/plain">Main Title</title>
+         <title type="subtitle" language="en" format="text/plain">Subtitle</title>
         <uri type="email">email@example.com</uri>
          <docidentifier type="nist">NIST 1000(wd)</docidentifier>
          <docnumber>1000</docnumber>
@@ -456,7 +456,7 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
+  <title type="main" language="en" format="text/plain">Main Title</title>
   <docidentifier type="nist">NIST 1000(cd)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
@@ -515,7 +515,7 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
+  <title type="main" language="en" format="text/plain">Main Title</title>
   <docidentifier type="nist">NIST 1000(d)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
@@ -574,7 +574,7 @@ OUTPUT
     INPUT
     <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
+  <title type="main" language="en" format="text/plain">Main Title</title>
   <docidentifier type="nist">NIST 1000</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
