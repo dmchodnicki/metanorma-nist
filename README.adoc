@@ -263,10 +263,9 @@ It is rendered after all other preface sections.
 
 === Terms and definitions
 
-NIST documents do not provide for an extensive Terms & Definitions structure, as seen
-in ISO and ISO-derived standards. Instead, they use acronyms and glossary appendixes.
-These should be given as simple definition lists, without extensive embedded notes, examples,
-or sources.
+Glossaries in NIST documents correspond to Terms & Definitions sections elsewhere in
+Metanorma. They are appendices in NIST, and any appendix in NIST Metanorma with the
+title "Glossary" is treated as a Terms & Definitions section.
 
 === Pseudocode
 

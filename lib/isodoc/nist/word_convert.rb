@@ -366,6 +366,7 @@ module IsoDoc
         when "requirement" then requirement_parse(node, out)
         when "permission" then permission_parse(node, out)
         when "errata" then errata_parse(node, out)
+                  when "terms" then terms_defs(node, out)
         else
           super
         end
@@ -602,6 +603,22 @@ module IsoDoc
         "-"
       end
 
+      def annex_names(clause, num)
+        @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
+                                   xref: "#{@annex_lbl} #{num}", level: 1 }
+        clause.xpath(ns("./clause | ./terms | ./term")).each_with_index do |c, i|
+          annex_names1(c, "#{num}.#{i + 1}", 2)
+        end
+        hierarchical_asset_names(clause, num)
+      end
+
+      def annex_names1(clause, num, level)
+        @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
+                                   level: level, type: "clause" }
+        clause.xpath(ns("./clause | ./terms | ./term")).each_with_index do |c, i|
+          annex_names1(c, "#{num}.#{i + 1}", level + 1)
+        end
+      end
 
     end
   end

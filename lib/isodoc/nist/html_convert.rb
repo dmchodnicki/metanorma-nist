@@ -166,15 +166,6 @@ module IsoDoc
         File.join(File.dirname(__FILE__), loc)
       end
 
-      def term_cleanup(docxml)
-        docxml.xpath("//p[@class = 'Terms']").each do |d|
-          h2 = d.at("./preceding-sibling::*[@class = 'TermNum'][1]")
-          h2.add_child("&nbsp;")
-          h2.add_child(d.remove)
-        end
-        docxml
-      end
-
       def requirement_cleanup(docxml)
         docxml.xpath("//div[@class = 'recommend' or @class = 'require' "\
                      "or @class = 'permission'][title]").each do |d|
@@ -230,6 +221,7 @@ module IsoDoc
         when "requirement" then requirement_parse(node, out)
         when "permission" then permission_parse(node, out)
         when "errata" then errata_parse(node, out)
+        when "terms" then terms_defs(node, out)
         else
           super
         end
@@ -488,6 +480,57 @@ module IsoDoc
         "-"
       end
 
+      def annex_names(clause, num)
+        @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
+                                   xref: "#{@annex_lbl} #{num}", level: 1 }
+        clause.xpath(ns("./clause | ./terms | ./term")).each_with_index do |c, i|
+          annex_names1(c, "#{num}.#{i + 1}", 2)
+        end
+        hierarchical_asset_names(clause, num)
+      end
+
+      def annex_names1(clause, num, level)
+        @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
+                                   level: level, type: "clause" }
+        clause.xpath(ns("./clause | ./terms | ./term")).each_with_index do |c, i|
+          annex_names1(c, "#{num}.#{i + 1}", level + 1)
+        end
+      end
+
+      def terms_defs(isoxml, out, num)
+        out.div **attr_code(id: f["id"]) do |div|
+          node.at(ns("./title")) and
+                  clause_parse_title(node, div, node.at(ns("./title")), out)
+          term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
+                                f.at(ns(".//term")), f.at(ns("./p")))
+          f.elements.each do |e|
+            parse(e, div) unless %w{title source}.include? e.name
+          end
+        end
+      end
+
+      def termdef_parse(node, out)
+        pref = node.at(ns("./preferred"))
+        out.dl **{ class: "terms_dl" } do |dl|
+          dl.dt do |dt|
+            pref.children.each { |n| parse(n, dt) }
+          end
+          set_termdomain("")
+          dl.dd do |dd|
+            node.children.each { |n| parse(n, dd) unless n.name == "preferred" }
+          end
+        end
+      end
+
+      def term_cleanup(docxml)
+        docxml.xpath("//dl[@class = 'terms_dl']").each do |d|
+          prev = d.previous_element
+          next unless prev.name == "dl" and prev["class"] == "terms_dl"
+          d.children.each { |n| prev.add_child(n.remove) }
+          d.remove
+        end
+        docxml
+      end
     end
   end
 end

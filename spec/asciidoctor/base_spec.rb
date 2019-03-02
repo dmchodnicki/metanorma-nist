@@ -964,29 +964,74 @@ OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
-    it "processes glossaries" do
+     it "processes glossaries" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
-      [glossary]
-      a:: b
-      c:: d
+
+      [appendix]
+      == Glossary
+
+      === Normal Terms
+
+      Definition
+
+      ====
+      Example
+      ====
     INPUT
 
         output = <<~"OUTPUT"
             #{BLANK_HDR}
-<sections>
-  <dl id="_" type="glossary">
-  <dt>a</dt>
-  <dd>
-    <p id="_">b</p>
-  </dd>
-  <dt>c</dt>
-  <dd>
-    <p id="_">d</p>
-  </dd>
-</dl>
-</sections>
-       </nist-standard>
+         <sections>
+
+</sections><annex id="_" obligation="normative">
+  <title>Glossary</title>
+    <terms id="_" obligation="normative">
+  <term id="_"><preferred>Normal Terms</preferred><definition><p id="_">Definition</p></definition>
+<termexample id="_">
+  <p id="_">Example</p>
+</termexample></term>
+</terms>
+</annex>
+</nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
+    it "processes nested glossaries" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+     
+      [appendix]
+      == Glossary
+
+      === Normal Terms
+      
+      ==== Normal Terms
+
+      Definition
+
+      ====
+      Example
+      ====
+    INPUT
+
+        output = <<~"OUTPUT"
+            #{BLANK_HDR}
+         <sections>
+
+</sections><annex id="_" obligation="normative">
+  <title>Glossary</title>
+    <terms id="_" obligation="normative">
+  <title>Normal Terms</title>
+  <term id="_"><preferred>Normal Terms</preferred><definition><p id="_">Definition</p></definition>
+<termexample id="_">
+  <p id="_">Example</p>
+</termexample></term>
+</terms>
+</annex>
+</nist-standard>
     OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output

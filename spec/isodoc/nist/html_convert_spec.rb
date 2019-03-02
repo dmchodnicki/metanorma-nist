@@ -280,53 +280,49 @@ OUTPUT
   end
 
    it "processes glossaries" do
-    input = <<~"INPUT"
+    FileUtils.rm_f "test.html"
+
+         IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
     <nist-standard xmlns="https://open.ribose.com/standards/example">
-<preface><foreword>
-  <dl id="A" type="glossary">
-  <dt>a</dt>
-  <dd>
-    <p id="B">b</p>
-  </dd>
-  <dt>c</dt>
-  <dd>
-    <p id="C">d</p>
-  </dd>
-</dl>
-</foreword></preface>
+    <annex id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" obligation="normative">
+  <title>Glossary</title>
+    <terms id="_normal_terms_2" obligation="normative">
+  <title>Normal Terms 2</title>
+  <term id="_normal_terms"><preferred>Normal Terms</preferred><definition><p id="_4883de72-6054-4227-a111-b8966759b0f6">Definition</p></definition>
+<termexample id="_f22bc30c-a5a6-45ae-8bea-0792d7109470">
+  <p id="_16555fc3-3570-4b16-8fff-ac95941b62b1">Example</p>
+</termexample></term>
+  <term id="other_terms"><preferred>Other Terms</preferred><definition><p id="_4883de72-6054-4227-a111-b8966759b0f7">Definition</p></definition>
+<termnote id="_f22bc30c-a5a6-45ae-8bea-0792d7109471">
+  <p id="_16555fc3-3570-4b16-8fff-ac95941b62b2">Example</p>
+</termnote></term>
+</terms>
+</annex>
 </nist-standard>
 INPUT
-    output = <<~"OUTPUT"
-          #{HTML_HDR}
-          <br/>
-      <div>
-        <h1 class="ForewordTitle">Foreword</h1>
-        <dl id="A" class="glossary">
-          <dt>
-            <p>a</p>
-          </dt>
-          <dd>
-    <p id="B">b</p>
-  </dd>
-          <dt>
-            <p>c</p>
-          </dt>
-          <dd>
-    <p id="C">d</p>
-  </dd>
-        </dl>
-      </div>
-      <p class="zzSTDTitle1"/>
-    </div>
-  </body>
+
+output = <<~"OUTPUT"
+         <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+             <p class="zzSTDTitle1"></p>
+             <br />
+             <div id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" class="Section3">
+               <h1 class="Annex"><b>Appendix A</b> &#x2014; <b>Glossary</b></h1>
+               <div id="_normal_terms_2"><h2>A.1. Normal Terms 2</h2>
+     
+         <dl class="terms_dl"><dt>Normal Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f6">Definition</p>
+       <div id="_f22bc30c-a5a6-45ae-8bea-0792d7109470" class="example"><p class="example-title">EXAMPLE</p>
+         <p id="_16555fc3-3570-4b16-8fff-ac95941b62b1">Example</p>
+       </div></dd><dt>Other Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f7">Definition</p>
+       <div class="Note"><p>Note 1 to entry: Example</p></div></dd></dl>
+       </div>
+             </div>
+           </main>
  OUTPUT
 
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+ expect(File.exist?("test.html")).to be true
+ html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
+    expect(html).to be_equivalent_to output
+
   end
 
 

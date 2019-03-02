@@ -132,6 +132,15 @@ module Asciidoctor
         end
       end
 
+      # skip annex/terms/terms, which is empty node
+       def termdef_subclause_cleanup(xmldoc)
+        xmldoc.xpath("//terms[terms]").each do |t|
+          next if t.parent.name == "terms"
+          t.children.each { |n| n.parent = t.parent }
+          t.remove
+        end
+      end
+
       def makexml(node)
         result = ["<?xml version='1.0' encoding='UTF-8'?>\n<nist-standard>"]
         @draft = node.attributes.has_key?("draft")
@@ -201,8 +210,9 @@ module Asciidoctor
         preface.add_child introduction.remove if introduction
         x.xpath("//clause[@preface]").each do |c|
           c.delete("preface")
-          c.name = "reviewernote" if c&.at("./title")&.text.downcase == "note to reviewers"
-          c.name = "executivesummary" if c&.at("./title")&.text.downcase == "executive summary"
+          title = c&.at("./title")&.text.downcase
+          c.name = "reviewernote" if title == "note to reviewers"
+          c.name = "executivesummary" if title == "executive summary"
           preface.add_child c.remove
         end
         callforpatentclaims(x, preface)
@@ -311,8 +321,17 @@ module Asciidoctor
         noko do |xml|
           case sectiontype(node)
           when "normative references" then norm_ref_parse(a, xml, node)
+          when "glossary"
+            if node.attr("style") == "appendix" && node.level == 1
+              @term_def = true
+              terms_annex_parse(a, xml, node)
+              @term_def = false
+            else
+              clause_parse(a, xml, node)
+            end
           else
-            if @term_def then term_def_subclause_parse(a, xml, node)
+            if @term_def 
+              term_def_subclause_parse(a, xml, node)
             elsif @biblio then bibliography_parse(a, xml, node)
             elsif node.attr("style") == "bibliography"
               bibliography_parse(a, xml, node)
@@ -327,15 +346,32 @@ module Asciidoctor
         end.join("\n")
       end
 
+      def terms_annex_parse(attrs, xml, node)
+        attrs1 = attrs.merge(id: "_" + UUIDTools::UUID.random_create)
+        xml.annex **attr_code(attrs1) do |xml_section|
+          xml_section.title { |name| name << node.title }
+          xml_section.terms **attr_code(attrs) do |terms|
+            (s = node.attr("source")) && s.split(/,/).each do |s1|
+              terms.termdocsource(nil, **attr_code(bibitemid: s1))
+            end
+            terms << node.content
+          end
+        end
+      end
+
+      SECTIONS_TO_VALIDATE = "//references[not(parent::clause)]/title | "\
+        "//clause[descendant::references][not(parent::clause)]/title".freeze
+
       def section_validate(doc)
         super
-        f = doc.xpath("//references[not(parent::clause)]/title | //clause[descendant::references][not(parent::clause)]/title")
+        f = doc.xpath(SECTIONS_TO_VALIDATE)
         names = f.map { |s| s&.text }
         return if names.empty?
         return if names == ["References"]
         return if names == ["Bibliography"]
         return if names == ["References", "Bibliography"]
-        warn "Reference clauses #{names.join(', ')} do not follow expected pattern in NIST"
+        warn "Reference clauses #{names.join(', ')} do not follow expected "\
+          "pattern in NIST"
       end
 
       def html_converter(node)
