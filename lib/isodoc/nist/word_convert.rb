@@ -619,10 +619,10 @@ module IsoDoc
         end
       end
 
-            def terms_parse(isoxml, out, num)
+      def terms_parse(isoxml, out)
         out.div **attr_code(id: f["id"]) do |div|
           node.at(ns("./title")) and
-                  clause_parse_title(node, div, node.at(ns("./title")), out)
+            clause_parse_title(node, div, node.at(ns("./title")), out)
           term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
                                 f.at(ns(".//term")), f.at(ns("./p")))
           f.elements.each do |e|
