@@ -321,7 +321,7 @@ module Asciidoctor
         noko do |xml|
           case sectiontype(node)
           when "normative references" then norm_ref_parse(a, xml, node)
-          when "glossary"
+          when "glossary", "terminology"
             if node.attr("style") == "appendix" && node.level == 1
               @term_def = true
               terms_annex_parse(a, xml, node)

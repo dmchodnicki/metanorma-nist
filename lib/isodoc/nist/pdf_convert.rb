@@ -476,6 +476,40 @@ module IsoDoc
         end
       end
 
+            def terms_defs(isoxml, out, num)
+        out.div **attr_code(id: f["id"]) do |div|
+          node.at(ns("./title")) and
+                  clause_parse_title(node, div, node.at(ns("./title")), out)
+          term_defs_boilerplate(div, isoxml.xpath(ns(".//termdocsource")),
+                                f.at(ns(".//term")), f.at(ns("./p")))
+          f.elements.each do |e|
+            parse(e, div) unless %w{title source}.include? e.name
+          end
+        end
+      end
+
+      def termdef_parse(node, out)
+        pref = node.at(ns("./preferred"))
+        out.dl **{ class: "terms_dl" } do |dl|
+          dl.dt do |dt|
+            pref.children.each { |n| parse(n, dt) }
+          end
+          set_termdomain("")
+          dl.dd do |dd|
+            node.children.each { |n| parse(n, dd) unless n.name == "preferred" }
+          end
+        end
+      end
+
+      def term_cleanup(docxml)
+        docxml.xpath("//dl[@class = 'terms_dl']").each do |d|
+          prev = d.previous_element
+          next unless prev.name == "dl" and prev["class"] == "terms_dl"
+          d.children.each { |n| prev.add_child(n.remove) }
+          d.remove
+        end
+        docxml
+      end
     end
   end
 end

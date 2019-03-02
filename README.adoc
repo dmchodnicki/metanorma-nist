@@ -265,7 +265,7 @@ It is rendered after all other preface sections.
 
 Glossaries in NIST documents correspond to Terms & Definitions sections elsewhere in
 Metanorma. They are appendices in NIST, and any appendix in NIST Metanorma with the
-title "Glossary" is treated as a Terms & Definitions section.
+title "Glossary" or "Terminology" is treated as a Terms & Definitions section.
 
 === Pseudocode
 
