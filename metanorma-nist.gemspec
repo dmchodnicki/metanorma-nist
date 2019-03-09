@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
     Metanorma NIST gem.
   DESCRIPTION
 
-  spec.homepage      = "https://github.com/riboseinc/metanorma-nist"
+  spec.homepage      = "https://github.com/metanorma/metanorma-nist"
   spec.license       = "BSD-2-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
