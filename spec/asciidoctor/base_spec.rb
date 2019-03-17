@@ -84,7 +84,7 @@ RSpec.describe Asciidoctor::NIST do
 
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">published</status>
+  <status><stage>final</stage></status>
   <copyright>
     <from>2019</from>
     <owner>
@@ -150,7 +150,7 @@ RSpec.describe Asciidoctor::NIST do
 
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">published</status>
+  <status><stage>final</stage></status>
   <copyright>
     <from>2019</from>
     <owner>
@@ -218,7 +218,7 @@ RSpec.describe Asciidoctor::NIST do
 
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">published</status>
+  <status><stage>final</stage></status>
   <copyright>
     <from>2019</from>
     <owner>
@@ -255,7 +255,7 @@ RSpec.describe Asciidoctor::NIST do
       Author
       :docfile: test.adoc
       :call-for-patent-claims:
-      :status: draft
+      :status: public-draft
       :doc-email: x@example.com
       :docnumber: ABC
       :novalid:
@@ -285,7 +285,7 @@ RSpec.describe Asciidoctor::NIST do
    
   <language>en</language> 
   <script>Latn</script> 
-  <status format="plain">draft</status> 
+  <status><stage>public-draft</stage></status>
   <copyright> 
     <from>2019</from> 
     <owner> 
@@ -354,7 +354,7 @@ RSpec.describe Asciidoctor::NIST do
       :workgroup-type: C
       :secretariat: SECRETARIAT
       :copyright-year: 2001
-      :status: working-draft
+      :status: public-draft
       :iteration: 3
       :language: en
       :security: Client Confidential
@@ -425,7 +425,10 @@ RSpec.describe Asciidoctor::NIST do
          </version>
          <language>en</language>
          <script>Latn</script>
-         <status format="plain">working-draft</status>
+        <status>
+          <stage>public-draft</stage>
+          <iteration>3</iteration>
+         </status>
          <copyright>
            <from>2001</from>
            <owner>
@@ -461,8 +464,6 @@ RSpec.describe Asciidoctor::NIST do
       :doctype: standard
       :revdate: 2000-01-01
       :draft: 3.4
-      :status: committee-draft
-      :iteration: 3
       :language: en
       :title-main: Main Title
       :partnumber: 3
@@ -492,7 +493,7 @@ RSpec.describe Asciidoctor::NIST do
 </version> 
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">committee-draft</status>
+  <status><stage>final</stage></status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
@@ -522,8 +523,6 @@ RSpec.describe Asciidoctor::NIST do
       :edition: 2
       :revdate: 2000-01-01
       :draft: 3.4
-      :status: draft-standard
-      :iteration: 3
       :language: en
       :title-main: Main Title
     INPUT
@@ -553,7 +552,7 @@ RSpec.describe Asciidoctor::NIST do
 </version>   
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">draft-standard</status>
+  <status><stage>final</stage></status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
@@ -571,7 +570,7 @@ RSpec.describe Asciidoctor::NIST do
 OUTPUT
         end
 
-                  it "ignores unrecognised status" do
+    it "ignores unrecognised status" do
         expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~'OUTPUT'
       = Document title
       Author
@@ -584,7 +583,7 @@ OUTPUT
       :revdate: 2000-01-01
       :draft: 3.4
       :copyright-year: 2001
-      :status: standard
+      :status: draft-standard
       :iteration: 3
       :language: en
       :title-main: Main Title
@@ -615,7 +614,10 @@ OUTPUT
 </version> 
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">standard</status>
+  <status> 
+  <stage>draft-standard</stage> 
+  <iteration>3</iteration> 
+  </status>
   <copyright>
     <from>2001</from>
     <owner>

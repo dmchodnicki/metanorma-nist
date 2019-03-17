@@ -64,16 +64,10 @@
     </define>
     <define name="status">
       <element name="status">
-        <choice>
-          <value>proposal</value>
-          <value>working-draft</value>
-          <value>committee-draft</value>
-          <value>draft-standard</value>
-          <value>final-draft</value>
-          <value>published</value>
-          <value>withdrawn</value>
-          <ref name="LocalizedString"/>
-        </choice>
+        <ref name="stage"/>
+        <optional>
+          <ref name="iteration"/>
+        </optional>
       </element>
     </define>
     <define name="BibItemType" combine="choice">
@@ -109,6 +103,30 @@
             </optional>
           </group>
         </choice>
+      </element>
+    </define>
+    <define name="stage">
+      <choice>
+        <value>internal-draft</value>
+        <value>public-draft</value>
+        <value>final</value>
+        <value>retired-draft</value>
+        <value>withdrawn</value>
+      </choice>
+    </define>
+    <define name="iteration">
+      <element name="iteration">
+        <text/>
+      </element>
+    </define>
+    <define name="title-main">
+      <element name="title-main">
+        <ref name="FormattedString"/>
+      </element>
+    </define>
+    <define name="title-part">
+      <element name="title-part">
+        <ref name="FormattedString"/>
       </element>
     </define>
     <define name="BibData">
@@ -188,17 +206,7 @@
       <ref name="FormattedString"/>
     </element>
   </define>
-  <define name="title-main">
-    <element name="title-main">
-      <ref name="FormattedString"/>
-    </element>
-  </define>
-  <define name="title-part">
-    <element name="title-part">
-      <ref name="FormattedString"/>
-    </element>
-  </define>
-  <define name="nistdocumentnumber">
+  <define name="nistdocidentifier">
     <element name="docidentifier">
       <attribute name="type">
         <value>nist</value>

@@ -354,11 +354,11 @@ p.document-stage {
 }
 
 
-#standard-band,  #published-band {
+#standard-band,  #final-band {
 color: rgb(123, 168, 18);
   background-color: rgb(216, 236, 168); }
 
-  #standard, #published {
+  #standard, #final {
   color: #9ABD48; }
 
 #governance, #policy-and-procedures {
@@ -380,22 +380,22 @@ color: rgb(123, 168, 18);
   margin: 0 0 2em 0;
   text-transform: uppercase; }
 
-#working-draft, #proposal {
+#internal-draft, #proposal {
   border-bottom: solid 3px #F7803C; }
 
-#working-draft-band, #proposal-band {
+#internal-draft-band, #proposal-band {
   background-color: #F7803C; }
 
-#committee-draft {
+#public-draft, #initial-public-draft, #final-public-draft {
   border-bottom: solid 3px #fd06fd; }
 
-#committee-draft-band {
+#public-draft-band, #initial-public-draft-band, #final-public-draft-band {
   background-color: #fd06fd; }
 
-#draft-standard {
+#retired-draft {
   border-bottom: solid 3px #fdf906; }
 
-#draft-standard-band {
+#retired-draft-band {
   background-color: #fdf906; }
 
 #standard {
@@ -404,10 +404,10 @@ color: rgb(123, 168, 18);
 #standard-band {
   background-color: #9ABD48; }
 
-#obsolete {
+#withdrawn {
   border-bottom: solid 3px #7e0d13; }
 
-#obsolete-band {
+#withdrawn-band {
   background-color: #7e0d13; }
 
 .coverpage-maturity {

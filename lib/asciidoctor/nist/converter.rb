@@ -236,8 +236,8 @@ module Asciidoctor
         if @callforpatentclaims
           docemail = x&.at("//uri[@type = 'email']")&.text || "???"
           docnumber = x&.at("//docnumber")&.text || "???"
-          status = x&.at("//bibdata/status")&.text 
-          published = status.nil? || status == "published"
+          status = x&.at("//bibdata/status/stage")&.text 
+          published = status.nil? || status == "final"
           preface.add_child patent_text(published, docemail, docnumber)
         end
       end

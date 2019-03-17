@@ -53,7 +53,10 @@ RSpec.describe IsoDoc::NIST do
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">working-draft</status>
+  <status>
+    <stage>internal-draft</stage>
+    <iteration>3</iteration>
+  </status>
   <copyright>
     <from>2001</from>
     <owner>
@@ -75,12 +78,109 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc."=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :docparttitle=>"Part 3: Part Title", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc."=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :docparttitle=>"Part 3: Part Title", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Internal Draft", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
     expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
+
+  it "processes initial public draft" do
+    csdc = IsoDoc::NIST::HtmlConvert.new({})
+    input = <<~"INPUT"
+<nist-standard xmlns="https://open.ribose.com/standards/example">
+<bibdata type="standard">
+<title>
+  <title-main language="en" format="plain">Main Title</title>
+  </title>
+  <docidentifier type="nist" part="3">1000(wd)</docidentifier>
+  <docnumber>1000</docnumber>
+  <edition>2</edition>
+  <version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status>
+    <stage>public-draft</stage>
+    <iteration>1</iteration>
+  </status>
+  <copyright>
+    <from>2001</from>
+    <owner>
+      <organization>
+        <name>Acme</name>
+      </organization>
+    </owner>
+  </copyright>
+</bibdata>
+<sections/>
+</nist-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+    {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"1", :keywords=>[], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Initial Public Draft", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
+    OUTPUT
+
+    docxml, filename, dir = csdc.convert_init(input, "test", true)
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+  end
+
+    it "processes final public draft" do
+    csdc = IsoDoc::NIST::HtmlConvert.new({})
+    input = <<~"INPUT"
+<nist-standard xmlns="https://open.ribose.com/standards/example">
+<bibdata type="standard">
+<title>
+  <title-main language="en" format="plain">Main Title</title>
+  </title>
+  <docidentifier type="nist" part="3">1000(wd)</docidentifier>
+  <docnumber>1000</docnumber>
+  <edition>2</edition>
+  <version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status>
+    <stage>public-draft</stage>
+    <iteration>final</iteration>
+  </status>
+  <copyright>
+    <from>2001</from>
+    <owner>
+      <organization>
+        <name>Acme</name>
+      </organization>
+    </owner>
+  </copyright>
+</bibdata>
+<sections/>
+</nist-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+    {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"final", :keywords=>[], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Final Public Draft", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
+    OUTPUT
+
+    docxml, filename, dir = csdc.convert_init(input, "test", true)
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+  end
+
 
   it "processes pre" do
     input = <<~"INPUT"
@@ -519,7 +619,7 @@ output = <<~"OUTPUT"
     input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
-  <status format="plain">working-draft</status>
+  <status><stage>public-draft</stage></status>
   </bibdata>
       <preface>
       <abstract obligation="informative">

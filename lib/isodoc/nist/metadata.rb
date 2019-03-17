@@ -44,16 +44,6 @@ module IsoDoc
                           docnumber.gsub("NIST SP", "NIST Special Publication"))
       end
 
-      def status_abbr(status)
-        case status
-        when "working-draft" then "wd"
-        when "committee-draft" then "cd"
-        when "draft-standard" then "d"
-        else
-          ""
-        end
-      end
-
       def draftinfo(draft, revdate)
         draftinfo = ""
         if draft
@@ -61,6 +51,24 @@ module IsoDoc
           #draftinfo += ", #{revdate}" if revdate
         end
         IsoDoc::Function::I18n::l10n(draftinfo, @lang, @script)
+      end
+
+      def docstatus(isoxml, _out)
+        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
+        docstatus = adjust_docstatus(docstatus, iter)
+        set(:unpublished, docstatus != "final")
+        set(:iteration, iter) if iter
+        set(:status, status_print(docstatus || "final"))
+      end
+
+      def adjust_docstatus(status, iter)
+        return unless iter and status
+        status = "initial-public-draft" if status == "public-draft" &&
+          (iter == "1" ||  iter == "initial")
+        status = "final-public-draft" if status == "public-draft" &&
+          (iter == "final")
+        status
       end
 
       def version(isoxml, _out)

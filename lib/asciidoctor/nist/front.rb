@@ -10,7 +10,7 @@ module Asciidoctor
     #
     class Converter < Standoc::Converter
 
-                   def title_subtitle(node, t, at)
+      def title_subtitle(node, t, at)
         return unless node.attr("title-sub")
         t.title_sub(**attr_code(at)) do |t1|
           t1 << asciidoc_sub(node.attr("title-sub"))
@@ -92,8 +92,11 @@ module Asciidoctor
       end
 
       def metadata_status(node, xml)
-        status = node.attr("status") || "published"
-        xml.status(**{ format: "plain" }) { |s| s << status }
+        status = node.attr("status") || "final"
+        xml.status do |s|
+          s.stage status 
+          s.iteration node.attr("iteration") if node.attr("iteration") 
+        end
       end
 
       def metadata_copyright(node, xml)

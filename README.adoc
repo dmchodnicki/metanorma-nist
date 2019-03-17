@@ -160,6 +160,16 @@ introduced with `=`, is used.
 `:edition:`:: Edition (revision) of the document. The value of
 this attribute will be displayed as part of the heading, prefixed with "Revision".
 
+`:status:`:: Document status/stage. The permitted types are:
++
+--
+* `internal-draft`
+* `public-draft`
+* `final`
+* `retired-draft`
+* `withdrawn`
+--
+
 ////
 
 `:doctype:`:: The document type (mandatory). The permitted types are:
@@ -184,14 +194,6 @@ this attribute will be displayed as part of the heading, prefixed with "Revision
 `technical-corrigendum`::: Corrigendum (errata) Changes to OGC Standards
 `administrative`::: Internal administrative documents
 --
-
-`:status:`:: Document status/stage. The permitted types are:
-+
-`rfc`::: OGC RFC (proposal)
-`candidate`::: Candidate Standard
-`published`::: Published
-`deprecated`::: Deprecated
-`retired`::: Retired
 
 `:committee:`:: The name of the relevant committee producing the document (mandatory). The legal values are:
 `technical`, `planning`, `strategic-member-advisory`
@@ -223,6 +225,10 @@ notice and commitment to license have been received.
 
 `:patent-contact:`:: Contact for the Call for Patent Claims or Patent Disclosure Notice.
 If not supplied, `:doc-email:` is used.
+
+`:iteration:`:: The iteration of a stage, in case there have been multiple drafts.
+Can be a number, or text (e.g. "initial", "final").
+
 
 == Asciidoctor features specific to NIST
 
