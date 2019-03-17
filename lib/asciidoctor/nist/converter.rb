@@ -18,9 +18,6 @@ module Asciidoctor
 
       def example(node)
         return pseudocode_example(node) if node.attr("style") == "pseudocode"
-        return recommendation(node) if node.attr("style") == "recommendation"
-        return requirement(node) if node.attr("style") == "requirement"
-        return permission(node) if node.attr("style") == "permission"
         super
       end
 
@@ -29,30 +26,6 @@ module Asciidoctor
           xml.figure **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node), 
                         type: "pseudocode"} do |ex|
             figure_title(node, ex)
-            wrap_in_para(node, ex)
-          end
-        end.join("\n")
-      end
-
-      def recommendation(node)
-        noko do |xml|
-          xml.recommendation **id_attr(node) do |ex|
-            wrap_in_para(node, ex)
-          end
-        end.join("\n")
-      end
-
-      def requirement(node)
-        noko do |xml|
-          xml.requirement **id_attr(node) do |ex|
-            wrap_in_para(node, ex)
-          end
-        end.join("\n")
-      end
-
-      def permission(node)
-        noko do |xml|
-          xml.permission **id_attr(node) do |ex|
             wrap_in_para(node, ex)
           end
         end.join("\n")
@@ -228,7 +201,7 @@ module Asciidoctor
 
 <li><p>assurance that a license to such essential patent claim(s) will be made available to applicants desiring to utilize the license for the purpose of complying with the guidance or requirements in this ITL draft publication either:</p>
 
-	<ol><li><p>under reasonable terms and conditions that are demonstrably free of any unfair discrimination; or</p></li>
+        <ol><li><p>under reasonable terms and conditions that are demonstrably free of any unfair discrimination; or</p></li>
 
         <li><p>without compensation and under reasonable terms and conditions that are demonstrably free of any unfair discrimination.</p></li></ol>
 </li></ol>

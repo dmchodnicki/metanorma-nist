@@ -10,6 +10,54 @@ module Asciidoctor
     #
     class Converter < Standoc::Converter
 
+                   def title_subtitle(node, t, at)
+        return unless node.attr("title-sub")
+        t.title_sub(**attr_code(at)) do |t1|
+          t1 << asciidoc_sub(node.attr("title-sub"))
+        end
+      end
+
+      def title_main(node, t, at)
+        t.title_main **attr_code(at) do |t1|
+          t1 << asciidoc_sub(node.attr("title-main") || node.title)
+        end
+      end
+
+      def title_part(node, t, at)
+        return unless node.attr("title-part")
+        t.title_part(**attr_code(at)) do |t1|
+          t1 << asciidoc_sub(node.attr("title-part"))
+        end
+      end
+
+      def title(node, xml)
+        ["en"].each do |lang|
+          xml.title do |t|
+            at = { language: lang, format: "text/plain" }
+            title_main(node, t, at)
+            title_subtitle(node, t, at)
+            title_part(node, t, at)
+          end
+        end
+      end
+
+      def metadata_id(node, xml)
+        return unless dn = node.attr("docnumber")
+        part = node&.attr("partnumber")
+        dn = add_id_parts(dn, part, node&.attr("edition"))
+        xml.docidentifier dn, **attr_code(type: "nist", part: part)
+        xml.docnumber node.attr("docnumber")
+      end
+
+      def add_id_parts(dn, part, edition)
+        ed_delim = part && edition ? " Rev. " : "-"
+        part_delim = "-"
+        dn = "NIST " + dn
+        dn += "#{part_delim}#{part}" if part
+        dn += "#{ed_delim}#{edition}" if edition
+        dn
+      end
+
       def metadata_author(node, xml)
         xml.contributor do |c|
           c.role **{ type: "author" }
@@ -27,19 +75,6 @@ module Asciidoctor
             a.name "NIST"
           end
         end
-      end
-
-      def metadata_id(node, xml)
-        docstatus = node.attr("status")
-        dn = node.attr("docnumber")
-        if docstatus
-          abbr = IsoDoc::NIST::Metadata.new("en", "Latn", {}).
-            status_abbr(docstatus)
-          dn = "#{dn}(#{abbr})" unless abbr.empty?
-        end
-        dn and dn = "NIST " + dn
-        xml.docidentifier dn, **{type: "nist"}
-        xml.docnumber { |i| i << node.attr("docnumber") }
       end
 
       def metadata_committee(node, xml)
@@ -84,26 +119,6 @@ module Asciidoctor
       def metadata_source(node, xml)
         super
         node.attr("doc-email") && xml.uri(node.attr("doc-email"), type: "email")
-      end
-
-      def title(node, xml)
-        ["en"].each do |lang|
-          at = { type: "main", language: lang, format: "text/plain" }
-          xml.title **attr_code(at) do |t|
-            t << asciidoc_sub(node.attr("title") || node.title)
-          end
-        end
-        subtitle(node, xml)
-      end
-
-      def subtitle(node, xml)
-        return unless node.attr("subtitle")
-        ["en"].each do |lang|
-          at = { type: "subtitle", language: lang, format: "text/plain" }
-          xml.title **attr_code(at) do |t|
-            t << asciidoc_sub(node.attr("subtitle"))
-          end
-        end
       end
 
       def metadata(node, xml)

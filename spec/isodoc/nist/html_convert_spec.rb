@@ -7,9 +7,12 @@ RSpec.describe IsoDoc::NIST do
     input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <bibdata type="standard">
-  <title type="main" language="en" format="plain">Main Title</title>
-  <title type="subtitle" language="en" format="plain">Subtitle</title>
-  <docidentifier>1000(wd)</docidentifier>
+<title>
+  <title-main language="en" format="plain">Main Title</title>
+  <title-sub language="en" format="plain">Subtitle</title>
+  <title-part language="en" format="plain">Part Title</title>
+  </title>
+  <docidentifier type="nist" part="3">1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
   <version>
@@ -72,7 +75,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc."=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc."=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumber_long=>"1000(wd)", :docparttitle=>"Part 3: Part Title", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Working Draft", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -308,7 +311,7 @@ output = <<~"OUTPUT"
              <div id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" class="Section3">
                <h1 class="Annex"><b>Appendix A</b> &#x2014; <b>Glossary</b></h1>
                <div id="_normal_terms_2"><h2>A.1. Normal Terms 2</h2>
-     
+     <p>For the purposes of this document, the following terms and definitions apply.</p>
          <dl class="terms_dl"><dt>Normal Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f6">Definition</p>
        <div id="_f22bc30c-a5a6-45ae-8bea-0792d7109470" class="example"><p class="example-title">EXAMPLE</p>
          <p id="_16555fc3-3570-4b16-8fff-ac95941b62b1">Example</p>

@@ -63,7 +63,9 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title type="main" language="en" format="text/plain">Document title</title>
+<title>
+  <title-main language="en" format="text/plain">Document title</title-main>
+</title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
@@ -127,7 +129,9 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title type="main" language="en" format="text/plain">Document title</title>
+<title>
+  <title-main language="en" format="text/plain">Document title</title-main>
+</title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
@@ -193,7 +197,9 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title type="main" language="en" format="text/plain">Document title</title>
+<title>
+  <title-main language="en" format="text/plain">Document title</title-main>
+</title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
@@ -258,7 +264,9 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
     <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard"> 
-  <title type="main" language="en" format="text/plain">Document title</title> 
+<title>
+  <title-main language="en" format="text/plain">Document title</title-main>
+</title>
   <uri type="email">x@example.com</uri> 
   <docidentifier type="nist">NIST ABC</docidentifier> 
   <docnumber>ABC</docnumber> 
@@ -329,7 +337,7 @@ RSpec.describe Asciidoctor::NIST do
       :novalid:
       :docnumber: 1000
       :doctype: standard
-      :edition: 2
+      :edition: 3
       :revdate: 2000-01-01
       :draft: 3.4
       :technical-committee: TC
@@ -349,7 +357,6 @@ RSpec.describe Asciidoctor::NIST do
       :status: working-draft
       :iteration: 3
       :language: en
-      :title: Main Title
       :security: Client Confidential
       :keywords: a, b, c
       :fullname: Fred Flintstone
@@ -358,7 +365,10 @@ RSpec.describe Asciidoctor::NIST do
       :givenname_2: Barney
       :role_2: editor
       :affiliation_2: Bedrock Inc.
-      :subtitle: Subtitle
+      :title-main: Main Title
+      :title-sub: Subtitle
+      :title-part: Part
+      :partnumber: 2
       :doc-email: email@example.com
     INPUT
 
@@ -366,16 +376,14 @@ RSpec.describe Asciidoctor::NIST do
            <?xml version="1.0" encoding="UTF-8"?>
        <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
-         <title type="main" language="en" format="text/plain">Main Title</title>
-         <title type="subtitle" language="en" format="text/plain">Subtitle</title>
+       <title>
+         <title-main language="en" format="text/plain">Main Title</title-main>
+         <title-sub language="en" format="text/plain">Subtitle</title-sub>
+         <title-part language="en" format="text/plain">Part</title-part>
+         </title>
         <uri type="email">email@example.com</uri>
-         <docidentifier type="nist">NIST 1000(wd)</docidentifier>
+         <docidentifier type="nist" part="2">NIST 1000-2 Rev. 3</docidentifier>
          <docnumber>1000</docnumber>
-         <edition>2</edition>
-         <version>
-           <revision-date>2000-01-01</revision-date>
-           <draft>3.4</draft>
-         </version>
          <contributor>
            <role type="author"/>
            <organization>
@@ -410,6 +418,11 @@ RSpec.describe Asciidoctor::NIST do
              <name>NIST</name>
            </organization>
          </contributor>
+         <edition>3</edition>
+         <version>
+           <revision-date>2000-01-01</revision-date>
+           <draft>3.4</draft>
+         </version>
          <language>en</language>
          <script>Latn</script>
          <status format="plain">working-draft</status>
@@ -437,7 +450,7 @@ RSpec.describe Asciidoctor::NIST do
     expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
   end
 
-      it "processes committee-draft" do
+      it "processes part not edition" do
     expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
       = Document title
       Author
@@ -446,25 +459,22 @@ RSpec.describe Asciidoctor::NIST do
       :novalid:
       :docnumber: 1000
       :doctype: standard
-      :edition: 2
       :revdate: 2000-01-01
       :draft: 3.4
       :status: committee-draft
       :iteration: 3
       :language: en
-      :title: Main Title
+      :title-main: Main Title
+      :partnumber: 3
     INPUT
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title type="main" language="en" format="text/plain">Main Title</title>
-  <docidentifier type="nist">NIST 1000(cd)</docidentifier>
+<title>
+  <title-main language="en" format="text/plain">Main Title</title-main>
+</title>
+  <docidentifier type="nist" part="3">NIST 1000-3</docidentifier>
   <docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version> 
-  <contributor>
+   <contributor>
     <role type="author"/>
     <organization>
       <name>NIST</name>
@@ -476,6 +486,10 @@ RSpec.describe Asciidoctor::NIST do
       <name>NIST</name>
     </organization>
   </contributor>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version> 
   <language>en</language>
   <script>Latn</script>
   <status format="plain">committee-draft</status>
@@ -496,7 +510,7 @@ RSpec.describe Asciidoctor::NIST do
         OUTPUT
     end
 
-              it "processes draft-standard" do
+              it "processes edition not part" do
     expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
       = Document title
       Author
@@ -511,18 +525,16 @@ RSpec.describe Asciidoctor::NIST do
       :status: draft-standard
       :iteration: 3
       :language: en
-      :title: Main Title
+      :title-main: Main Title
     INPUT
         <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title type="main" language="en" format="text/plain">Main Title</title>
-  <docidentifier type="nist">NIST 1000(d)</docidentifier>
+<title>
+  <title-main language="en" format="text/plain">Main Title</title-main>
+</title>
+  <docidentifier type="nist">NIST 1000-2</docidentifier>
   <docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>   <contributor>
+  <contributor>
     <role type="author"/>
     <organization>
       <name>NIST</name>
@@ -534,6 +546,11 @@ RSpec.describe Asciidoctor::NIST do
       <name>NIST</name>
     </organization>
   </contributor>
+  <edition>2</edition>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>   
   <language>en</language>
   <script>Latn</script>
   <status format="plain">draft-standard</status>
@@ -570,19 +587,16 @@ OUTPUT
       :status: standard
       :iteration: 3
       :language: en
-      :title: Main Title
+      :title-main: Main Title
     INPUT
     <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title type="main" language="en" format="text/plain">Main Title</title>
-  <docidentifier type="nist">NIST 1000</docidentifier>
+<title>
+  <title-main language="en" format="text/plain">Main Title</title-main>
+</title>
+  <docidentifier type="nist">NIST 1000-2</docidentifier>
   <docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version> 
- <contributor>
+  <contributor>
     <role type="author"/>
     <organization>
       <name>NIST</name>
@@ -594,6 +608,11 @@ OUTPUT
       <name>NIST</name>
     </organization>
   </contributor>
+  <edition>2</edition>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version> 
   <language>en</language>
   <script>Latn</script>
   <status format="plain">standard</status>
@@ -836,69 +855,6 @@ OUTPUT
 </ol>
   </li>
 </ol></figure>
-       </sections>
-       </nist-standard>
-    OUTPUT
-
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
-  end
-
-    it "processes recommendation" do
-    input = <<~"INPUT"
-      #{ASCIIDOC_BLANK_HDR}
-      [recommendation]
-      ====
-      I recommend this
-      ====
-    INPUT
-             output = <<~"OUTPUT"
-            #{BLANK_HDR}
-       <sections>
-  <recommendation id="_">
-  <p id="_">I recommend this</p>
-</recommendation>
-       </sections>
-       </nist-standard>
-    OUTPUT
-
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
-  end
-
-    it "processes requirement" do
-    input = <<~"INPUT"
-      #{ASCIIDOC_BLANK_HDR}
-      [requirement]
-      ====
-      I recommend this
-      ====
-    INPUT
-             output = <<~"OUTPUT"
-            #{BLANK_HDR}
-       <sections>
-  <requirement id="_">
-  <p id="_">I recommend this</p>
-</requirement>
-       </sections>
-       </nist-standard>
-    OUTPUT
-
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
-  end
-
-        it "processes permission" do
-    input = <<~"INPUT"
-      #{ASCIIDOC_BLANK_HDR}
-      [permission]
-      ====
-      I recommend this
-      ====
-    INPUT
-             output = <<~"OUTPUT"
-            #{BLANK_HDR}
-       <sections>
-  <permission id="_">
-  <p id="_">I recommend this</p>
-</permission>
        </sections>
        </nist-standard>
     OUTPUT

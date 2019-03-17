@@ -133,9 +133,15 @@ The attributes relevant to NIST documents include:
 `:copyright-year:`:: The year which will be claimed as when the copyright for
 the document was issued.
 
-`:title:`:: The main component of the English title of the document
-(mandatory). (The first line of the AsciiDoc document, which contains the title
-introduced with `=`, is ignored)
+`:title-main:`:: The main component of the title of the document
+(mandatory). If absent, the first line of the AsciiDoc document, which contains the title
+introduced with `=`, is used.
+
+`:title-sub:`:: The subtitle of the document.
+
+`:title-part:`:: The title of the document part.
+
+`:partnumber:`:: The number of the document part.
 
 `:technical-committee:`:: The name of the relevant committee producing the document (mandatory). 
 
@@ -143,7 +149,13 @@ introduced with `=`, is ignored)
 
 `:uri:`:: The URI to which this standard is published.
 
-`:docnumber:`:: The internal identifier referring to this document.
+`:docnumber:`:: The internal identifier referring to this document. The NIST identifier is:
++
+--
+* documber-partnumber (if partnumber is present)
+* documber-edition (if edition is present)
+* documber-partnumber Rev. edition (if both partnumber and edition are present)
+--
 
 `:edition:`:: Edition (revision) of the document. The value of
 this attribute will be displayed as part of the heading, prefixed with "Revision".
