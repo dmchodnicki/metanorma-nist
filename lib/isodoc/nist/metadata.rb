@@ -113,6 +113,13 @@ module IsoDoc
         set(:keywords, keywords)
       end
 
+      def commentperiod(isoxml, _out)
+        from = isoxml.at(ns("//bibdata/commentperiod/from"))&.text
+        to = isoxml.at(ns("//bibdata/commentperiod/to"))&.text
+        set(:comment_from, from) if from
+        set(:comment_to, to) if to
+      end
+
       def url(xml, _out)
         super
         a = xml.at(ns("//bibdata/uri[@type = 'email']")) and set(:email, a.text)

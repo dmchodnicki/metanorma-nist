@@ -199,6 +199,7 @@
       <zeroOrMore>
         <ref name="keyword"/>
       </zeroOrMore>
+      <ref name="commentperiod"/>
     </define>
   </include>
   <define name="committee">
@@ -287,6 +288,18 @@
         <value>computer-security</value>
         <value>information-security</value>
       </choice>
+    </element>
+  </define>
+  <define name="commentperiod">
+    <element name="commentperiod">
+      <element name="from">
+        <ref name="ISO8601Date"/>
+      </element>
+      <optional>
+        <element name="to">
+          <ref name="ISO8601Date"/>
+        </element>
+      </optional>
     </element>
   </define>
   <define name="nist-standard">

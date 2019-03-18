@@ -161,6 +161,15 @@ module Asciidoctor
         end
       end
 
+      def metadata_commentperiod(node, xml)
+        from = node.attr("comment-from") or return
+        to = node.attr("comment-to")
+        xml.commentperiod do |c|
+          c.from from
+          c.to to if to
+        end
+      end
+
       SERIES = {
         "nist-ams": "NIST Advanced Manufacturing Series",
         "building-science": "NIST Building Science Series",
@@ -213,6 +222,7 @@ module Asciidoctor
         super
         metadata_series(node, xml)
         metadata_keywords(node, xml)
+        metadata_commentperiod(node, xml)
       end
     end
   end

@@ -378,6 +378,8 @@ RSpec.describe Asciidoctor::NIST do
       :doi: http://www.example2.com
       :series: nist-fips
       :subseries: information-security
+      :comment-from: 2010-01-01
+      :comment-to: 2010-01-02
     INPUT
 
     output = <<~"OUTPUT"
@@ -463,6 +465,10 @@ RSpec.describe Asciidoctor::NIST do
          <keyword>a</keyword>
          <keyword>b</keyword>
          <keyword>c</keyword>
+         <commentperiod>
+           <from>2010-01-01</from>
+           <to>2010-01-02</to>
+         </commentperiod>
        </bibdata>
        <sections/>
        </nist-standard>

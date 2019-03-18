@@ -460,6 +460,7 @@ module IsoDoc
       def info(isoxml, out)
         @meta.keywords isoxml, out
         @meta.series isoxml, out
+        @meta.commentperiod isoxml, out
         super
       end
 
@@ -492,7 +493,7 @@ module IsoDoc
         end
       end
 
-            def middle_section_asset_names(d)
+      def middle_section_asset_names(d)
         middle_sections =
           "//xmlns:preface/child::* | //xmlns:sections/child::*"
         sequential_asset_names(d.xpath(middle_sections))
