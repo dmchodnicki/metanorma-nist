@@ -82,12 +82,6 @@ module Asciidoctor
       end
 
       def metadata_author(node, xml)
-        xml.contributor do |c|
-          c.role **{ type: "author" }
-          c.organization do |a|
-            a.name "NIST"
-          end
-        end
         personal_author(node, xml)
       end
 

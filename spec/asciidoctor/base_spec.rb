@@ -71,12 +71,6 @@ RSpec.describe Asciidoctor::NIST do
   <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>
-    <role type="author"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-  <contributor>
     <role type="publisher"/>
     <organization>
       <name>NIST</name>
@@ -137,12 +131,6 @@ RSpec.describe Asciidoctor::NIST do
   <docidentifier type="nist">NIST ABC</docidentifier>
   <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -207,12 +195,6 @@ RSpec.describe Asciidoctor::NIST do
   <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>
-    <role type="author"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-  <contributor>
     <role type="publisher"/>
     <organization>
       <name>NIST</name>
@@ -274,12 +256,6 @@ RSpec.describe Asciidoctor::NIST do
   <docidentifier type="nist">NIST ABC</docidentifier> 
   <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber> 
-  <contributor> 
-    <role type="author"/> 
-    <organization> 
-      <name>NIST</name> 
-    </organization> 
-  </contributor> 
   <contributor> 
     <role type="publisher"/> 
     <organization> 
@@ -399,12 +375,6 @@ RSpec.describe Asciidoctor::NIST do
          <docnumber>1000</docnumber>
          <contributor>
            <role type="author"/>
-           <organization>
-             <name>NIST</name>
-           </organization>
-         </contributor>
-         <contributor>
-           <role type="author"/>
            <person>
              <name>
                <completename>Fred Flintstone</completename>
@@ -500,12 +470,6 @@ RSpec.describe Asciidoctor::NIST do
   <docidentifier type="nist" part="3">NIST 1000-3</docidentifier>
   <docidentifier type="nist-long" part="3">NIST 1000-3</docidentifier>
   <docnumber>1000</docnumber>
-   <contributor>
-    <role type="author"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -559,12 +523,6 @@ RSpec.describe Asciidoctor::NIST do
   <docidentifier type="nist">NIST 1000-2</docidentifier>
   <docidentifier type="nist-long">NIST 1000-2</docidentifier>
   <docnumber>1000</docnumber>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -623,12 +581,6 @@ OUTPUT
   <docidentifier type="nist">NIST FIPS 1000-2</docidentifier>
   <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000-2</docidentifier>
   <docnumber>1000</docnumber>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>

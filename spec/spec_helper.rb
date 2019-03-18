@@ -63,12 +63,6 @@ BLANK_HDR = <<~"HDR"
           <title-main language="en" format="text/plain">Document title</title-main> 
         </title> 
          <contributor>
-           <role type="author"/>
-           <organization>
-             <name>NIST</name>
-           </organization>
-         </contributor>
-         <contributor>
            <role type="publisher"/>
            <organization>
              <name>NIST</name>
