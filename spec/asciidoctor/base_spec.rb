@@ -68,6 +68,7 @@ RSpec.describe Asciidoctor::NIST do
 </title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
+  <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>
     <role type="author"/>
@@ -134,6 +135,7 @@ RSpec.describe Asciidoctor::NIST do
 </title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
+  <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>
     <role type="author"/>
@@ -202,6 +204,7 @@ RSpec.describe Asciidoctor::NIST do
 </title>
   <uri type="email">x@example.com</uri>
   <docidentifier type="nist">NIST ABC</docidentifier>
+  <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>
     <role type="author"/>
@@ -269,6 +272,7 @@ RSpec.describe Asciidoctor::NIST do
 </title>
   <uri type="email">x@example.com</uri> 
   <docidentifier type="nist">NIST ABC</docidentifier> 
+  <docidentifier type="nist-long">NIST ABC</docidentifier>
   <docnumber>ABC</docnumber> 
   <contributor> 
     <role type="author"/> 
@@ -372,6 +376,8 @@ RSpec.describe Asciidoctor::NIST do
       :doc-email: email@example.com
       :uri: http://www.example.com
       :doi: http://www.example2.com
+      :series: nist-fips
+      :subseries: information-security
     INPUT
 
     output = <<~"OUTPUT"
@@ -386,7 +392,8 @@ RSpec.describe Asciidoctor::NIST do
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
         <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist" part="2">NIST 1000-2 Rev. 3</docidentifier>
+         <docidentifier type="nist" part="2">NIST FIPS 1000-2 Rev. 3</docidentifier>
+         <docidentifier type="nist-long" part="2">NIST Federal Information Processing Standards 1000-2 Rev. 3</docidentifier>
          <docnumber>1000</docnumber>
          <contributor>
            <role type="author"/>
@@ -446,6 +453,13 @@ RSpec.describe Asciidoctor::NIST do
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
+         <series type="main">
+           <title>NIST Federal Information Processing Standards</title>
+           <abbreviation>NIST FIPS</abbreviation>
+         </series>
+         <series type="secondary">
+                <title>Information Security</title>
+        </series>
          <keyword>a</keyword>
          <keyword>b</keyword>
          <keyword>c</keyword>
@@ -478,6 +492,7 @@ RSpec.describe Asciidoctor::NIST do
   <title-main language="en" format="text/plain">Main Title</title-main>
 </title>
   <docidentifier type="nist" part="3">NIST 1000-3</docidentifier>
+  <docidentifier type="nist-long" part="3">NIST 1000-3</docidentifier>
   <docnumber>1000</docnumber>
    <contributor>
     <role type="author"/>
@@ -536,6 +551,7 @@ RSpec.describe Asciidoctor::NIST do
   <title-main language="en" format="text/plain">Main Title</title-main>
 </title>
   <docidentifier type="nist">NIST 1000-2</docidentifier>
+  <docidentifier type="nist-long">NIST 1000-2</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -574,13 +590,14 @@ RSpec.describe Asciidoctor::NIST do
 OUTPUT
         end
 
-    it "ignores unrecognised status" do
+    it "ignores unrecognised status, overrides docidentifier" do
         expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~'OUTPUT'
       = Document title
       Author
       :docfile: test.adoc
       :nodoc:
       :novalid:
+      :docidentifier: NIST FIPS 1000-2
       :docnumber: 1000
       :doctype: standard
       :edition: 2
@@ -597,7 +614,8 @@ OUTPUT
 <title>
   <title-main language="en" format="text/plain">Main Title</title-main>
 </title>
-  <docidentifier type="nist">NIST 1000-2</docidentifier>
+  <docidentifier type="nist">NIST FIPS 1000-2</docidentifier>
+  <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000-2</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>

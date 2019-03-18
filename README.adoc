@@ -149,13 +149,19 @@ introduced with `=`, is used.
 
 `:uri:`:: The URI to which this standard is published.
 
-`:docnumber:`:: The internal identifier referring to this document. The NIST identifier is:
+`:docnumber:`:: The internal identifier referring to this document. The identifier is a number;
+the prefix, e.g. "NIST SP", is supplied by the `:series:` attribute. The NIST identifier is:
 +
 --
 * documber-partnumber (if partnumber is present)
 * documber-edition (if edition is present)
 * documber-partnumber Rev. edition (if both partnumber and edition are present)
 --
+
+`:docidentifier:`:: The document identifier for the document. Normally this should not be supplied,
+as the document identifier is composed from the document series, document number, part number
+and edition/revision. If the `:docidentifier:` value is provided, it will override this composed
+value.
 
 `:edition:`:: Edition (revision) of the document. The value of
 this attribute will be displayed as part of the heading, prefixed with "Revision".
@@ -232,6 +238,38 @@ If not supplied, `:doc-email:` is used.
 `:iteration:`:: The iteration of a stage, in case there have been multiple drafts.
 Can be a number, or text (e.g. "initial", "final").
 
+`:series:`:: The publication series that the document belongs to. Legal values are:
++
+--
+* nist-ams 
+*  building-science 
+*  nist-fips 
+*  nist-gcr 
+*  nist-hb 
+*  itl-bulletin 
+*  jpcrd 
+*  nist-jres 
+*  letter-circular 
+*  nist-monograph 
+*  nist-ncstar 
+*  nist-nsrds 
+*  nistir 
+*  product-stadnards 
+*  nist-sp  
+*  nist-tn 
+*  other 
+*  csrc-white-paper 
+*  csrc-book 
+*  csrc-use-case 
+*  csrc-building-block
+--
+
+`:subseries:`:: The secondary publication series that the document belongs to. Legal values are:
++
+--
+* computer-security (for NIST SP)
+* information-security (for NIST SP)
+--
 
 == Asciidoctor features specific to NIST
 

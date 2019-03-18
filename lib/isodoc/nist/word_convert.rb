@@ -459,6 +459,7 @@ module IsoDoc
 
       def info(isoxml, out)
         @meta.keywords isoxml, out
+        @meta.series isoxml, out
         super
       end
 

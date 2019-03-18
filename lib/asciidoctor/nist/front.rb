@@ -42,17 +42,40 @@ module Asciidoctor
       end
 
       def metadata_id(node, xml)
-        return unless dn = node.attr("docnumber")
-        part = node&.attr("partnumber")
-        dn = add_id_parts(dn, part, node&.attr("edition"))
-        xml.docidentifier dn, **attr_code(type: "nist", part: part)
+        did = node.attr("docidentifier")
+        dn = node.attr("docnumber")
+        part = node.attr("partnumber")
+        if did
+          xml.docidentifier did, **attr_code(type: "nist", part: part)
+          xml.docidentifier unabbreviate(did), **attr_code(type: "nist-long", part: part)
+        else
+          metadata_id_compose(node, xml, dn, part)
+        end
         xml.docnumber node.attr("docnumber")
       end
 
-      def add_id_parts(dn, part, edition)
+      def unabbreviate(did)
+        SERIES_ABBR.each { |k, v| did = did.sub(/^#{v} /, "#{k} ") }
+        SERIES.each { |k, v| did = did.sub(/^#{k} /, "#{v} ") }
+        did
+      end
+
+      def metadata_id_compose(node, xml, dn0, part)
+        return unless dn0
+        dn = add_id_parts(dn0, part, node.attr("series"),
+                          node.attr("edition"), false)
+        dn_long = add_id_parts(dn0, part, node.attr("series"),
+                               node.attr("edition"), true)
+        xml.docidentifier dn, **attr_code(type: "nist", part: part)
+        xml.docidentifier dn_long, **attr_code(type: "nist-long", part: part)
+      end
+
+      def add_id_parts(dn, part, series, edition, long)
         ed_delim = part && edition ? " Rev. " : "-"
         part_delim = "-"
-        dn = "NIST " + dn
+        series and series_name = long ? SERIES.dig(series.to_sym) :
+          SERIES_ABBR.dig(series.to_sym)
+        dn = (series_name || "NIST #{series}")  + " " + dn
         dn += "#{part_delim}#{part}" if part
         dn += "#{ed_delim}#{edition}" if edition
         dn
@@ -125,11 +148,72 @@ module Asciidoctor
         node.attr("doi") && xml.uri(node.attr("doi"), type: "doi")
       end
 
-      def metadata(node, xml)
-        super
-        metadata_keywords(node, xml)
+      def metadata_series(node, xml)
+        series = node.attr("series")
+        subseries = node.attr("subseries")
+        series || subseries || return
+        series and xml.series **{ type: "main" } do |s|
+          s.title (SERIES.dig(series.to_sym) || series)
+          SERIES_ABBR.dig(series.to_sym) and s.abbreviation SERIES_ABBR.dig(series.to_sym)
+        end
+        subseries and xml.series **{ type: "secondary" } do |s|
+          s.title subseries.split(/-/).map{ |w| w.capitalize }.join(" ")
+        end
       end
 
+      SERIES = {
+        "nist-ams": "NIST Advanced Manufacturing Series",
+        "building-science": "NIST Building Science Series",
+        "nist-fips": "NIST Federal Information Processing Standards",
+        "nist-gcr": "NIST Grant/Contract Reports",
+        "nist-hb": "NIST Handbook",
+        "itl-bulletin": "ITL Bulletin",
+        "jpcrd": "Journal of Physical and Chemical Reference Data",
+        "nist-jres": "NIST Journal of Research",
+        "letter-circular": "NIST Letter Circular",
+        "nist-monograph": "NIST Monograph",
+        "nist-ncstar": "NIST National Construction Safety Team Act Reports",
+        "nist-nsrds": "NIST National Standard Reference Data Series",
+        "nistir": "NIST Interagency/Internal Report",
+        "product-standards": "NIST Product Standards",
+        "nist-sp": "NIST Special Publication",
+        "nist-tn": "NIST Technical Note",
+        "other": "NIST Other",
+        "csrc-white-paper": "CSRC White Paper",
+        "csrc-book": "CSRC Book",
+        "csrc-use-case": "CSRC Use Case",
+        "csrc-building-block": "CSRC Building Block",
+      }.freeze
+
+      SERIES_ABBR = {
+        "nist-ams": "NIST AMS",
+        "building-science": "NIST Building Science Series",
+        "nist-fips": "NIST FIPS",
+        "nist-gcr": "NISTGCR",
+        "nist-hb": "NIST HB",
+        "itl-bulletin": "ITL Bulletin",
+        "jpcrd": "JPCRD",
+        "nist-jres": "NIST JRES",
+        "letter-circular": "NIST Letter Circular",
+        "nist-monograph": "NIST MN",
+        "nist-ncstar": "NIST NCSTAR",
+        "nist-nsrds": "NIST NSRDS",
+        "nistir": "NISTIR",
+        "product-standards": "NIST Product Standards",
+        "nist-sp": "NIST SP",
+        "nist-tn": "NIST TN",
+        "other": "NIST Other",
+        "csrc-white-paper": "CSRC White Paper",
+        "csrc-book": "CSRC Book",
+        "csrc-use-case": "CSRC Use Case",
+        "csrc-building-block": "CSRC Building Block",
+      }.freeze
+
+      def metadata(node, xml)
+        super
+        metadata_series(node, xml)
+        metadata_keywords(node, xml)
+      end
     end
   end
 end

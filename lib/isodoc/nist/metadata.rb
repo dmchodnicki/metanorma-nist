@@ -36,12 +36,12 @@ module IsoDoc
       end
 
       def docid(isoxml, _out)
-        docnumber_node = isoxml.at(ns("//bibdata/docidentifier"))
-        docnumber = docnumber_node&.text
+        docidentifier = isoxml.at(ns("//bibdata/docidentifier[@type = 'nist']"))&.text
+        docidentifier_long = isoxml.at(ns("//bibdata/docidentifier[@type = 'nist-long']"))&.text
+        docnumber = isoxml.at(ns("//bibdata/docnumber"))&.text
+        set(:docidentifier, docidentifier)
+        set(:docidentifier_long, docidentifier_long)
         set(:docnumber, docnumber)
-        # TODO: for NIST SPs only!!!
-        docnumber and set(:docnumber_long, 
-                          docnumber.gsub("NIST SP", "NIST Special Publication"))
       end
 
       def draftinfo(draft, revdate)
@@ -75,6 +75,13 @@ module IsoDoc
         super
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
+      end
+
+      def series(isoxml, _out)
+        series = isoxml.at(ns("//bibdata/series[@type = 'main']/title"))&.text
+        set(:series, series) if series
+        subseries = isoxml.at(ns("//bibdata/series[@type = 'secondary']/title"))&.text
+        set(:subseries, subseries) if subseries
       end
 
       MONTHS = {
