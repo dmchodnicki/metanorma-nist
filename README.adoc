@@ -217,6 +217,9 @@ The following document attributes are specific to this document class:
 
 `:doc-email:`:: Email contact for document
 
+`:doi:`:: DOI URL for document (distinct from `:uri:`, which is the URL that NIST
+publishes the document under.)
+
 `:call-for-patent-claims:`:: Include the Call for Patent Claims in document drafts, 
 and the Patent Disclosure Notice in finalised documents.
 

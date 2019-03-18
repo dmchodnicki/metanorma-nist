@@ -106,13 +106,15 @@
       </element>
     </define>
     <define name="stage">
-      <choice>
-        <value>internal-draft</value>
-        <value>public-draft</value>
-        <value>final</value>
-        <value>retired-draft</value>
-        <value>withdrawn</value>
-      </choice>
+      <element name="stage">
+        <choice>
+          <value>internal-draft</value>
+          <value>public-draft</value>
+          <value>final</value>
+          <value>retired-draft</value>
+          <value>withdrawn</value>
+        </choice>
+      </element>
     </define>
     <define name="iteration">
       <element name="iteration">

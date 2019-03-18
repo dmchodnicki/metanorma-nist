@@ -122,6 +122,7 @@ module Asciidoctor
       def metadata_source(node, xml)
         super
         node.attr("doc-email") && xml.uri(node.attr("doc-email"), type: "email")
+        node.attr("doi") && xml.uri(node.attr("doi"), type: "doi")
       end
 
       def metadata(node, xml)

@@ -370,6 +370,8 @@ RSpec.describe Asciidoctor::NIST do
       :title-part: Part
       :partnumber: 2
       :doc-email: email@example.com
+      :uri: http://www.example.com
+      :doi: http://www.example2.com
     INPUT
 
     output = <<~"OUTPUT"
@@ -381,7 +383,9 @@ RSpec.describe Asciidoctor::NIST do
          <title-sub language="en" format="text/plain">Subtitle</title-sub>
          <title-part language="en" format="text/plain">Part</title-part>
          </title>
+         <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
+        <uri type="doi">http://www.example2.com</uri>
          <docidentifier type="nist" part="2">NIST 1000-2 Rev. 3</docidentifier>
          <docnumber>1000</docnumber>
          <contributor>
