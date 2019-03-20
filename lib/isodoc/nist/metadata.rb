@@ -12,21 +12,11 @@ module IsoDoc
       def title(isoxml, out)
         main = isoxml&.at(ns("//bibdata/title/title-main"))&.text
         set(:doctitle, main)
-        part_title(isoxml, out)
       end
 
       def subtitle(isoxml, _out)
         main = isoxml&.at(ns("//bibdata/title/title-sub"))&.text or return
         set(:docsubtitle, main)
-      end
-
-      def part_title(isoxml, _out)
-        part = isoxml&.at(ns("//bibdata/title/title-part"))&.text or return
-        num = isoxml&.at(ns("//bibdata/docidentifier[@type = 'nist']/@part"))&.text
-        prefix = ""
-        prefix = "Part #{num}: " if num
-        prefix += part
-        set(:docparttitle, prefix)
       end
 
       def author(isoxml, _out)

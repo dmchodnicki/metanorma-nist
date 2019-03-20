@@ -139,10 +139,6 @@ introduced with `=`, is used.
 
 `:title-sub:`:: The subtitle of the document.
 
-`:title-part:`:: The title of the document part.
-
-`:partnumber:`:: The number of the document part.
-
 `:technical-committee:`:: The name of the relevant committee producing the document (mandatory). 
 
 `:published-date:`:: The publication date for the document.
@@ -150,16 +146,11 @@ introduced with `=`, is used.
 `:uri:`:: The URI to which this standard is published.
 
 `:docnumber:`:: The internal identifier referring to this document. The identifier is a number;
-the prefix, e.g. "NIST SP", is supplied by the `:series:` attribute. The NIST identifier is:
-+
---
-* documber-partnumber (if partnumber is present)
-* documber-edition (if edition is present)
-* documber-partnumber Rev. edition (if both partnumber and edition are present)
---
+the prefix, e.g. "NIST SP", is supplied by the `:series:` attribute. The NIST identifier is
+docnumber-edition (if edition is present)
 
 `:docidentifier:`:: The document identifier for the document. Normally this should not be supplied,
-as the document identifier is composed from the document series, document number, part number
+as the document identifier is composed from the document series, document number, 
 and edition/revision. If the `:docidentifier:` value is provided, it will override this composed
 value.
 

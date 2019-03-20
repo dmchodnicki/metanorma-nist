@@ -23,20 +23,12 @@ module Asciidoctor
         end
       end
 
-      def title_part(node, t, at)
-        return unless node.attr("title-part")
-        t.title_part(**attr_code(at)) do |t1|
-          t1 << asciidoc_sub(node.attr("title-part"))
-        end
-      end
-
       def title(node, xml)
         ["en"].each do |lang|
           xml.title do |t|
             at = { language: lang, format: "text/plain" }
             title_main(node, t, at)
             title_subtitle(node, t, at)
-            title_part(node, t, at)
           end
         end
       end
@@ -44,12 +36,11 @@ module Asciidoctor
       def metadata_id(node, xml)
         did = node.attr("docidentifier")
         dn = node.attr("docnumber")
-        part = node.attr("partnumber")
         if did
-          xml.docidentifier did, **attr_code(type: "nist", part: part)
-          xml.docidentifier unabbreviate(did), **attr_code(type: "nist-long", part: part)
+          xml.docidentifier did, **attr_code(type: "nist")
+          xml.docidentifier unabbreviate(did), **attr_code(type: "nist-long")
         else
-          metadata_id_compose(node, xml, dn, part)
+          metadata_id_compose(node, xml, dn)
         end
         xml.docnumber node.attr("docnumber")
       end
@@ -60,23 +51,19 @@ module Asciidoctor
         did
       end
 
-      def metadata_id_compose(node, xml, dn0, part)
+      def metadata_id_compose(node, xml, dn0)
         return unless dn0
-        dn = add_id_parts(dn0, part, node.attr("series"),
-                          node.attr("edition"), false)
-        dn_long = add_id_parts(dn0, part, node.attr("series"),
-                               node.attr("edition"), true)
-        xml.docidentifier dn, **attr_code(type: "nist", part: part)
-        xml.docidentifier dn_long, **attr_code(type: "nist-long", part: part)
+        dn = add_id_parts(dn0, node.attr("series"), node.attr("edition"), false)
+        dn_long = add_id_parts(dn0, node.attr("series"), node.attr("edition"), true)
+        xml.docidentifier dn, **attr_code(type: "nist")
+        xml.docidentifier dn_long, **attr_code(type: "nist-long")
       end
 
-      def add_id_parts(dn, part, series, edition, long)
-        ed_delim = part && edition ? " Rev. " : "-"
-        part_delim = "-"
+      def add_id_parts(dn, series, edition, long)
+        ed_delim = "-"
         series and series_name = long ? SERIES.dig(series.to_sym) :
           SERIES_ABBR.dig(series.to_sym)
         dn = (series_name || "NIST #{series}")  + " " + dn
-        dn += "#{part_delim}#{part}" if part
         dn += "#{ed_delim}#{edition}" if edition
         dn
       end

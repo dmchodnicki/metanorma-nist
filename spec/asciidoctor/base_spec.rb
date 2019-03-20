@@ -365,13 +365,12 @@ RSpec.describe Asciidoctor::NIST do
        <title>
          <title-main language="en" format="text/plain">Main Title</title-main>
          <title-sub language="en" format="text/plain">Subtitle</title-sub>
-         <title-part language="en" format="text/plain">Part</title-part>
          </title>
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
         <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist" part="2">NIST FIPS 1000-2 Rev. 3</docidentifier>
-         <docidentifier type="nist-long" part="2">NIST Federal Information Processing Standards 1000-2 Rev. 3</docidentifier>
+         <docidentifier type="nist">NIST FIPS 1000-3</docidentifier>
+         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000-3</docidentifier>
          <docnumber>1000</docnumber>
          <contributor>
            <role type="author"/>
@@ -446,113 +445,6 @@ RSpec.describe Asciidoctor::NIST do
 
     expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
   end
-
-      it "processes part not edition" do
-    expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :nodoc:
-      :novalid:
-      :docnumber: 1000
-      :doctype: standard
-      :revdate: 2000-01-01
-      :draft: 3.4
-      :language: en
-      :title-main: Main Title
-      :partnumber: 3
-    INPUT
-        <nist-standard xmlns="http://www.nist.gov/metanorma">
-<bibdata type="standard">
-<title>
-  <title-main language="en" format="text/plain">Main Title</title-main>
-</title>
-  <docidentifier type="nist" part="3">NIST 1000-3</docidentifier>
-  <docidentifier type="nist-long" part="3">NIST 1000-3</docidentifier>
-  <docnumber>1000</docnumber>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version> 
-  <language>en</language>
-  <script>Latn</script>
-  <status><stage>final</stage></status>
-  <copyright>
-    <from>#{Date.today.year}</from>
-    <owner>
-      <organization>
-        <name>NIST</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
-</bibdata>
-<sections/>
-</nist-standard>
-        OUTPUT
-    end
-
-              it "processes edition not part" do
-    expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :nodoc:
-      :novalid:
-      :docnumber: 1000
-      :doctype: standard
-      :edition: 2
-      :revdate: 2000-01-01
-      :draft: 3.4
-      :language: en
-      :title-main: Main Title
-    INPUT
-        <nist-standard xmlns="http://www.nist.gov/metanorma">
-<bibdata type="standard">
-<title>
-  <title-main language="en" format="text/plain">Main Title</title-main>
-</title>
-  <docidentifier type="nist">NIST 1000-2</docidentifier>
-  <docidentifier type="nist-long">NIST 1000-2</docidentifier>
-  <docnumber>1000</docnumber>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>   
-  <language>en</language>
-  <script>Latn</script>
-  <status><stage>final</stage></status>
-  <copyright>
-    <from>#{Date.today.year}</from>
-    <owner>
-      <organization>
-        <name>NIST</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
-</bibdata>
-<sections/>
-</nist-standard>
-OUTPUT
-        end
 
     it "ignores unrecognised status, overrides docidentifier" do
         expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~'OUTPUT'
