@@ -268,6 +268,9 @@ document draft. ISO-8601 date.
 `:comment-to:`:: The end of the period during which comments may be submitted to the NIST document
 draft. The end of the period may change, and may be left open-ended (omitted). ISO-8601 date.
 
+`:comment-extended:`:: The date on which the during which comments may be submitted to the NIST document
+draft was extended.
+
 == Asciidoctor features specific to NIST
 
 The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]

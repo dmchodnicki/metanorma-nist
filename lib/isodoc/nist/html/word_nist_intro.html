@@ -103,6 +103,19 @@ font-family:"Arial",sans-serif;color:black'><o:p></o:p></span></b></p>
 
 </div>
 
+{% if comment_extended %}
+<p class=MsoNormal align="center">[{{ comment_extended}}: Comment period extended]</p>
+{% endif %}
+
+{% if comment_from and comment_to %}
+<p class=MsoNormal align="center"><b>Public comment period: <i>{{ comment_from }}</i> through <i>{{comment_to}}</i></b></p>
+{% else %}
+{% if comment_from %}
+<p class=MsoNormal align="center"><b>Public comment period: from <i>{{ comment_from }}</i></b></p>
+{% endif %}
+{% endif %}
+
+
 <p class=MsoNormal align=center style='margin-bottom:6.0pt;text-align:center'><b><span
 lang=EN-US style='font-size:11.0pt;font-family:"Arial",sans-serif'>Comments
 on this publication may be submitted to:</span></b><b style='mso-bidi-font-weight:

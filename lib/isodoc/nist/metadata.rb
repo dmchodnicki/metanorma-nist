@@ -106,8 +106,10 @@ module IsoDoc
       def commentperiod(isoxml, _out)
         from = isoxml.at(ns("//bibdata/commentperiod/from"))&.text
         to = isoxml.at(ns("//bibdata/commentperiod/to"))&.text
+        extended = isoxml.at(ns("//bibdata/commentperiod/extended"))&.text
         set(:comment_from, from) if from
         set(:comment_to, to) if to
+        set(:comment_extended, extended) if extended
       end
 
       def url(xml, _out)

@@ -21,6 +21,18 @@ CODEN: NSPUE2</p>
 <p>Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <a href="https://csrc.nist.gov/publications">https://csrc.nist.gov/publications</a>.
 </div>
 
+{% if comment_extended %}
+<p align="center">[{{ comment_extended}}: Comment period extended]</p>
+{% endif %}
+
+{% if comment_from and comment_to %}
+<p align="center"><b>Public comment period: <i>{{ comment_from }}</i> through <i>{{comment_to}}</i></b></p>
+{% else %}
+{% if comment_from %}
+<p align="center"><b>Public comment period: from <i>{{ comment_from }}</i></b></p>
+{% endif %}
+{% endif %}
+
 <h2>Comments on this publication may be submitted to:</h2>
 
 <p align="center">National Institute of Standards and Technology <br/>

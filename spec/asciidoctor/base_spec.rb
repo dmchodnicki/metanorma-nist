@@ -356,6 +356,7 @@ RSpec.describe Asciidoctor::NIST do
       :subseries: information-security
       :comment-from: 2010-01-01
       :comment-to: 2010-01-02
+      :comment-extended: 2010-01-03
     INPUT
 
     output = <<~"OUTPUT"
@@ -437,6 +438,7 @@ RSpec.describe Asciidoctor::NIST do
          <commentperiod>
            <from>2010-01-01</from>
            <to>2010-01-02</to>
+           <extended>2010-01-02</extended>
          </commentperiod>
        </bibdata>
        <sections/>

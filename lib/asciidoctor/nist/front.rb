@@ -145,9 +145,11 @@ module Asciidoctor
       def metadata_commentperiod(node, xml)
         from = node.attr("comment-from") or return
         to = node.attr("comment-to")
+        extended = node.attr("comment-extended")
         xml.commentperiod do |c|
           c.from from
           c.to to if to
+          c.extended extended if extended
         end
       end
 

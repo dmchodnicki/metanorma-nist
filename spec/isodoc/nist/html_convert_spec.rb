@@ -79,6 +79,7 @@ RSpec.describe IsoDoc::NIST do
          <commentperiod>
          <from>2001-01-01</from>
          <to>2001-01-02</to>
+         <extended>2001-01-03</extended>
          </commentperiod>
   <security>Client Confidential</security>
 </bibdata>
@@ -87,7 +88,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc."=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Internal Draft", :subseries=>"Information Security", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc."=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Internal Draft", :subseries=>"Information Security", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
