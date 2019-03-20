@@ -438,7 +438,7 @@ RSpec.describe Asciidoctor::NIST do
          <commentperiod>
            <from>2010-01-01</from>
            <to>2010-01-02</to>
-           <extended>2010-01-02</extended>
+           <extended>2010-01-03</extended>
          </commentperiod>
        </bibdata>
        <sections/>
