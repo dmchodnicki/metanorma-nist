@@ -607,7 +607,7 @@ module IsoDoc
       def annex_names(clause, num)
         @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
                                    xref: "#{@annex_lbl} #{num}", level: 1 }
-        clause.xpath(ns("./clause | ./terms | ./term")).each_with_index do |c, i|
+        clause.xpath(ns("./clause | ./terms | ./term | ./references")).each_with_index do |c, i|
           annex_names1(c, "#{num}.#{i + 1}", 2)
         end
         hierarchical_asset_names(clause, num)
@@ -616,7 +616,7 @@ module IsoDoc
       def annex_names1(clause, num, level)
         @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
                                    level: level, type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term")).each_with_index do |c, i|
+        clause.xpath(ns("./clause | ./terms | ./term | ./references")).each_with_index do |c, i|
           annex_names1(c, "#{num}.#{i + 1}", level + 1)
         end
       end
@@ -656,6 +656,18 @@ module IsoDoc
           d.remove
         end
         docxml
+      end
+
+      def bibliography_parse(node, out)
+        title = node&.at(ns("./title"))&.text || ""
+        out.div do |div|
+          node.parent.name == "annex" or
+          div.h2 title, **{ class: "Section3" }
+          node.elements.reject do |e|
+            ["reference", "title", "bibitem"].include? e.name
+          end.each { |e| parse(e, div) }
+          biblio_list(node, div, true)
+        end
       end
     end
   end

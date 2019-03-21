@@ -142,6 +142,7 @@ module Asciidoctor
         @callforpatentclaims = node.attr("call-for-patent-claims")
         @commitmenttolicence = node.attr("commitment-to-licence")
         @patentcontact = node.attr("patent-contact")
+        @biblioasappendix = node.attr("biblio-as-appendix")
         super
       end
 
@@ -319,6 +320,24 @@ module Asciidoctor
         end.join("\n")
       end
 
+      def bibliography_parse(a, xml, node)
+        @biblioasappendix and node.level == 1 and
+          return bibliography_annex_parse(a, xml, node)
+        super
+      end
+
+      def bibliography_annex_parse(attrs, xml, node)
+        attrs1 = attrs.merge(id: "_" + UUIDTools::UUID.random_create)
+        xml.annex **attr_code(attrs1) do |xml_section|
+          xml_section.title { |t| t << "Bibliography" }
+          @biblio = true
+          xml.references **attr_code(attrs) do |xml_section|
+            xml_section << node.content
+          end
+        end
+        @biblio = false
+      end
+
       def terms_annex_parse(attrs, xml, node)
         attrs1 = attrs.merge(id: "_" + UUIDTools::UUID.random_create)
         xml.annex **attr_code(attrs1) do |xml_section|
@@ -345,6 +364,12 @@ module Asciidoctor
         return if names == ["References", "Bibliography"]
         warn "Reference clauses #{names.join(', ')} do not follow expected "\
           "pattern in NIST"
+      end
+
+      def sections_order_cleanup(x)
+        s = x.at("//sections")
+        make_preface(x, s)
+        x.xpath("//sections/annex").reverse_each { |r| s.next = r.remove }
       end
 
       def html_converter(node)

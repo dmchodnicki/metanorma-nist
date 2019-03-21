@@ -476,6 +476,61 @@ output = <<~"OUTPUT"
 
   end
 
+ it "processes appendix bibliographies" do
+    FileUtils.rm_f "test.html"
+     IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
+    <nist-standard xmlns="http://riboseinc.com/isoxml">
+   <sections/>
+
+         <annex id="A" obligation="normative">
+         <title>First Appendix</title>
+         <example id="B">
+         <p id="C">Example</p>
+       </example>
+       </annex><annex id="D" obligation="normative">
+         <title>Bibliography</title>
+         <references id="E" obligation="informative"/>
+       </annex><annex id="F" obligation="normative">
+         <title>Second Appendix</title>
+         <example id="G">
+         <p id="H">Example</p>
+       </example>
+       </annex>
+       </nist-standard>
+       INPUT
+        output = <<~"OUTPUT"
+        <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+      <p class="zzSTDTitle1"></p>
+      <br />
+      <div id="A" class="Section3">
+        <h1 class="Annex"><b>Appendix A</b> &#x2014; <b>First Appendix</b></h1>
+        <div id="B" class="example"><p class="example-title">EXAMPLE</p>
+      <p id="C">Example</p>
+    </div>
+      </div>
+      <br />
+      <div id="D" class="Section3">
+        <h1 class="Annex"><b>Appendix B</b> &#x2014; <b>Bibliography</b></h1>
+        <div>
+        </div>
+      </div>
+      <br />
+      <div id="F" class="Section3">
+        <h1 class="Annex"><b>Appendix C</b> &#x2014; <b>Second Appendix</b></h1>
+        <div id="G" class="example"><p class="example-title">EXAMPLE</p>
+      <p id="H">Example</p>
+    </div>
+      </div>
+    </main>
+    OUTPUT
+
+     expect(File.exist?("test.html")).to be true
+ html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
+    expect(html).to be_equivalent_to output
+
+
+ end
+
 
   it "processes section names" do
     input = <<~"INPUT"

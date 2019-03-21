@@ -890,4 +890,57 @@ RSpec.describe Asciidoctor::NIST do
       INPUT
   end
 
+      it "processes bibliographies as appendixes in legacy format" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :biblio-as-appendix:
+
+      [appendix]
+      == First Appendix
+
+      ====
+      Example
+      ====
+
+      [bibliography]
+      == References
+
+      [appendix]
+      == Second Appendix
+
+      ====
+      Example
+      ====
+
+    INPUT
+
+        output = <<~"OUTPUT"
+            #{BLANK_HDR}
+         <sections/>
+
+         <annex id="_" obligation="normative">
+         <title>First Appendix</title>
+         <example id="_">
+         <p id="_">Example</p>
+       </example>
+       </annex><annex id="_" obligation="normative">
+         <title>Bibliography</title>
+         <references id="_" obligation="informative"/>
+       </annex><annex id="_" obligation="normative">
+         <title>Second Appendix</title>
+         <example id="_">
+         <p id="_">Example</p>
+       </example>
+       </annex>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
+
 end

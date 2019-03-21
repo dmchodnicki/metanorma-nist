@@ -271,6 +271,11 @@ draft. The end of the period may change, and may be left open-ended (omitted). I
 `:comment-extended:`:: The date on which the during which comments may be submitted to the NIST document
 draft was extended.
 
+`:biblio-as-appendix:`:: By default, bibliographies are treated as separate from appendixes in output:
+they are published in front of any appendixes. This is the prescribed behaviour for NIST documents moving
+forward. If present, bibliographies are treated in the legacy manner: they are treated like appendixes,
+and are given an appendix number according to where in the document they occur.
+
 == Asciidoctor features specific to NIST
 
 The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]
