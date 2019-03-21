@@ -591,6 +591,7 @@ RSpec.describe Asciidoctor::NIST do
   it "recognises preface sections" do
         input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
+      .Reports on Computer Systems Technology
       This is a preamble
 
       [abstract]
@@ -626,7 +627,7 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
     #{BLANK_HDR}
     <preface><foreword obligation="informative">
-  <title>Foreword</title>
+  <title>Reports on Computer Systems Technology</title>
   <p id="_">This is a preamble</p>
 </foreword><clause id="_" obligation="normative">
   <title>Acknowledgements</title>

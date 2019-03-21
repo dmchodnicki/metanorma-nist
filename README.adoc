@@ -70,16 +70,6 @@ Please refer to the Metanorma-ISO documentation for general documentation.
 
 * Metanorma-ISO guidance: https://www.metanorma.com/software/metanorma-iso/docs/guidance/
 
-
-////
-** http://asciimath.org[AsciiMathML] is used for mathematical formatting.
-The gem uses the https://github.com/asciidoctor/asciimath[Ruby AsciiMath parser],
-which is syntactically stricter than the common MathJax processor;
-if you do not get expected results, try bracketing terms your in AsciiMathML
-expressions.
-////
-
-
 == Approach
 
 === Document model
@@ -286,6 +276,7 @@ The following markup is specific to this gem:
 
 The following sections are automatically moved to the document preface.
 
+* Foreword
 * Abstract
 * Keywords (drawn from document attribute, see above)
 
@@ -317,8 +308,25 @@ the document is in draft (has a `:draft:` attribute).
 
 ==== Abstract
 
-As with all metanorma gems, Abstracts are recognised as any clause with the style attribute
+As with all Metanorma gems, Abstracts are recognised as any clause with the style attribute
 `[abstract]`. They are rendered in the document preface, under the Metanorma XML tag `abstract`.
+
+==== Foreword
+
+As with all Metanorma gems, the foreword is considered to be any text before the first
+section title. The foreword is used to capture the introductory statement on the publication
+series that precedes the abstract, and its title is entered as a caption:
+
+[source,asciidoctor]
+----
+= Document
+:title-main: NIST Report
+:title-sub: Subtitle of Report
+
+.Reports on Computer Systems Technology
+The Information Technology Laboratory (ITL) at the National Institute
+of Standards and Technology (NIST) promotes the U.S. economy and public welfare...
+----
 
 === Executive Summary
 
