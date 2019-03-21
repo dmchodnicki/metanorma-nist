@@ -10,8 +10,10 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-              end
+      end
+
       def convert1(docxml, filename, dir)
+        @bibliographycount = docxml.xpath(ns("//bibliography/references | //annex/references | //bibliography/clause/references")).size
         FileUtils.cp html_doc_path('logo.png'), File.join(@localdir, "logo.png")
         FileUtils.cp html_doc_path('commerce-logo-color.png'), File.join(@localdir, "commerce-logo-color.png")
         @files_to_delete << File.join(@localdir, "logo.png")
@@ -305,7 +307,11 @@ module IsoDoc
         isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
           out.div do |div|
             div.h1 **{ class: "Section3" } do |h1|
-              f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
+              if @bibliographycount == 1
+                h1 << "References"
+              else
+                f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
+              end
             end
             f.elements.reject do |e|
               ["reference", "title", "bibitem"].include? e.name
@@ -451,7 +457,11 @@ module IsoDoc
         div.h1 **{ class: "Annex" } do |t|
           t << "#{get_anchors[annex['id']][:label]} &mdash; "
           t.b do |b|
-            name&.children&.each { |c2| parse(c2, b) }
+            if @bibliographycount == 1 && annex.at(ns("./references"))
+              b << "References"
+            else
+              name&.children&.each { |c2| parse(c2, b) }
+            end
           end
         end
       end
@@ -516,7 +526,7 @@ module IsoDoc
         title = node&.at(ns("./title"))&.text || ""
         out.div do |div|
           node.parent.name == "annex" or
-          div.h2 title, **{ class: "Section3" }
+            div.h2 title, **{ class: "Section3" }
           node.elements.reject do |e|
             ["reference", "title", "bibitem"].include? e.name
           end.each { |e| parse(e, div) }

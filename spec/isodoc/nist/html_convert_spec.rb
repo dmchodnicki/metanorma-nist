@@ -510,7 +510,7 @@ output = <<~"OUTPUT"
       </div>
       <br />
       <div id="D" class="Section3">
-        <h1 class="Annex"><b>Appendix B</b> &#x2014; <b>Bibliography</b></h1>
+        <h1 class="Annex"><b>Appendix B</b> &#x2014; <b>References</b></h1>
         <div>
         </div>
       </div>
