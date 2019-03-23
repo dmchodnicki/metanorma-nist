@@ -2,6 +2,7 @@
 
 image:https://img.shields.io/gem/v/metanorma-nist.svg["Gem Version", link="https://rubygems.org/gems/metanorma-nist"]
 image:https://img.shields.io/travis/metanorma/metanorma-nist/master.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-nist"]
+image:https://ci.appveyor.com/api/projects/status/c5e8e3qtn689a5h0?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/metanorma-nist"]
 image:https://codeclimate.com/github/metanorma/metanorma-nist/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-nist"]
 
 WARNING: This gem is still under development.
