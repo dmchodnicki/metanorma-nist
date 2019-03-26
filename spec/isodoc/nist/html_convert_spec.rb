@@ -143,7 +143,7 @@ RSpec.describe IsoDoc::NIST do
     expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
-    it "processes final public draft" do
+  it "processes final public draft" do
     csdc = IsoDoc::NIST::HtmlConvert.new({})
     input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
@@ -186,7 +186,7 @@ RSpec.describe IsoDoc::NIST do
     expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
-        it "processes published" do
+  it "processes published" do
     csdc = IsoDoc::NIST::HtmlConvert.new({})
     input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
@@ -364,8 +364,132 @@ RSpec.describe IsoDoc::NIST do
     ).to be_equivalent_to output
   end
 
-  it "processes errata tag" do
+  it "processes boilerplate" do
     input = <<~"INPUT"
+    <nist-standard xmlns="https://open.ribose.com/standards/example">
+<preface>
+    <authority>
+       <title>Authority</title>
+
+       <authority1>
+       <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. § 3551 <em>et seq.</em>, Public Law (P.L.) 113-283. NIST is responsible for develoo
+ping information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
+
+       <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
+       </authority1>
+
+       <authority2>
+       <p align="center" id="_">National Institute of Standards and Technology ABC <br/>
+       Natl. Inst. Stand. Technol. ABC, () <br/>
+       CODEN: NSPUE2</p>
+
+
+       <p align="center" id="_">This publication is available free of charge from: <br/>
+         <link target="http://www.example.com"/></p>
+
+       </authority2>
+
+       <authority3>
+       <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
+
+       <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
+
+       <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <link target="https://csrc.nist.gov/publications"/>
+       </p></authority3>
+
+       <authority4>
+
+       <p align="center" id="_">[2010-01-03: Comment period extended]</p>
+
+
+
+       <p align="center" id="_"><strong>Public comment period: <em>2010-01-01</em> through <em>2010-01-02</em></strong></p>
+
+       </authority4>
+
+       <authority5>
+       <title>Comments on this publication may be submitted to:</title>
+
+       <p align="center" id="_">National Institute of Standards and Technology <br/>
+       Attn: Computer Security Division, Information Technology Laboratory <br/>
+       100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
+       Email: <link target="mailto:email@example.com"/></p>
+
+       <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
+       </authority5>
+       </authority>
+       </preface>
+</nist-standard>
+    INPUT
+
+    output = <<~"OUTPUT"
+        #{HTML_HDR}
+             <div class="authority">
+              <h1>Authority</h1>
+
+              <div class="authority1">
+              <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. &#167; 3551 <i>et seq.</i>, Public Law (P.L.) 113-283. NIST is responsible for develoo
+       ping information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
+
+              <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
+              </div>
+
+              <div class="authority2">
+              <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology ABC <br/>
+              Natl. Inst. Stand. Technol. ABC, () <br/>
+              CODEN: NSPUE2</p>
+
+
+              <p id="_" align="center" style="text-align:center">This publication is available free of charge from: <br/>
+                <a href="http://www.example.com">http://www.example.com</a></p>
+
+              </div>
+
+              <div class="authority3">
+              <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
+
+              <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
+
+              <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <a href="https://csrc.nist.gov/publications">https://csrc.nist.gov/publications</a>
+              </p></div>
+
+              <div class="authority4">
+
+              <p id="_" align="center" style="text-align:center">[2010-01-03: Comment period extended]</p>
+
+
+
+              <p id="_" align="center" style="text-align:center"><b>Public comment period: <i>2010-01-01</i> through <i>2010-01-02</i></b></p>
+
+              </div>
+
+              <div class="authority5">
+              <h2>Comments on this publication may be submitted to:</h2>
+
+              <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology <br/>
+              Attn: Computer Security Division, Information Technology Laboratory <br/>
+              100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
+              Email: <a href="mailto:email@example.com">email@example.com</a></p>
+
+              <p id="_" align="center" style="text-align:center">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
+              </div>
+              </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+    OUTPUT
+
+    expect(
+      IsoDoc::NIST::HtmlConvert.new({}).
+      convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+  end
+
+
+it "processes errata tag" do
+  input = <<~"INPUT"
     <nist-standard xmlns="https://open.ribose.com/standards/example">
 <preface><foreword>
     <errata>
@@ -386,9 +510,9 @@ RSpec.describe IsoDoc::NIST do
 </errata>
 </foreword></preface>
 </nist-standard>
-INPUT
-    output = <<~"OUTPUT"
-          #{HTML_HDR}
+  INPUT
+  output = <<~"OUTPUT"
+  #{HTML_HDR}
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
@@ -420,20 +544,20 @@ INPUT
              <p class="zzSTDTitle1"/>
            </div>
          </body>
-OUTPUT
+  OUTPUT
 
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
-  end
+  expect(
+    IsoDoc::NIST::HtmlConvert.new({}).
+    convert("test", input, true).
+    gsub(%r{^.*<body}m, "<body").
+    gsub(%r{</body>.*}m, "</body>")
+  ).to be_equivalent_to output
+end
 
-   it "processes glossaries" do
-    FileUtils.rm_f "test.html"
+it "processes glossaries" do
+  FileUtils.rm_f "test.html"
 
-         IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
+  IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
     <nist-standard xmlns="https://open.ribose.com/standards/example">
     <annex id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" obligation="normative">
   <title>Glossary</title>
@@ -450,9 +574,9 @@ OUTPUT
 </terms>
 </annex>
 </nist-standard>
-INPUT
+  INPUT
 
-output = <<~"OUTPUT"
+  output = <<~"OUTPUT"
          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <p class="zzSTDTitle1"></p>
              <br />
@@ -468,17 +592,17 @@ output = <<~"OUTPUT"
        </div>
              </div>
            </main>
- OUTPUT
+  OUTPUT
 
- expect(File.exist?("test.html")).to be true
- html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
-    expect(html).to be_equivalent_to output
+  expect(File.exist?("test.html")).to be true
+  html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
+  expect(html).to be_equivalent_to output
 
-  end
+end
 
- it "processes appendix bibliographies" do
-    FileUtils.rm_f "test.html"
-     IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
+it "processes appendix bibliographies" do
+  FileUtils.rm_f "test.html"
+  IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
     <nist-standard xmlns="http://riboseinc.com/isoxml">
    <sections/>
 
@@ -497,8 +621,8 @@ output = <<~"OUTPUT"
        </example>
        </annex>
        </nist-standard>
-       INPUT
-        output = <<~"OUTPUT"
+  INPUT
+  output = <<~"OUTPUT"
         <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
       <p class="zzSTDTitle1"></p>
       <br />
@@ -522,18 +646,18 @@ output = <<~"OUTPUT"
     </div>
       </div>
     </main>
-    OUTPUT
+  OUTPUT
 
-     expect(File.exist?("test.html")).to be true
- html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
-    expect(html).to be_equivalent_to output
-
-
- end
+  expect(File.exist?("test.html")).to be true
+  html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
+  expect(html).to be_equivalent_to output
 
 
-  it "processes section names" do
-    input = <<~"INPUT"
+end
+
+
+it "processes section names" do
+  input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <abstract id="S1" obligation="informative">
@@ -591,10 +715,10 @@ output = <<~"OUTPUT"
        </clause>
        </bibliography>
        </nist-standard>
-    INPUT
+  INPUT
 
-    output = <<~"OUTPUT"
-    #{HTML_HDR}
+  output = <<~"OUTPUT"
+  #{HTML_HDR}
              <br/>
              <div id="S1">
                <h1 class="AbstractTitle">Abstract</h1>
@@ -663,17 +787,17 @@ output = <<~"OUTPUT"
              </div>
            </div>
          </body>
-    OUTPUT
+  OUTPUT
 
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
-  end
+  expect(
+    IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
+    gsub(%r{^.*<body}m, "<body").
+    gsub(%r{</body>.*}m, "</body>")
+  ).to be_equivalent_to output
+end
 
-  it "skips Note to Reviewers if not draft" do
-    input = <<~"INPUT"
+it "skips Note to Reviewers if not draft" do
+  input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
   <status format="plain">published</status>
@@ -688,9 +812,9 @@ output = <<~"OUTPUT"
       </reviewernote>
       </preface>
       </nist-standard>
-    INPUT
+  INPUT
 
-    output = <<~"OUTPUT"
+  output = <<~"OUTPUT"
         <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
     <div class="title-section">
       <p>&#160;</p>
@@ -709,17 +833,17 @@ output = <<~"OUTPUT"
       <p class="zzSTDTitle1"/>
     </div>
   </body>
-    OUTPUT
+  OUTPUT
 
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
-  end
+  expect(
+    IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
+    gsub(%r{^.*<body}m, "<body").
+    gsub(%r{</body>.*}m, "</body>")
+  ).to be_equivalent_to output
+end
 
-  it "renders Note to Reviewers if draft" do
-    input = <<~"INPUT"
+it "renders Note to Reviewers if draft" do
+  input = <<~"INPUT"
     <nist-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata type="standard">
   <status><stage>public-draft</stage></status>
@@ -734,9 +858,9 @@ output = <<~"OUTPUT"
       </reviewernote>
       </preface>
       </nist-standard>
-    INPUT
+  INPUT
 
-    output = <<~"OUTPUT"
+  output = <<~"OUTPUT"
             <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
     <div class="title-section">
       <p>&#160;</p>
@@ -759,17 +883,17 @@ output = <<~"OUTPUT"
       <p class="zzSTDTitle1"/>
     </div>
   </body>
-    OUTPUT
+  OUTPUT
 
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
-  end
+  expect(
+    IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
+    gsub(%r{^.*<body}m, "<body").
+    gsub(%r{</body>.*}m, "</body>")
+  ).to be_equivalent_to output
+end
 
-  it "cross-references recommendations" do
-    expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+it "cross-references recommendations" do
+  expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -832,7 +956,7 @@ output = <<~"OUTPUT"
     </annex>
     </iso-standard>
 INPUT
-#{HTML_HDR}
+  #{HTML_HDR}
 <br/>
     <div id="fwd">
     <h1 class="ForewordTitle">Foreword</h1>
@@ -902,32 +1026,35 @@ INPUT
     </div>
     </body>
     </html>
-    OUTPUT
-  end
+  OUTPUT
+end
 
-  it "injects JS into blank html" do
-    system "rm -f test.html"
-    input = <<~"INPUT"
+it "injects JS into blank html" do
+  system "rm -f test.html"
+  input = <<~"INPUT"
       = Document title
       Author
       :docfile: test.adoc
       :novalid:
-    INPUT
+  INPUT
 
-    output = <<~"OUTPUT"
-    #{BLANK_HDR}
+  output = <<~"OUTPUT"
+  #{BLANK_HDR}
+  <preface>
+  #{AUTHORITY}
+  </preface>
 <sections/>
 </nist-standard>
-    OUTPUT
+  OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
-    html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r{jquery\.min\.js})
-    expect(html).to match(%r{Baskerville})
-  end
+  expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  html = File.read("test.html", encoding: "utf-8")
+  expect(html).to match(%r{jquery\.min\.js})
+  expect(html).to match(%r{Baskerville})
+end
 
-    it "cross-references requirements" do
-    expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+it "cross-references requirements" do
+  expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -990,7 +1117,7 @@ INPUT
     </annex>
     </iso-standard>
 INPUT
-#{HTML_HDR}
+  #{HTML_HDR}
 <br/>
     <div id="fwd">
     <h1 class="ForewordTitle">Foreword</h1>
@@ -1060,11 +1187,11 @@ INPUT
     </div>
     </body>
     </html>
-    OUTPUT
-  end
+  OUTPUT
+end
 
-  it "cross-references permissions" do
-    expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+it "cross-references permissions" do
+  expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
         <iso-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -1127,7 +1254,7 @@ INPUT
     </annex>
     </iso-standard>
 INPUT
-#{HTML_HDR}
+  #{HTML_HDR}
 <br/>
     <div id="fwd">
     <h1 class="ForewordTitle">Foreword</h1>
@@ -1197,11 +1324,11 @@ INPUT
     </div>
     </body>
     </html>
-    OUTPUT
-  end
+  OUTPUT
+end
 
-    it "cleans up requirements" do
-    expect(IsoDoc::NIST::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+it "cleans up requirements" do
+  expect(IsoDoc::NIST::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
     <html>
     <body>
       <div class="recommend">
@@ -1226,7 +1353,7 @@ INPUT
    <p><b><i>Warning:</i></b> Text</p>
  </div>
  <div class="require">
-   
+
    <p><b><i>Warning:</i></b> Text</p>
  </div>
  <div class="permission">
@@ -1235,8 +1362,8 @@ INPUT
 
        </body>
        </html>
-    OUTPUT
-  end
+  OUTPUT
+end
 
 
 end

@@ -109,6 +109,7 @@ module IsoDoc
       def preface(isoxml, out)
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
           foreword(isoxml, out) and next if c.name == "foreword"
+          authority_parse(isoxml, out) and next if c.name == "authority"
           next if skip_render(c, isoxml)
           out.div **attr_code(id: c["id"]) do |s|
             clause_name(get_anchors[c['id']][:label],
@@ -143,10 +144,22 @@ module IsoDoc
         File.join(File.dirname(__FILE__), loc)
       end
 
+      def authority_cleanup(docxml)
+        dest = docxml.at("//div[@id = 'authority']") || return
+        auth = docxml.at("//div[@class = 'authority']") || return
+        dest.replace(auth.remove)
+      end
+
       def cleanup(docxml)
         super
         term_cleanup(docxml)
         requirement_cleanup(docxml)
+      end
+
+      def html_preface(docxml)
+        super
+        authority_cleanup(docxml)
+        docxml
       end
 
       def term_cleanup(docxml)
@@ -213,8 +226,41 @@ module IsoDoc
         when "requirement" then requirement_parse(node, out)
         when "permission" then permission_parse(node, out)
         when "errata" then errata_parse(node, out)
+        when "authority" then authority_parse(node, out)
+        when "authority1" then authority1_parse(node, out, "authority1")
+        when "authority2" then authority1_parse(node, out, "authority2")
+        when "authority3" then authority1_parse(node, out, "authority3")
+        when "authority4" then authority1_parse(node, out, "authority4")
+        when "authority5" then authority1_parse(node, out, "authority5")
         else
           super
+        end
+      end
+
+      def authority_parse(node, out)
+        out.div **{class: "authority"} do |s|
+          node.children.each do |n|
+            if n.name == "title"
+              s.h1 do |h|
+                n.children.each { |nn| parse(nn, h) }
+              end
+            else
+              parse(n, s)
+            end
+          end
+        end
+      end
+      def authority1_parse(node, out, classname)
+        out.div **{class: classname} do |s|
+          node.children.each do |n|
+            if n.name == "title"
+              s.h2 do |h|
+                n.children.each { |nn| parse(nn, h) }
+              end
+            else
+              parse(n, s)
+            end
+          end
         end
       end
 

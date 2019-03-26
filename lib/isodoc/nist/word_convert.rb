@@ -68,6 +68,12 @@ module IsoDoc
         section_break(body)
       end
 
+      def authority_cleanup(docxml)
+        insert = docxml.at("//div[@class = 'WordSection2']")
+        auth = docxml&.at("//div[@class = 'authority']")&.remove || return
+        insert.children.first.add_previous_sibling(auth)
+      end
+
       def cleanup(docxml)
         super
         term_cleanup(docxml)
@@ -210,6 +216,7 @@ module IsoDoc
       def word_cleanup(docxml)
         super
         word_preface_cleanup(docxml)
+        authority_cleanup(docxml)
         docxml
       end
 
@@ -265,6 +272,7 @@ module IsoDoc
       def preface(isoxml, out)
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
           foreword(isoxml, out) and next if c.name == "foreword"
+          authority_parse(c, out) and next if c.name == "authority"
           next if skip_render(c, isoxml)
           title = c&.at(ns("./title"))
           patent = ["Call for Patent Claims", "Patent Disclosure Notice"].include? title&.text
@@ -371,8 +379,41 @@ module IsoDoc
         when "requirement" then requirement_parse(node, out)
         when "permission" then permission_parse(node, out)
         when "errata" then errata_parse(node, out)
+        when "authority" then authority_parse(node, out)
+        when "authority1" then authority1_parse(node, out, "authority1")
+        when "authority2" then authority1_parse(node, out, "authority2")
+        when "authority3" then authority1_parse(node, out, "authority3")
+        when "authority4" then authority1_parse(node, out, "authority4")
+        when "authority5" then authority1_parse(node, out, "authority5")
         else
           super
+        end
+      end
+
+      def authority_parse(node, out)
+        out.div **{class: "authority"} do |s|
+          node.children.each do |n|
+            if n.name == "title"
+              s.p **{class: "h1Preface"} do |h|
+                n.children.each { |nn| parse(nn, h) }
+              end
+            else
+              parse(n, s)
+            end
+          end
+        end
+      end
+      def authority1_parse(node, out, classname)
+        out.div **{class: classname} do |s|
+          node.children.each do |n|
+            if n.name == "title"
+              s.p **{class: "h2Preface"} do |h|
+                n.children.each { |nn| parse(nn, h) }
+              end
+            else
+              parse(n, s)
+            end
+          end
         end
       end
 

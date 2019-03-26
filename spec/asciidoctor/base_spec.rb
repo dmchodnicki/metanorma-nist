@@ -23,11 +23,14 @@ RSpec.describe Asciidoctor::NIST do
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
+    <preface>
+    #{AUTHORITY}
+    </preface>
 <sections/>
 </nist-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -40,12 +43,15 @@ RSpec.describe Asciidoctor::NIST do
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
+    <preface>
+    #{AUTHORITY}
+    </preface>
 <sections/>
 </nist-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -61,39 +67,7 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-        <nist-standard xmlns="http://www.nist.gov/metanorma">
-<bibdata type="standard">
-<title>
-  <title-main language="en" format="text/plain">Document title</title-main>
-</title>
-  <uri type="email">x@example.com</uri>
-  <docidentifier type="nist">NIST ABC</docidentifier>
-  <docidentifier type="nist-long">NIST ABC</docidentifier>
-  <docnumber>ABC</docnumber>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-
-  <language>en</language>
-  <script>Latn</script>
-  <status><stage>final</stage></status>
-  <copyright>
-    <from>2019</from>
-    <owner>
-      <organization>
-        <name>NIST</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
-</bibdata>
-
-       <preface>            <clause obligation="normative"><title>Patent Disclosure Notice</title>
+       <clause obligation="normative"><title>Patent Disclosure Notice</title>
              <p id="_">NOTICE: ITL has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication.</p>
        <p id="_">As of the date of publication and following call(s) for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, no such patent claims have been identified to ITL.</p>
        <p id="_">No representation is made or implied by ITL that licenses are not required to avoid patent infringement in the use of this publication.</p>
@@ -104,7 +78,8 @@ RSpec.describe Asciidoctor::NIST do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+               sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>')).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -122,39 +97,7 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-        <nist-standard xmlns="http://www.nist.gov/metanorma">
-<bibdata type="standard">
-<title>
-  <title-main language="en" format="text/plain">Document title</title-main>
-</title>
-  <uri type="email">x@example.com</uri>
-  <docidentifier type="nist">NIST ABC</docidentifier>
-  <docidentifier type="nist-long">NIST ABC</docidentifier>
-  <docnumber>ABC</docnumber>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-
-  <language>en</language>
-  <script>Latn</script>
-  <status><stage>final</stage></status>
-  <copyright>
-    <from>2019</from>
-    <owner>
-      <organization>
-        <name>NIST</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
-</bibdata>
-
-<preface>            <clause obligation="normative"><title>Patent Disclosure Notice</title>
+            <clause obligation="normative"><title>Patent Disclosure Notice</title>
              <p id="_">NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
        <p id="_">Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
        <p id="_">By publication, no position is taken by ITL with respect to the validity or scope of any patent claim or of any rights in connection therewith. The known patent holder(s) has (have), however, provided to NIST a letter of assurance stating either (1) a general disclaimer to the effect that it does (they do) not hold and does (do) not currently intend holding any essential patent claim(s), or (2) that it (they) will negotiate royalty-free or royalty-bearing licenses with other parties on a demonstrably nondiscriminatory basis with reasonable terms and conditions. </p>
@@ -167,7 +110,8 @@ RSpec.describe Asciidoctor::NIST do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+                         sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>')).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -185,39 +129,7 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-        <nist-standard xmlns="http://www.nist.gov/metanorma">
-<bibdata type="standard">
-<title>
-  <title-main language="en" format="text/plain">Document title</title-main>
-</title>
-  <uri type="email">x@example.com</uri>
-  <docidentifier type="nist">NIST ABC</docidentifier>
-  <docidentifier type="nist-long">NIST ABC</docidentifier>
-  <docnumber>ABC</docnumber>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>NIST</name>
-    </organization>
-  </contributor>
-
-  <language>en</language>
-  <script>Latn</script>
-  <status><stage>final</stage></status>
-  <copyright>
-    <from>2019</from>
-    <owner>
-      <organization>
-        <name>NIST</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
-</bibdata>
-
-<preface>            <clause obligation="normative"><title>Patent Disclosure Notice</title>
+            <clause obligation="normative"><title>Patent Disclosure Notice</title>
              <p id="_">NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
        <p id="_">Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
        <p id="_">By publication, no position is taken by ITL with respect to the validity or scope of any patent claim or of any rights in connection therewith. The known patent holder(s) has (have), however, provided to NIST a letter of assurance stating either (1) a general disclaimer to the effect that it does (they do) not hold and does (do) not currently intend holding any essential patent claim(s), or (2) that it (they) will negotiate royalty-free or royalty-bearing licenses with other parties on a demonstrably nondiscriminatory basis with reasonable terms and conditions. </p>
@@ -230,7 +142,8 @@ RSpec.describe Asciidoctor::NIST do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+                         sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>')).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -247,38 +160,7 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    <nist-standard xmlns="http://www.nist.gov/metanorma">
-<bibdata type="standard"> 
-<title>
-  <title-main language="en" format="text/plain">Document title</title-main>
-</title>
-  <uri type="email">x@example.com</uri> 
-  <docidentifier type="nist">NIST ABC</docidentifier> 
-  <docidentifier type="nist-long">NIST ABC</docidentifier>
-  <docnumber>ABC</docnumber> 
-  <contributor> 
-    <role type="publisher"/> 
-    <organization> 
-      <name>NIST</name> 
-    </organization> 
-  </contributor> 
-   
-  <language>en</language> 
-  <script>Latn</script> 
-  <status><stage>public-draft</stage></status>
-  <copyright> 
-    <from>2019</from> 
-    <owner> 
-      <organization> 
-        <name>NIST</name> 
-      </organization> 
-    </owner> 
-  </copyright> 
-  <editorialgroup> 
-    <committee/> 
-  </editorialgroup> 
-</bibdata>
-           <preface>      <clause obligation="normative"><title>Call for Patent Claims</title>
+           <clause obligation="normative"><title>Call for Patent Claims</title>
              <p id="_">This public review includes a call for information on essential patent claims (claims whose use would be required for compliance with the guidance or requirements in this Information Technology Laboratory (ITL) draft publication). Such guidance and/or requirements may be directly stated in this ITL Publication or by reference to another publication. This call also includes disclosure, where known, of the existence of pending U.S. or foreign patent applications relating to this ITL draft publication and of any relevant unexpired U.S. or foreign patents.</p>
 
        <p id="_">ITL may require from the patent holder, or a party authorized to make assurances on its behalf, in written or electronic form, either:</p>
@@ -303,7 +185,8 @@ RSpec.describe Asciidoctor::NIST do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+                         sub(%r{^.*<clause obligation="normative"><title>Call for Patent Claims</title>}m, '<clause obligation="normative"><title>Call for Patent Claims</title>')).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -441,15 +324,13 @@ RSpec.describe Asciidoctor::NIST do
            <extended>2010-01-03</extended>
          </commentperiod>
        </bibdata>
-       <sections/>
-       </nist-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true)).to be_equivalent_to output
+    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to output
   end
 
     it "ignores unrecognised status, overrides docidentifier" do
-        expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true)).to be_equivalent_to <<~'OUTPUT'
+        expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to <<~'OUTPUT'
       = Document title
       Author
       :docfile: test.adoc
@@ -504,8 +385,6 @@ RSpec.describe Asciidoctor::NIST do
     <committee/>
   </editorialgroup>
 </bibdata>
-<sections/>
-</nist-standard>
     OUTPUT
   end
 
@@ -519,7 +398,9 @@ RSpec.describe Asciidoctor::NIST do
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface><foreword obligation="informative">
+             <preface>
+             #{AUTHORITY}
+        <foreword obligation="informative">
          <title>Foreword</title>
          <p id="_">This is a preamble</p>
        </foreword></preface><sections>
@@ -588,6 +469,122 @@ RSpec.describe Asciidoctor::NIST do
     expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
   end
 
+  it "populates initial boilerplate" do
+        input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :novalid:
+      :script: Hans
+      :docnumber: ABC
+      :revdate: 2013-01-01
+      :uri: http://www.example.com
+      :comment-from: 2010-01-01
+      :comment-to: 2010-01-02
+      :comment-extended: 2010-01-03
+      :doc-email: email@example.com
+      INPUT
+
+      output = <<~"OUTPUT"
+      <nist-standard xmlns="http://www.nist.gov/metanorma">
+<bibdata type="standard">
+  <title>
+    <title-main language="en" format="text/plain">Document title</title-main>
+  </title>
+  <uri>http://www.example.com</uri>
+  <uri type="email">email@example.com</uri>
+  <docidentifier type="nist">NIST  ABC</docidentifier>
+  <docidentifier type="nist-long">NIST  ABC</docidentifier>
+  <docnumber>ABC</docnumber>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>NIST</name>
+    </organization>
+  </contributor>
+  <version>
+    <revision-date>2013-01-01</revision-date>
+  </version>
+  <language>en</language>
+  <script>Hans</script>
+  <status>
+    <stage>final</stage>
+  </status>
+  <copyright>
+    <from>2019</from>
+    <owner>
+      <organization>
+        <name>NIST</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+  <commentperiod>
+    <from>2010-01-01</from>
+    <to>2010-01-02</to>
+    <extended>2010-01-03</extended>
+  </commentperiod>
+</bibdata>
+<preface><authority>
+       <title>Authority</title>
+     
+       <authority1>
+       <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. § 3551 <em>et seq.</em>, Public Law (P.L.) 113-283. NIST is responsible for developing information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
+     
+       <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
+       </authority1>
+     
+       <authority2>
+       <p align="center" id="_">National Institute of Standards and Technology ABC <br/>
+       Natl. Inst. Stand. Technol. ABC, () <br/>
+       CODEN: NSPUE2</p>
+     
+     
+       <p align="center" id="_">This publication is available free of charge from: <br/>
+         <link target="http://www.example.com"/></p>
+     
+       </authority2>
+     
+       <authority3>
+       <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
+     
+       <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
+     
+       <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <link target="https://csrc.nist.gov/publications"/>
+       </p></authority3>
+     
+       <authority4>
+     
+       <p align="center" id="_">[2010-01-03: Comment period extended]</p>
+     
+     
+     
+       <p align="center" id="_"><strong>Public comment period: <em>2010-01-01</em> through <em>2010-01-02</em></strong></p>
+     
+       </authority4>
+     
+       <authority5>
+       <title>Comments on this publication may be submitted to:</title>
+     
+       <p align="center" id="_">National Institute of Standards and Technology <br/>
+       Attn: Computer Security Division, Information Technology Laboratory <br/>
+       100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
+       Email: <link target="mailto:email@example.com"/></p>
+     
+       <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
+       </authority5>
+       </authority>
+       </preface>
+
+<sections/>
+</nist-standard>
+
+      OUTPUT
+        expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
   it "recognises preface sections" do
         input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
@@ -626,7 +623,12 @@ RSpec.describe Asciidoctor::NIST do
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-    <preface><foreword obligation="informative">
+    <preface>
+    <abstract id="_">
+         <p id="_">This is an abstract</p>
+       </abstract>
+    #{AUTHORITY}
+<foreword obligation="informative">
   <title>Reports on Computer Systems Technology</title>
   <p id="_">This is a preamble</p>
 </foreword><clause id="_" obligation="normative">
@@ -642,9 +644,7 @@ RSpec.describe Asciidoctor::NIST do
   <title>Executive Summary</title>
   <p id="_">This is an executive summary</p>
 </executivesummary>
-<abstract id="_">
-  <p id="_">This is an abstract</p>
-</abstract></preface><sections>
+</preface><sections>
 
        <clause id="_" obligation="normative">
          <title>Clause</title>
@@ -675,6 +675,9 @@ RSpec.describe Asciidoctor::NIST do
 
     output = <<~"OUTPUT"
             #{BLANK_HDR}
+             <preface>
+         #{AUTHORITY}
+         </preface>
        <sections>
         <p id="_"><em>emphasis</em>
        <strong>strong</strong>
@@ -714,6 +717,9 @@ RSpec.describe Asciidoctor::NIST do
 
         output = <<~"OUTPUT"
             #{BLANK_HDR}
+             <preface>
+         #{AUTHORITY}
+         </preface>
        <sections>
          <figure id="_" type="pseudocode"><name>Label</name><p id="_">
   <em>Input: S=(s1, sL)</em>
@@ -750,6 +756,9 @@ RSpec.describe Asciidoctor::NIST do
 
         output = <<~"OUTPUT"
             #{BLANK_HDR}
+             <preface>
+         #{AUTHORITY}
+         </preface>
 <sections>
   <sourcecode id="_">&lt;xccdf:check system="<nistvariable>http://oval.mitre.org/XMLSchema/oval-definitions-5</nistvariable>"&gt;</sourcecode>
 </sections>
@@ -773,6 +782,9 @@ RSpec.describe Asciidoctor::NIST do
 
         output = <<~"OUTPUT"
             #{BLANK_HDR}
+             <preface>
+         #{AUTHORITY}
+         </preface>
 <sections>
   <errata>
   <row>
@@ -815,6 +827,9 @@ RSpec.describe Asciidoctor::NIST do
 
         output = <<~"OUTPUT"
             #{BLANK_HDR}
+             <preface>
+         #{AUTHORITY}
+         </preface>
          <sections>
 
 </sections><annex id="_" obligation="normative">
@@ -852,6 +867,9 @@ RSpec.describe Asciidoctor::NIST do
 
         output = <<~"OUTPUT"
             #{BLANK_HDR}
+            <preface>
+         #{AUTHORITY}
+         </preface>
          <sections>
 
 </sections><annex id="_" obligation="normative">
@@ -921,6 +939,9 @@ RSpec.describe Asciidoctor::NIST do
 
         output = <<~"OUTPUT"
             #{BLANK_HDR}
+         <preface>
+         #{AUTHORITY}
+         </preface>
          <sections/>
 
          <annex id="_" obligation="normative">
