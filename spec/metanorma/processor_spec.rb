@@ -32,11 +32,14 @@ RSpec.describe Metanorma::NIST::Processor do
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
+    <preface>
+    #{AUTHORITY}
+    </preface>
 <sections/>
 </nist-standard>
     OUTPUT
 
-    expect(processor.input_to_isodoc(input, nil)).to be_equivalent_to output
+    expect(strip_guid(processor.input_to_isodoc(input, nil))).to be_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do

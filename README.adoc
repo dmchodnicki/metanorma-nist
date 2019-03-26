@@ -267,6 +267,10 @@ they are published in front of any appendixes. This is the prescribed behaviour 
 forward. If present, bibliographies are treated in the legacy manner: they are treated like appendixes,
 and are given an appendix number according to where in the document they occur.
 
+`:boilerplate-authority:`:: Nominate a Metanorma XML file encoding the authority statement of the document,
+to overwrite the default authority statement included in the gem (link:lib/asciidoctor/nist/nist_intro.xml[]),
+in case the document is historical, and needs to be generated with a previous authiruty statement.
+
 == Asciidoctor features specific to NIST
 
 The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]

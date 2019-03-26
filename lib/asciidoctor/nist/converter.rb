@@ -144,6 +144,7 @@ module Asciidoctor
         @commitmenttolicence = node.attr("commitment-to-licence")
         @patentcontact = node.attr("patent-contact")
         @biblioasappendix = node.attr("biblio-as-appendix")
+        @boilerplateauthority = node.attr("boilerplate-authority")
         super
       end
 
@@ -179,8 +180,8 @@ module Asciidoctor
       def move_sections_into_preface(x, preface)
         abstract = x.at("//abstract")
         preface.add_child abstract.remove if abstract
-        if x.at("//boilerplate")
-          boilerplate = x.at("//boilerplate")
+        if x.at("//authority")
+          boilerplate = x.at("//authority")
           preface.add_child boilerplate.remove
         else
           preface.add_child boilerplate(x)

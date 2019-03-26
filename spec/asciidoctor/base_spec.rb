@@ -469,8 +469,28 @@ RSpec.describe Asciidoctor::NIST do
     expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
   end
 
+  it "populates boilerplate from file" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :novalid:
+      :boilerplate-authority: spec/assets/authority.xml
+    INPUT
+
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
+             <preface>
+<authority>ABC</authority>
+</preface><sections/>
+</nist-standard>
+    OUTPUT
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+
+  end
+
   it "populates initial boilerplate" do
-        input = <<~"INPUT"
+    input = <<~"INPUT"
       = Document title
       Author
       :docfile: test.adoc
@@ -483,9 +503,9 @@ RSpec.describe Asciidoctor::NIST do
       :comment-to: 2010-01-02
       :comment-extended: 2010-01-03
       :doc-email: email@example.com
-      INPUT
+    INPUT
 
-      output = <<~"OUTPUT"
+    output = <<~"OUTPUT"
       <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
   <title>
@@ -529,50 +549,50 @@ RSpec.describe Asciidoctor::NIST do
 </bibdata>
 <preface><authority>
        <title>Authority</title>
-     
+
        <authority1>
        <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. § 3551 <em>et seq.</em>, Public Law (P.L.) 113-283. NIST is responsible for developing information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
-     
+
        <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
        </authority1>
-     
+
        <authority2>
        <p align="center" id="_">National Institute of Standards and Technology ABC <br/>
        Natl. Inst. Stand. Technol. ABC, () <br/>
        CODEN: NSPUE2</p>
-     
-     
+
+
        <p align="center" id="_">This publication is available free of charge from: <br/>
          <link target="http://www.example.com"/></p>
-     
+
        </authority2>
-     
+
        <authority3>
        <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
-     
+
        <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
-     
+
        <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <link target="https://csrc.nist.gov/publications"/>
        </p></authority3>
-     
+
        <authority4>
-     
+
        <p align="center" id="_">[2010-01-03: Comment period extended]</p>
-     
-     
-     
+
+
+
        <p align="center" id="_"><strong>Public comment period: <em>2010-01-01</em> through <em>2010-01-02</em></strong></p>
-     
+
        </authority4>
-     
+
        <authority5>
        <title>Comments on this publication may be submitted to:</title>
-     
+
        <p align="center" id="_">National Institute of Standards and Technology <br/>
        Attn: Computer Security Division, Information Technology Laboratory <br/>
        100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
        Email: <link target="mailto:email@example.com"/></p>
-     
+
        <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
        </authority5>
        </authority>
@@ -581,12 +601,12 @@ RSpec.describe Asciidoctor::NIST do
 <sections/>
 </nist-standard>
 
-      OUTPUT
-        expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    OUTPUT
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
   it "recognises preface sections" do
-        input = <<~"INPUT"
+    input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
       .Reports on Computer Systems Technology
       This is a preamble
@@ -600,7 +620,7 @@ RSpec.describe Asciidoctor::NIST do
       == Acknowledgements
 
       These are acknolwedgements
-       
+
       [preface]
       == Note to Reviewers
 
@@ -674,9 +694,9 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-            #{BLANK_HDR}
+    #{BLANK_HDR}
              <preface>
-         #{AUTHORITY}
+    #{AUTHORITY}
          </preface>
        <sections>
         <p id="_"><em>emphasis</em>
@@ -701,7 +721,7 @@ RSpec.describe Asciidoctor::NIST do
   it "processes pseudocode" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
-      
+
       .Label
       [pseudocode]
       ====
@@ -715,10 +735,10 @@ RSpec.describe Asciidoctor::NIST do
       ====
     INPUT
 
-        output = <<~"OUTPUT"
-            #{BLANK_HDR}
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
              <preface>
-         #{AUTHORITY}
+    #{AUTHORITY}
          </preface>
        <sections>
          <figure id="_" type="pseudocode"><name>Label</name><p id="_">
@@ -754,10 +774,10 @@ RSpec.describe Asciidoctor::NIST do
       ----
     INPUT
 
-        output = <<~"OUTPUT"
-            #{BLANK_HDR}
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
              <preface>
-         #{AUTHORITY}
+    #{AUTHORITY}
          </preface>
 <sections>
   <sourcecode id="_">&lt;xccdf:check system="<nistvariable>http://oval.mitre.org/XMLSchema/oval-definitions-5</nistvariable>"&gt;</sourcecode>
@@ -780,10 +800,10 @@ RSpec.describe Asciidoctor::NIST do
       |===
     INPUT
 
-        output = <<~"OUTPUT"
-            #{BLANK_HDR}
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
              <preface>
-         #{AUTHORITY}
+    #{AUTHORITY}
          </preface>
 <sections>
   <errata>
@@ -809,7 +829,7 @@ RSpec.describe Asciidoctor::NIST do
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
-     it "processes glossaries" do
+  it "processes glossaries" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
 
@@ -825,10 +845,10 @@ RSpec.describe Asciidoctor::NIST do
       ====
     INPUT
 
-        output = <<~"OUTPUT"
-            #{BLANK_HDR}
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
              <preface>
-         #{AUTHORITY}
+    #{AUTHORITY}
          </preface>
          <sections>
 
@@ -847,15 +867,15 @@ RSpec.describe Asciidoctor::NIST do
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
-    it "processes nested glossaries" do
+  it "processes nested glossaries" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
-     
+
       [appendix]
       == Glossary
 
       === Normal Terms
-      
+
       ==== Normal Terms
 
       Definition
@@ -865,10 +885,10 @@ RSpec.describe Asciidoctor::NIST do
       ====
     INPUT
 
-        output = <<~"OUTPUT"
-            #{BLANK_HDR}
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
             <preface>
-         #{AUTHORITY}
+    #{AUTHORITY}
          </preface>
          <sections>
 
@@ -889,27 +909,27 @@ RSpec.describe Asciidoctor::NIST do
   end
 
   it "warns that the references are not in the expected sequence" do
-      expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.to output(/Reference clauses[^\n\r]*do not follow expected pattern in NIST/).to_stderr
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.to output(/Reference clauses[^\n\r]*do not follow expected pattern in NIST/).to_stderr
       #{VALIDATING_BLANK_HDR}
-      
+
       [bibliography]
       == Normative References
 
       [bibliography]
       == Normative References
-      INPUT
+    INPUT
   end
 
   it "does not warn that the references are not in the expected sequence when they are acceptable" do
-      expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.not_to output(/Reference clauses[^\n\r]*do not follow expected pattern in NIST/).to_stderr
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.not_to output(/Reference clauses[^\n\r]*do not follow expected pattern in NIST/).to_stderr
       #{VALIDATING_BLANK_HDR}
 
       [bibliography]
       == References
-      INPUT
+    INPUT
   end
 
-      it "processes bibliographies as appendixes in legacy format" do
+  it "processes bibliographies as appendixes in legacy format" do
     input = <<~"INPUT"
       = Document title
       Author
@@ -937,10 +957,10 @@ RSpec.describe Asciidoctor::NIST do
 
     INPUT
 
-        output = <<~"OUTPUT"
-            #{BLANK_HDR}
+    output = <<~"OUTPUT"
+    #{BLANK_HDR}
          <preface>
-         #{AUTHORITY}
+    #{AUTHORITY}
          </preface>
          <sections/>
 
