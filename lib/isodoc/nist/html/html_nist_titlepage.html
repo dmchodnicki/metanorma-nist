@@ -25,7 +25,7 @@
           <div> {{ draftinfo }}</div>
         </div>
 
-        <div class="coverpage-title">
+        <div class="coverpage-title" style="float:left">
           <span class="title-first">{{ doctitle }}</span>
           {% if docsubtitle %}
           <br/><span class="title-second">{{ docsubtitle }}</span>
@@ -34,9 +34,10 @@
           <br/><span class="title-second">{{ docparttitle }}</span>
           {% endif %}
         </div>
+        <div style="float:right"><img id="NIST-logo" src="logo.png"/></div>
       </div>
 
-      <div class="coverpage-logo">
+      <div class="coverpage-logo" style="float:left">
         <span>National Institute of Standards and Technology {{ docyear }}</span>
       </div>
 
@@ -44,7 +45,7 @@
         <span>{{ subseries }}</span>
       </div>
 
-      <div class="rule-thick"></div>
+      <div class="rule-thick" style="clear:both"></div>
 
       <div class="authors-container">
         {% for affiliation in authors_affiliations %}
@@ -69,7 +70,6 @@
 
   <div class="logo-wrapper">
 
-    <img id="NIST-logo" src="logo.png">
     <img id="commerce-logo" src="commerce-logo-color.png">
   </div>
 
