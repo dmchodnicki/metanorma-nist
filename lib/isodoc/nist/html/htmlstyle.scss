@@ -795,9 +795,12 @@ a.footnote-number {
 */
 
 .contact-info {
+    width: 280px;
+}
+
+.contact-info, .authority5 {
     padding: 2em;
     margin-top: 5em;
-    width: 280px;
 
   text-align: left;
   color: #2677ea!important;
@@ -806,8 +809,14 @@ a.footnote-number {
 
 }
 
+.authority5 h2 {
+  text-align: center;
+}
+
 .contact-info a,
-.contact-info a:hover {
+.contact-info a:hover,
+.authority5 a,
+.authority5 a:hover {
   color: #2677ea;
 }
 
