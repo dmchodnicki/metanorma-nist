@@ -230,7 +230,7 @@ RSpec.describe Asciidoctor::NIST do
       :affiliation_2: Bedrock Inc.
       :title-main: Main Title
       :title-sub: Subtitle
-      :title-part: Part
+      :title-document-class: Part
       :partnumber: 2
       :doc-email: email@example.com
       :uri: http://www.example.com
@@ -246,10 +246,9 @@ RSpec.describe Asciidoctor::NIST do
            <?xml version="1.0" encoding="UTF-8"?>
        <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
-       <title>
-         <title-main language="en" format="text/plain">Main Title</title-main>
-         <title-sub language="en" format="text/plain">Subtitle</title-sub>
-         </title>
+         <title type="main" language="en" format="text/plain">Main Title</title>
+         <title type="subtitle" language="en" format="text/plain">Subtitle</title>
+         <title type="document-class" language="en" format="text/plain">Part</title>
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
         <uri type="doi">http://www.example2.com</uri>
@@ -312,9 +311,6 @@ RSpec.describe Asciidoctor::NIST do
            <title>NIST Federal Information Processing Standards</title>
            <abbreviation>NIST FIPS</abbreviation>
          </series>
-         <series type="secondary">
-                <title>Information Security</title>
-        </series>
          <keyword>a</keyword>
          <keyword>b</keyword>
          <keyword>c</keyword>
@@ -350,9 +346,7 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
     <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-<title>
-  <title-main language="en" format="text/plain">Main Title</title-main>
-</title>
+  <title type="main" language="en" format="text/plain">Main Title</title>
   <docidentifier type="nist">NIST FIPS 1000-2</docidentifier>
   <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000-2</docidentifier>
   <docnumber>1000</docnumber>
@@ -508,9 +502,7 @@ RSpec.describe Asciidoctor::NIST do
     output = <<~"OUTPUT"
       <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
-  <title>
-    <title-main language="en" format="text/plain">Document title</title-main>
-  </title>
+    <title type="main" language="en" format="text/plain">Document title</title>
   <uri>http://www.example.com</uri>
   <uri type="email">email@example.com</uri>
   <docidentifier type="nist">NIST  ABC</docidentifier>

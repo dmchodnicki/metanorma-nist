@@ -12,24 +12,30 @@ module Asciidoctor
 
       def title_subtitle(node, t, at)
         return unless node.attr("title-sub")
-        t.title_sub(**attr_code(at)) do |t1|
+        t.title(**attr_code(at.merge(type: "subtitle"))) do |t1|
           t1 << asciidoc_sub(node.attr("title-sub"))
         end
       end
 
+      def title_document_class(node, t, at)
+        return unless node.attr("title-document-class")
+        t.title(**attr_code(at.merge(type: "document-class"))) do |t1|
+          t1 << asciidoc_sub(node.attr("title-document-class"))
+        end
+      end
+
       def title_main(node, t, at)
-        t.title_main **attr_code(at) do |t1|
+        t.title(**attr_code(at.merge(type: "main"))) do |t1|
           t1 << asciidoc_sub(node.attr("title-main") || node.title)
         end
       end
 
       def title(node, xml)
         ["en"].each do |lang|
-          xml.title do |t|
-            at = { language: lang, format: "text/plain" }
-            title_main(node, t, at)
-            title_subtitle(node, t, at)
-          end
+          at = { language: lang, format: "text/plain" }
+          title_main(node, xml, at)
+          title_subtitle(node, xml, at)
+          title_document_class(node, xml, at)
         end
       end
 
@@ -131,14 +137,10 @@ module Asciidoctor
 
       def metadata_series(node, xml)
         series = node.attr("series")
-        subseries = node.attr("subseries")
-        series || subseries || return
+        series || return
         series and xml.series **{ type: "main" } do |s|
           s.title (SERIES.dig(series.to_sym) || series)
           SERIES_ABBR.dig(series.to_sym) and s.abbreviation SERIES_ABBR.dig(series.to_sym)
-        end
-        subseries and xml.series **{ type: "secondary" } do |s|
-          s.title subseries.split(/-/).map{ |w| w.capitalize }.join(" ")
         end
       end
 

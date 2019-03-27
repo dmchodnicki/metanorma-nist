@@ -59,9 +59,7 @@ BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
        <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
-        <title> 
-          <title-main language="en" format="text/plain">Document title</title-main> 
-        </title> 
+          <title type="main" language="en" format="text/plain">Document title</title> 
          <contributor>
            <role type="publisher"/>
            <organization>

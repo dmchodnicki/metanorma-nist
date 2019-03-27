@@ -11,13 +11,15 @@ module IsoDoc
       end
 
       def title(isoxml, out)
-        main = isoxml&.at(ns("//bibdata/title/title-main"))&.text
+        main = isoxml&.at(ns("//bibdata/title[@type = 'main']"))&.text
         set(:doctitle, main)
       end
 
       def subtitle(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/title/title-sub"))&.text or return
-        set(:docsubtitle, main)
+        main = isoxml&.at(ns("//bibdata/title[@type = 'subtitle']"))&.text
+        set(:docsubtitle, main) if main
+        main = isoxml&.at(ns("//bibdata/title[@type = 'document-class']"))&.text
+        set(:docclasstitle, main) if main
       end
 
       def author(isoxml, _out)

@@ -128,9 +128,7 @@ the document was issued.
 (mandatory). If absent, the first line of the AsciiDoc document, which contains the title
 introduced with `=`, is used.
 
-`:title-sub:`:: The subtitle of the document.
-
-`:technical-committee:`:: The name of the relevant committee producing the document (mandatory). 
+`:technical-committee:`:: The name of the relevant committee producing the document.
 
 `:published-date:`:: The publication date for the document.
 
@@ -199,7 +197,9 @@ this attribute will be displayed as part of the heading, prefixed with "Revision
 
 The following document attributes are specific to this document class:
 
-`:subtitle:`:: Document subtitle.
+`:title-sub:`:: The subtitle of the document.
+`:title-document-class:`:: The title of the document class that the document belongs to;
+e.g. "Computer Security" for SP 800.
 
 `:keywords:`:: Comma-delimited list of the keywords associated with the document.
 
