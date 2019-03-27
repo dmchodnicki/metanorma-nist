@@ -17,6 +17,10 @@ module Asciidoctor
         nil
       end
 
+      def doctype(node)
+        "standard"
+      end
+
       def example(node)
         return pseudocode_example(node) if node.attr("style") == "pseudocode"
         super

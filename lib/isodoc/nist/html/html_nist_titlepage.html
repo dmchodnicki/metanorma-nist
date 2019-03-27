@@ -80,14 +80,12 @@
   </div>
 
   <div class="WordSection11">
-    <div class="coverpage-stage-block">
-      <span class="coverpage-stage" id="{{ doctype | downcase | replace: ' ', '-' }}">{{ doctype }}</span>
-    </div>
 
+    {% if status != "Final" and status != "Public Draft" %}
     <div class="coverpage-stage-block">
       <span class="coverpage-maturity" id="{{ status }}">{{ status }}</span>
-
     </div>
+    {% endif %}
 
 
     {% if unpublished %}

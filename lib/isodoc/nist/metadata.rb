@@ -41,7 +41,8 @@ module IsoDoc
       def draft_prefix(docidentifier_long, isoxml)
         return nil if docidentifier_long.nil?
         docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
-        return docidentifier_long unless docstatus && docstatus != "final"
+        return docidentifier_long unless docstatus && 
+          !%w(final withdrawn).include?(docstatus)
         iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
         prefix = "DRAFT "
         /^\d+$/.match iter and
@@ -69,7 +70,7 @@ module IsoDoc
       end
 
       def adjust_docstatus(status, iter)
-        return unless iter and status
+        return status unless iter and status
         status = "initial-public-draft" if status == "public-draft" &&
           (iter == "1" ||  iter == "initial")
         status = "final-public-draft" if status == "public-draft" &&
