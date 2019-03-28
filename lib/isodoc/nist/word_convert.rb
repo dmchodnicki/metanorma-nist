@@ -90,28 +90,19 @@ module IsoDoc
         end
       end
 
+      def word_annex_cleanup1(docxml, i)
+        docxml.xpath("//h#{i}[ancestor::*[@class = 'Section3']]").each do |h2|
+          h2.name = "p"
+          h2["class"] = "h#{i}Annex"
+        end
+      end
+
       def word_annex_cleanup(docxml)
-        super
-        docxml.xpath("//h1[ancestor::*[@class = 'Section3']]").each do |h2|
-          h2.name = "p"
-          h2["class"] = "h1Annex"
-        end
-        docxml.xpath("//h3[ancestor::*[@class = 'Section3']]").each do |h2|
-          h2.name = "p"
-          h2["class"] = "h3Annex"
-        end
-        docxml.xpath("//h4[ancestor::*[@class = 'Section3']]").each do |h2|
-          h2.name = "p"
-          h2["class"] = "h4Annex"
-        end
-        docxml.xpath("//h5[ancestor::*[@class = 'Section3']]").each do |h2|
-          h2.name = "p"
-          h2["class"] = "h5Annex"
-        end
-        docxml.xpath("//h6[ancestor::*[@class = 'Section3']]").each do |h2|
-          h2.name = "p"
-          h2["class"] = "h6Annex"
-        end
+        word_annex_cleanup1(docxml, 2)
+        word_annex_cleanup1(docxml, 3)
+        word_annex_cleanup1(docxml, 4)
+        word_annex_cleanup1(docxml, 5)
+        word_annex_cleanup1(docxml, 6)
       end
 
       def toc_insert(docxml, level)
