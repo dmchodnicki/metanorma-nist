@@ -80,7 +80,7 @@ module IsoDoc
         requirement_cleanup(docxml)
         h1_cleanup(docxml)
         word_annex_cleanup(docxml) # need it earlier
-        toc_insert(docxml)
+        toc_insert(docxml, @wordToClevels)
       end
 
       # create fallback h1 class to deal with page breaks
@@ -114,7 +114,7 @@ module IsoDoc
         end
       end
 
-      def toc_insert(docxml)
+      def toc_insert(docxml, level)
         insertion = docxml.at("//div[h1 = 'Executive Summary']/"\
                               "preceding-sibling::div[h1][1]") ||
         docxml.at("//div[@class = 'WordSection2']/child::*[last()]")
@@ -130,7 +130,7 @@ module IsoDoc
           insertion.next = make_AppendixWordToC(docxml)
           insertion.next = %{<p class="TOCTitle">List of Appendices</p>}
         end
-        insertion.next = make_WordToC(docxml)
+        insertion.next = make_WordToC(docxml, level)
         insertion.next = %{<p class="TOCTitle" style="page-break-before:
         always;">Table of Contents</p>}
         docxml
@@ -191,18 +191,6 @@ module IsoDoc
         end
         toc.sub(/(<p class="MsoToc1">)/,
                 %{\\1#{WORD_TOC_APPENDIX_PREFACE1}}) +  WORD_TOC_SUFFIX1
-      end
-
-      def make_WordToC(docxml, level)
-        toc = ""
-        docxml.xpath("//h1[not(ancestor::*[@class = 'WordSection2'])] |"\
-                     "//h1[contains(., 'Executive Summary')] |"\
-                     "//h2[not(ancestor::*[@class = 'WordSection2'])] |"\
-                     "//h3[not(ancestor::*[@class = 'WordSection2'])]").each do |h|
-          toc += word_toc_entry(h.name[1].to_i, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{word_toc_preface(level)}}) +  WORD_TOC_SUFFIX1
       end
 
       def word_preface_cleanup(docxml)
