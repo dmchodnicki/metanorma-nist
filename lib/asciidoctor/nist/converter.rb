@@ -134,6 +134,7 @@ module Asciidoctor
 
       def doctype(node)
         d = node.attr("doctype")
+        d = "standard" if d == "article" # article is Asciidoctor default
         unless %w{policy-and-procedures best-practices 
           supporting-document report legal directives proposal 
           standard}.include? d

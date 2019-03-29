@@ -137,6 +137,21 @@ module IsoDoc
         a = xml.at(ns("//bibdata/uri[@type = 'uri' or not(@type)]")) and
           set(:url, a.text)
       end
+
+      def relations1(isoxml, type)
+        ret = []
+        isoxml.xpath(ns("//bibdata/relation[@type = '#{type}']")).each do |x|
+          ret << x.at(ns(".//docidentifier")).text if x.at(ns(".//docidentifier"))
+        end
+        ret
+      end
+
+      def relations(isoxml, _out)
+        ret = relations1(isoxml, "obsoletes")
+        set(:obsoletes, ret) unless ret.empty?
+        ret = relations1(isoxml, "obsoleted-by")
+        set(:obsoletedby, ret) unless ret.empty?
+      end
     end
   end
 end

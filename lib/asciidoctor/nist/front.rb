@@ -155,6 +155,30 @@ module Asciidoctor
         end
       end
 
+      def metadata_obsoletes(node, xml)
+        docs = node.attr("obsoletes") || return
+        docs.split(/,/).each do |d|
+          xml.relation **{ type: "obsoletes" } do |r|
+            r.bibitem do |b|
+              # TODO: use nistbib to fetch more information
+              b.docidentifier d
+            end
+          end
+        end
+      end
+
+            def metadata_obsoletedby(node, xml)
+        docs = node.attr("obsoleted-by") || return
+        docs.split(/,/).each do |d|
+          xml.relation **{ type: "obsoleted-by" } do |r|
+            r.bibitem do |b|
+              # TODO: use nistbib to fetch more information
+              b.docidentifier d
+            end
+          end
+        end
+      end
+
       SERIES = {
         "nist-ams": "NIST Advanced Manufacturing Series",
         "building-science": "NIST Building Science Series",
@@ -205,6 +229,8 @@ module Asciidoctor
 
       def metadata(node, xml)
         super
+        metadata_obsoletes(node, xml)
+        metadata_obsoletedby(node, xml)
         metadata_series(node, xml)
         metadata_keywords(node, xml)
         metadata_commentperiod(node, xml)

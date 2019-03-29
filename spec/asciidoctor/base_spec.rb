@@ -240,6 +240,8 @@ RSpec.describe Asciidoctor::NIST do
       :comment-from: 2010-01-01
       :comment-to: 2010-01-02
       :comment-extended: 2010-01-03
+      :obsoletes: NIST SP 800,NIST SP 800-53A Rev. 1
+      :obsoleted-by: NIST SP 800,NIST SP 800-53A Rev. 1
     INPUT
 
     output = <<~"OUTPUT"
@@ -307,6 +309,26 @@ RSpec.describe Asciidoctor::NIST do
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
+         <relation type="obsoletes">
+  <bibitem>
+    <docidentifier>NIST SP 800</docidentifier>
+  </bibitem>
+</relation>
+<relation type="obsoletes">
+  <bibitem>
+    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
+  </bibitem>
+</relation>
+<relation type="obsoleted-by">
+  <bibitem>
+    <docidentifier>NIST SP 800</docidentifier>
+  </bibitem>
+</relation>
+<relation type="obsoleted-by">
+  <bibitem>
+    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
+  </bibitem>
+</relation>
          <series type="main">
            <title>NIST Federal Information Processing Standards</title>
            <abbreviation>NIST FIPS</abbreviation>
