@@ -269,7 +269,7 @@ and are given an appendix number according to where in the document they occur.
 
 `:boilerplate-authority:`:: Nominate a Metanorma XML file encoding the authority statement of the document,
 to overwrite the default authority statement included in the gem (link:lib/asciidoctor/nist/nist_intro.xml[]),
-in case the document is historical, and needs to be generated with a previous authiruty statement.
+in case the document is historical, and needs to be generated with a previous authority statement.
 
 `:obsoletes:`::
 One or more NIST document that this NIST document standard supersedes. Comma delimited.
@@ -285,6 +285,24 @@ Format is document identifier, e.g. _SP 800-53A Rev. 1_
 The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
+
+=== Authority statement
+
+The authority statement in NIST consists of five sections, and these are marked up in
+Metanorma XML with the tags `<authority1>, <authority2>, <authority3>, <authority4>, <authority5>`:
+
+`authority1`:: The initial section of the authority section ("This publication has been developed
+by NIST...").
+`authority2`:: The identifier, revision date, and URL of the document.
+`authority3`:: The boxed disclaimer statement ("Any mention of commercial products or reference to commercial organizations...")
+`authority4`:: The public comment period, for drafts
+`authority5`:: The contact details for comments
+
+The authority statement has been marked up in Metanorma XML rather than Asciidoctor because of its complexity.
+If you wish to supply a different authority statement, you will need to provide a piece of Metanorma XML corresponding
+to the existing default statement (available from link:lib/asciidoctor/nist/nist_intro.xml[]), and containing
+text corresponding to the sections given above. You can give the location of your own authority statement file 
+relative to the current document through the document attribute `:boilerplate-authority:`.
 
 === Preface
 
