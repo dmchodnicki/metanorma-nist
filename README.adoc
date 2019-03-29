@@ -156,42 +156,32 @@ this attribute will be displayed as part of the heading, prefixed with "Revision
 * `withdrawn`
 --
 
-////
+`:fullname{_i}:`, `:affiliation{_i}:`, `:address{_i}`::
+The full name of a person who is a contributor to the document,
+their organization, and the address of that person or organization.
+In NIST, only the city is given as the address.
+A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname_2:`, `fullname_3:`, &c.
+The same convention applies to all the following attributes.
 
-`:doctype:`:: The document type (mandatory). The permitted types are:
-+
---
-* Standards
-`standard`::: Implementation Standard
-`standard-with-suite`::: Implementation Standard with Compliance Suite
-`abstract-specification`::: Abstract Specification
-`community-standard`::: Community Standard
-`profile`::: Profile / Application Profile
-`best-practice`::: Best Practices Document
+[[surname]] `:surname{_i}:`::
+The surname of a person who is a contributor to the document.
 
-* Other
-`engineering-report`::: Engineering Report
-`discussion-paper`::: Discussion Paper
-`reference-model`::: OGC Reference Model
-`user-guide`::: User Guide
-`policy`::: OGC Policy Document
-`guide`::: Guide
-`amendment`::: Technical Amendment
-`technical-corrigendum`::: Corrigendum (errata) Changes to OGC Standards
-`administrative`::: Internal administrative documents
---
+[[givenname]] `:givenname{_i}:`::
+The given name(s) of a person who is a contributor to the document.
 
-`:committee:`:: The name of the relevant committee producing the document (mandatory). The legal values are:
-`technical`, `planning`, `strategic-member-advisory`
-`:subcommittee:`:: The name of the relevant subcommittee producing the document
-`:workgroup:` (OGC: `:workingGroup:`):: The name of the relevant working group producing the document (mandatory)
+`:initials{_i}:`::
+The initials(s) of a person who is a contributor to the document.
 
-`:published-date:` (OGC: `:publicationDate:`):: The publication date for the document.
-`:issued-date:`  (OGC: `:approvalDate:`):: The approval date for the document.
-`:created-date:`:: The creation date for the document.
-`:received-date:`  (OGC: `:submissionDate:`):: The date at which the document was submitted to the standards body.
+[[role]] `:role{_i}:`::
+The role of a a person who is a contributor to the document.
+By default, they are coded as an `editor`; they can also be represented as an `author`.
 
-////
+`:affiliation{_i}:`::
+The organizational affiliation of a person who is a contributor to the document.
+
+`:address{_i}:`::
+The organizational address of a person who is a contributor to the document.
+
 
 === NIST-specific attributes
 
@@ -303,6 +293,36 @@ If you wish to supply a different authority statement, you will need to provide 
 to the existing default statement (available from link:lib/asciidoctor/nist/nist_intro.xml[]), and containing
 text corresponding to the sections given above. You can give the location of your own authority statement file 
 relative to the current document through the document attribute `:boilerplate-authority:`.
+
+=== Author affiliations
+
+Each author of a NIST document may have their own organizational affiliation, and optionally
+a city for that organization. This information is given using the `:fullname:`, `:affiliation:`,
+and `:address:` document attributes, with separate organization and address listings for each
+author. Metanorma will take care of grouping authors together by organization.
+
+[source,asciidoctor]
+--
+:fullname: Hildegard Ferraiolo
+:affiliation: Computer Security Division, Information Technology Laboratory
+:fullname_2: Ketan Mehta
+:affiliation_2: Computer Security Division, Information Technology Laboratory
+:fullname_3: Nabil Ghadiali
+:affiliation_3: National Gallery of Art
+:address_3: Washington, DC
+:fullname_4: Jason Mohler
+:affiliation_4: Electrosoft Services, Inc.
+:address_4: Reston, Virginia
+:fullname_5: Vincent Johnson
+:affiliation_5: Electrosoft Services, Inc.
+:address_5: Reston, Virginia
+:fullname_6: Steven Brady
+:affiliation_6: Electrosoft Services, Inc.
+:address_6: Reston, Virginia
+--
+
+Note that the organization location must be given for every author it applies to; rendering will differentiate
+between different locations of the same organization.
 
 === Preface
 

@@ -227,7 +227,8 @@ RSpec.describe Asciidoctor::NIST do
       :surname_2: Rubble
       :givenname_2: Barney
       :role_2: editor
-      :affiliation_2: Bedrock Inc.
+      :affiliation_2: Slate Rock and Gravel Company 
+      :address_2: Bedrock
       :title-main: Main Title
       :title-sub: Subtitle
       :title-document-class: Part
@@ -274,7 +275,12 @@ RSpec.describe Asciidoctor::NIST do
              </name>
               <affiliation>
    <org>
-     <name>Bedrock Inc.</name>
+     <name>Slate Rock and Gravel Company</name>
+     <contact>
+     <address>
+        <formattedAddress>Bedrock</formattedAddress>
+        </address>
+        </contact>
    </org>
  </affiliation>
            </person>
