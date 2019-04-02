@@ -542,7 +542,7 @@ RSpec.describe Asciidoctor::NIST do
       :script: Hans
       :docnumber: ABC
       :revdate: 2013-01-01
-      :uri: http://www.example.com
+      :doi: http://www.example.com
       :comment-from: 2010-01-01
       :comment-to: 2010-01-02
       :comment-extended: 2010-01-03
@@ -553,8 +553,8 @@ RSpec.describe Asciidoctor::NIST do
       <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
     <title type="main" language="en" format="text/plain">Document title</title>
-  <uri>http://www.example.com</uri>
   <uri type="email">email@example.com</uri>
+  <uri type="doi">http://www.example.com</uri>
   <docidentifier type="nist">NIST  ABC</docidentifier>
   <docidentifier type="nist-long">NIST  ABC</docidentifier>
   <docnumber>ABC</docnumber>
@@ -600,7 +600,7 @@ RSpec.describe Asciidoctor::NIST do
 
        <authority2>
        <p align="center" id="_">National Institute of Standards and Technology ABC <br/>
-       Natl. Inst. Stand. Technol. ABC, () <br/>
+       Natl. Inst. Stand. Technol. ABC, (January 2013) <br/>
        CODEN: NSPUE2</p>
 
 
@@ -628,7 +628,7 @@ RSpec.describe Asciidoctor::NIST do
        </authority4>
 
        <authority5>
-       <title>Comments on this publication may be submitted to:</title>
+       <p align="center" id="_"><strong>Comments on this publication may be submitted to:</strong></p>
 
        <p align="center" id="_">National Institute of Standards and Technology <br/>
        Attn: Computer Security Division, Information Technology Laboratory <br/>

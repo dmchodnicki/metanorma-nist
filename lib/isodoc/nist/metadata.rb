@@ -79,6 +79,7 @@ module IsoDoc
       end
 
       def version(isoxml, _out)
+        #require "byebug"; byebug
         super
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))

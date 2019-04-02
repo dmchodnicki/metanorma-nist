@@ -13,14 +13,14 @@
 <header>
 
   <!--<div class="WordSection1">-->
-  <div class="coverpage">
+  <div class="coverpage" id="#top">
     <div class="wrapper-top">
 
       <div class="rule-2"></div>
 
       <div class="coverpage-doc-identity">
         <div class="doc-number">
-          <div>{{ docnumber_long }}</div>
+          <div>{{ docidentifier_long }}</div>
           {% if edition %} <div> Revision {{ edition }}</div> {% endif %}
           <div> {{ draftinfo }}</div>
         </div>
@@ -55,7 +55,7 @@
       <div class="download-info">
 
         This publication is available free of charge from: <br>
-        <a href="{{url}}">{{ url }}</a>
+        <a href="{{doi}}">{{ doi }}</a>
 
         <div class="category">{{ docclasstitle }}</div>
 

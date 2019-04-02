@@ -119,7 +119,7 @@ AUTHORITY = <<~"HDR"
        </authority4>
 
        <authority5>
-       <title>Comments on this publication may be submitted to:</title>
+       <p align="center" id="_"><strong>Comments on this publication may be submitted to:</strong></p>
 
        <p align="center" id="_">National Institute of Standards and Technology <br/>
        Attn: Computer Security Division, Information Technology Laboratory <br/>

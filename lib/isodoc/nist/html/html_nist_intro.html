@@ -1,7 +1,16 @@
 <div id="authority"/>
 
 <nav>
-  <h1 id="content">Contents</h1>
+  <p><a href="#top">{{ docidentifier }}</a></p>
+  <p>{{ doctitle }}</p>
+  <p>{% if doi %}
+  <a href="{{doi}}">Authoritative Copy</a>
+  {% endif %}
+  {% if doi && url %} | {% endif %}
+  {% if url %}
+  <a href="{{url}}">Details on CSRC</a>
+  {% endif %}
+  <p><b>Contents</b></p>
   <div id="toc"></div>
 
 </nav>

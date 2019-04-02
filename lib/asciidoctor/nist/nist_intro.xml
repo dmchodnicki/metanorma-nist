@@ -8,13 +8,13 @@
 </authority1>
 
 <authority2>
-<p align="center">National Institute of Standards and Technology {{ docnumber }} <br/>
-Natl. Inst. Stand. Technol. {{ docnumber }}, ({{ revdate_monthyear }}) <br/>
+<p align="center">National Institute of Standards and Technology {{ docidentifier_long | remove: "NIST " }} <br/>
+Natl. Inst. Stand. Technol. {{ docidentifier | remove: "NIST " }}, ({{ revdate_monthyear }}) <br/>
 CODEN: NSPUE2</p>
 
-{% if url %}
+{% if doi %}
 <p align="center">This publication is available free of charge from: <br/>
-  <link target="{{url}}"/></p>
+  <link target="{{doi}}"/></p>
 {% endif %}
 </authority2>
 
@@ -41,7 +41,7 @@ CODEN: NSPUE2</p>
 </authority4>
 
 <authority5>
-<title>Comments on this publication may be submitted to:</title>
+  <p align="center"><strong>Comments on this publication may be submitted to:</strong></p>
 
 <p align="center">National Institute of Standards and Technology <br/>
 Attn: Computer Security Division, Information Technology Laboratory <br/>
