@@ -182,6 +182,10 @@ The organizational affiliation of a person who is a contributor to the document.
 `:address{_i}:`::
 The organizational address of a person who is a contributor to the document.
 
+`:obsoleted-date:`::
+The date at which a document is considered no longer valid (withdrawn). If a document
+is not currently withdrawn (as indicated through `:status: withdrawn`),
+but will be in the future, that is still indicated in the rendering of the document.
 
 === NIST-specific attributes
 
@@ -262,11 +266,23 @@ to overwrite the default authority statement included in the gem (link:lib/ascii
 in case the document is historical, and needs to be generated with a previous authority statement.
 
 `:obsoletes:`::
-One or more NIST document that this NIST document standard supersedes. Comma delimited.
+One or more NIST document that this NIST document standard renders obsolete; implies that the obsoleted
+document is withdrawn, and no longer in effect. Comma delimited.
 Format is document identifier, e.g. _SP 800-53A Rev. 1_
 
 `:obsoleted-by:`::
-One or more corresponding NIST document that this NIST document standard is superseded by. Comma delimited.
+One or more corresponding NIST document that this NIST document standard is obsoleted by; requires that
+this document is withdrawn, and no longer in effect. Comma delimited.
+Format is document identifier, e.g. _SP 800-53A Rev. 1_
+
+`:supersedes:`::
+One or more NIST document that this NIST document standard supersedes; the superseded
+document may still remain in effect. Comma delimited.
+Format is document identifier, e.g. _SP 800-53A Rev. 1_
+
+`:superseded-by`::
+One or more corresponding NIST document that this NIST document standard is superseded by;
+this document may still remain in effect. Comma delimited.
 Format is document identifier, e.g. _SP 800-53A Rev. 1_
 
 

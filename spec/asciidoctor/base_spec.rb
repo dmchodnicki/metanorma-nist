@@ -243,6 +243,8 @@ RSpec.describe Asciidoctor::NIST do
       :comment-extended: 2010-01-03
       :obsoletes: NIST SP 800,NIST SP 800-53A Rev. 1
       :obsoleted-by: NIST SP 800,NIST SP 800-53A Rev. 1
+      :supersedes: NIST SP 800,NIST SP 800-53A Rev. 1
+      :superseded-by: NIST SP 800,NIST SP 800-53A Rev. 1
     INPUT
 
     output = <<~"OUTPUT"
@@ -325,12 +327,32 @@ RSpec.describe Asciidoctor::NIST do
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
   </bibitem>
 </relation>
-<relation type="obsoleted-by">
+<relation type="obsoletedBy">
   <bibitem>
     <docidentifier>NIST SP 800</docidentifier>
   </bibitem>
 </relation>
-<relation type="obsoleted-by">
+<relation type="obsoletedBy">
+  <bibitem>
+    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
+  </bibitem>
+</relation>
+<relation type="supersedes">
+  <bibitem>
+    <docidentifier>NIST SP 800</docidentifier>
+  </bibitem>
+</relation>
+<relation type="supersedes">
+  <bibitem>
+    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
+  </bibitem>
+</relation>
+<relation type="supersededBy">
+  <bibitem>
+    <docidentifier>NIST SP 800</docidentifier>
+  </bibitem>
+</relation>
+<relation type="supersededBy">
   <bibitem>
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
   </bibitem>

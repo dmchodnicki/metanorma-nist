@@ -149,8 +149,12 @@ module IsoDoc
       def relations(isoxml, _out)
         ret = relations1(isoxml, "obsoletes")
         set(:obsoletes, ret) unless ret.empty?
-        ret = relations1(isoxml, "obsoleted-by")
+        ret = relations1(isoxml, "obsoletedBy")
         set(:obsoletedby, ret) unless ret.empty?
+        ret = relations1(isoxml, "supersedes")
+        set(:supersedes, ret) unless ret.empty?
+        ret = relations1(isoxml, "supersededBy")
+        set(:supersededby, ret) unless ret.empty?
       end
     end
   end

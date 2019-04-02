@@ -86,12 +86,22 @@ RSpec.describe IsoDoc::NIST do
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
   </bibitem>
 </relation>
-<relation type="obsoleted-by">
+<relation type="obsoletedBy">
   <bibitem>
     <docidentifier>NIST SP 800</docidentifier>
   </bibitem>
 </relation>
-<relation type="obsoleted-by">
+<relation type="obsoletedBy">
+  <bibitem>
+    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
+  </bibitem>
+</relation>
+<relation type="supersedes">
+  <bibitem>
+    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
+  </bibitem>
+</relation>
+<relation type="supersededBy">
   <bibitem>
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
   </bibitem>
@@ -112,7 +122,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"XXX", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd)", :docidentifier_long=>"DRAFT (3rd) 1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoletedby=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"XXX", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Internal Draft", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"XXX", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd)", :docidentifier_long=>"DRAFT (3rd) 1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>"2", :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoletedby=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"XXX", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Internal Draft", :supersededby=>["NIST SP 800-53A Rev. 1"], :supersedes=>["NIST SP 800-53A Rev. 1"], :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)

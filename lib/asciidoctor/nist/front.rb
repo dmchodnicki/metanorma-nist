@@ -155,22 +155,10 @@ module Asciidoctor
         end
       end
 
-      def metadata_obsoletes(node, xml)
-        docs = node.attr("obsoletes") || return
+      def metadata_getrelation(node, xml, type)
+        docs = node.attr(type) || return
         docs.split(/,/).each do |d|
-          xml.relation **{ type: "obsoletes" } do |r|
-            r.bibitem do |b|
-              # TODO: use nistbib to fetch more information
-              b.docidentifier d
-            end
-          end
-        end
-      end
-
-            def metadata_obsoletedby(node, xml)
-        docs = node.attr("obsoleted-by") || return
-        docs.split(/,/).each do |d|
-          xml.relation **{ type: "obsoleted-by" } do |r|
+          xml.relation **{ type: type.sub(/-by$/, "By") } do |r|
             r.bibitem do |b|
               # TODO: use nistbib to fetch more information
               b.docidentifier d
@@ -229,8 +217,9 @@ module Asciidoctor
 
       def metadata(node, xml)
         super
-        metadata_obsoletes(node, xml)
-        metadata_obsoletedby(node, xml)
+        %w(obsoletes obsoleted-by supersedes superseded-by).each do |t|
+          metadata_getrelation(node, xml, t)
+        end
         metadata_series(node, xml)
         metadata_keywords(node, xml)
         metadata_commentperiod(node, xml)
