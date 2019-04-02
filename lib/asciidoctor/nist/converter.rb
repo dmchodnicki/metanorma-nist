@@ -5,6 +5,8 @@ require "isodoc/nist/html_convert"
 require "isodoc/nist/word_convert"
 require_relative "front"
 require_relative "boilerplate"
+require_relative "validate"
+require_relative "cleanup"
 require "fileutils"
 
 module Asciidoctor
@@ -12,14 +14,6 @@ module Asciidoctor
     class Converter < Standoc::Converter
 
       register_for "nist"
-
-      def title_validate(root)
-        nil
-      end
-
-      def doctype(node)
-        "standard"
-      end
 
       def example(node)
         return pseudocode_example(node) if node.attr("style") == "pseudocode"
@@ -83,11 +77,6 @@ module Asciidoctor
         end.join("\n")
       end
 
-      def cleanup(xmldoc)
-        sourcecode_cleanup(xmldoc)
-        super
-      end
-
       def nistvariable_insert(n)
         acc = []
         n.text.split(/((?<!\{)\{{3}(?!\{)|(?<!\})\}{3}(?!\}))/).each_slice(4).
@@ -98,25 +87,6 @@ module Asciidoctor
           acc[-1].content = a[2]
         end
         acc
-      end
-
-      def sourcecode_cleanup(xmldoc)
-        xmldoc.xpath("//sourcecode").each do |x|
-          x.traverse do |n|
-            next unless n.text?
-            n.replace(Nokogiri::XML::NodeSet.new(n.document, 
-                                                 nistvariable_insert(n)))
-          end
-        end
-      end
-
-      # skip annex/terms/terms, which is empty node
-      def termdef_subclause_cleanup(xmldoc)
-        xmldoc.xpath("//terms[terms]").each do |t|
-          next if t.parent.name == "terms"
-          t.children.each { |n| n.parent = t.parent }
-          t.remove
-        end
       end
 
       def makexml(node)
@@ -135,12 +105,6 @@ module Asciidoctor
       def doctype(node)
         d = node.attr("doctype")
         d = "standard" if d == "article" # article is Asciidoctor default
-        unless %w{policy-and-procedures best-practices 
-          supporting-document report legal directives proposal 
-          standard}.include? d
-          warn "#{d} is not a legal document type: reverting to 'standard'"
-          d = "standard"
-        end
         d
       end
 
@@ -167,72 +131,6 @@ module Asciidoctor
         end
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
-      end
-
-      def validate(doc)
-        content_validate(doc)
-        schema_validate(formattedstr_strip(doc.dup),
-                        File.join(File.dirname(__FILE__), "nist.rng"))
-      end
-
-      def sections_cleanup(x)
-        super
-        x.xpath("//*[@inline-header]").each do |h|
-          h.delete("inline-header")
-        end
-      end
-
-      def move_sections_into_preface(x, preface)
-        abstract = x.at("//abstract")
-        preface.add_child abstract.remove if abstract
-        if x.at("//authority")
-          boilerplate = x.at("//authority")
-          preface.add_child boilerplate.remove
-        else
-          preface.add_child boilerplate(x)
-        end
-        foreword = x.at("//foreword")
-        preface.add_child foreword.remove if foreword
-        introduction = x.at("//introduction")
-        preface.add_child introduction.remove if introduction
-        x.xpath("//clause[@preface]").each do |c|
-          c.delete("preface")
-          title = c&.at("./title")&.text.downcase
-          c.name = "reviewernote" if title == "note to reviewers"
-          c.name = "executivesummary" if title == "executive summary"
-          preface.add_child c.remove
-        end
-        callforpatentclaims(x, preface)
-      end
-
-      def callforpatentclaims(x, preface)
-        if @callforpatentclaims
-          docemail = x&.at("//uri[@type = 'email']")&.text || "???"
-          docnumber = x&.at("//docnumber")&.text || "???"
-          status = x&.at("//bibdata/status/stage")&.text 
-          published = status.nil? || status == "final"
-          preface.add_child patent_text(published, docemail, docnumber)
-        end
-      end
-
-      def patent_text(published, docemail, docnumber)
-        patent = (!published ? CALL_FOR_PATENT_CLAIMS :
-                  (@commitmenttolicence ? PATENT_DISCLOSURE_NOTICE1 :
-                   PATENT_DISCLOSURE_NOTICE2)).clone
-        patent.gsub(/ITL-POINT-OF_CONTACT/, published ?
-                    (@patentcontact || docemail) :
-                    (@patentcontact ||
-                     "#{docemail}, with the Subject: #{docnumber} "\
-                     "Call for Patent Claims"))
-      end
-
-      def make_preface(x, s)
-        #if x.at("//foreword | //introduction | //abstract | //preface") ||
-        #    @callforpatentclaims
-        preface = s.add_previous_sibling("<preface/>").first
-        move_sections_into_preface(x, preface)
-        summ = x.at("//executivesummary") and preface.add_child summ.remove
-        #end
       end
 
       def clause_parse(attrs, xml, node)
@@ -321,21 +219,6 @@ module Asciidoctor
             terms << node.content
           end
         end
-      end
-
-      SECTIONS_TO_VALIDATE = "//references[not(parent::clause)]/title | "\
-        "//clause[descendant::references][not(parent::clause)]/title".freeze
-
-      def section_validate(doc)
-        super
-        f = doc.xpath(SECTIONS_TO_VALIDATE)
-        names = f.map { |s| s&.text }
-        return if names.empty?
-        return if names == ["References"]
-        return if names == ["Bibliography"]
-        return if names == ["References", "Bibliography"]
-        warn "Reference clauses #{names.join(', ')} do not follow expected "\
-          "pattern in NIST"
       end
 
       def sections_order_cleanup(x)

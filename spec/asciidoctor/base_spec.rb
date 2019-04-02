@@ -971,6 +971,20 @@ RSpec.describe Asciidoctor::NIST do
     INPUT
   end
 
+  it "warns that first section in body is not Introduction" do
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.to output(/First section of document body should be Introduction, not Untroduction/).to_stderr
+      #{VALIDATING_BLANK_HDR}
+
+      [preface]
+      == Preface
+
+      == Untroduction
+
+      [bibliography]
+      == References
+    INPUT
+  end
+
   it "processes bibliographies as appendixes in legacy format" do
     input = <<~"INPUT"
       = Document title
