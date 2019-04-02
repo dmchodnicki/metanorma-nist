@@ -257,8 +257,8 @@ RSpec.describe Asciidoctor::NIST do
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
         <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist">NIST FIPS 1000-3</docidentifier>
-         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000-3</docidentifier>
+         <docidentifier type="nist">NIST FIPS 1000 Revision 3</docidentifier>
+         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Revision 3</docidentifier>
          <docnumber>1000</docnumber>
          <contributor>
            <role type="author"/>

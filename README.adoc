@@ -140,8 +140,8 @@ docnumber-edition (if edition is present)
 
 `:docidentifier:`:: The document identifier for the document. Normally this should not be supplied,
 as the document identifier is composed from the document series, document number, 
-and edition/revision. If the `:docidentifier:` value is provided, it will override this composed
-value.
+and edition/revision (e.g. _NIST SP 800 Revision 1_). 
+If the `:docidentifier:` value is provided, it will override this composed value.
 
 `:edition:`:: Edition (revision) of the document. The value of
 this attribute will be displayed as part of the heading, prefixed with "Revision".

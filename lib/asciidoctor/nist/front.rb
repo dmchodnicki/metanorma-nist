@@ -66,7 +66,7 @@ module Asciidoctor
       end
 
       def add_id_parts(dn, series, edition, long)
-        ed_delim = "-"
+        ed_delim = " Revision "
         series and series_name = long ? SERIES.dig(series.to_sym) :
           SERIES_ABBR.dig(series.to_sym)
         dn = (series_name || "NIST #{series}")  + " " + dn
