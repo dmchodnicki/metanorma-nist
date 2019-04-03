@@ -1,6 +1,7 @@
 require "isodoc"
 require_relative "metadata"
 require "fileutils"
+require "sassc"
 
 module IsoDoc
   module NIST

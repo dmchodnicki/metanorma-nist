@@ -34,21 +34,21 @@ module IsoDoc
                                   "[@type = 'nist-long']"))&.text
         docnumber = isoxml.at(ns("//bibdata/docnumber"))&.text
         set(:docidentifier, docid)
-        set(:docidentifier_long, draft_prefix(docid_long, isoxml))
+        set(:docidentifier_long, docid_long)
+        d = draft_prefix(isoxml) and set(:draft_prefix, d)
         set(:docnumber, docnumber)
       end
 
-      def draft_prefix(docidentifier_long, isoxml)
-        return nil if docidentifier_long.nil?
+      def draft_prefix(isoxml)
         docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
-        return docidentifier_long unless docstatus && 
+        return nil unless docstatus && 
           !%w(final withdrawn).include?(docstatus)
         iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
         prefix = "DRAFT "
         /^\d+$/.match iter and
           iter = iter.to_i.localize.to_rbnf_s("OrdinalRules", "digits-ordinal")
         prefix += "(#{iter}) " if iter
-        prefix + docidentifier_long
+        prefix
       end
 
       def draftinfo(draft, revdate)

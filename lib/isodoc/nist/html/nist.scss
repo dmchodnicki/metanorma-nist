@@ -688,6 +688,10 @@ p.Formula, li.Formula, div.Formula
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef1;
 	mso-paper-source:0;
+        {% if status == "Public Draft" %}
+        mso-line-numbers-count-by:1;
+        mso-line-numbers-restart:continuous;
+        {% endif %}
 }
 div.WordSection1
 	{page:WordSection1;}
@@ -697,6 +701,10 @@ div.WordSection1
 	mso-header-margin:0.5in;
 	mso-footer-margin:0.5in;
 	mso-page-numbers:roman-lower;
+        {% if status == "Public Draft" %}
+        mso-line-numbers-count-by:1;
+        mso-line-numbers-restart:continuous;
+        {% endif %}
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef2;
@@ -710,6 +718,10 @@ div.WordSection2
 	mso-header-margin:0.5in;
 	mso-footer-margin:0.5in;
 	mso-page-numbers:1;
+        {% if status == "Public Draft" %}
+        mso-line-numbers-count-by:1;
+        mso-line-numbers-restart:continuous;
+        {% endif %}
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef3;
