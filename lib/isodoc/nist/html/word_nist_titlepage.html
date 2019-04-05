@@ -1,5 +1,4 @@
-<p class="ReportNumber"><span lang="EN-US">{{ draft_prefix }} {{ docidentifier_long }}
-  {% if edition %} <br/> Revision {{ edition }} {% endif %}
+<p class="ReportNumber"><span lang="EN-US">{{ draft_prefix }} {{ docidentifier_long | replace: "Revision", "<br/>Revision" }}
   {% if draftinfo %}
     <br/>{{ draftinfo }}
     {% endif %}
@@ -126,7 +125,7 @@ EN-US;mso-bidi-language:AR-SA'><br clear="all" style='page-break-before:always;'
 mso-pagination:widow-orphan;mso-hyphenate:auto;mso-layout-grid-align:auto;
 mso-vertical-align-alt:auto'><b style='mso-bidi-font-weight:normal'><span
 lang="EN-US" style='font-size:20.0pt;mso-bidi-font-size:12.0pt;line-height:90%'>
-    {{ draft_prefix }} {{ docidentifier_long }}
+    {{ draft_prefix }} {{ docidentifier_long | replace: "Revision", "<br/>Revision" }}
   {% if draftinfo %}
     <br/>{{ draftinfo }}
     {% endif %}
