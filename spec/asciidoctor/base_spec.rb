@@ -2,6 +2,109 @@ require "spec_helper"
 require "fileutils"
 
 RSpec.describe Asciidoctor::NIST do
+
+  NISTSP80053ar1=<<~OUTPUT
+<bibitem type="" id="SP800-53ARev.1">
+  <fetched>2019-04-06</fetched>
+  <title format="text/plain" language="en" script="Latn">Guide for Assessing the Security Controls in Federal Information Systems and Organizations: Building Effective Security Assessment Plans</title
+  <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-53a/rev-1/archive/2010-06-29</uri>
+  <uri type="obp">https://doi.org/10.6028/NIST.SP.800-53Ar1</uri>
+  <docidentifier type="NIST">SP 800-53A Rev. 1</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>National Institute of Standards and Technology</name>
+      <abbreviation>NIST</abbreviation>
+      <uri>www.nist.gov</uri>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status>
+    <stage>95</stage>
+    <substage>99</substage>
+  </status>
+  <copyright>
+    <from>2010</from>
+    <owner>
+      <organization>
+        <name>National Institute of Standards and Technology</name>
+        <abbreviation>NIST</abbreviation>
+        <uri>www.nist.gov</uri>
+      </organization>
+    </owner>
+  </copyright>
+  <relation type="instance">
+    <bibitem>
+      <formattedref>SP 800-53A Rev. 1</formattedref>
+    </bibitem>
+  </relation>
+</bibitem>
+      OUTPUT
+
+
+NISTSP800179=<<~OUTPUT
+<bibitem type="" id="SP800-179Rev.1(DRAFT)">
+  <fetched>2019-04-06</fetched>
+  <title format="text/plain" language="en" script="Latn">Guide to Securing Apple macOS 10.12 Systems for IT Professionals: A NIST Security Configuration Checklist</title>
+  <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-179/rev-1/draft</uri>
+  <uri type="obp">/CSRC/media/Publications/sp/800-179/rev-1/draft/documents/sp800-179r1-draft.pdf</uri>
+  <docidentifier type="NIST">SP 800-179 Rev. 1 (DRAFT)</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>National Institute of Standards and Technology</name>
+      <abbreviation>NIST</abbreviation>
+      <uri>www.nist.gov</uri>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status>
+    <stage>20</stage>
+    <substage>20</substage>
+  </status>
+  <copyright>
+    <from>2018</from>
+    <owner>
+      <organization>
+        <name>National Institute of Standards and Technology</name>
+        <abbreviation>NIST</abbreviation>
+        <uri>www.nist.gov</uri>
+      </organization>
+    </owner>
+  </copyright>
+  <relation type="updates">
+    <bibitem>
+      <formattedref>SP 800-70 Rev. 4</formattedref>
+    </bibitem>
+  </relation>
+  <relation type="updates">
+    <bibitem>
+      <formattedref>ITL Bulletin </formattedref>
+    </bibitem>
+  </relation>
+  <relation type="updates">
+    <bibitem>
+      <formattedref>NISTIR 7692</formattedref>
+    </bibitem>
+  </relation>
+  <relation type="updates">
+    <bibitem>
+      <formattedref>NISTIR 7275 Rev. 4</formattedref>
+    </bibitem>
+  </relation>
+  <relation type="instance">
+    <bibitem>
+      <formattedref>SP 800-179 Rev. 1 (DRAFT)</formattedref>
+    </bibitem>
+  </relation>
+</bibitem>
+OUTPUT
+
+
+
+
   it "has a version number" do
     expect(Metanorma::NIST::VERSION).not_to be nil
   end
@@ -192,12 +295,15 @@ RSpec.describe Asciidoctor::NIST do
 
 
   it "processes default metadata" do
+    mock_nistbib_get_nistsp80053ar1
+    mock_nistbib_get_nistsp800179
     input = <<~"INPUT"
       = Document title
       Author
       :docfile: test.adoc
       :nodoc:
       :novalid:
+      :no-isobib-cache:
       :docnumber: 1000
       :doctype: standard
       :edition: 3
@@ -241,10 +347,10 @@ RSpec.describe Asciidoctor::NIST do
       :comment-from: 2010-01-01
       :comment-to: 2010-01-02
       :comment-extended: 2010-01-03
-      :obsoletes: NIST SP 800,NIST SP 800-53A Rev. 1
-      :obsoleted-by: NIST SP 800,NIST SP 800-53A Rev. 1
-      :supersedes: NIST SP 800,NIST SP 800-53A Rev. 1
-      :superseded-by: NIST SP 800,NIST SP 800-53A Rev. 1
+      :obsoletes: NIST SP 800-179,NIST SP 800-53A Rev. 1
+      :obsoleted-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
+      :supersedes: NIST SP 800-179,NIST SP 800-53A Rev. 1
+      :superseded-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
     INPUT
 
     output = <<~"OUTPUT"
@@ -318,44 +424,28 @@ RSpec.describe Asciidoctor::NIST do
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
          <relation type="obsoletes">
-  <bibitem>
-    <docidentifier>NIST SP 800</docidentifier>
-  </bibitem>
+         #{NISTSP800179}
 </relation>
 <relation type="obsoletes">
-  <bibitem>
-    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
-  </bibitem>
+  #{NISTSP80053ar1}
 </relation>
 <relation type="obsoletedBy">
-  <bibitem>
-    <docidentifier>NIST SP 800</docidentifier>
-  </bibitem>
+  #{NISTSP800179}
 </relation>
 <relation type="obsoletedBy">
-  <bibitem>
-    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
-  </bibitem>
+  #{NISTSP80053ar1}
 </relation>
 <relation type="supersedes">
-  <bibitem>
-    <docidentifier>NIST SP 800</docidentifier>
-  </bibitem>
+  #{NISTSP800179}
 </relation>
 <relation type="supersedes">
-  <bibitem>
-    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
-  </bibitem>
+  #{NISTSP80053ar1}
 </relation>
 <relation type="supersededBy">
-  <bibitem>
-    <docidentifier>NIST SP 800</docidentifier>
-  </bibitem>
+  #{NISTSP800179}
 </relation>
 <relation type="supersededBy">
-  <bibitem>
-    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
-  </bibitem>
+  #{NISTSP80053ar1}
 </relation>
          <series type="main">
            <title>NIST Federal Information Processing Standards</title>
@@ -1040,5 +1130,18 @@ RSpec.describe Asciidoctor::NIST do
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
+  private
+
+  def mock_nistbib_get_nistsp80053ar1
+    expect(NistBib::NistBibliography).to receive(:get).with("NIST SP 800-53A Rev. 1", nil, {}) do
+      IsoBibItem::XMLParser.from_xml(NISTSP80053ar1)
+    end.exactly(4).times
+    end
+
+  def mock_nistbib_get_nistsp800179
+    expect(NistBib::NistBibliography).to receive(:get).with("NIST SP 800-179", nil, {}) do
+      IsoBibItem::XMLParser.from_xml(NISTSP800179)
+    end.exactly(4).times
+    end
 
 end

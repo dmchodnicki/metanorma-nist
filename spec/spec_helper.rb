@@ -15,6 +15,7 @@ require "equivalent-xml"
 require "htmlentities"
 require "metanorma"
 require "metanorma/nist"
+require "nistbib"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

@@ -159,10 +159,7 @@ module Asciidoctor
         docs = node.attr(type) || return
         docs.split(/,/).each do |d|
           xml.relation **{ type: type.sub(/-by$/, "By") } do |r|
-            r.bibitem do |b|
-              # TODO: use nistbib to fetch more information
-              b.docidentifier d
-            end
+            fetch_ref(r, d, nil, {})
           end
         end
       end
