@@ -27,6 +27,7 @@ CODEN: NSPUE2</p>
 </authority3>
 
 <authority4>
+  {% if unpublished %}
 {% if comment_extended %}
 <p align="center">[{{ comment_extended}}: Comment period extended]</p>
 {% endif %}
@@ -36,6 +37,7 @@ CODEN: NSPUE2</p>
 {% else %}
 {% if comment_from %}
 <p align="center"><strong>Public comment period: from <em>{{ comment_from }}</em></strong></p>
+{% endif %}
 {% endif %}
 {% endif %}
 </authority4>
