@@ -1,20 +1,178 @@
+{% if status == "Internal Draft" %}
+
+<p class="Default"><b><span style='font-size:20.0pt;'>Draft </span></b></p>
+
+<p class="Default"><b><span style='font-size:20.0pt;'>&#xa0;</span></b></p>
+
+<p class="Default"><b style='mso-bidi-font-weight:normal'><span
+    style='font-size:18.0pt;'>{{ docidentifier_long | replace: "Revision", "<br/>Revision" }}
+    {% if draftinfo %}
+    <br/>{{ draftinfo }}
+    {% endif %}
+</span></b></p>
+
+<p class="MsoNormal" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none;font-size:20.0pt;'><span lang="EN-US"><b>{{ doctitle }}</b>
+    </span></p>
+
+{% if docsubtitle %}
+  <p class="MsoNormal" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none;font-size:18.0pt;'><span lang="EN-US"><b>{{ docsubtitle }}</b></span></p>
+{% endif %}
+{% if docparttitle %}
+<p class="MsoNormal" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none;font-size:18.0pt;'><span lang="EN-US"><b><i>{{ docparttitle }}</i></b></span></p>
+{% endif %}
+
+<p class="Default" align="right" style='text-align:right'><span 
+style='font-size:14.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>&#xa0;</span></p>
+
+<div style='mso-element:para-border-div;border:solid windowtext 1.5pt;padding:8.0pt 4.0pt 8.0pt 4.0pt'>
+
+<p class="Default" align="center" style='text-align:center;border:none;mso-border-alt:solid windowtext 1.5pt;padding:0cm;mso-padding-alt:8.0pt 4.0pt 8.0pt 4.0pt'><b style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:24.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>Internal
+Draft</span></b></p>
+
+</div>
+<p class="Default" align="right" style='text-align:right'><v:shapetype id="_x0000_t202"
+ coordsize="21600,21600" o:spt="202" path="m,l,21600r21600,l21600,xe">
+ <v:stroke joinstyle="miter"/>
+ <v:path gradientshapeok="t" o:connecttype="rect"/>
+</v:shapetype><v:shape id="Text_x0020_Box_x0020_2" o:spid="_x0000_s1033"
+ type="#_x0000_t202" style='position:absolute;left:0;text-align:left;margin-left:-5.85pt;margin-top:21.2pt;width:478.85pt;height:90.4pt;z-index:251663360;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;mso-wrap-distance-top:3.6pt;mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:3.6pt;mso-position-horizontal:absolute;mso-position-horizontal-relative:text;mso-position-vertical:absolute;mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;mso-width-relative:margin;mso-height-relative:margin;v-text-anchor:top' o:gfxdata="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
+">
+ <v:textbox>
+    <div>
+    <p class="Default" align="center" style='text-align:center'><b
+    style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:12.0pt'>Warning for Internal
+    Draft</span></b></p>
+    <p class="Default" align="center" style='text-align:center'><span lang="EN-US"
+    style='font-size:14.0pt'>&#xa0;</span></p>
+    <p class="Default" align="center" style='text-align:center'><span lang="EN-US"
+    style='font-size:14.0pt;mso-fareast-font-family:"Times New Roman"'>This
+    document is currently under development and is <br/>
+    <b style='mso-bidi-font-weight:normal'>NOT INTENDED FOR PUBLIC RELEASE.</b></span></p>
+    <p class="Default" style='text-align:justify;text-justify:inter-ideograph'><span
+    lang="EN-US">&#xa0;</span></p>
+    </div>
+  </v:textbox>
+ <w:wrap type="square"/>
+</v:shape><span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'></span></p>
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>&#xa0;</span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'>&#xa0;</span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'>&#xa0;</span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'>&#xa0;</span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'>&#xa0;</span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'>&#xa0;</span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'>&#xa0;</span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'>&#xa0;</span></p>
+
+<div style='mso-element:para-border-div;border-top:solid windowtext 1.5pt;border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;padding:1.0pt 0cm 1.0pt 0cm'>
+
+<p class="MsoNormal" align="center" style='text-align:center;border:none;mso-border-top-alt:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;padding:0cm;mso-padding-alt:1.0pt 0cm 1.0pt 0cm'><span lang="EN-US"
+     style='font-size:16.0pt;font-family:"Arial",sans-serif;mso-ansi-language:EN-US;letter-spacing:10.0pt'>{{ docclasstitle | upcase }}</span></p>
+
+</div>
+
+<p class="MsoNormal" style='margin-bottom:0cm;margin-bottom:.0001pt'><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="image_x0020_2" o:spid="_x0000_s1026" type="#_x0000_t75"
+ alt="NIST Identifier: NIST, National Institute of Standards and Technology, U.S. Department of Commerce"
+ style='position:absolute;margin-left:127.95pt;margin-top:0;width:179.15pt;
+ height:75.95pt;z-index:251659264;visibility:visible;mso-wrap-style:square;
+ mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:12pt;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:12pt;
+ mso-wrap-distance-bottom:0;mso-position-horizontal:right;
+ mso-position-horizontal-relative:text;mso-position-vertical:bottom;
+ mso-position-vertical-relative:margin;mso-width-percent:0;
+ mso-height-percent:0;mso-width-relative:page;mso-height-relative:page'
+ o:allowoverlap="f">
+ <v:imagedata src="logo.png"
+  o:title=" NIST, National Institute of Standards and Technology, U.S"/>
+ <o:lock v:ext="edit" aspectratio="f"/>
+ <w:wrap type="square" anchory="margin"/>
+ </v:shape></p>
+
+
+
+
+{% else %}
+
 <p class="ReportNumber"><span lang="EN-US">{{ draft_prefix }} {{ docidentifier_long | replace: "Revision", "<br/>Revision" }}
   {% if draftinfo %}
     <br/>{{ draftinfo }}
     {% endif %}
-    <o:p></o:p></span></p>
+    </span></p>
 
 <div style='mso-element:para-border-div;border:none;border-top:double windowtext 4.5pt;
 mso-border-top-alt:thin-thick-small-gap windowtext 4.5pt;padding:6.0pt 0cm 0cm 0cm'>
 
   <p class="CoverTitle"><span lang="EN-US">{{ doctitle }}
-    <o:p></o:p></span></p>
+    </span></p>
 
 {% if docsubtitle %}
-  <p class="CoverSubtitle"><span lang="EN-US">{{ docsubtitle }}<o:p></o:p></span></p>
+  <p class="CoverSubtitle"><span lang="EN-US">{{ docsubtitle }}</span></p>
 {% endif %}
 {% if docparttitle %}
-  <p class="CoverSubtitle"><span lang="EN-US">{{ docparttitle }}<o:p></o:p></span></p>
+  <p class="CoverSubtitle"><span lang="EN-US">{{ docparttitle }}</span></p>
 {% endif %}
 
 <div style='mso-element:para-border-div;border:none;border-top:solid black 1.5pt;
@@ -22,7 +180,7 @@ mso-border-top-themecolor:text1;padding:1.0pt 0cm 0cm 0cm'>
 
 <p class="MsoNormal" style='border:none;mso-border-top-alt:solid black 1.5pt;
 mso-border-top-themecolor:text1;padding:0cm;mso-padding-alt:1.0pt 0cm 0cm 0cm'><span
-lang="EN-US" style='font-size:14.0pt;color:black;mso-themecolor:text1'>&#xa0;<o:p></o:p></span></p>
+lang="EN-US" style='font-size:14.0pt;color:black;mso-themecolor:text1'>&#xa0;</span></p>
 
 </div>
 
@@ -32,31 +190,31 @@ lang="EN-US" style='font-size:14.0pt;color:black;mso-themecolor:text1'>&#xa0;<o:
 
 <p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
 mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 <p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
 mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 
 
 {% if doi %}
 <p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
 mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
 lang="EN-US" style='font-size:14.0pt;color:black'>This publication is available
-free of charge from:<o:p></o:p></span></p>
+free of charge from:</span></p>
 <p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
 mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-     lang="EN-US" style='font-size:14.0pt;color:black'>{{ doi }}<o:p></o:p></span></p>
+     lang="EN-US" style='font-size:14.0pt;color:black'>{{ doi }}</span></p>
 {% endif %}
 
 <p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
 mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 <p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
 mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 <p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
 mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 
 
 <div style='mso-element:para-border-div;border-top:solid windowtext 1.5pt;
@@ -66,13 +224,13 @@ padding:1.0pt 0cm 1.0pt 0cm'>
 <p class="MsoNormal" align="center" style='text-align:center;border:none;
 mso-border-top-alt:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;
 padding:0cm;mso-padding-alt:1.0pt 0cm 1.0pt 0cm'><span lang="EN-US"
-     style='font-size:16.0pt;font-family:"Arial",sans-serif;mso-ansi-language:EN-US;letter-spacing:10.0pt'>{{ docclasstitle | upcase }}<o:p></o:p></span></p>
+     style='font-size:16.0pt;font-family:"Arial",sans-serif;mso-ansi-language:EN-US;letter-spacing:10.0pt'>{{ docclasstitle | upcase }}</span></p>
 
 
 </div>
 
 <p class="MsoNormal"><span lang="EN-US" style='font-size:14.0pt'><span
-style='mso-spacerun:yes'> </span><o:p></o:p></span></p>
+style='mso-spacerun:yes'> </span></span></p>
 
 <p class="MsoNormal" style='margin-bottom:0cm;margin-bottom:.0001pt'><v:shapetype
  id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
@@ -114,138 +272,116 @@ style='mso-spacerun:yes'> </span><o:p></o:p></span></p>
 
 </div>
 
+{% endif %}
+
+
+
+
+
+
+
+
+
+
 <div>
 
-<span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;
-mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
-EN-US;mso-bidi-language:AR-SA'><br clear="all" style='page-break-before:always;'/>
+<span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA'><br clear="all" style='page-break-before:always;'/>
 </span>
 
-<p class="MsoNormal" align="right" style='text-align:right;line-height:90%;
-mso-pagination:widow-orphan;mso-hyphenate:auto;mso-layout-grid-align:auto;
-mso-vertical-align-alt:auto'><b style='mso-bidi-font-weight:normal'><span
+<p class="MsoNormal" align="right" style='text-align:right;line-height:90%;mso-pagination:widow-orphan;mso-hyphenate:auto;mso-layout-grid-align:auto;mso-vertical-align-alt:auto'><b style='mso-bidi-font-weight:normal'><span
 lang="EN-US" style='font-size:20.0pt;mso-bidi-font-size:12.0pt;line-height:90%'>
     {{ draft_prefix }} {{ docidentifier_long | replace: "Revision", "<br/>Revision" }}
   {% if draftinfo %}
     <br/>{{ draftinfo }}
     {% endif %}
-<o:p></o:p></span></b></p>
+</span></b></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 
-<p class="CxSpMiddle" align="right" style='margin-top:18.0pt;margin-right:
-0cm;margin-bottom:6.0pt;margin-left:0cm;mso-add-space:auto;text-align:right'><b
-style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:28.0pt;
-mso-bidi-font-size:12.0pt;color:black;position:relative;top:-4.0pt;mso-text-raise:
-4.0pt;letter-spacing:-.5pt;mso-font-kerning:10.0pt'>{{ doctitle }}<o:p></o:p></span></b></p>
+<p class="CxSpMiddle" align="right" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-add-space:auto;text-align:right'><b
+style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:28.0pt;mso-bidi-font-size:12.0pt;color:black;position:relative;top:-4.0pt;mso-text-raise:4.0pt;letter-spacing:-.5pt;mso-font-kerning:10.0pt'>{{ doctitle }}</span></b></p>
 
 {% if docsubtitle %}
-<p class="CxSpMiddle" align="right" style='margin-top:18.0pt;margin-right:
-0cm;margin-bottom:6.0pt;margin-left:0cm;mso-add-space:auto;text-align:right'><i
-style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:18.0pt;
-mso-bidi-font-size:12.0pt;color:black;position:relative'>{{ docsubtitle }}<o:p></o:p></span></i></p>
+<p class="CxSpMiddle" align="right" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-add-space:auto;text-align:right'><i
+style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:18.0pt;mso-bidi-font-size:12.0pt;color:black;position:relative'>{{ docsubtitle }}</span></i></p>
 {% endif %}
 
 </div>
 
-<span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;
-mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
-EN-US;mso-bidi-language:AR-SA;margin-bottom:0.0pt'><br clear="all" style='page-break-before:auto;'/>
+<span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA;margin-bottom:0.0pt'><br clear="all" style='page-break-before:auto;'/>
 </span>
 
   <div class="authors-container">
     {% for affiliation in authors_affiliations %}
     {% for author in affiliation[1] %}
-<p class="Author">{{ author }}</div>
+<p class="Author">{{ author }}</p>
 {% endfor %}
-<p class="Affiliation">{{affiliation[0]}}</div>
+<p class="Affiliation">{{affiliation[0]}}</p>
 {% endfor %}
     </div>
 
-<span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;
-mso-fareast-font-family:"Times New Roman";color:black;mso-ansi-language:EN-US;
-mso-fareast-language:EN-US;mso-bidi-language:AR-SA;margin-bottom:0.0pt'><br clear="all"
+<span lang="EN-US" style='font-size:14.0pt;font-family:"Times New Roman",serif;mso-fareast-font-family:"Times New Roman";color:black;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA;margin-bottom:0.0pt'><br clear="all"
      style='page-break-before:auto;'/>
 </span>
 
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 
 {% if url %}
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
 lang="EN-US" style='font-size:14.0pt;color:black'>This publication is available
-free of charge from:<o:p></o:p></span></p>
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-     lang="EN-US" style='font-size:14.0pt;color:black'>{{ url }}<o:p></o:p></span></p>
+free of charge from:</span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+     lang="EN-US" style='font-size:14.0pt;color:black'>{{ url }}</span></p>
 {% endif %}
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>{{ revdate_monthyear }}<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>{{ revdate_monthyear }}</span></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'>
 <img width="91" height="90"
   src="deptofcommerce.png"
   alt="Seal of the U.S. Department of Commerce"/>
 </p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:11.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:11.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:11.0pt;color:black'>&#xa0;</span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:11.0pt;color:black'>&#xa0;</span></p>
 
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:11.0pt;color:black'
->U.S. Department of Commerce<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:11.0pt;color:black'>U.S. Department of Commerce</span></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><i><span
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><i><span
 lang="EN-US" style='font-size:10.0pt;color:black'
->Wilbur L. Ross, Jr., Secretary<o:p></o:p></span></i></p>
+>Wilbur L. Ross, Jr., Secretary</span></i></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
-lang="EN-US" style='font-size:10.0pt;color:black'>&#xa0;<o:p></o:p></span></p>
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+lang="EN-US" style='font-size:10.0pt;color:black'>&#xa0;</span></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><span
 lang="EN-US" style='font-size:10.0pt;color:black'
->National Institute of Standards and Technology <o:p></o:p></span></p>
+>National Institute of Standards and Technology </span></p>
 
-<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;
-mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><i><span
+<p class="MsoNormal" align="right" style='text-align:right;mso-pagination:widow-orphan;mso-hyphenate:auto;text-autospace:none;mso-vertical-align-alt:auto;margin-bottom:0.0pt'><i><span
 lang="EN-US" style='font-size:10.0pt;color:black'
 >Walter Copan, NIST Director and Under Secretary of Commerce for Standards and Technology</span></i><b><span
-lang="EN-US" style='font-size:10.0pt'><o:p></o:p></span></b></p>
+lang="EN-US" style='font-size:10.0pt'></span></b></p>
 
