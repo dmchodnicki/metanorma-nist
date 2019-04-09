@@ -10,6 +10,10 @@ module Asciidoctor
     #
     class Converter < Standoc::Converter
 
+      def datetypes
+        super << "abandoned"
+      end
+
       def title_subtitle(node, t, at)
         return unless node.attr("title-sub")
         t.title(**attr_code(at.merge(type: "subtitle"))) do |t1|

@@ -351,6 +351,7 @@ OUTPUT
       :obsoleted-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
       :supersedes: NIST SP 800-179,NIST SP 800-53A Rev. 1
       :superseded-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
+      :abandoned-date: 2021-01-01
     INPUT
 
     output = <<~"OUTPUT"
@@ -366,6 +367,9 @@ OUTPUT
          <docidentifier type="nist">NIST FIPS 1000 Revision 3</docidentifier>
          <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Revision 3</docidentifier>
          <docnumber>1000</docnumber>
+         <date type="abandoned">
+           <on>2021-01-01</on>
+         </date>
          <contributor>
            <role type="author"/>
            <person>

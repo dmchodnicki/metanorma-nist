@@ -188,7 +188,7 @@ The organizational address of a person who is a contributor to the document.
 
 `:obsoleted-date:`::
 The date at which a document is considered no longer valid (withdrawn). If a document
-is not currently withdrawn (as indicated through `:status: withdrawn`),
+is not currently withdrawn (as indicated through `:status: draft-withdrawn`, `status: final-withdrawn`),
 but will be in the future, that is still indicated in the rendering of the document.
 
 === NIST-specific attributes
@@ -289,6 +289,11 @@ One or more corresponding NIST document that this NIST document standard is supe
 this document may still remain in effect. Comma delimited.
 Format is document identifier, e.g. _SP 800-53A Rev. 1_
 
+`:abandoned-date:`::
+The date at which work on a document is abandoned. At that date, the document is considered
+retired (`status: draft-retired`). In NIST, only drafts may be retired. If the document
+is not currently retired (as indicated through `:status: draft-retired`),
+but will be in the future, that is still indicated in the rendering of the document.
 
 == Asciidoctor features specific to NIST
 
