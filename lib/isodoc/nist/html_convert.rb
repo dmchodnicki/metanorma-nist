@@ -153,7 +153,7 @@ module IsoDoc
         return false unless c.name == "reviewernote"
         status = isoxml&.at(ns("//bibdata/status/stage"))&.text
         return true if status.nil?
-        return ["final", "withdrawn"].include? status
+        /^final/.match status
       end
 
       def term_defs_boilerplate(div, source, term, preface)
@@ -340,7 +340,8 @@ module IsoDoc
         end
       end
 
-      MIDDLE_CLAUSE = "//clause[parent::sections]|//terms[parent::sections]".freeze
+      MIDDLE_CLAUSE = "//clause[parent::sections] | "\
+        "//terms[parent::sections]".freeze
 
       def middle(isoxml, out)
         middle_title(out)
@@ -385,32 +386,6 @@ module IsoDoc
           reference_names(ref)
         end
       end
-
-=begin
-      def prefaceprefix(nodes)
-        i = 0
-        nodes.each do |n|
-          case n.name
-          when "executivesummary" then @anchors[n["id"]][:prefix] = "ES"
-          when "abstract" then @anchors[n["id"]][:prefix] = "ABS"
-          when "reviewernote" then @anchors[n["id"]][:prefix] = "NTR"
-          else
-            @anchors[n["id"]][:prefix] = "PR" + i.to_s
-            i += 1
-          end
-        end
-      end
-
-      def middle_section_asset_names(d)
-        prefaceprefix(d.xpath("//xmlns:preface/child::*"))
-        d.xpath("//xmlns:preface/child::*").each do |s|
-          hierarchical_asset_names(s, @anchors[s["id"]][:prefix])
-        end
-        d.xpath("//xmlns:sections/child::*").each do |s|
-          hierarchical_asset_names(s, @anchors[s["id"]][:label])
-        end
-      end
-=end
 
       def middle_section_asset_names(d)
         middle_sections = 

@@ -111,14 +111,6 @@ AUTHORITY = <<~"HDR"
        <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <link target="https://csrc.nist.gov/publications"/>
        </p></authority3>
 
-       <authority4>
-
-
-
-
-
-       </authority4>
-
        <authority5>
        <p align="center" id="_"><strong>Comments on this publication may be submitted to:</strong></p>
 

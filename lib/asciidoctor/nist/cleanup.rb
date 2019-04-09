@@ -32,19 +32,7 @@ module Asciidoctor
         end
       end
 
-      def move_sections_into_preface(x, preface)
-        abstract = x.at("//abstract")
-        preface.add_child abstract.remove if abstract
-        if x.at("//authority")
-          boilerplate = x.at("//authority")
-          preface.add_child boilerplate.remove
-        else
-          preface.add_child boilerplate(x)
-        end
-        foreword = x.at("//foreword")
-        preface.add_child foreword.remove if foreword
-        introduction = x.at("//introduction")
-        preface.add_child introduction.remove if introduction
+      def move_clauses_into_preface(x, preface)
         x.xpath("//clause[@preface]").each do |c|
           c.delete("preface")
           title = c&.at("./title")&.text.downcase
@@ -52,6 +40,23 @@ module Asciidoctor
           c.name = "executivesummary" if title == "executive summary"
           preface.add_child c.remove
         end
+      end
+
+      def move_authority_into_preface(x, preface)
+        if x.at("//authority")
+          boilerplate = x.at("//authority")
+          preface.add_child boilerplate.remove
+        else
+          preface.add_child boilerplate(x)
+        end
+      end
+
+      def move_sections_into_preface(x, preface)
+        abstract = x.at("//abstract") and preface.add_child abstract.remove
+        move_authority_into_preface(x, preface)
+        foreword = x.at("//foreword") and preface.add_child foreword.remove
+        intro = x.at("//introduction") and preface.add_child intro.remove
+        move_clauses_into_preface(x, preface)
         callforpatentclaims(x, preface)
       end
 
@@ -60,7 +65,7 @@ module Asciidoctor
           docemail = x&.at("//uri[@type = 'email']")&.text || "???"
           docnumber = x&.at("//docnumber")&.text || "???"
           status = x&.at("//bibdata/status/stage")&.text
-          published = status.nil? || status == "final"
+          published = status.nil? || /^final/.match(status)
           preface.add_child patent_text(published, docemail, docnumber)
         end
       end
@@ -77,8 +82,6 @@ module Asciidoctor
       end
 
       def make_preface(x, s)
-        #if x.at("//foreword | //introduction | //abstract | //preface") ||
-        #    @callforpatentclaims
         preface = s.add_previous_sibling("<preface/>").first
         move_sections_into_preface(x, preface)
         summ = x.at("//executivesummary") and preface.add_child summ.remove

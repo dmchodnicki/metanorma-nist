@@ -5,8 +5,8 @@ RSpec.describe Asciidoctor::NIST do
 
   NISTSP80053ar1=<<~OUTPUT
 <bibitem type="" id="SP800-53ARev.1">
-  <fetched>2019-04-06</fetched>
-  <title format="text/plain" language="en" script="Latn">Guide for Assessing the Security Controls in Federal Information Systems and Organizations: Building Effective Security Assessment Plans</title
+  <fetched>#{Date.today}</fetched>
+  <title format="text/plain" language="en" script="Latn">Guide for Assessing the Security Controls in Federal Information Systems and Organizations: Building Effective Security Assessment Plans</title>
   <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-53a/rev-1/archive/2010-06-29</uri>
   <uri type="obp">https://doi.org/10.6028/NIST.SP.800-53Ar1</uri>
   <docidentifier type="NIST">SP 800-53A Rev. 1</docidentifier>
@@ -45,7 +45,7 @@ RSpec.describe Asciidoctor::NIST do
 
 NISTSP800179=<<~OUTPUT
 <bibitem type="" id="SP800-179Rev.1(DRAFT)">
-  <fetched>2019-04-06</fetched>
+  <fetched>#{Date.today}</fetched>
   <title format="text/plain" language="en" script="Latn">Guide to Securing Apple macOS 10.12 Systems for IT Professionals: A NIST Security Configuration Checklist</title>
   <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-179/rev-1/draft</uri>
   <uri type="obp">/CSRC/media/Publications/sp/800-179/rev-1/draft/documents/sp800-179r1-draft.pdf</uri>
@@ -256,7 +256,7 @@ OUTPUT
       Author
       :docfile: test.adoc
       :call-for-patent-claims:
-      :status: public-draft
+      :status: draft-public
       :doc-email: x@example.com
       :docnumber: ABC
       :novalid:
@@ -323,7 +323,7 @@ OUTPUT
       :workgroup-type: C
       :secretariat: SECRETARIAT
       :copyright-year: 2001
-      :status: public-draft
+      :status: draft-public
       :iteration: 3
       :language: en
       :security: Client Confidential
@@ -382,14 +382,14 @@ OUTPUT
                <surname>Rubble</surname>
              </name>
               <affiliation>
-   <org>
+   <organization>
      <name>Slate Rock and Gravel Company</name>
      <contact>
      <address>
         <formattedAddress>Bedrock</formattedAddress>
         </address>
         </contact>
-   </org>
+   </organization>
  </affiliation>
            </person>
          </contributor>
@@ -407,7 +407,7 @@ OUTPUT
          <language>en</language>
          <script>Latn</script>
         <status>
-          <stage>public-draft</stage>
+          <stage>draft-public</stage>
           <iteration>3</iteration>
          </status>
          <copyright>
@@ -637,6 +637,7 @@ OUTPUT
       :comment-to: 2010-01-02
       :comment-extended: 2010-01-03
       :doc-email: email@example.com
+      :status: draft-public
     INPUT
 
     output = <<~"OUTPUT"
@@ -660,7 +661,7 @@ OUTPUT
   <language>en</language>
   <script>Hans</script>
   <status>
-    <stage>final</stage>
+    <stage>draft-public</stage>
   </status>
   <copyright>
     <from>2019</from>

@@ -270,9 +270,9 @@ module IsoDoc
 
       def skip_render(c, isoxml)
         return false unless c.name == "reviewernote"
-        status = isoxml&.at(ns("//bibdata/status"))&.text
+        status = isoxml&.at(ns("//bibdata/status/stage"))&.text
         return true if status.nil?
-        return ["published", "withdrawn"].include? status
+        /^final/.match status
       end
 
       def term_defs_boilerplate(div, source, term, preface)

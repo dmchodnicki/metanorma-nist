@@ -149,11 +149,15 @@ this attribute will be displayed as part of the heading, prefixed with "Revision
 `:status:`:: Document status/stage. The permitted types are:
 +
 --
-* `internal-draft`
-* `public-draft`
-* `final`
-* `retired-draft`
-* `withdrawn`
+* `draft-internal`
+* `draft-wip`
+* `draft-prelim`
+* `draft-public`
+* `draft-withdrawn`
+* `draft-retire`
+* `final` (default: document is published)
+* `final-review`
+* `final-withdrawn`
 --
 
 `:fullname{_i}:`, `:affiliation{_i}:`, `:address{_i}`::

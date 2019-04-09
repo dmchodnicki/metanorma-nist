@@ -1,5 +1,4 @@
 require "isodoc"
-require "twitter_cldr"
 
 module IsoDoc
   module NIST
@@ -36,26 +35,32 @@ module IsoDoc
         set(:docidentifier, docid)
         set(:docidentifier_long, docid_long)
         d = draft_prefix(isoxml) and set(:draft_prefix, d)
+        d = iter_code(isoxml) and set(:iteration_code, d)
         set(:docnumber, docnumber)
       end
 
       def draft_prefix(isoxml)
         docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
-        return nil unless docstatus && 
-          !%w(final withdrawn).include?(docstatus)
-        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
+        return nil unless docstatus && /^draft/.match(docstatus)
+        iter = iter_code(isoxml)
         prefix = "DRAFT "
-        /^\d+$/.match iter and
-          iter = iter.to_i.localize.to_rbnf_s("OrdinalRules", "digits-ordinal")
-        prefix += "(#{iter}) " if iter
+        iter and prefix += "(#{iter}) "
         prefix
+      end
+
+      def iter_code(isoxml)
+        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+        return nil unless docstatus == "draft-public"
+        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text || "1"
+        return "IPD" if iter == "1"
+        return "FPD" if iter.downcase == "final"
+        "#{iter}PD"
       end
 
       def draftinfo(draft, revdate)
         draftinfo = ""
         if draft
           draftinfo = " #{@labels["draft_label"]} #{draft}"
-          #draftinfo += ", #{revdate}" if revdate
         end
         IsoDoc::Function::I18n::l10n(draftinfo, @lang, @script)
       end
@@ -63,23 +68,26 @@ module IsoDoc
       def docstatus(isoxml, _out)
         docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
         iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
-        docstatus = adjust_docstatus(docstatus, iter)
-        set(:unpublished, docstatus != "final")
+        set(:unpublished, !/^draft/.match(docstatus).nil?)
         set(:iteration, iter) if iter
         set(:status, status_print(docstatus || "final"))
       end
 
-      def adjust_docstatus(status, iter)
-        return status unless iter and status
-        status = "initial-public-draft" if status == "public-draft" &&
-          (iter == "1" ||  iter == "initial")
-        status = "final-public-draft" if status == "public-draft" &&
-          (iter == "final")
-        status
+      def status_print(status)
+        case status
+        when "draft-internal" then "Internal Draft"
+        when "draft-wip" then "Work In Progress Draft"
+        when "draft-prelim" then "Preliminary Draft"
+        when "draft-public" then "Public Draft"
+        when "draft-retire" then "Retired Draft"
+        when "draft-withdrawn" then "Withdrawn Draft"
+        when "final" then "Final"
+        when "final-review" then "Under Review"
+        when "final-withdrawn" then "Withdrawn"
+        end
       end
 
       def version(isoxml, _out)
-        #require "byebug"; byebug
         super
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
@@ -142,7 +150,7 @@ module IsoDoc
       def relations1(isoxml, type)
         ret = []
         isoxml.xpath(ns("//bibdata/relation[@type = '#{type}']")).each do |x|
-          ret << x.at(ns(".//docidentifier")).text if x.at(ns(".//docidentifier"))
+          id = x&.at(ns(".//docidentifier"))&.text and ret << id
         end
         ret
       end

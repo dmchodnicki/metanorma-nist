@@ -60,7 +60,8 @@ module Asciidoctor
       def metadata_id_compose(node, xml, dn0)
         return unless dn0
         dn = add_id_parts(dn0, node.attr("series"), node.attr("edition"), false)
-        dn_long = add_id_parts(dn0, node.attr("series"), node.attr("edition"), true)
+        dn_long = add_id_parts(dn0, node.attr("series"), node.attr("edition"),
+                               true)
         xml.docidentifier dn, **attr_code(type: "nist")
         xml.docidentifier dn_long, **attr_code(type: "nist-long")
       end
@@ -140,7 +141,8 @@ module Asciidoctor
         series || return
         series and xml.series **{ type: "main" } do |s|
           s.title (SERIES.dig(series.to_sym) || series)
-          SERIES_ABBR.dig(series.to_sym) and s.abbreviation SERIES_ABBR.dig(series.to_sym)
+          SERIES_ABBR.dig(series.to_sym) and
+            s.abbreviation SERIES_ABBR.dig(series.to_sym)
         end
       end
 

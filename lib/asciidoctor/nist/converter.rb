@@ -35,25 +35,32 @@ module Asciidoctor
         super
       end
 
-      def errata(node)
+      def errata1(node)
         cols = []
         node.rows[:head][-1].each { |c| cols << c.text.downcase }
         table = []
         node.rows[:body].each do |r|
           row = {}
-          r.each_with_index do |c, i|
-            row[cols[i]] = c.content.join("")
-          end
+          r.each_with_index { |c, i| row[cols[i]] = c.content.join("") }
           table << row
         end
+        table
+      end
+
+      def errata_row(row, entry)
+        row.date { |x| x << entry["date"] }
+        row.type { |x| x << entry["type"] }
+        row.change { |x| x << entry["change"] }
+        row.pages { |x| x << entry["pages"] }
+      end
+
+      def errata(node)
+        table = errata1(node)
         noko do |xml|
           xml.errata do |errata|
             table.each do |entry|
               errata.row do |row|
-                row.date { |x| x << entry["date"] }
-                row.type { |x| x << entry["type"] }
-                row.change { |x| x << entry["change"] }
-                row.pages { |x| x << entry["pages"] }
+                errata_row(row, entry)
               end
             end
           end
