@@ -114,6 +114,118 @@ style='font-size:14.0pt'>&#xa0;</span></p>
 
 </div>
 
+{% elsif status == "Work In Progress Draft" %}
+
+<p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+style='font-size:20.0pt;font-family:"Times New Roman",serif'>Draft </span></b></p>
+
+<p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+style='font-size:20.0pt;font-family:"Times New Roman",serif'><o:p>&#xa0;</o:p></span></b></p>
+
+<p class="Default"><b style='mso-bidi-font-weight:normal'><span
+    style='font-size:18.0pt;'>{{ docidentifier_long | replace: "Revision", "<br/>Revision" }}
+    {% if draftinfo %}
+    <br/>{{ draftinfo }}
+    {% endif %}
+</span></b></p>
+
+<p class="MsoNormal" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none;font-size:20.0pt;'><span lang="EN-US"><b>{{ doctitle }}</b>
+    </span></p>
+
+{% if docsubtitle %}
+  <p class="MsoNormal" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none;font-size:18.0pt;'><span lang="EN-US"><b>{{ docsubtitle }}</b></span></p>
+{% endif %}
+{% if docparttitle %}
+<p class="MsoNormal" style='margin-top:18.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;mso-pagination:none;mso-layout-grid-align:none;text-autospace:none;font-size:18.0pt;'><span lang="EN-US"><b><i>{{ docparttitle }}</i></b></span></p>
+{% endif %}
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt;font-family:"Times New Roman",serif;color:black;
+mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+<div style='mso-element:para-border-div;border:solid windowtext 1.5pt;
+padding:8.0pt 4.0pt 8.0pt 4.0pt'>
+
+<p class="Default" align="center" style='text-align:center;border:none;mso-border-alt:
+solid windowtext 1.5pt;padding:0cm;mso-padding-alt:8.0pt 4.0pt 8.0pt 4.0pt'><v:shape
+ id="_x0000_s1031" type="#_x0000_t202" style='position:absolute;left:0;text-align:left;margin-left:-5.7pt;margin-top:67.9pt;width:478.85pt;height:129.2pt;z-index:251667456;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;mso-wrap-distance-top:3.6pt;mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:3.6pt;mso-position-horizontal:absolute;mso-position-horizontal-relative:text;mso-position-vertical:absolute;mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;mso-width-relative:margin;mso-height-relative:margin;v-text-anchor:top'
+ o:gfxdata="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
+">
+ <v:textbox>
+    <div>
+    <p class="Default" align="center" style='text-align:center'><b
+    style='mso-bidi-font-weight:normal;font-size:12.0pt;'><span lang="EN-US">Warning for
+    Work-in-progress Draft</span></b></p>
+    <p class="Default"><span lang="EN-US"><o:p>&#xa0;</o:p></span></p>
+    <p class="Default" style='text-align:justify;text-justify:inter-ideograph;font-size:12.0pt;'><span
+       lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'>{{ draft-wip-boilerplate }}</span></p>
+    </div>
+  </v:textbox>
+ <w:wrap type="square"/>
+</v:shape><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+style='font-size:24.0pt;font-family:"Times New Roman",serif;color:black;
+mso-themecolor:text1'>Work-in-Progress Draft</span></b></p>
+
+</div>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt;font-family:"Times New Roman",serif;color:black;
+mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+<p class="Default" align="right" style='text-align:right'><span lang="EN-US"
+style='font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-US"
+style='font-size:14.0pt'><span style='mso-spacerun:yes'> </span></span></p>
+
+<div style='mso-element:para-border-div;border-top:solid windowtext 1.5pt;
+border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;
+padding:1.0pt 0cm 1.0pt 0cm'>
+
+  <p class="MsoNormal" align="center" style='text-align:center;border:none;mso-border-top-alt:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;padding:0cm;mso-padding-alt:1.0pt 0cm 1.0pt 0cm'><span lang="EN-US"
+     style='font-size:16.0pt;font-family:"Arial",sans-serif;mso-ansi-language:EN-US;letter-spacing:10.0pt'>{{ docclasstitle | upcase }}</span></p>
+
+
+</div>
+
 <p class="MsoNormal" style='margin-bottom:0cm;margin-bottom:.0001pt'><v:shapetype
  id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
  path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
@@ -136,20 +248,14 @@ style='font-size:14.0pt'>&#xa0;</span></p>
  <o:lock v:ext="edit" aspectratio="t"/>
 </v:shapetype><v:shape id="image_x0020_2" o:spid="_x0000_s1026" type="#_x0000_t75"
  alt="NIST Identifier: NIST, National Institute of Standards and Technology, U.S. Department of Commerce"
- style='position:absolute;margin-left:127.95pt;margin-top:0;width:179.15pt;
- height:75.95pt;z-index:251659264;visibility:visible;mso-wrap-style:square;
- mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:12pt;
- mso-wrap-distance-top:0;mso-wrap-distance-right:12pt;
- mso-wrap-distance-bottom:0;mso-position-horizontal:right;
- mso-position-horizontal-relative:text;mso-position-vertical:bottom;
- mso-position-vertical-relative:margin;mso-width-percent:0;
- mso-height-percent:0;mso-width-relative:page;mso-height-relative:page'
+ style='position:absolute;margin-left:127.95pt;margin-top:0;width:179.15pt;height:75.95pt;z-index:251659264;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:12pt;mso-wrap-distance-top:0;mso-wrap-distance-right:12pt;mso-wrap-distance-bottom:0;mso-position-horizontal:right;mso-position-horizontal-relative:text;mso-position-vertical:bottom;mso-position-vertical-relative:margin;mso-width-percent:0;mso-height-percent:0;mso-width-relative:page;mso-height-relative:page'
  o:allowoverlap="f">
  <v:imagedata src="logo.png"
   o:title=" NIST, National Institute of Standards and Technology, U.S"/>
  <o:lock v:ext="edit" aspectratio="f"/>
  <w:wrap type="square" anchory="margin"/>
  </v:shape></p>
+
 
 
 
@@ -254,14 +360,7 @@ style='mso-spacerun:yes'> </span></span></p>
  <o:lock v:ext="edit" aspectratio="t"/>
 </v:shapetype><v:shape id="image_x0020_2" o:spid="_x0000_s1026" type="#_x0000_t75"
  alt="NIST Identifier: NIST, National Institute of Standards and Technology, U.S. Department of Commerce"
- style='position:absolute;margin-left:127.95pt;margin-top:0;width:179.15pt;
- height:75.95pt;z-index:251659264;visibility:visible;mso-wrap-style:square;
- mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:12pt;
- mso-wrap-distance-top:0;mso-wrap-distance-right:12pt;
- mso-wrap-distance-bottom:0;mso-position-horizontal:right;
- mso-position-horizontal-relative:text;mso-position-vertical:bottom;
- mso-position-vertical-relative:margin;mso-width-percent:0;
- mso-height-percent:0;mso-width-relative:page;mso-height-relative:page'
+ style='position:absolute;margin-left:127.95pt;margin-top:0;width:179.15pt;height:75.95pt;z-index:251659264;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:12pt;mso-wrap-distance-top:0;mso-wrap-distance-right:12pt;mso-wrap-distance-bottom:0;mso-position-horizontal:right;mso-position-horizontal-relative:text;mso-position-vertical:bottom;mso-position-vertical-relative:margin;mso-width-percent:0;mso-height-percent:0;mso-width-relative:page;mso-height-relative:page'
  o:allowoverlap="f">
  <v:imagedata src="logo.png"
   o:title=" NIST, National Institute of Standards and Technology, U.S"/>
