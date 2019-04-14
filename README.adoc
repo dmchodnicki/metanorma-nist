@@ -191,6 +191,11 @@ The date at which a document is considered no longer valid (withdrawn). If a doc
 is not currently withdrawn (as indicated through `:status: draft-withdrawn`, `status: final-withdrawn`),
 but will be in the future, that is still indicated in the rendering of the document.
 
+`:confirmed-date:`::
+The date at which a document has been reviewed according to the NIST ERB 5-year review process,
+and has been confirmed to be relevant and valid to date. If this attribute is present,
+the date is included in the cover page.
+
 === NIST-specific attributes
 
 The following document attributes are specific to this document class:
