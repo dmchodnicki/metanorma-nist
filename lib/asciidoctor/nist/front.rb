@@ -63,12 +63,15 @@ module Asciidoctor
 
       def metadata_id_compose(node, xml, dn0)
         return unless dn0
-        dn = add_id_parts(dn0, node.attr("series"), node.attr("edition"),
-                          node.attr("volume"), false)
-        dn_long = add_id_parts(dn0, node.attr("series"), node.attr("edition"),
-                               node.attr("volume"), true)
-        xml.docidentifier dn, **attr_code(type: "nist")
-        xml.docidentifier dn_long, **attr_code(type: "nist-long")
+        s = node.attr("series")
+        e = node.attr("edition")
+        v = node.attr("volume")
+        xml.docidentifier add_id_parts(dn0, s, e, v, false),
+          **attr_code(type: "nist")
+        xml.docidentifier add_id_parts(dn0, s, e, v, true),
+          **attr_code(type: "nist-long")
+        xml.docidentifier add_id_parts_mr(dn0, s, e, v, node.attr("revdate")),
+          **attr_code(type: "nist-mr")
       end
 
       def add_id_parts(dn, series, edition, vol, long)
@@ -81,6 +84,11 @@ module Asciidoctor
         dn += "," if vol && edition
         dn += "#{ed_delim}#{edition}" if edition
         dn
+      end
+
+      def add_id_parts_mr(dn, series, edition, vol, revdate)
+        series and series_name = SERIES_ABBR.dig(series.to_sym).sub(/^NIST /, "")
+        "NIST.#{series_name}.#{vol}.#{edition}.#{revdate}"
       end
 
       def metadata_author(node, xml)

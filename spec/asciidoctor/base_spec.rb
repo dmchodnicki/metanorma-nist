@@ -102,9 +102,6 @@ NISTSP800179=<<~OUTPUT
 </bibitem>
 OUTPUT
 
-
-
-
   it "has a version number" do
     expect(Metanorma::NIST::VERSION).not_to be nil
   end
@@ -367,6 +364,7 @@ OUTPUT
         <uri type="doi">http://www.example2.com</uri>
          <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
          <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
+         <docidentifier type="nist-mr">NIST.FIPS.5.3.2000-01-01</docidentifier>
          <docnumber>1000</docnumber>
          <date type="abandoned">
            <on>2021-01-01</on>
@@ -653,6 +651,7 @@ OUTPUT
   <uri type="doi">http://www.example.com</uri>
   <docidentifier type="nist">NIST  ABC</docidentifier>
   <docidentifier type="nist-long">NIST  ABC</docidentifier>
+  <docidentifier type="nist-mr">NIST....2013-01-01</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>
     <role type="publisher"/>
@@ -1134,6 +1133,109 @@ OUTPUT
     OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
+  it "removes revisions and revision dates from citations where unambiguous" do
+  input = <<~"INPUT"
+  = Document title
+  Author
+  :no-isobib:
+  :docfile: test.adoc
+  :nodoc:
+  :novalid:
+
+  == Section
+
+  * <<ref1>>
+  * <<ref2>>
+  * <<ref3,section 4>>
+  * <<ref4>>
+  * <<ref5>>
+
+  [bibliography]
+  == Bibliography
+
+  * [[[ref1,NIST SP 800-10]]], _NIST A_
+  * [[[ref2,NIST SP 800-10 Volume 5]]], _NIST B_
+  * [[[ref3,NIST SP 800-10 Revision 8]]], _NIST C_
+  * [[[ref4,NIST SP 800-10 (May 2007)]]], _NIST D_
+  * [[[ref5,NIST SP 800-11 (May 2007)]]], _NIST E_
+  INPUT
+
+      output = <<~"OUTPUT"
+    #{BLANK_HDR}
+         <preface>
+    #{AUTHORITY}
+
+         </preface><sections><clause id="_" obligation="normative">
+  <title>Section</title>
+  <ul id="_">
+  <li>
+    <p id="_">
+      <eref type="inline" bibitemid="ref1" citeas="SP 800-10"/>
+    </p>
+  </li>
+  <li>
+    <p id="_">
+      <eref type="inline" bibitemid="ref2" citeas="SP 800-10 Volume 5"/>
+    </p>
+  </li>
+  <li>
+    <p id="_">
+      <eref type="inline" bibitemid="ref3" citeas="SP 800-10 Revision 8"><locality type="section"><referenceFrom>4</referenceFrom></locality></eref>
+    </p>
+  </li>
+  <li>
+    <p id="_">
+      <eref type="inline" bibitemid="ref4" citeas="SP 800-10 (May 2007)"/>
+    </p>
+  </li>
+  <li>
+    <p id="_">
+      <eref type="inline" bibitemid="ref5" citeas="SP 800-11"/>
+    </p>
+  </li>
+</ul>
+</clause>
+<references id="_" obligation="informative">
+  <title>Bibliography</title>
+  <bibitem id="ref1">
+  <formattedref format="application/x-isodoc+xml">
+    <em>NIST A</em>
+  </formattedref>
+  <docidentifier>NIST SP 800-10</docidentifier>
+</bibitem>
+  <bibitem id="ref2">
+  <formattedref format="application/x-isodoc+xml">
+    <em>NIST B</em>
+  </formattedref>
+  <docidentifier>NIST SP 800-10 Volume 5</docidentifier>
+</bibitem>
+  <bibitem id="ref3">
+  <formattedref format="application/x-isodoc+xml">
+    <em>NIST C</em>
+  </formattedref>
+  <docidentifier>NIST SP 800-10 Revision 8</docidentifier>
+</bibitem>
+  <bibitem id="ref4">
+  <formattedref format="application/x-isodoc+xml">
+    <em>NIST D</em>
+  </formattedref>
+  <docidentifier>NIST SP 800-10 (May 2007)</docidentifier>
+</bibitem>
+  <bibitem id="ref5">
+  <formattedref format="application/x-isodoc+xml">
+    <em>NIST E</em>
+  </formattedref>
+  <docidentifier>NIST SP 800-11 (May 2007)</docidentifier>
+</bibitem>
+</references></sections>
+</nist-standard>
+
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+
   end
 
   private

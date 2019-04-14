@@ -87,6 +87,41 @@ module Asciidoctor
         summ = x.at("//executivesummary") and preface.add_child summ.remove
         #end
       end
+
+
+      # handle NIST references separately
+      # doc identifier format, NIST: NIST SP 800-87-1 {Vol./Volume 8}|
+      # {Rev./Revision 8}|(Month YYYY)
+      def reference_names(docxml)
+        super
+        ret = get_all_nist_refs(docxml)
+        tallies = ret.inject(Hash.new(0)) do |memo, (k, v)|
+          memo[v[:trunc]] += 1
+          memo
+        end
+        ret.each do |k, v|
+          tallies[v[:trunc]] == 1 and @anchors[k][:xref] = v[:trunc]
+          @anchors[k][:xref].sub!(/^NIST /, "")
+        end
+      end
+
+      def truncate_nist_ref(text)
+        text.sub(/\s(Rev\.\s|Revision\s|
+                     \((January|February|March|April|May|June|July|August|
+                        September|October|November|December)\s\d\d\d\d\)
+                    ).*$/x, "")
+      end
+
+      def get_all_nist_refs(docxml)
+        ret = {}
+        docxml.xpath("//bibitem[not(ancestor::bibitem)]").each do |ref|
+          #next unless ref.at("./docidentifier[@type = 'NIST']")
+          ret[ref["id"]] = {}
+          ret[ref["id"]][:xref] = ref&.at("./docidentifier[not(@type = 'DOI')]")&.text or next
+          ret[ref["id"]][:trunc] = truncate_nist_ref(ret[ref["id"]][:xref])
+        end
+        ret
+      end
     end
   end
 end
