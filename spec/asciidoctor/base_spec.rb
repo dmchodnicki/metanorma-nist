@@ -352,6 +352,7 @@ OUTPUT
       :supersedes: NIST SP 800-179,NIST SP 800-53A Rev. 1
       :superseded-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
       :abandoned-date: 2021-01-01
+      :volume: 5
     INPUT
 
     output = <<~"OUTPUT"
@@ -364,8 +365,8 @@ OUTPUT
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
         <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist">NIST FIPS 1000 Revision 3</docidentifier>
-         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Revision 3</docidentifier>
+         <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
+         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
          <docnumber>1000</docnumber>
          <date type="abandoned">
            <on>2021-01-01</on>

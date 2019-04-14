@@ -139,7 +139,7 @@ the prefix, e.g. "NIST SP", is supplied by the `:series:` attribute. The NIST id
 docnumber-edition (if edition is present)
 
 `:docidentifier:`:: The document identifier for the document. Normally this should not be supplied,
-as the document identifier is composed from the document series, document number, 
+as the document identifier is composed from the document series, document number, document volume,
 and edition/revision (e.g. _NIST SP 800 Revision 1_). 
 If the `:docidentifier:` value is provided, it will override this composed value.
 
@@ -194,6 +194,11 @@ but will be in the future, that is still indicated in the rendering of the docum
 === NIST-specific attributes
 
 The following document attributes are specific to this document class:
+
+`:volume:`::
+The number of the volume of a standard. Is ignored if a precomposed
+document identifier (`:docidentifier:`) is supplied.
+Is prefixed with "Volume" or "Vol." in display.
 
 `:title-sub:`:: The subtitle of the document.
 `:title-document-class:`:: The title of the document class that the document belongs to;

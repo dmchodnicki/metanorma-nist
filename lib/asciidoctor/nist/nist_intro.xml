@@ -9,7 +9,7 @@
 
 <authority2>
 <p align="center">National Institute of Standards and Technology {{ docidentifier_long | remove: "NIST " }} <br/>
-Natl. Inst. Stand. Technol. {{ docidentifier | remove: "NIST " }}, ({{ revdate_monthyear }}) <br/>
+Natl. Inst. Stand. Technol. {{ docidentifier | remove: "NIST " | replace: " Volume ", " Vol. " }}, ({{ revdate_monthyear }}) <br/>
 CODEN: NSPUE2</p>
 
 {% if doi %}
