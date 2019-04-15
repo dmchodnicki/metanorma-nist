@@ -303,7 +303,7 @@ OUTPUT
       :no-isobib-cache:
       :docnumber: 1000
       :doctype: standard
-      :edition: 3
+      :revision: 3
       :revdate: 2000-01-01
       :draft: 3.4
       :technical-committee: TC
@@ -402,7 +402,7 @@ OUTPUT
              <name>NIST</name>
            </organization>
          </contributor>
-         <edition>3</edition>
+         <revision>3</revision>
          <version>
            <revision-date>2000-01-01</revision-date>
            <draft>3.4</draft>
@@ -478,7 +478,7 @@ OUTPUT
       :docidentifier: NIST FIPS 1000-2
       :docnumber: 1000
       :doctype: standard
-      :edition: 2
+      :revision: 2
       :revdate: 2000-01-01
       :draft: 3.4
       :copyright-year: 2001
@@ -499,7 +499,7 @@ OUTPUT
       <name>NIST</name>
     </organization>
   </contributor>
-  <edition>2</edition>
+  <revision>2</revision>
 <version>
   <revision-date>2000-01-01</revision-date>
   <draft>3.4</draft>

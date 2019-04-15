@@ -89,6 +89,7 @@ module IsoDoc
 
       def version(isoxml, _out)
         super
+        set(:revision, isoxml&.at(ns("//bibdata/revision"))&.text)
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
       end

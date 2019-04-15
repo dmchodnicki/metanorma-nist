@@ -200,6 +200,8 @@ the date is included in the cover page.
 
 The following document attributes are specific to this document class:
 
+`:revision:`:: The document revision; e.g. `1` (Revision 1).
+
 `:volume:`::
 The number of the volume of a standard. Is ignored if a precomposed
 document identifier (`:docidentifier:`) is supplied.
@@ -252,13 +254,6 @@ Can be a number, or text (e.g. "initial", "final").
 *  csrc-book 
 *  csrc-use-case 
 *  csrc-building-block
---
-
-`:subseries:`:: The secondary publication series that the document belongs to. Legal values are:
-+
---
-* computer-security (for NIST SP)
-* information-security (for NIST SP)
 --
 
 `:comment-from:`:: The beginning of the period during which comments may be submitted to the NIST

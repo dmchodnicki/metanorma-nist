@@ -14,6 +14,15 @@ module Asciidoctor
         super << "abandoned"
       end
 
+      def metadata_version(node, xml)
+        xml.edition node.attr("edition") if node.attr("edition")
+        xml.revision node.attr("revision") if node.attr("revision")
+        xml.version do |v|
+          v.revision_date node.attr("revdate") if node.attr("revdate")
+          v.draft node.attr("draft") if node.attr("draft")
+        end
+      end
+
       def title_subtitle(node, t, at)
         return unless node.attr("title-sub")
         t.title(**attr_code(at.merge(type: "subtitle"))) do |t1|
@@ -64,7 +73,7 @@ module Asciidoctor
       def metadata_id_compose(node, xml, dn0)
         return unless dn0
         s = node.attr("series")
-        e = node.attr("edition")
+        e = node.attr("revision")
         v = node.attr("volume")
         xml.docidentifier add_id_parts(dn0, s, e, v, false),
           **attr_code(type: "nist")
@@ -74,21 +83,21 @@ module Asciidoctor
           **attr_code(type: "nist-mr")
       end
 
-      def add_id_parts(dn, series, edition, vol, long)
+      def add_id_parts(dn, series, revision, vol, long)
         vol_delim = " Volume "
         ed_delim = " Revision "
         series and series_name = long ? SERIES.dig(series.to_sym) :
           SERIES_ABBR.dig(series.to_sym)
         dn = (series_name || "NIST #{series}")  + " " + dn
         dn += "#{vol_delim}#{vol}" if vol
-        dn += "," if vol && edition
-        dn += "#{ed_delim}#{edition}" if edition
+        dn += "," if vol && revision
+        dn += "#{ed_delim}#{revision}" if revision
         dn
       end
 
-      def add_id_parts_mr(dn, series, edition, vol, revdate)
+      def add_id_parts_mr(dn, series, revision, vol, revdate)
         series and series_name = SERIES_ABBR.dig(series.to_sym).sub(/^NIST /, "")
-        "NIST.#{series_name}.#{vol}.#{edition}.#{revdate}"
+        "NIST.#{series_name}.#{vol}.#{revision}.#{revdate}"
       end
 
       def metadata_author(node, xml)

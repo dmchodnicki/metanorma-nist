@@ -20,8 +20,7 @@
 
       <div class="coverpage-doc-identity">
         <div class="doc-number">
-          <div>{{ draft_prefix }} {{ docidentifier_long }}</div>
-          {% if edition %} <div> Revision {{ edition }}</div> {% endif %}
+          <div>{{ draft_prefix }} {{ docidentifier_long | replace: "Revision", "<br/>Revision" }}</div>
           <div> {{ draftinfo }}</div>
         </div>
 
