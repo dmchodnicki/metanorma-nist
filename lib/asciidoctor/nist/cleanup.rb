@@ -52,8 +52,8 @@ module Asciidoctor
       end
 
       def move_sections_into_preface(x, preface)
-        abstract = x.at("//abstract") and preface.add_child abstract.remove
         move_authority_into_preface(x, preface)
+        abstract = x.at("//abstract") and preface.add_child abstract.remove
         foreword = x.at("//foreword") and preface.add_child foreword.remove
         intro = x.at("//introduction") and preface.add_child intro.remove
         move_clauses_into_preface(x, preface)

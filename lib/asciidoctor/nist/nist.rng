@@ -9,9 +9,9 @@
     <start>
       <ref name="nist-standard"/>
     </start>
-    <define name="language">
-      <element name="language">
-        <value>en</value>
+    <define name="btitle">
+      <element name="title">
+        <ref name="TypedTitleString"/>
       </element>
     </define>
     <define name="docidentifier">
@@ -73,8 +73,24 @@
     <define name="BibItemType" combine="choice">
       <value>standard</value>
     </define>
-    <define name="DocRelationType" combine="choice">
+    <!-- DocRelationType |= "obsoletedBy" | "supersedes" | "supersededBy" -->
+    <define name="DocRelationType">
       <choice>
+        <value>obsoletes</value>
+        <value>updates</value>
+        <value>updatedBy</value>
+        <value>complements</value>
+        <value>derivedFrom</value>
+        <value>translatedFrom</value>
+        <value>adoptedFrom</value>
+        <value>equivalent</value>
+        <value>identical</value>
+        <value>nonequivalent</value>
+        <value>includedIn</value>
+        <value>includes</value>
+        <value>instance</value>
+        <value>partOf</value>
+        <value>hasDraft</value>
         <value>obsoletedBy</value>
         <value>supersedes</value>
         <value>supersededBy</value>
@@ -83,8 +99,16 @@
     <define name="BibliographicDateType" combine="choice">
       <value>abandoned</value>
     </define>
-    <define name="TitleType" combine="choice">
-      <value>document-class</value>
+    <!-- TitleType |= "document-class" -->
+    <define name="TitleType">
+      <choice>
+        <value>alternative</value>
+        <value>original</value>
+        <value>unofficial</value>
+        <value>subtitle</value>
+        <value>main</value>
+        <value>document-class</value>
+      </choice>
     </define>
     <define name="editorialgroup">
       <element name="editorialgroup">
@@ -136,6 +160,47 @@
         <optional>
           <ref name="executivesummary"/>
         </optional>
+      </element>
+    </define>
+    <define name="annex">
+      <element name="annex">
+        <optional>
+          <attribute name="id">
+            <data type="ID"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="inline-header">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="obligation">
+            <choice>
+              <value>normative</value>
+              <value>informative</value>
+            </choice>
+          </attribute>
+        </optional>
+        <optional>
+          <ref name="section-title"/>
+        </optional>
+        <zeroOrMore>
+          <!--
+            allow hanging paragraps in annexes: they introduce lists
+            ( paragraph-with-footnote | table | note | formula | admonition | ol | ul | dl | figure | quote | sourcecode | review | example )*,
+          -->
+          <ref name="BasicBlock"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="note"/>
+        </zeroOrMore>
+        <choice>
+          <zeroOrMore>
+            <ref name="clause-hanging-paragraph-with-footnote"/>
+          </zeroOrMore>
+          <ref name="terms"/>
+        </choice>
       </element>
     </define>
     <define name="BibData">
@@ -199,7 +264,9 @@
       <optional>
         <ref name="nistsubseries"/>
       </optional>
-      <ref name="editorialgroup"/>
+      <optional>
+        <ref name="editorialgroup"/>
+      </optional>
       <zeroOrMore>
         <ref name="ics"/>
       </zeroOrMore>
@@ -231,7 +298,11 @@
   <define name="nistdocidentifier">
     <element name="docidentifier">
       <attribute name="type">
-        <value>nist</value>
+        <choice>
+          <value>nist</value>
+          <value>nist-long</value>
+          <value>nist-mr</value>
+        </choice>
       </attribute>
       <text/>
     </element>
@@ -263,27 +334,27 @@
   <define name="nistseriestitle">
     <element name="title">
       <choice>
-        <value>nist-ams</value>
-        <value>building-science</value>
-        <value>nist-fips</value>
-        <value>nist-gcr</value>
-        <value>nist-hb</value>
-        <value>itl-bulletin</value>
-        <value>jpcrd</value>
-        <value>nist-jres</value>
-        <value>letter-circular</value>
-        <value>nist-monograph</value>
-        <value>nist-ncstar</value>
-        <value>nist-nsrds</value>
-        <value>nistir</value>
-        <value>product-stadnards</value>
-        <value>nist-sp</value>
-        <value>nist-tn</value>
-        <value>other</value>
-        <value>csrc-white-paper</value>
-        <value>csrc-book</value>
-        <value>csrc-use-case</value>
-        <value>csrc-building-block</value>
+        <value>NIST Advanced Manufacturing Series</value>
+        <value>NIST Building Science Series</value>
+        <value>NIST Federal Information Processing Standards</value>
+        <value>NIST Grant/Contract Reports</value>
+        <value>NIST Handbook</value>
+        <value>ITL Bulletin</value>
+        <value>Journal of Physical and Chemical Reference Data</value>
+        <value>NIST Journal of Research</value>
+        <value>NIST Letter Circular</value>
+        <value>NIST Monograph</value>
+        <value>NIST National Construction Safety Team Act Reports</value>
+        <value>NIST National Standard Reference Data Series</value>
+        <value>NIST Interagency/Internal Report</value>
+        <value>NIST Product Standards</value>
+        <value>NIST Special Publication</value>
+        <value>NIST Technical Note</value>
+        <value>NIST Other</value>
+        <value>CSRC White Paper</value>
+        <value>CSRC Book</value>
+        <value>CSRC Use Case</value>
+        <value>CSRC Building Block</value>
       </choice>
     </element>
   </define>
@@ -324,6 +395,11 @@
   </define>
   <define name="authority">
     <element name="authority">
+      <optional>
+        <element name="title">
+          <text/>
+        </element>
+      </optional>
       <element name="authority1">
         <ref name="Basic-Section"/>
       </element>

@@ -265,11 +265,11 @@ OUTPUT
 
        <p id="_">ITL may require from the patent holder, or a party authorized to make assurances on its behalf, in written or electronic form, either:</p>
 
-       <ol><li><p id="_">assurance in the form of a general disclaimer to the effect that such party does not hold and does not currently intend holding any essential patent claim(s); or</p></li>
+       <ol type="arabic" id="_"><li><p id="_">assurance in the form of a general disclaimer to the effect that such party does not hold and does not currently intend holding any essential patent claim(s); or</p></li>
 
        <li><p id="_">assurance that a license to such essential patent claim(s) will be made available to applicants desiring to utilize the license for the purpose of complying with the guidance or requirements in this ITL draft publication either:</p>
 
-       	<ol><li><p id="_">under reasonable terms and conditions that are demonstrably free of any unfair discrimination; or</p></li>
+       	<ol type="roman" id="_"><li><p id="_">under reasonable terms and conditions that are demonstrably free of any unfair discrimination; or</p></li>
 
                <li><p id="_">without compensation and under reasonable terms and conditions that are demonstrably free of any unfair discrimination.</p></li></ol>
        </li></ol>
@@ -387,11 +387,9 @@ OUTPUT
               <affiliation>
    <organization>
      <name>Slate Rock and Gravel Company</name>
-     <contact>
      <address>
         <formattedAddress>Bedrock</formattedAddress>
         </address>
-        </contact>
    </organization>
  </affiliation>
            </person>
@@ -518,9 +516,6 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
 </bibdata>
     OUTPUT
   end
@@ -675,9 +670,6 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
   <commentperiod>
     <from>2010-01-01</from>
     <to>2010-01-02</to>
@@ -1196,8 +1188,8 @@ OUTPUT
     </p>
   </li>
 </ul>
-</clause>
-<references id="_" obligation="informative">
+</clause></sections>
+<bibliography><references id="_" obligation="informative">
   <title>Bibliography</title>
   <bibitem id="ref1">
   <formattedref format="application/x-isodoc+xml">
@@ -1229,7 +1221,7 @@ OUTPUT
   </formattedref>
   <docidentifier>NIST SP 800-11 (May 2007)</docidentifier>
 </bibitem>
-</references></sections>
+</references></bibliography>
 </nist-standard>
 
     OUTPUT

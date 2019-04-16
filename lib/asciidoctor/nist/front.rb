@@ -114,8 +114,11 @@ module Asciidoctor
       end
 
       def metadata_committee(node, xml)
+        return unless node.attr("technical-committee") || node.attr("subcommittee") ||
+          node.attr("workgroup") || node.attr("workinggroup")
         xml.editorialgroup do |a|
-          a.committee(node.attr("technical-committee"))
+          node.attr("technical-committee") and
+            a.committee(node.attr("technical-committee"))
           node.attr("subcommittee") and
             a.subcommittee(node.attr("subcommittee"),
                            **attr_code(type: node.attr("subcommittee-type"),
@@ -182,13 +185,8 @@ module Asciidoctor
         end
       end
 
-      def metadata_getrelation(node, xml, type)
-        docs = node.attr(type) || return
-        docs.split(/,/).each do |d|
-          xml.relation **{ type: type.sub(/-by$/, "By") } do |r|
-            fetch_ref(r, d, nil, {})
-          end
-        end
+      def relaton_relations
+        super + %w(obsoletes obsoleted-by supersedes superseded-by)
       end
 
       SERIES = {
@@ -241,9 +239,6 @@ module Asciidoctor
 
       def metadata(node, xml)
         super
-        %w(obsoletes obsoleted-by supersedes superseded-by).each do |t|
-          metadata_getrelation(node, xml, t)
-        end
         metadata_series(node, xml)
         metadata_keywords(node, xml)
         metadata_commentperiod(node, xml)

@@ -94,6 +94,13 @@ module IsoDoc
         set(:revdate_monthyear, monthyr(revdate))
       end
 
+      def bibdate(isoxml, _out)
+        super
+        date = get[:publisheddate]
+        date and date != "XXX" and
+          set(:publisheddate_monthyear, monthyr(date))
+      end
+
       def series(isoxml, _out)
         series = isoxml.at(ns("//bibdata/series[@type = 'main']/title"))&.text
         set(:series, series) if series

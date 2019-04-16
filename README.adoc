@@ -300,6 +300,12 @@ retired (`status: draft-retired`). In NIST, only drafts may be retired. If the d
 is not currently retired (as indicated through `:status: draft-retired`),
 but will be in the future, that is still indicated in the rendering of the document.
 
+`:sponsor:`::
+The name of the organization that has sponsored the document, if applicable.
+
+`:sponsor-logo:`::
+The logo of the sponsoring organization, if applicable.
+
 == Asciidoctor features specific to NIST
 
 The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]
