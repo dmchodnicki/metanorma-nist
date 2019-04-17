@@ -335,6 +335,8 @@ OUTPUT
       :title-main: Main Title
       :title-sub: Subtitle
       :title-document-class: Part
+      :title-main-short: Short Main Title
+      :title-sub-short: Short Subtitle
       :partnumber: 2
       :doc-email: email@example.com
       :uri: http://www.example.com
@@ -357,7 +359,9 @@ OUTPUT
        <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
          <title type="main" language="en" format="text/plain">Main Title</title>
+         <title type="short-title" language="en" format="text/plain">Short Main Title</title>
          <title type="subtitle" language="en" format="text/plain">Subtitle</title>
+         <title type="short-subtitle" language="en" format="text/plain">Short Subtitle</title>
          <title type="document-class" language="en" format="text/plain">Part</title>
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>

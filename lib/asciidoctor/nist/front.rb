@@ -28,6 +28,10 @@ module Asciidoctor
         t.title(**attr_code(at.merge(type: "subtitle"))) do |t1|
           t1 << asciidoc_sub(node.attr("title-sub"))
         end
+        node.attr("title-sub-short") and
+          t.title(**attr_code(at.merge(type: "short-subtitle"))) do |t1|
+          t1 << asciidoc_sub(node.attr("title-sub-short"))
+        end
       end
 
       def title_document_class(node, t, at)
@@ -40,6 +44,10 @@ module Asciidoctor
       def title_main(node, t, at)
         t.title(**attr_code(at.merge(type: "main"))) do |t1|
           t1 << asciidoc_sub(node.attr("title-main") || node.title)
+        end
+        node.attr("title-main-short") and
+          t.title(**attr_code(at.merge(type: "short-title"))) do |t1|
+          t1 << asciidoc_sub(node.attr("title-main-short"))
         end
       end
 

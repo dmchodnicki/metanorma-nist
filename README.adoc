@@ -215,7 +215,15 @@ The number of the volume of a standard. Is ignored if a precomposed
 document identifier (`:docidentifier:`) is supplied.
 Is prefixed with "Volume" or "Vol." in display.
 
+`:title-main:`:: The title of the document.
 `:title-sub:`:: The subtitle of the document.
+
+`:title-main-short:`:: Shortened form of the title of the document. For use in Word header.
+If not provided, `:title-main:` is used.
+
+`:title-sub-short:`:: Shortened form of The subtitle of the document. For use in Word header.
+If not provided, `:title-sub:` is used.
+
 `:title-document-class:`:: The title of the document class that the document belongs to;
 e.g. "Computer Security" for SP 800.
 
