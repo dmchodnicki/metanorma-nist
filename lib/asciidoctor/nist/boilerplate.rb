@@ -49,6 +49,8 @@ module Asciidoctor
         conv = IsoDoc::NIST::HtmlConvert.new({})
         conv.metadata_init("en", "Latn", {})
         conv.info(x, nil)
+        conv.labels = {nist_division: @nistdivision,
+                       nist_division_address: @nistdivisionaddress}
         file = @boilerplateauthority ? "#{@localdir}/#{@boilerplateauthority}" :
           File.join(File.dirname(__FILE__),"nist_intro.xml")
         conv.populate_template((File.read(file, encoding: "UTF-8")), nil)

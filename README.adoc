@@ -200,6 +200,14 @@ the date is included in the cover page.
 
 The following document attributes are specific to this document class:
 
+`:nist-division:`:: Name of NIST division responsible for document. Added to authority
+statement as document contact. Default value is "Computer Security Division, Information Technology Laboratory".
+
+`:nist-division-address`:: Address of NIST division responsible for document.
+Added to authority statement as document contact. Use line breaks (in Asciidoctor:
+` + \`) if necessary. Default value is
+"100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930"
+
 `:revision:`:: The document revision; e.g. `1` (Revision 1).
 
 `:volume:`::

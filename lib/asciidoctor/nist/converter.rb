@@ -121,6 +121,10 @@ module Asciidoctor
         @patentcontact = node.attr("patent-contact")
         @biblioasappendix = node.attr("biblio-as-appendix")
         @boilerplateauthority = node.attr("boilerplate-authority")
+        @nistdivision = node.attr("nist-division") ||
+          "Computer Security Division, Information Technology Laboratory"
+        @nistdivisionaddress = node.attr("nist-division-address") ||
+          "100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930"
         super
       end
 

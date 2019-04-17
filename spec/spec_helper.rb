@@ -114,7 +114,7 @@ AUTHORITY = <<~"HDR"
        <p align="center" id="_">National Institute of Standards and Technology <br/>
        Attn: Computer Security Division, Information Technology Laboratory <br/>
        100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
-       Email: <link target="mailto:"/></p>
+       </p>
 
        <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
        </authority5>

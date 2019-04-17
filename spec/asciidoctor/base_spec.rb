@@ -636,6 +636,8 @@ OUTPUT
       :comment-extended: 2010-01-03
       :doc-email: email@example.com
       :status: draft-public
+      :nist-division: Ministry of Silly Walks
+      :nist-division-address: Camelot
     INPUT
 
     output = <<~"OUTPUT"
@@ -718,8 +720,8 @@ OUTPUT
        <p align="center" id="_"><strong>Comments on this publication may be submitted to:</strong></p>
 
        <p align="center" id="_">National Institute of Standards and Technology <br/>
-       Attn: Computer Security Division, Information Technology Laboratory <br/>
-       100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
+       Attn: Ministry of Silly Walks <br/>
+       Camelot <br/>
        Email: <link target="mailto:email@example.com"/></p>
 
        <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
