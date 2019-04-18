@@ -762,14 +762,14 @@ OUTPUT
       This is Note to Reviewers
 
       [preface]
-      == Executive Summary
-
-      This is an executive summary
-
-      [preface]
       == Conformance Testing
 
       This is Conformance Testing
+
+      [executive-summary]
+      == Executive Summary
+
+      This is an executive summary
 
       == Clause
 

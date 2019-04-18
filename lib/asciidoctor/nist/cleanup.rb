@@ -40,6 +40,12 @@ module Asciidoctor
           c.name = "executivesummary" if title == "executive summary"
           preface.add_child c.remove
         end
+        x.xpath("//clause[@executivesummary]").each do |c|
+          c.delete("executivesummary")
+          title = c&.at("./title")&.text.downcase
+          c.name = "executivesummary"
+          preface.add_child c.remove
+        end
       end
 
       def move_authority_into_preface(x, preface)

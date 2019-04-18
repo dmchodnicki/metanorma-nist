@@ -434,8 +434,16 @@ of Standards and Technology (NIST) promotes the U.S. economy and public welfare.
 
 === Executive Summary
 
-This is any section that appears in the preface with the title Executive Summary.
-It is rendered after all other preface sections.
+This is any section that appears with the style attribute `[executive-summary]`.
+It is rendered after all other preface sections:
+
+[source,asciidoctor]
+----
+[executive-summary]
+== Executive Summary
+
+This is an executive summary
+----
 
 === Terms and definitions
 

@@ -146,6 +146,7 @@ module Asciidoctor
 
       def clause_parse(attrs, xml, node)
         attrs[:preface] = true if node.attr("style") == "preface"
+        attrs[:executivesummary] = true if node.attr("style") == "executive-summary"
         super
       end
 
@@ -231,12 +232,6 @@ module Asciidoctor
           end
         end
       end
-
-      #def sections_order_cleanup(x)
-        #s = x.at("//sections")
-        #make_preface(x, s)
-        #x.xpath("//sections/annex").reverse_each { |r| s.next = r.remove }
-      #end
 
       def html_converter(node)
         IsoDoc::NIST::HtmlConvert.new(html_extract_attributes(node))
