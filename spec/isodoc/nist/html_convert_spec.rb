@@ -281,7 +281,6 @@ RSpec.describe IsoDoc::NIST do
                <h1 class="ForewordTitle">Foreword</h1>
                <pre>ABC</pre>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
     OUTPUT
@@ -310,7 +309,6 @@ RSpec.describe IsoDoc::NIST do
                <h1 class="ForewordTitle">Foreword</h1>
                <span class="keyword">ABC</span>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
     OUTPUT
@@ -357,7 +355,6 @@ RSpec.describe IsoDoc::NIST do
        <p class="FigureTitle" align="center">Figure 1&#160;&#8212; First figure</p>
        </div>
        </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
     OUTPUT
@@ -386,7 +383,6 @@ RSpec.describe IsoDoc::NIST do
                <h1 class="ForewordTitle">Foreword</h1>
                <pre id="_" class="prettyprint ">&lt;xccdf:check system="<span class="nistvariable">http://oval.mitre.org/XMLSchema/oval-definitions-5</span>"&gt;</pre>
        </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
     OUTPUT
@@ -509,7 +505,6 @@ ping information security standards and guidelines, including minimum requiremen
               <p id="_" align="center" style="text-align:center">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
               </div>
               </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
     OUTPUT
@@ -576,7 +571,6 @@ it "processes errata tag" do
                  </tbody>
                </table>
              </div>
-             <p class="zzSTDTitle1"/>
            </div>
          </body>
   OUTPUT
@@ -613,7 +607,6 @@ it "processes glossaries" do
 
   output = <<~"OUTPUT"
          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-             <p class="zzSTDTitle1"></p>
              <br />
              <div id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" class="Section3">
                <h1 class="Annex"><b>Appendix A</b> &#x2014; <b>Glossary</b></h1>
@@ -622,7 +615,7 @@ it "processes glossaries" do
          <dl class="terms_dl"><dt>Normal Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f6">Definition</p>
        <div id="_f22bc30c-a5a6-45ae-8bea-0792d7109470" class="example"><p class="example-title">EXAMPLE</p>
          <p id="_16555fc3-3570-4b16-8fff-ac95941b62b1">Example</p>
-       </div></dd><dt>Other Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f7">Definition</p>
+       </div></dd></dl><dl class="terms_dl"><dt>Other Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f7">Definition</p>
        <div class="Note"><p>Note 1 to entry: Example</p></div></dd></dl>
        </div>
              </div>
@@ -659,7 +652,6 @@ it "processes appendix bibliographies" do
   INPUT
   output = <<~"OUTPUT"
         <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-      <p class="zzSTDTitle1"></p>
       <br />
       <div id="A" class="Section3">
         <h1 class="Annex"><b>Appendix A</b> &#x2014; <b>First Appendix</b></h1>
@@ -754,7 +746,6 @@ it "processes section names" do
 
   output = <<~"OUTPUT"
   #{HTML_HDR}
-             <br/>
              <div id="S1">
                <h1 class="AbstractTitle">Abstract</h1>
                <p id="AA">This is an Abstract</p>
@@ -765,28 +756,27 @@ it "processes section names" do
                <p id="A">This is a preamble</p>
              </div>
              <div id="B">
-               <h1>Introduction</h1>
+               <h1 class="IntroTitle">Introduction</h1>
                <div id="C"><h2>Introduction Subsection</h2>
 
           </div>
              </div>
              <div id="S3">
-               <h1>Acknowlegdements</h1>
+               <h1 class="IntroTitle">Acknowlegdements</h1>
                <p id="AB">These are acknowledgements</p>
              </div>
              <div id="S4">
-               <h1>Audience</h1>
+               <h1 class="IntroTitle">Audience</h1>
                <p id="AD">This are audience</p>
              </div>
              <div id="S5">
-               <h1>Conformance Testing</h1>
+               <h1 class="IntroTitle">Conformance Testing</h1>
                <p id="AC">This is conformance testing</p>
              </div>
              <div id="S6">
-               <h1>Executive Summary</h1>
+               <h1 class="NormalTitle">Executive Summary</h1>
                <p id="AC">This is an executive summary</p>
              </div>
-             <p class="zzSTDTitle1"/>
              <div id="D">
                <h1>1.&#160; Scope</h1>
                <p id="E">Text</p>
@@ -796,29 +786,29 @@ it "processes section names" do
                <div id="N"><h2>2.1. Introduction</h2>
 
           </div>
-               <div id="O"><h2>2.2. Clause 4.2</h2>
+          <div id="O"><h2>2.2. Clause 4.2</h2>
 
           </div>
              </div>
              <br/>
+             <div>
+               <h1 class="Section3">Normative References</h1>
+             </div>
+             <div>
+               <h1 class="Section3">Bibliography</h1>
+               <div>
+                 <h2 class="Section3">Bibliography Subsection</h2>
+               </div>
+             </div>
+             <br/>
              <div id="P" class="Section3">
-               <h1 class="Annex"><b>Appendix A</b> &#8212;<b>Annex</b></h1>
+               <h1 class="Annex"><b>Appendix A</b> &#8212; <b>Annex</b></h1>
                <div id="Q"><h2>A.1. Annex A.1</h2>
 
             <div id="Q1"><h3>A.1.1. Annex A.1a</h3>
 
             </div>
           </div>
-             </div>
-             <br/>
-              <div>
-   <h1 class="Section3">Normative References</h1>
- </div>
-             <div>
-               <h1 class="Section3">Bibliography</h1>
-               <div>
-                 <h2 class="Section3">Bibliography Subsection</h2>
-               </div>
              </div>
            </div>
          </body>
@@ -860,12 +850,10 @@ it "skips Note to Reviewers if not draft" do
     </div>
     <br/>
     <div class="main-section">
-      <br/>
       <div>
         <h1 class="AbstractTitle">Abstract</h1>
         <p id="AA">This is an Abstract</p>
       </div>
-      <p class="zzSTDTitle1"/>
     </div>
   </body>
   OUTPUT
@@ -906,16 +894,14 @@ it "renders Note to Reviewers if draft" do
     </div>
     <br/>
     <div class="main-section">
-      <br/>
       <div>
         <h1 class="AbstractTitle">Abstract</h1>
         <p id="AA">This is an Abstract</p>
       </div>
       <div>
-  <h1>Note for Reviewers</h1>
+  <h1 class="IntroTitle">Note for Reviewers</h1>
   <p>Hello reviewer</p>
 </div>
-      <p class="zzSTDTitle1"/>
     </div>
   </body>
   OUTPUT
@@ -1007,7 +993,7 @@ INPUT
     </p>
     </div>
     <div id="intro">
-    <h1/>
+    <h1 class="IntroTitle"/>
     <div class="recommend"><title>Recommendation 1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
@@ -1017,7 +1003,6 @@ INPUT
          </div>
        </div>
              </div>
-             <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
                <div class="recommend"><title>Recommendation 3:</title>
@@ -1168,7 +1153,7 @@ INPUT
     </p>
     </div>
     <div id="intro">
-    <h1/>
+    <h1 class="IntroTitle"/>
     <div class="require"><title>Requirement 1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
@@ -1178,7 +1163,6 @@ INPUT
          </div>
        </div>
              </div>
-             <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
                <div class="require"><title>Requirement 3:</title>
@@ -1305,7 +1289,7 @@ INPUT
     </p>
     </div>
     <div id="intro">
-    <h1/>
+    <h1 class="IntroTitle"/>
     <div class="permission"><title>Permission 1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
@@ -1315,7 +1299,6 @@ INPUT
          </div>
        </div>
              </div>
-             <p class="zzSTDTitle1"/>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
                <div class="permission"><title>Permission 3:</title>

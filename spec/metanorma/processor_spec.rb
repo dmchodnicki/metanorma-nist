@@ -57,7 +57,6 @@ RSpec.describe Metanorma::NIST::Processor do
     output = <<~"OUTPUT"
     <main class="main-section">
       <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-      <p class="zzSTDTitle1"></p>
    <div id="H">
      <h1>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
      <p>Term2</p>
