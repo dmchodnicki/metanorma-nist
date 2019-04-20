@@ -196,6 +196,9 @@ The date at which a document has been reviewed according to the NIST ERB 5-year 
 and has been confirmed to be relevant and valid to date. If this attribute is present,
 the date is included in the cover page.
 
+`:circulated-date:`::
+The date at which a draft is circulated. Displayed on the cover page of drafts.
+
 === NIST-specific attributes
 
 The following document attributes are specific to this document class:

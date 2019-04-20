@@ -1,4 +1,5 @@
 require "isodoc"
+require "twitter_cldr"
 
 module IsoDoc
   module NIST
@@ -40,6 +41,7 @@ module IsoDoc
         set(:docidentifier_long, docid_long)
         d = draft_prefix(isoxml) and set(:draft_prefix, d)
         d = iter_code(isoxml) and set(:iteration_code, d)
+        d = iter_ordinal(isoxml) and set(:iteration_ordinal, d)
         set(:docnumber, docnumber)
       end
 
@@ -61,6 +63,15 @@ module IsoDoc
         "#{iter}PD"
       end
 
+            def iter_ordinal(isoxml)
+        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+        return nil unless docstatus == "draft-public"
+        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text || "1"
+        return "Initial" if iter == "1"
+        return "Final" if iter.downcase == "final"
+        iter.to_i.localize.to_rbnf_s("SpelloutRules", "spellout-ordinal")
+      end
+
       def draftinfo(draft, revdate)
         draftinfo = ""
         if draft
@@ -80,7 +91,7 @@ module IsoDoc
       def status_print(status)
         case status
         when "draft-internal" then "Internal Draft"
-        when "draft-wip" then "Work In Progress Draft"
+        when "draft-wip" then "Work-in-Progress Draft"
         when "draft-prelim" then "Preliminary Draft"
         when "draft-public" then "Public Draft"
         when "draft-retire" then "Retired Draft"
