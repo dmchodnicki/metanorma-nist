@@ -82,8 +82,10 @@ module IsoDoc
 
       def docstatus(isoxml, _out)
         docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
-        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
         set(:unpublished, !/^draft/.match(docstatus).nil?)
+        substage = isoxml.at(ns("//bibdata/status/substage"))&.text
+        substage and set(:substage, substage)
+        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
         set(:iteration, iter) if iter
         set(:status, status_print(docstatus || "final"))
       end

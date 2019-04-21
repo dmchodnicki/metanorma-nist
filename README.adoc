@@ -153,11 +153,19 @@ this attribute will be displayed as part of the heading, prefixed with "Revision
 * `draft-wip`
 * `draft-prelim`
 * `draft-public`
-* `draft-withdrawn`
-* `draft-retire`
 * `final` (default: document is published)
 * `final-review`
-* `final-withdrawn`
+--
+
+`:substage:`:: Document substage. Indicates active status of draft or publication. 
+If a draft or publication is inactive, that is reflected in the coverpage. The
+permitted types are:
++
+--
+* `active` (default)
+* `retired` (applies only to drafts, when they are abandoned)
+* `withdrawn` (applies to drafts, when when they are superseded by the next draft stage, 
+and to published documents when they are superseded or no longer valid.
 --
 
 `:fullname{_i}:`, `:affiliation{_i}:`, `:address{_i}`::
@@ -530,6 +538,24 @@ Glossaries are given as definition lists with style attribute `glossary`:
 [glossary]
 stem:[A= {x_1, x_2, ..., x_k}]:: The alphabet, i.e., the set of all possible symbols that a (digitized) noise source produces.
 ----
+
+=== Document status
+
+The following table illustrates how transitions between stages of NIST documents are indicated
+using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`. 
+
+|===
+| ISO stage | NIST | 93 Repeat current phase | 98 Abandon | 99 Proceed
+
+| 00 Preliminary | `:status: draft-internal` | | (stop work) | `:status: draft-wip`, `:status: draft-public`, or `:status: final` (amend)
+| 10 Proposal | `:status: draft-wip` | | `:status: draft-wip`, `:substage: retired` | `:status: draft-wip`, `:substage: withdrawn`
+| 20 Preparatory | `status: draft-prelim` | | `status: draft-prelim`, `substage: retired` | `status: draft-prelim`, `substage: withdrawn`
+| 40 Enquiry | `status: draft-public` | `status: draft-public`, `:iteration: 2`, `:iteration: 3` ... `:iteration: final` | `:status: draft-public`, `:substage: retired` | `:status: draft-public`, `:substage: withdrawn`
+| 50 Approval | (NIST ERB review) | | `:status: draft-public`, `:substage: retired` | `:status: final`
+| 60 Publication | `:status: final`
+| 90 Review | `:status: final-review` | `:status: final`, `:confirmed-date: XXXX-XX-XX` | `:status: final`, `:substage: withdrawn` | `:status: draft-internal` (revise or amend)
+| 95 Withdrawal | `:status: final`, `:substage: withdrawn` | | | 
+|===
 
 ////
 

@@ -142,6 +142,7 @@ module Asciidoctor
         status = node.attr("status") || "final"
         xml.status do |s|
           s.stage status 
+          s.substage (node.attr("substage") || "active")
           s.iteration node.attr("iteration") if node.attr("iteration") 
         end
       end

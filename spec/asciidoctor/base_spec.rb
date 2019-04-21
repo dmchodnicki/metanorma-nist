@@ -321,6 +321,7 @@ OUTPUT
       :secretariat: SECRETARIAT
       :copyright-year: 2001
       :status: draft-public
+      :substage: withdrawn
       :iteration: 3
       :language: en
       :security: Client Confidential
@@ -413,6 +414,7 @@ OUTPUT
          <script>Latn</script>
         <status>
           <stage>draft-public</stage>
+          <substage>withdrawn</substage>
           <iteration>3</iteration>
          </status>
          <copyright>
@@ -510,6 +512,7 @@ OUTPUT
   <script>Latn</script>
   <status> 
   <stage>draft-standard</stage> 
+  <substage>active</substage> 
   <iteration>3</iteration> 
   </status>
   <copyright>
@@ -667,6 +670,7 @@ OUTPUT
   <script>Hans</script>
   <status>
     <stage>draft-public</stage>
+    <substage>active</substage>
   </status>
   <copyright>
     <from>2019</from>

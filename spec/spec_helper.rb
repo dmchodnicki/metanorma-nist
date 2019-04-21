@@ -71,6 +71,7 @@ BLANK_HDR = <<~"HDR"
          <script>Latn</script>
         <status> 
           <stage>final</stage> 
+          <substage>active</substage> 
         </status> 
          <copyright>
            <from>#{Time.new.year}</from>
