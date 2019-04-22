@@ -78,7 +78,7 @@ AABkcnMvZG93bnJldi54bWxQSwUGAAAAAAQABADzAAAAkwUAAAAA
       </td>
       <td width="323" valign="top" style='width:242.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
       <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
-      6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{% if substage == "retired" %}{{ abandoneddate }}{% else %}{{ obsoleteddate}}{% endif %}<o:p></o:p></span></p>
+      6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{% if substage == "retired" %}{{ abandoneddate_MMMddyyyy }}{% else %}{{ obsoleteddate_MMMddyyyy}}{% endif %}<o:p></o:p></span></p>
       </td>
      </tr>
      <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
@@ -91,7 +91,7 @@ AABkcnMvZG93bnJldi54bWxQSwUGAAAAAAQABADzAAAAkwUAAAAA
       </td>
       <td width="323" valign="top" style='width:242.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
       <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
-      6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{{circulateddate}}<o:p></o:p></span></p>
+      6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{{circulateddate_MMMddyyyy}}<o:p></o:p></span></p>
       </td>
      </tr>
     </table>
@@ -157,7 +157,7 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
   <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
   margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
-  color:black;mso-themecolor:text1'>{{ circulateddate }}<o:p></o:p></span></p>
+  color:black;mso-themecolor:text1'>{{ circulateddate_monthyear }}<o:p></o:p></span></p>
   </td>
  </tr>
  {% if doi %}
@@ -233,7 +233,7 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
   <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
   margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
-  color:black;mso-themecolor:text1'>{{ superseding_circulated_date }}<o:p></o:p></span></p>
+  color:black;mso-themecolor:text1'>{{ superseding_circulated_date_monthyear }}<o:p></o:p></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
@@ -379,7 +379,7 @@ style='font-size:14.0pt;color:black;mso-themecolor:text1'>&#xa0;</span></p>
     lang="EN-US">&#xa0;</span></p>
         <p class="Default" align="left"  style='text-align:left;tab-stops:right 8.25cm left 8.75cm;font-size:12.0pt'><span style='mso-tab-count:1'></span><b
 style='mso-bidi-font-weight:normal'>Original Release Date<span style='mso-tab-count:1'></span></b><span
-style='color:black;mso-themecolor:text1'>{{circulateddate}}</span></p>
+style='color:black;mso-themecolor:text1'>{{circulateddate_MMMddyyyy}}</span></p>
 
     {% endif %}
     <p class="Default" style='text-align:justify;text-justify:inter-ideograph'><span
@@ -708,7 +708,7 @@ lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
                      lang="EN-US" style='font-size:14.0pt;color:black'>{{ publisheddate_monthyear }}</span>
 <br/>
 {%if confirmeddate and confirmeddate != "XXX" %}
-<span style="font-variant:small-caps;font-size:14.0pt;color:black;">Publication is current as of {{ confirmeddate }}</span>
+<span style="font-variant:small-caps;font-size:14.0pt;color:black;">Publication is current as of {{ confirmeddate_mmddyyyy }}</span>
         {% endif %}
 </p>
 

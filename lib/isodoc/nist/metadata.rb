@@ -113,9 +113,21 @@ module IsoDoc
 
       def bibdate(isoxml, _out)
         super
-        date = get[:publisheddate]
-        date and date != "XXX" and
-          set(:publisheddate_monthyear, monthyr(date))
+        isoxml.xpath(ns("//bibdata/date")).each do |d|
+          val = Common::date_range(d)
+          next if val == "XXX"
+          set("#{d['type']}date_monthyear".to_sym, daterange_proc(val, :monthyr))
+          set("#{d['type']}date_mmddyyyy".to_sym, daterange_proc(val, :mmddyyyy))
+          set("#{d['type']}date_MMMddyyyy".to_sym, daterange_proc(val, :MMMddyyyy))
+        end
+      end
+
+      def daterange_proc(val, fn)
+        m = /^(?<date1>[^&]+)(?<ndash>\&ndash;)?(?<date2>.*)$/.match val
+        val_monthyear = self.send(fn, m[:date1])
+          val_monthyear += "&ndash;" if m[:ndash]
+          val_monthyear += self.send(fn, m[:date2]) unless m[:date2].empty?
+          val_monthyear
       end
 
       def series(isoxml, _out)
@@ -126,25 +138,19 @@ module IsoDoc
         set(:subseries, subseries) if subseries
       end
 
-      MONTHS = {
-        "01": "January",
-        "02": "February",
-        "03": "March",
-        "04": "April",
-        "05": "May",
-        "06": "June",
-        "07": "July",
-        "08": "August",
-        "09": "September",
-        "10": "October",
-        "11": "November",
-        "12": "December",
-      }.freeze
-
       def monthyr(isodate)
-        m = /(?<yr>\d\d\d\d)-(?<mo>\d\d)/.match isodate
-        return isodate unless m && m[:yr] && m[:mo]
-        return "#{MONTHS[m[:mo].to_sym]} #{m[:yr]}"
+        return nil if isodate.nil?
+        DateTime.parse(isodate).localize(:en).to_additional_s("yMMMM")
+      end
+
+      def mmddyyyy(isodate)
+        return nil if isodate.nil?
+        Date.parse(isodate).strftime("%m-%d-%Y")
+      end
+
+      def MMMddyyyy(isodate)
+        return nil if isodate.nil?
+        Date.parse(isodate).strftime("%B %d, %Y")
       end
 
       def keywords(isoxml, _out)
@@ -202,8 +208,10 @@ module IsoDoc
           set(:superseding_docidentifier, docid)
         docid_long = d.at(ns("./docidentifier[@type = 'nist-long']"))&.text and
           set(:superseding_docidentifier_long, docid_long)
-        cdate = d.at(ns("./date[@type = 'circulated']"))&.text and
+        if cdate = d.at(ns("./date[@type = 'circulated']"))&.text
           set(:superseding_circulated_date, cdate)
+          set(:superseding_circulated_date_monthyear, monthyr(cdate))
+        end
         doi = d.at(ns("./uri[@type = 'doi']"))&.text and
           set(:superseding_doi, doi)
         uri = d.at(ns("./uri[@type = 'uri']"))&.text and
