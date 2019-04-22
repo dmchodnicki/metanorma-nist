@@ -1208,7 +1208,7 @@ OUTPUT
   </li>
   <li>
     <p id="_">
-      <eref type="inline" bibitemid="ref5" citeas="SP 800-11"/>
+      <eref type="inline" bibitemid="ref5" citeas="SP 800-11 (May 2007)"/>
     </p>
   </li>
 </ul>

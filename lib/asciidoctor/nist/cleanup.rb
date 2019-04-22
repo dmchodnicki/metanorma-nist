@@ -112,10 +112,9 @@ module Asciidoctor
       end
 
       def truncate_nist_ref(text)
-        text.sub(/\s(Rev\.\s|Revision\s|
-                     \((January|February|March|April|May|June|July|August|
-                        September|October|November|December)\s\d\d\d\d\)
-                    ).*$/x, "")
+        #text.sub(/\s\((January|February|March|April|May|June|July|August|
+        #                September|October|November|December)\s\d\d\d\d\).*$/x, "")
+        text
       end
 
       def get_all_nist_refs(docxml)
