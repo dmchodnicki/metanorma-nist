@@ -581,7 +581,7 @@ using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 
 * For retired drafts, the following attributes must be provided: `:circulated-date:`, `:abandoned-date:`, `:bib-additional-note:` (if applicable)
 * For withdrawn drafts, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:`,
-`:superseding-status`, `:superseding-iteration:` (if applicable), `:superseding-title:` (if applicable),
+`:superseding-status:`, `:superseding-iteration:` (if applicable), `:superseding-title:` (if applicable),
 `:superseding-circulated-date:`, `:superseding-doi:` (if applicable), `:superseding-url:`, `:bib-additional-note:` (if applicable)
 
 
