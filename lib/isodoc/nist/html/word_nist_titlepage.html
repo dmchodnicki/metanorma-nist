@@ -710,7 +710,9 @@ lang="EN-US" style='font-size:14.0pt;color:black'>&#xa0;</span></p>
 {% if confirmeddate and confirmeddate != "XXX" %}
 <span style="font-variant:small-caps;font-size:14.0pt;color:black;">Publication is current as of {{ confirmeddate_mmddyyyy }}</span>
 {% elsif errata and updateddate and updateddate != "XXX" %}
- <span style="font-variant:small-caps;font-size:14.0pt;color:black;">Includes updates as of {{ updatedddate_mmddyyyy }}</span>
+ <span style="font-variant:small-caps;font-size:14.0pt;color:black;">Includes updates as of {{ updateddate_mmddyyyy }}; see page <span style='mso-element:field-begin'></span><span
+style='mso-spacerun:yes'> </span>PAGEREF errata_XYZZY \h <span style='mso-element:field-separator'></span>2<span
+style='mso-element:field-end'></span>       </span> 
 {% endif %}
 </p>
 

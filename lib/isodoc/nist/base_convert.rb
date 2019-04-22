@@ -189,6 +189,7 @@ module IsoDoc
       end
 
       def errata_parse(node, out)
+        out.a **{ name: "errata_XYZZY" }
         out.table **make_table_attr(node) do |t|
           t.thead do |h|
             h.tr do |tr|

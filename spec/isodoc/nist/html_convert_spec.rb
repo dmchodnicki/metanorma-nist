@@ -618,6 +618,7 @@ it "processes errata tag" do
              <br/>
              <div>
                <h1 class="ForewordTitle">Foreword</h1>
+               <a name="errata_XYZZY"/>
                <table id="" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                  <thead>
                    <tr>
