@@ -227,6 +227,11 @@ module IsoDoc
           set(:superseding_iteration_code, "#{iter}PD")
         end
       end
+
+      def note(xml, _out)
+        note = xml.at(ns("//bibdata/note[@type = 'additional-note']"))&.text and
+          set(:additional_note, note)
+      end
     end
   end
 end

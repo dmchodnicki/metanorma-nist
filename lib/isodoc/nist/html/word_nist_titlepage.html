@@ -160,15 +160,38 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
   color:black;mso-themecolor:text1'>{{ circulateddate }}<o:p></o:p></span></p>
   </td>
  </tr>
+ {% if doi %}
+ <tr style='mso-yfti-irow:4'>
+  <td width="180" valign="top" style='width:135.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" align="right" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:right'><b style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
+  color:black;mso-themecolor:text1'>DOI<o:p></o:p></span></b></p>
+  </td>
+  <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
+  color:black;mso-themecolor:text1'>{{ doi }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ {% endif %}
+ {% if uri %}
+ <tr style='mso-yfti-irow:4'>
+  <td width="180" valign="top" style='width:135.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" align="right" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:right'><b style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
+  color:black;mso-themecolor:text1'>CSRC URL<o:p></o:p></span></b></p>
+  </td>
+  <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
+  color:black;mso-themecolor:text1'>{{ uri }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ {% endif %}
  <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
   <td width="180" valign="top" style='width:135.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class="Default" align="right" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:right'><b style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>Additional Information<o:p></o:p></span></b></p>
   </td>
   <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>See </span><span lang="EN-US"><a
-  href="https://csrc.nist.gov"><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>https://csrc.nist.gov</span></a></span><span
-  lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'> for information on NIST cybersecurity
-  publications and programs.<o:p></o:p></span></p>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{{additional_note}}<o:p></o:p></span></p>
   </td>
  </tr>
 {% else %}
@@ -240,10 +263,7 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
   <p class="Default" align="right" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm;text-align:right'><b style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>Additional Information<o:p></o:p></span></b></p>
   </td>
   <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>See </span><span lang="EN-US"><a
-  href="https://csrc.nist.gov"><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>https://csrc.nist.gov</span></a></span><span
-  lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'> for information on NIST cybersecurity
-  publications and programs.<o:p></o:p></span></p>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{{additional_note}}<o:p></o:p></span></p>
   </td>
  </tr>
 {% endif %} 

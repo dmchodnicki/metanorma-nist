@@ -359,6 +359,7 @@ OUTPUT
       :superseding-circulated-date: 2030-01-01
       :superseding-doi: http://doi.org/1
       :superseding-url: http://example.org/1
+      :bib-additional-note: Additional Note
     INPUT
 
     output = <<~"OUTPUT"
@@ -416,6 +417,7 @@ OUTPUT
            <revision-date>2000-01-01</revision-date>
            <draft>3.4</draft>
          </version>
+         <note type="additional-note" id="_">Additional Note</note>
          <language>en</language>
          <script>Latn</script>
         <status>
@@ -483,7 +485,7 @@ OUTPUT
        </bibdata>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to output
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to output
   end
 
     it "ignores unrecognised status, overrides docidentifier" do

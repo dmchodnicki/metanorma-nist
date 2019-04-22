@@ -353,6 +353,7 @@ The DOI of the draft document superseding this document. Used for withdrawn draf
 `:superseding-url:`::
 The URL of the draft document superseding this document. Used for withdrawn drafts.
 
+`:bib-additional-note:`:: Additional note (optional), used on coverpage of withdrawn and retired drafts.
 
 == Asciidoctor features specific to NIST
 
@@ -578,10 +579,10 @@ using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 | 95 Withdrawal | `:status: final`, `:substage: withdrawn` | | | 
 |===
 
-* For retired drafts, the following attributes must be provided: `:circulated-date:`, `:abandoned-date:`
+* For retired drafts, the following attributes must be provided: `:circulated-date:`, `:abandoned-date:`, `:bib-additional-note:` (if applicable)
 * For withdrawn drafts, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:`,
 `:superseding-status`, `:superseding-iteration:` (if applicable), `:superseding-title:` (if applicable),
-`:superseding-circulated-date:`, `:superseding-doi:` (if applicable), `:superseding-url:`
+`:superseding-circulated-date:`, `:superseding-doi:` (if applicable), `:superseding-url:`, `:bib-additional-note:` (if applicable)
 
 
 

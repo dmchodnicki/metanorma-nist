@@ -231,6 +231,12 @@ module Asciidoctor
         end
       end
 
+      def metadata_note(node, xml)
+        note = node.attr("bib-additional-note") or return
+        xml.note  node.attr("bib-additional-note"),
+          **{ type: "additional-note" }
+      end
+
       def metadata(node, xml)
         super
         metadata_series(node, xml)

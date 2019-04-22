@@ -241,6 +241,7 @@ module IsoDoc
         @meta.keywords isoxml, out
         @meta.series isoxml, out
         @meta.commentperiod isoxml, out
+        @meta.note isoxml, out
         super
       end
 
