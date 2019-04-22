@@ -1,6 +1,54 @@
 module Asciidoctor
   module NIST
     class Converter < Standoc::Converter
+      SERIES = {
+        "nist-ams": "NIST Advanced Manufacturing Series",
+        "building-science": "NIST Building Science Series",
+        "nist-fips": "NIST Federal Information Processing Standards",
+        "nist-gcr": "NIST Grant/Contract Reports",
+        "nist-hb": "NIST Handbook",
+        "itl-bulletin": "ITL Bulletin",
+        "jpcrd": "Journal of Physical and Chemical Reference Data",
+        "nist-jres": "NIST Journal of Research",
+        "letter-circular": "NIST Letter Circular",
+        "nist-monograph": "NIST Monograph",
+        "nist-ncstar": "NIST National Construction Safety Team Act Reports",
+        "nist-nsrds": "NIST National Standard Reference Data Series",
+        "nistir": "NIST Interagency/Internal Report",
+        "product-standards": "NIST Product Standards",
+        "nist-sp": "NIST Special Publication",
+        "nist-tn": "NIST Technical Note",
+        "other": "NIST Other",
+        "csrc-white-paper": "CSRC White Paper",
+        "csrc-book": "CSRC Book",
+        "csrc-use-case": "CSRC Use Case",
+        "csrc-building-block": "CSRC Building Block",
+      }.freeze
+
+      SERIES_ABBR = {
+        "nist-ams": "NIST AMS",
+        "building-science": "NIST Building Science Series",
+        "nist-fips": "NIST FIPS",
+        "nist-gcr": "NISTGCR",
+        "nist-hb": "NIST HB",
+        "itl-bulletin": "ITL Bulletin",
+        "jpcrd": "JPCRD",
+        "nist-jres": "NIST JRES",
+        "letter-circular": "NIST Letter Circular",
+        "nist-monograph": "NIST MN",
+        "nist-ncstar": "NIST NCSTAR",
+        "nist-nsrds": "NIST NSRDS",
+        "nistir": "NISTIR",
+        "product-standards": "NIST Product Standards",
+        "nist-sp": "NIST SP",
+        "nist-tn": "NIST TN",
+        "other": "NIST Other",
+        "csrc-white-paper": "CSRC White Paper",
+        "csrc-book": "CSRC Book",
+        "csrc-use-case": "CSRC Use Case",
+        "csrc-building-block": "CSRC Building Block",
+      }.freeze
+
       CALL_FOR_PATENT_CLAIMS = <<~END.freeze
       <clause><title>Call for Patent Claims</title>
       <p>This public review includes a call for information on essential patent claims (claims whose use would be required for compliance with the guidance or requirements in this Information Technology Laboratory (ITL) draft publication). Such guidance and/or requirements may be directly stated in this ITL Publication or by reference to another publication. This call also includes disclosure, where known, of the existence of pending U.S. or foreign patent applications relating to this ITL draft publication and of any relevant unexpired U.S. or foreign patents.</p>
@@ -53,7 +101,7 @@ module Asciidoctor
                        nist_division_address: @nistdivisionaddress}
         file = @boilerplateauthority ? "#{@localdir}/#{@boilerplateauthority}" :
           File.join(File.dirname(__FILE__),"nist_intro.xml")
-        conv.populate_template((File.read(file, encoding: "UTF-8")), nil)
+          conv.populate_template((File.read(file, encoding: "UTF-8")), nil)
       end
     end
   end

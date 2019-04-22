@@ -63,7 +63,7 @@ module IsoDoc
         "#{iter}PD"
       end
 
-            def iter_ordinal(isoxml)
+      def iter_ordinal(isoxml)
         docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
         return nil unless docstatus == "draft-public"
         iter = isoxml.at(ns("//bibdata/status/iteration"))&.text || "1"
@@ -189,6 +189,43 @@ module IsoDoc
         set(:supersedes, ret) unless ret.empty?
         ret = relations1(isoxml, "supersededBy")
         set(:supersededby, ret) unless ret.empty?
+        superseding_doc(isoxml)
+      end
+
+      def superseding_doc(isoxml)
+        d = isoxml.at(ns("//bibdata/relation[@type = 'obsoletedBy']/bibitem"))
+        return unless d
+        set(:superseding_status,
+            status_print(d.at(ns("./status/stage"))&.text || "final"))
+        superseding_iteration(d)
+        docid = d.at(ns("./docidentifier[@type = 'nist']"))&.text and
+          set(:superseding_docidentifier, docid)
+        docid_long = d.at(ns("./docidentifier[@type = 'nist-long']"))&.text and
+          set(:superseding_docidentifier_long, docid_long)
+        cdate = d.at(ns("./date[@type = 'circulated']"))&.text and
+          set(:superseding_circulated_date, cdate)
+        doi = d.at(ns("./uri[@type = 'doi']"))&.text and
+          set(:superseding_doi, doi)
+        uri = d.at(ns("./uri[@type = 'uri']"))&.text and
+          set(:superseding_uri, uri)
+        set(:superseding_title, d.at(ns("./title"))&.text ||
+            isoxml.at(ns("//bibdata/title")))
+      end
+
+      def superseding_iteration(d)
+        iter = d.at(ns("./status/iteration"))&.text || "1"
+        case iter.downcase
+        when "1"
+          set(:superseding_iteration_ordinal, "Initial")
+          set(:superseding_iteration_code, "IPD")
+        when "final"
+          set(:superseding_iteration_ordinal, "Final")
+          set(:superseding_iteration_code, "FPD")
+        else
+          set(:superseding_iteration_ordinal,
+              iter.to_i.localize.to_rbnf_s("SpelloutRules", "spellout-ordinal"))
+          set(:superseding_iteration_code, "#{iter}PD")
+        end
       end
     end
   end

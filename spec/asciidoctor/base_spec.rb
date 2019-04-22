@@ -353,6 +353,12 @@ OUTPUT
       :superseded-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
       :abandoned-date: 2021-01-01
       :volume: 5
+      :superseding-status: public-draft
+      :superseding-iteration: final
+      :superseding-title: Superseding Title
+      :superseding-circulated-date: 2030-01-01
+      :superseding-doi: http://doi.org/1
+      :superseding-url: http://example.org/1
     INPUT
 
     output = <<~"OUTPUT"
@@ -436,12 +442,20 @@ OUTPUT
 <relation type="obsoletes">
   #{NISTSP80053ar1}
 </relation>
-<relation type="obsoletedBy">
-  #{NISTSP800179}
-</relation>
-<relation type="obsoletedBy">
-  #{NISTSP80053ar1}
-</relation>
+ <relation type="obsoletedBy">
+   <bibitem>
+     <title>Superseding Title</title>
+     <uri type="doi">http://doi.org/1</uri>
+     <uri type="uri">http://example.org/1</uri>
+     <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
+     <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
+     <date type="circulated">2030-01-01</date>
+     <status>
+       <stage>public-draft</stage>
+       <iteration>final</iteration>
+     </status>
+   </bibitem>
+ </relation>
 <relation type="supersedes">
   #{NISTSP800179}
 </relation>
@@ -1245,13 +1259,13 @@ OUTPUT
   def mock_nistbib_get_nistsp80053ar1
     expect(NistBib::NistBibliography).to receive(:get).with("NIST SP 800-53A Rev. 1", nil, {}) do
       IsoBibItem::XMLParser.from_xml(NISTSP80053ar1)
-    end.exactly(4).times
+    end.exactly(3).times
     end
 
   def mock_nistbib_get_nistsp800179
     expect(NistBib::NistBibliography).to receive(:get).with("NIST SP 800-179", nil, {}) do
       IsoBibItem::XMLParser.from_xml(NISTSP800179)
-    end.exactly(4).times
+    end.exactly(3).times
     end
 
 end

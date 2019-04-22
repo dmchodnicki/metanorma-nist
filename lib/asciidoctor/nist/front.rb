@@ -198,53 +198,38 @@ module Asciidoctor
         super + %w(obsoletes obsoleted-by supersedes superseded-by)
       end
 
-      SERIES = {
-        "nist-ams": "NIST Advanced Manufacturing Series",
-        "building-science": "NIST Building Science Series",
-        "nist-fips": "NIST Federal Information Processing Standards",
-        "nist-gcr": "NIST Grant/Contract Reports",
-        "nist-hb": "NIST Handbook",
-        "itl-bulletin": "ITL Bulletin",
-        "jpcrd": "Journal of Physical and Chemical Reference Data",
-        "nist-jres": "NIST Journal of Research",
-        "letter-circular": "NIST Letter Circular",
-        "nist-monograph": "NIST Monograph",
-        "nist-ncstar": "NIST National Construction Safety Team Act Reports",
-        "nist-nsrds": "NIST National Standard Reference Data Series",
-        "nistir": "NIST Interagency/Internal Report",
-        "product-standards": "NIST Product Standards",
-        "nist-sp": "NIST Special Publication",
-        "nist-tn": "NIST Technical Note",
-        "other": "NIST Other",
-        "csrc-white-paper": "CSRC White Paper",
-        "csrc-book": "CSRC Book",
-        "csrc-use-case": "CSRC Use Case",
-        "csrc-building-block": "CSRC Building Block",
-      }.freeze
+      def metadata_getrelation(node, xml, type)
+        if type == "obsoleted-by" and node.attr("superseding-status")
+          metadata_superseding_doc(node, xml)
+        else
+          super
+        end
+      end
 
-      SERIES_ABBR = {
-        "nist-ams": "NIST AMS",
-        "building-science": "NIST Building Science Series",
-        "nist-fips": "NIST FIPS",
-        "nist-gcr": "NISTGCR",
-        "nist-hb": "NIST HB",
-        "itl-bulletin": "ITL Bulletin",
-        "jpcrd": "JPCRD",
-        "nist-jres": "NIST JRES",
-        "letter-circular": "NIST Letter Circular",
-        "nist-monograph": "NIST MN",
-        "nist-ncstar": "NIST NCSTAR",
-        "nist-nsrds": "NIST NSRDS",
-        "nistir": "NISTIR",
-        "product-standards": "NIST Product Standards",
-        "nist-sp": "NIST SP",
-        "nist-tn": "NIST TN",
-        "other": "NIST Other",
-        "csrc-white-paper": "CSRC White Paper",
-        "csrc-book": "CSRC Book",
-        "csrc-use-case": "CSRC Use Case",
-        "csrc-building-block": "CSRC Building Block",
-      }.freeze
+      # currently specific to drafts
+      def metadata_superseding_doc(node, xml)
+        xml.relation **{ type: "obsoletedBy" } do |r|
+          r.bibitem do |b|
+            b.title asciidoc_sub(node.attr("superseding-title") ||
+                                 node.attr("title-main") || node.title)
+            doi = node.attr("superseding-doi") and
+              b.uri doi, **{ type: "doi" }
+            url = node.attr("superseding-url") and
+              b.uri url, **{ type: "uri" }
+            did = xml&.parent&.at("./ancestor::bibdata/docidentifier[@type = 'nist']")&.text
+            didl = xml&.parent&.at("./ancestor::bibdata/docidentifier[@type = 'nist-long']")&.text
+            b.docidentifier did, **{ type: "nist" }
+            b.docidentifier didl, **{ type: "nist-long" }
+            cdate = node.attr("superseding-circulated-date") and
+              b.date cdate, **{ type: "circulated" }
+            b.status do |s|
+              s.stage node.attr("superseding-status")
+              iter = node.attr("superseding-iteration") and
+                s.iteration iter
+            end
+          end
+        end
+      end
 
       def metadata(node, xml)
         super

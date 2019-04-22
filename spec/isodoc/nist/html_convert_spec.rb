@@ -93,11 +93,20 @@ RSpec.describe IsoDoc::NIST do
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
   </bibitem>
 </relation>
-<relation type="obsoletedBy">
-  <bibitem>
-    <docidentifier>NIST SP 800</docidentifier>
-  </bibitem>
-</relation>
+ <relation type="obsoletedBy">
+   <bibitem>
+     <title>Superseding Title</title>
+     <uri type="doi">http://doi.org/1</uri>
+     <uri type="uri">http://example.org/1</uri>
+     <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
+     <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
+     <date type="circulated">2030-01-01</date>
+     <status>
+       <stage>draft-public</stage>
+       <iteration>final</iteration>
+     </status>
+   </bibitem>
+ </relation>
 <relation type="obsoletedBy">
   <bibitem>
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
@@ -129,7 +138,7 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"2005-01-01", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Short Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Short Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draft_prefix=>"DRAFT ", :draftinfo=>" draft 3.4", :edition=>nil, :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoletedby=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"XXX", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoletes_part=>nil, :publisheddate=>"2004-01-01", :publisheddate_monthyear=>"January 2004", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :revision=>"2", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Work-in-Progress Draft", :substage=>"withdrawn", :supersededby=>["NIST SP 800-53A Rev. 1"], :supersedes=>["NIST SP 800-53A Rev. 1"], :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"2005-01-01", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Short Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Short Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draft_prefix=>"DRAFT ", :draftinfo=>" draft 3.4", :edition=>nil, :editorialgroup=>[], :email=>"email@example.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoletedby=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"XXX", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoletes_part=>nil, :publisheddate=>"2004-01-01", :publisheddate_monthyear=>"January 2004", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :revision=>"2", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Work-in-Progress Draft", :substage=>"withdrawn", :supersededby=>["NIST SP 800-53A Rev. 1"], :supersedes=>["NIST SP 800-53A Rev. 1"], :superseding_circulated_date=>"2030-01-01", :superseding_docidentifier=>"NIST FIPS 1000 Volume 5, Revision 3", :superseding_docidentifier_long=>"NIST Federal Information Processing Standards 1000 Volume 5, Revision 3", :superseding_doi=>"http://doi.org/1", :superseding_iteration_code=>"FPD", :superseding_iteration_ordinal=>"Final", :superseding_status=>"Public Draft", :superseding_title=>"Superseding Title", :superseding_uri=>"http://example.org/1", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)

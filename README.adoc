@@ -130,7 +130,8 @@ introduced with `=`, is used.
 
 `:technical-committee:`:: The name of the relevant committee producing the document.
 
-`:published-date:`:: The publication date for the document.
+`:published-date:`:: The publication date for the document. Only applies to public documents;
+drafts instead have a `:circulated-date:` attribute.
 
 `:uri:`:: The URI to which this standard is published.
 
@@ -163,7 +164,8 @@ permitted types are:
 +
 --
 * `active` (default)
-* `retired` (applies only to drafts, when they are abandoned)
+* `retired` (applies only to drafts, when they are abandoned). The `:abandoned-date:` must
+be provided, to indicate when the draft was abandoned.
 * `withdrawn` (applies to drafts, when when they are superseded by the next draft stage, 
 and to published documents when they are superseded or no longer valid.
 --
@@ -196,7 +198,7 @@ The organizational address of a person who is a contributor to the document.
 
 `:obsoleted-date:`::
 The date at which a document is considered no longer valid (withdrawn). If a document
-is not currently withdrawn (as indicated through `:status: draft-withdrawn`, `status: final-withdrawn`),
+is not currently withdrawn (as indicated through `:substage: withdrawn`),
 but will be in the future, that is still indicated in the rendering of the document.
 
 `:confirmed-date:`::
@@ -206,6 +208,7 @@ the date is included in the cover page.
 
 `:circulated-date:`::
 The date at which a draft is circulated. Displayed on the cover page of drafts.
+MANDATORY FOR DRAFTS.
 
 === NIST-specific attributes
 
@@ -309,7 +312,8 @@ Format is document identifier, e.g. _SP 800-53A Rev. 1_
 `:obsoleted-by:`::
 One or more corresponding NIST document that this NIST document standard is obsoleted by; requires that
 this document is withdrawn, and no longer in effect. Comma delimited.
-Format is document identifier, e.g. _SP 800-53A Rev. 1_
+Format is document identifier, e.g. _SP 800-53A Rev. 1_.
+Is the relation between a withdrawn draft, and the next draft in the approval process.
 
 `:supersedes:`::
 One or more NIST document that this NIST document standard supersedes; the superseded
@@ -320,11 +324,13 @@ Format is document identifier, e.g. _SP 800-53A Rev. 1_
 One or more corresponding NIST document that this NIST document standard is superseded by;
 this document may still remain in effect. Comma delimited.
 Format is document identifier, e.g. _SP 800-53A Rev. 1_
+Is *not* the relation between a withdrawn draft, and the next draft in the approval process
+(since the earlier draft is automatically no longer in effect).
 
 `:abandoned-date:`::
 The date at which work on a document is abandoned. At that date, the document is considered
-retired (`status: draft-retired`). In NIST, only drafts may be retired. If the document
-is not currently retired (as indicated through `:status: draft-retired`),
+retired (`substage: retired`). In NIST, only drafts may be retired. If the document
+is not currently retired (as indicated through `:substage: retired`),
 but will be in the future, that is still indicated in the rendering of the document.
 
 `:sponsor:`::
@@ -332,6 +338,21 @@ The name of the organization that has sponsored the document, if applicable.
 
 `:sponsor-logo:`::
 The logo of the sponsoring organization, if applicable.
+
+`:superseding-status`: Document status/stage of the superseding document, if this document is
+superseded or withdrawn. Used for withdrawn drafts.
+`:superseding-iteration:`:: The iteration of the stage of the superseding document,
+in case there have been multiple drafts.  Can be a number, or text (e.g. "initial", "final").
+Used for withdrawn drafts.
+`:superseding-title:`:: The title of the draft document superseding this document.
+If not supplied, the current title is assumed to have been retained. Used for withdrawn drafts.
+`:superseding-circulated-date:`::
+The date at which the draft document superseding this document is circulated. Used for withdrawn drafts.
+`:superseding-doi:`::
+The DOI of the draft document superseding this document. Used for withdrawn drafts.
+`:superseding-url:`::
+The URL of the draft document superseding this document. Used for withdrawn drafts.
+
 
 == Asciidoctor features specific to NIST
 
@@ -556,6 +577,14 @@ using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 | 90 Review | `:status: final-review` | `:status: final`, `:confirmed-date: XXXX-XX-XX` | `:status: final`, `:substage: withdrawn` | `:status: draft-internal` (revise or amend)
 | 95 Withdrawal | `:status: final`, `:substage: withdrawn` | | | 
 |===
+
+* For retired drafts, the following attributes must be provided: `:circulated-date:`, `:abandoned-date:`
+* For withdrawn drafts, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:`,
+`:superseding-status`, `:superseding-iteration:` (if applicable), `:superseding-title:` (if applicable),
+`:superseding-circulated-date:`, `:superseding-doi:` (if applicable), `:superseding-url:`
+
+
+
 
 ////
 
