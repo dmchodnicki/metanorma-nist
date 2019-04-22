@@ -88,6 +88,7 @@ module IsoDoc
         iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
         set(:iteration, iter) if iter
         set(:status, status_print(docstatus || "final"))
+        set(:errata, true) if isoxml.at(ns("//errata"))
       end
 
       def status_print(status)
