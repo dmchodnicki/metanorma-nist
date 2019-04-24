@@ -30,6 +30,8 @@ module IsoDoc
         tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
         set(:tc, tc.text.upcase) if tc
         personal_authors(isoxml)
+        subdiv = isoxml.at(ns("//bibdata/contributor[role/@type = 'publisher']/organization/subdivision"))
+        set(:nist_subdiv, subdiv.text) if subdiv
       end
 
       def docid(isoxml, _out)
@@ -110,6 +112,7 @@ module IsoDoc
         set(:revision, isoxml&.at(ns("//bibdata/revision"))&.text)
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
+        set(:revdate_MMMddyyyy, MMMddyyyy(revdate))
       end
 
       def bibdate(isoxml, _out)
@@ -269,6 +272,10 @@ module IsoDoc
       def note(xml, _out)
         note = xml.at(ns("//bibdata/note[@type = 'additional-note']"))&.text and
           set(:additional_note, note)
+        note = xml.at(ns("//bibdata/note[@type = 'withdrawal-note']"))&.text and
+          set(:withdrawal_note, note)
+        note = xml.at(ns("//bibdata/note[@type = 'withdrawal-announcement-link']"))&.text and
+          set(:withdrawal_announcement_link, note)
       end
     end
   end

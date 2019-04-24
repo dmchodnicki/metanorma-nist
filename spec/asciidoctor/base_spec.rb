@@ -364,6 +364,9 @@ OUTPUT
       :superseding-published-date: 2031-01-01
       :superseding-authors: Fred Nerk, Joe Bloggs
       :bib-additional-note: Additional Note
+      :bib-withdrawal-note: Withdrawal Note
+      :bib-withdrawal-announcement-link: Withdrawal Link
+      :nist-division: Ministry of Silly Walks
     INPUT
 
     output = <<~"OUTPUT"
@@ -417,6 +420,7 @@ OUTPUT
            <role type="publisher"/>
            <organization>
              <name>NIST</name>
+             <subdivision>Ministry of Silly Walks</subdivision>
            </organization>
          </contributor>
          <revision>3</revision>
@@ -425,6 +429,8 @@ OUTPUT
            <draft>3.4</draft>
          </version>
          <note type="additional-note" id="_">Additional Note</note>
+         <note type="withdrawal-note" id="_">Withdrawal Note</note>
+         <note type="withdrawal-announcement-link" id="_">Withdrawal Link</note>
          <language>en</language>
          <script>Latn</script>
         <status>
@@ -702,6 +708,7 @@ OUTPUT
     <role type="publisher"/>
     <organization>
       <name>NIST</name>
+      <subdivision>Ministry of Silly Walks</subdivision>
     </organization>
   </contributor>
   <version>

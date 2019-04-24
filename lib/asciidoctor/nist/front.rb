@@ -104,8 +104,8 @@ module Asciidoctor
       end
 
       def add_id_parts_mr(dn, series, revision, vol, revdate)
-        series and series_name = SERIES_ABBR.dig(series.to_sym).sub(/^NIST /, "")
-        "NIST.#{series_name}.#{vol}.#{revision}.#{revdate}"
+        series and name = SERIES_ABBR.dig(series.to_sym).sub(/^NIST /, "")
+        "NIST.#{name}.#{vol}.#{revision}.#{revdate}"
       end
 
       def metadata_author(node, xml)
@@ -117,12 +117,14 @@ module Asciidoctor
           c.role **{ type: "publisher" }
           c.organization do |a|
             a.name "NIST"
+            d = node.attr("nist-division") and a.subdivision d
           end
         end
       end
 
       def metadata_committee(node, xml)
-        return unless node.attr("technical-committee") || node.attr("subcommittee") ||
+        return unless node.attr("technical-committee") ||
+          node.attr("subcommittee") ||
           node.attr("workgroup") || node.attr("workinggroup")
         xml.editorialgroup do |a|
           node.attr("technical-committee") and
@@ -214,8 +216,10 @@ module Asciidoctor
               b.uri doi, **{ type: "doi" }
             url = node.attr("superseding-url") and
               b.uri url, **{ type: "uri" }
-            did = xml&.parent&.at("./ancestor::bibdata/docidentifier[@type = 'nist']")&.text
-            didl = xml&.parent&.at("./ancestor::bibdata/docidentifier[@type = 'nist-long']")&.text
+            did = xml&.parent&.at("./ancestor::bibdata/docidentifier"\
+                                  "[@type = 'nist']")&.text
+            didl = xml&.parent&.at("./ancestor::bibdata/docidentifier"\
+                                   "[@type = 'nist-long']")&.text
             b.docidentifier did, **{ type: "nist" }
             b.docidentifier didl, **{ type: "nist-long" }
             metadata_superseding_authors(b, node)
@@ -242,11 +246,14 @@ module Asciidoctor
 
       def metadata_superseding_titles(b, node)
         if node.attr("superseding-title")
-          b.title asciidoc_sub(node.attr("superseding-title")), **{ type: "main" }
+          b.title asciidoc_sub(node.attr("superseding-title")),
+            **{ type: "main" }
           node.attr("superseding-subtitle") and
-            b.title asciidoc_sub(node.attr("superseding-subtitle")), **{ type: "subtitle" }
+            b.title asciidoc_sub(node.attr("superseding-subtitle")),
+            **{ type: "subtitle" }
         else
-          b.title asciidoc_sub(node.attr("title-main") || node.title), **{ type: "main" }
+          b.title asciidoc_sub(node.attr("title-main") || node.title),
+            **{ type: "main" }
           node.attr("title-sub") and
             b.title asciidoc_sub(node.attr("title-sub")), **{ type: "subtitle" }
         end
@@ -267,9 +274,12 @@ module Asciidoctor
       end
 
       def metadata_note(node, xml)
-        note = node.attr("bib-additional-note") or return
-        xml.note  node.attr("bib-additional-note"),
-          **{ type: "additional-note" }
+        note = node.attr("bib-additional-note") and
+          xml.note note, **{ type: "additional-note" }
+        note = node.attr("bib-withdrawal-note") and
+          xml.note note, **{ type: "withdrawal-note" }
+        note = node.attr("bib-withdrawal-announcement-link") and
+          xml.note note, **{ type: "withdrawal-announcement-link" }
       end
 
       def metadata(node, xml)

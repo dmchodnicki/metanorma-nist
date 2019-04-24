@@ -219,7 +219,8 @@ MANDATORY FOR DRAFTS.
 The following document attributes are specific to this document class:
 
 `:nist-division:`:: Name of NIST division responsible for document. Added to authority
-statement as document contact. Default value is "Computer Security Division, Information Technology Laboratory".
+statement as document contact, and to coverage of withdrawn published document.
+Default value is "Computer Security Division, Information Technology Laboratory".
 
 `:nist-division-address`:: Address of NIST division responsible for document.
 Added to authority statement as document contact. Use line breaks (in Asciidoctor:
@@ -388,7 +389,10 @@ The authors of the superseding document. Comma-delimited. Used for withdrawn pub
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
 
-`:bib-additional-note:`:: Additional note (optional), used on coverpage of withdrawn and retired drafts.
+`:bib-additional-note:`:: Additional note (optional), used on coverpage of withdrawn and retired drafts, and as
+"Related Information" on coverpage of withdrawn published documents.
+`:bib-withdrawal-note:`:: Withdrawal note, used on coverpage of withdrawn published documents.
+`:bib-withdrawal-announcement-link:`:: Hyperlink to announcement of withdrawal, used on coverpage of withdrawn published documents.
 
 == Asciidoctor features specific to NIST
 
@@ -614,16 +618,23 @@ using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 | 95 Withdrawal | `:status: final`, `:substage: withdrawn` | | | 
 |===
 
-* For retired drafts, the following attributes must be provided: `:circulated-date:`, `:abandoned-date:`, `:bib-additional-note:` (if applicable)
+In the following, parentheses indicate optional attributes.
+
+* For retired drafts, the following attributes must be provided: `:circulated-date:`, 
+`:abandoned-date:`, (`:bib-additional-note:`)
 * For withdrawn drafts, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:`,
-`:superseding-status:`, `:superseding-iteration:` (if applicable), `:superseding-title:` (if applicable),
-`:superseding-circulated-date:`, `:superseding-doi:` (if applicable), `:superseding-url:`, `:bib-additional-note:` (if applicable)
+`:superseding-status:`, (`:superseding-iteration:`), (`:superseding-title:`), 
+(`:superseding-subtitle:`), `:superseding-circulated-date:`, (`:superseding-doi:`), 
+(`:superseding-url:`), (`:bib-additional-note:`)
 * For withdrawn published documents, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:` (when
 the current document is no longer in effect), `:superseded-date:` (when the transition period started, during which both
-documents were in effect, if applicable; if not, this has the same value as `:obsoleted-date:`),
-`:bib-additional-note:` (if applicable), `:obsoleted-by:` (giving the superseding document identifier). If the details
+documents were in effect, if applicable; if not, this has the same value as `:obsoleted-date:`), `:revdate:` (for
+when the withdrawal notice was added to the document),
+(`:bib-additional-note:`), `:obsoleted-by:` (giving the superseding document identifier), `:nist-division:`,
+(`:bib-withdrawal-note:`), (`:bib-withdrawal-announcement-link:`). If the details
 of the superseding document are not available to be retrieved from the CSRC website), the following attributes must
-be provided: `:superseding-title:`, `:superseding-published-date:`
+be provided: `:superseding-title:`, (`:superseding-subtitle:`), `:superseding-published-date:`, `:superseding-status:`, 
+`:superseding-doi:`, `:superseding-url:`.
 
 
 

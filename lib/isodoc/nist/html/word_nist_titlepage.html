@@ -58,12 +58,9 @@ AABkcnMvZG93bnJldi54bWxQSwUGAAAAAAQABADzAAAAkwUAAAAA
     style='mso-bidi-font-weight:normal'><span lang="EN-US">Warning Notice<o:p></o:p></span></b></p>
     <p class="Default"><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'><o:p>&#xa0;</o:p></span></p>
     {% if substage == "retired" %}
-    <p class="Default" style='font-size:12.0pt;'><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'>The
-    attached draft document has been RETIRED. NIST has discontinued additional
-    development of this document, which is provided here in its entirety for
-    historical purposes.<o:p></o:p></span></p>
+    <p class="Default" style='font-size:12.0pt;'><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'>{{draft-retired-boilerplate}}<o:p></o:p></span></p>
     {% else %}
-    <p class="Default" style='font-size:12.0pt;'><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'>The attached draft document has been withdrawn, and is provided solely for historical purposes. It has been superseded by the document identified below.<o:p></o:p></span></p>
+    <p class="Default" style='font-size:12.0pt;'><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'>{{draft-withdrawn-boilerplate}}<o:p></o:p></span></p>
     {% endif %}
     <p class="Default" align="center" style='text-align:center'><span lang="EN-US"
     style='mso-fareast-font-family:"Times New Roman"'><o:p>&#xa0;</o:p></span></p>
@@ -146,7 +143,7 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
   color:black;mso-themecolor:text1'>Title<o:p></o:p></span></b></p>
   </td>
   <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{{ doctitle }}<o:p></o:p></span></p>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'>{{ doctitle }}{% if docsubtitle %}: {{ docsubtitle }}{% endif %}<o:p></o:p></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
@@ -373,7 +370,7 @@ AABkcnMvZG93bnJldi54bWxQSwUGAAAAAAQABADzAAAAkwUAAAAA
     <p class="Default" align="center" style='text-align:center;font-size:12.0pt;'><b
     style='mso-bidi-font-weight:normal'><span lang="EN-US">Warning Notice<o:p></o:p></span></b></p>
     <p class="Default"><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'><o:p>&#xa0;</o:p></span></p>
-    <p class="Default" style='font-size:12.0pt;'><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'>This document has been superseded by the document identified below. It will remain active until the withdrawal date, when it will be officially withdrawn.<o:p></o:p></span></p>
+    <p class="Default" style='font-size:12.0pt;'><span lang="EN-US" style='mso-fareast-font-family:"Times New Roman"'>{{ withdrawal-pending-boilerplate}}<o:p></o:p></span></p>
     <p class="Default" align="center" style='text-align:center'><span lang="EN-US"
     style='mso-fareast-font-family:"Times New Roman"'><o:p>&#xa0;</o:p></span></p>
     <table class="MsoTableGrid" border="0" cellspacing="0" cellpadding="0" width="636"
@@ -487,7 +484,7 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
   <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
   margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
-  color:black;mso-themecolor:text1'>{{ superseding_doi}}<o:p></o:p></span></p>
+  color:black;mso-themecolor:text1'>{{ superseding_doi }}<o:p></o:p></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6'>
@@ -549,6 +546,495 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
  <w:wrap type="square" anchory="margin"/>
  </v:shape></p>
 
+<span lang="EN-US" style='font-size:14.0pt;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA'><br clear="all" style='page-break-before:always;'/>
+</span>
+
+
+{% endif %}
+{% endunless %}
+
+{% unless unpublished %}
+{% if substage == "withdrawn" %}
+
+
+<div style='mso-element:para-border-div;border:solid windowtext 1.5pt;padding:8.0pt 4.0pt 8.0pt 4.0pt'>
+
+<p class="Default" align="center" style='text-align:center;border:none;mso-border-alt:solid windowtext 1.5pt;padding:0cm;mso-padding-alt:8.0pt 4.0pt 8.0pt 4.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang="EN-US" style='font-size:22.0pt;
+font-family:"Calibri",sans-serif;mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";color:black;mso-themecolor:
+text1'>Withdrawn NIST Technical Series Publication<o:p></o:p></span></b></p>
+
+</div>
+
+<p class="Default"><span lang="EN-US" style='font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+<p class="Default"><span lang="EN-US" style='font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+<table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" width="636" 
+style='width:477.0pt;margin-left:-5.25pt;border-collapse:collapse;border:none;mso-border-alt:solid windowtext 1.5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width="636" colspan="2" valign="top" style='width:477.0pt;border:solid windowtext 1.5pt;
+  border-bottom:solid windowtext 1.0pt;mso-border-alt:solid windowtext 1.5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" align="center" style='text-align:center'><b style='mso-bidi-font-weight:
+  normal'><span lang="EN-US" style='font-size:12.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>Warning Notice<o:p></o:p></span></b></p>
+  <p class="Default" align="center" style='text-align:center'><span lang="EN-US"
+  style='font-family:"Calibri",sans-serif;mso-ascii-theme-font:major-latin;
+  mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-fareast-font-family:"Times New Roman";
+  mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman"'>{{publication-withdrawn-boilerplate}}<o:p></o:p></span></p>
+  <p class="Default"><span lang="EN-US" style='font-family:"Times New Roman",serif;
+  color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width="636" colspan="2" valign="top" style='width:477.0pt;border-top:none;
+  border-left:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;
+  border-right:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-top-alt:.5pt;mso-border-left-alt:1.5pt;mso-border-bottom-alt:.5pt;
+  mso-border-right-alt:1.5pt;mso-border-color-alt:windowtext;mso-border-style-alt:
+  solid;background:#D9D9D9;mso-background-themecolor:background1;mso-background-themeshade:
+  217;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:0cm'><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Withdrawn Publication<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman"'>Series/Number<span
+  style='color:black;mso-themecolor:text1'><o:p></o:p></span></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman"'>{{ docidentifier_long | replace: "Revision", "<br/>Revision" }}<span style='color:black;
+  mso-themecolor:text1'><o:p></o:p></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Title<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ doctitle }}{% if docsubtitle %}: {{docsubtitle}}{% endif %}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Publication Date(s)<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ publisheddate_monthyear }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Withdrawal Date<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ obsoleteddate_MMMddyyyy }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Withdrawal Note<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ withdrawal_note }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width="636" colspan="2" valign="top" style='width:477.0pt;border-top:none;
+  border-left:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;
+  border-right:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-top-alt:.5pt;mso-border-left-alt:1.5pt;mso-border-bottom-alt:.5pt;
+  mso-border-right-alt:1.5pt;mso-border-color-alt:windowtext;mso-border-style-alt:
+  solid;background:#D9D9D9;mso-background-themecolor:background1;mso-background-themeshade:
+  217;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:0cm'><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Superseding Publication(s) </span></b><i
+  style='mso-bidi-font-style:normal'><span lang="EN-US" style='font-size:12.0pt;
+  font-family:"Calibri",sans-serif;mso-ascii-theme-font:major-latin;mso-hansi-theme-font:
+  major-latin;mso-bidi-font-family:"Times New Roman";color:black;mso-themecolor:
+  text1'>(if applicable)<o:p></o:p></span></i></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width="636" colspan="2" valign="top" style='width:477.0pt;border-top:none;
+  border-left:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;
+  border-right:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-top-alt:.5pt;mso-border-left-alt:1.5pt;mso-border-bottom-alt:.5pt;
+  mso-border-right-alt:1.5pt;mso-border-color-alt:windowtext;mso-border-style-alt:
+  solid;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+  6.0pt;margin-left:108.0pt;text-indent:-108.0pt'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-fareast-font-family:"Times New Roman";mso-hansi-theme-font:
+  major-latin;mso-bidi-font-family:"Times New Roman"'>The attached publication
+  has been <b style='mso-bidi-font-weight:normal'>superseded by</b> the
+  following publication(s):<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Series/Number<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ superseding_docidentifier_long | replace: "Revision", "<br/>Revision" }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Title<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ superseding_title }}{% if superseding_subtitle %}: {{superseding_subtitle}}{% endif %}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Author(s)<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ superseding_authors | join: "; " }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Publication Date(s)<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ superseding_published_date }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>URL/DOI<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US"><a
+  href="https://doi.org/10.6028/NIST.SP.800-160v1"><span style='font-size:11.0pt;
+  font-family:"Calibri",sans-serif;mso-ascii-theme-font:major-latin;mso-hansi-theme-font:
+  major-latin;mso-bidi-font-family:"Times New Roman"'>{% if superseding_doi %}{{ superseding_doi }}{% else %}{{ superseding_uri }}{% endif %}</span></a></span><span
+  lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'> <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td width="636" colspan="2" valign="top" style='width:477.0pt;border-top:none;
+  border-left:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;
+  border-right:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-top-alt:.5pt;mso-border-left-alt:1.5pt;mso-border-bottom-alt:.5pt;
+  mso-border-right-alt:1.5pt;mso-border-color-alt:windowtext;mso-border-style-alt:
+  solid;background:#D9D9D9;mso-background-themecolor:background1;mso-background-themeshade:
+  217;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:0cm'><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Additional Information </span></b><i
+  style='mso-bidi-font-style:normal'><span lang="EN-US" style='font-size:12.0pt;
+  font-family:"Calibri",sans-serif;mso-ascii-theme-font:major-latin;mso-hansi-theme-font:
+  major-latin;mso-bidi-font-family:"Times New Roman";color:black;mso-themecolor:
+  text1'>(if applicable)</span></i><span lang="EN-US" style='font-size:11.0pt;
+  font-family:"Calibri",sans-serif;mso-ascii-theme-font:major-latin;mso-hansi-theme-font:
+  major-latin;mso-bidi-font-family:"Times New Roman";color:black;mso-themecolor:
+  text1'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Contact<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ nist_subdiv }}<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Latest revision of the attached publication<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+  </td>
+ </tr>
+<tr style='mso-yfti-irow:17'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext 1.5pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Related Information<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;mso-border-right-alt:solid windowtext 1.5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US"><span
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman"'>{{additional_note}}</span></span><span
+  lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'> <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:18;mso-yfti-lastrow:yes'>
+  <td width="150" valign="top" style='width:112.25pt;border-top:none;border-left:
+  solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;border-right:
+  solid windowtext 1.0pt;mso-border-top-alt:solid windowtext .5pt;mso-border-top-alt:
+  .5pt;mso-border-left-alt:1.5pt;mso-border-bottom-alt:1.5pt;mso-border-right-alt:
+  .5pt;mso-border-color-alt:windowtext;mso-border-style-alt:solid;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><b style='mso-bidi-font-weight:normal'><span lang="EN-US"
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
+  major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:"Times New Roman";
+  color:black;mso-themecolor:text1'>Withdrawal Announcement Link<o:p></o:p></span></b></p>
+  </td>
+  <td width="486" valign="top" style='width:364.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.5pt;border-right:solid windowtext 1.5pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
+  mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ withdrawal_announcement_link }}</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class="Default" style='tab-stops:right 468.0pt'><span lang="EN-US"
+style='font-family:"Times New Roman",serif;color:black;mso-themecolor:text1'><o:p>&#xa0;</o:p></span></p>
+
+
+<p class="MsoNormal" style='margin-bottom:0cm;margin-bottom:.0001pt'><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="image_x0020_2" o:spid="_x0000_s1026" type="#_x0000_t75"
+ alt="NIST Identifier: NIST, National Institute of Standards and Technology, U.S. Department of Commerce"
+ style='position:absolute;margin-left:0.0pt;margin-top:0;width:179.15pt;height:75.95pt;z-index:251659264;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:12pt;mso-wrap-distance-top:0;mso-wrap-distance-right:12pt;mso-wrap-distance-bottom:0;mso-position-horizontal:left;mso-position-horizontal-relative:text;mso-position-vertical:bottom;mso-position-vertical-relative:margin;mso-width-percent:0;mso-height-percent:0;mso-width-relative:page;mso-height-relative:page'
+ o:allowoverlap="f">
+ <v:fill o:detectmouseclick="t"/>
+ <v:textbox style='mso-fit-shape-to-text:t'>
+    <div style='mso-element:para-border-div;border-top:solid windowtext 1.5pt;border-left:none;border-bottom:solid windowtext 1.5pt;border-right:none;padding:1.0pt 0cm 1.0pt 0cm'>
+    <p class="Default" align="left" style='padding:0cm;mso-padding-alt:1.0pt 0cm 1.0pt 0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Arial",sans-serif'>Date updated: {{ revdate_MMMddyyyy }}</span></p>
+    </div>
+    </v:textbox>
+ <w:wrap type="square"/>
+</v:shape></p>
+
+
+<p class="MsoNormal" style='margin-bottom:0cm;margin-bottom:.0001pt'><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="image_x0020_2" o:spid="_x0000_s1026" type="#_x0000_t75"
+ alt="NIST Identifier: NIST, National Institute of Standards and Technology, U.S. Department of Commerce"
+ style='position:absolute;margin-left:127.95pt;margin-top:0;width:179.15pt;height:75.95pt;z-index:251659264;visibility:visible;mso-wrap-style:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:12pt;mso-wrap-distance-top:0;mso-wrap-distance-right:12pt;mso-wrap-distance-bottom:0;mso-position-horizontal:right;mso-position-horizontal-relative:text;mso-position-vertical:bottom;mso-position-vertical-relative:margin;mso-width-percent:0;mso-height-percent:0;mso-width-relative:page;mso-height-relative:page'
+ o:allowoverlap="f">
+ <v:imagedata src="logo.png"
+  o:title=" NIST, National Institute of Standards and Technology, U.S"/>
+ <o:lock v:ext="edit" aspectratio="f"/>
+ <w:wrap type="square" anchory="margin"/>
+ </v:shape></p>
+
+
 
 
 
@@ -557,10 +1043,8 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
 
 
 
-
 {% endif %}
 {% endunless %}
-
 
 {% if unpublished %}
 
