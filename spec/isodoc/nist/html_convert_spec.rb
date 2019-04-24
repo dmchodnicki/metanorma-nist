@@ -18,8 +18,17 @@ RSpec.describe IsoDoc::NIST do
   <date type="confirmed">
   <on>2005-01-01</on>
   </date>
+  <date type="superseded">
+  <on>2005-01-01</on>
+  </date>
+  <date type="abandoned">
+  <on>2005-01-01</on>
+  </date>
   <date type="published">
   <on>2004-01-01</on>
+  </date>
+  <date type="obsoleted">
+  <on>1000-01-01</on>
   </date>
   <revision>2</revision>
   <version>
@@ -94,20 +103,38 @@ RSpec.describe IsoDoc::NIST do
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
   </bibitem>
 </relation>
- <relation type="obsoletedBy">
-   <bibitem>
-     <title>Superseding Title</title>
-     <uri type="doi">http://doi.org/1</uri>
-     <uri type="uri">http://example.org/1</uri>
-     <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
-     <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
-     <date type="circulated">2030-01-01</date>
-     <status>
-       <stage>draft-public</stage>
-       <iteration>final</iteration>
-     </status>
-   </bibitem>
- </relation>
+<relation type="obsoletedBy">
+  <bibitem>
+    <title type="main">Superseding Title</title>
+    <title type="subtitle">Superseding Subtitle</title>
+    <uri type="doi">http://doi.org/1</uri>
+    <uri type="uri">http://example.org/1</uri>
+    <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
+    <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
+    <contributor>
+      <role type="author"/>
+      <person>
+        <name>
+          <completename>Fred Nerk</completename>
+        </name>
+      </person>
+    </contributor>
+    <contributor>
+      <role type="author"/>
+      <person>
+        <name>
+          <completename>Joe Bloggs</completename>
+        </name>
+      </person>
+    </contributor>
+    <date type="circulated"><on>2030-01-01</on></date>
+    <date type="published"><on>2031-01-01</on></date>
+    <status>
+      <stage>draft-public</stage>
+      <iteration>final</iteration>
+    </status>
+  </bibitem>
+</relation>
 <relation type="obsoletedBy">
   <bibitem>
     <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
@@ -156,14 +183,14 @@ RSpec.describe IsoDoc::NIST do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :additional_note=>"Additional Note", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"2005-01-01", :confirmeddate_MMMddyyyy=>"January 01, 2005", :confirmeddate_mmddyyyy=>"01-01-2005", :confirmeddate_monthyear=>"January 2005", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Short Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Short Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draft_prefix=>"DRAFT ", :draftinfo=>" draft 3.4", :edition=>nil, :editorialgroup=>[], :email=>"email@example.com", :errata=>true, :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoletedby=>["NIST FIPS 1000 Volume 5, Revision 3", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"XXX", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoletes_part=>nil, :publisheddate=>"2004-01-01", :publisheddate_MMMddyyyy=>"January 01, 2004", :publisheddate_mmddyyyy=>"01-01-2004", :publisheddate_monthyear=>"January 2004", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :revision=>"2", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Work-in-Progress Draft", :substage=>"withdrawn", :supersededby=>["NIST SP 800-53A Rev. 1"], :supersedes=>["NIST SP 800-53A Rev. 1"], :superseding_circulated_date=>"2030-01-01", :superseding_circulated_date_monthyear=>"January 2030", :superseding_docidentifier=>"NIST FIPS 1000 Volume 5, Revision 3", :superseding_docidentifier_long=>"NIST Federal Information Processing Standards 1000 Volume 5, Revision 3", :superseding_doi=>"http://doi.org/1", :superseding_iteration_code=>"FPD", :superseding_iteration_ordinal=>"Final", :superseding_status=>"Public Draft", :superseding_title=>"Superseding Title", :superseding_uri=>"http://example.org/1", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
+    {:abandoneddate=>"2005-01-01", :abandoneddate_MMMddyyyy=>"January 01, 2005", :abandoneddate_mmddyyyy=>"01-01-2005", :abandoneddate_monthyear=>"January 2005", :accesseddate=>"XXX", :additional_note=>"Additional Note", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"2005-01-01", :confirmeddate_MMMddyyyy=>"January 01, 2005", :confirmeddate_mmddyyyy=>"01-01-2005", :confirmeddate_monthyear=>"January 2005", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Short Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Short Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draft_prefix=>"DRAFT ", :draftinfo=>" draft 3.4", :edition=>nil, :editorialgroup=>[], :email=>"email@example.com", :errata=>true, :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"3", :keywords=>["A", "B"], :obsoletedby=>["NIST FIPS 1000 Volume 5, Revision 3", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"1000-01-01", :obsoleteddate_MMMddyyyy=>"January 01, 1000", :obsoleteddate_mmddyyyy=>"01-01-1000", :obsoleteddate_monthyear=>"January 1000", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :obsoletes_part=>nil, :publisheddate=>"2004-01-01", :publisheddate_MMMddyyyy=>"January 01, 2004", :publisheddate_mmddyyyy=>"01-01-2004", :publisheddate_monthyear=>"January 2004", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :revision=>"2", :sc=>"XXXX", :secretariat=>"XXXX", :series=>"NIST Federal Information Processing Standards", :status=>"Work-in-Progress Draft", :substage=>"withdrawn", :supersededby=>["NIST SP 800-53A Rev. 1"], :supersededdate=>"2005-01-01", :supersededdate_MMMddyyyy=>"January 01, 2005", :supersededdate_mmddyyyy=>"01-01-2005", :supersededdate_monthyear=>"January 2005", :supersedes=>["NIST SP 800-53A Rev. 1"], :superseding_authors=>["Fred Nerk", "Joe Bloggs"], :superseding_circulated_date=>"2030-01-01", :superseding_circulated_date_monthyear=>"January 2030", :superseding_docidentifier=>"NIST FIPS 1000 Volume 5, Revision 3", :superseding_docidentifier_long=>"NIST Federal Information Processing Standards 1000 Volume 5, Revision 3", :superseding_doi=>"http://doi.org/1", :superseding_iteration_code=>"FPD", :superseding_iteration_ordinal=>"Final", :superseding_published_date=>"2031-01-01", :superseding_published_date_monthyear=>"January 2031", :superseding_status=>"Public Draft", :superseding_subtitle=>"Superseding Subtitle", :superseding_title=>"Superseding Title", :superseding_uri=>"http://example.org/1", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
     expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
-  it "processes initial public draft; gives default values for short titles" do
+  it "processes initial public draft; gives default values for short titles; withdrawal pending; default superseding title" do
     csdc = IsoDoc::NIST::HtmlConvert.new({})
     input = <<~"INPUT"
 <nist-standard xmlns="https://open.ribose.com/standards/example">
@@ -172,6 +199,9 @@ RSpec.describe IsoDoc::NIST do
   <title type="subtitle" language="en" format="plain">Subtitle</title>
   <docidentifier type="nist">1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
+  <date type="obsoleted">
+  <on>3000-01-01</on>
+  </date>
   <revision>2</revision>
   <version>
   <revision-date>2000-01-01</revision-date>
@@ -179,9 +209,9 @@ RSpec.describe IsoDoc::NIST do
 </version>
   <contributor>
     <role type="author"/>
-    <organization>
-      <name>Acme</name>
-    </organization>
+    <person>
+      <name><completename>Fred Nurk</completename></name>
+    </person>
   </contributor>
   <language>en</language>
   <script>Latn</script>
@@ -198,13 +228,18 @@ RSpec.describe IsoDoc::NIST do
       </organization>
     </owner>
   </copyright>
+  <relation type="obsoletedBy">
+  <bibitem>
+    <docidentifier>NIST SP 800-53A Rev. 1</docidentifier>
+  </bibitem>
+</relation>
 </bibdata>
 <sections/>
 </nist-standard>
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :confirmeddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (IPD) ", :draftinfo=>" draft 3.4", :edition=>nil, :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"1", :iteration_code=>"IPD", :iteration_ordinal=>"Initial", :keywords=>[], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :revision=>"2", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Public Draft", :substage=>"active", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["Fred Nurk"], :authors_affiliations=>{""=>["Fred Nurk"]}, :confirmeddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>nil, :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (IPD) ", :draftinfo=>" draft 3.4", :edition=>nil, :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"1", :iteration_code=>"IPD", :iteration_ordinal=>"Initial", :keywords=>[], :obsoletedby=>["NIST SP 800-53A Rev. 1"], :obsoleteddate=>"3000-01-01", :obsoleteddate_MMMddyyyy=>"January 01, 3000", :obsoleteddate_mmddyyyy=>"01-01-3000", :obsoleteddate_monthyear=>"January 3000", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :revision=>"2", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Public Draft", :substage=>"active", :superseding_authors=>["Fred Nurk"], :superseding_status=>"Final", :superseding_subtitle=>"Subtitle", :superseding_title=>"Main Title", :tc=>"XXXX", :unpublished=>true, :updateddate=>"XXX", :wg=>"XXXX", :withdrawal_pending=>true}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)

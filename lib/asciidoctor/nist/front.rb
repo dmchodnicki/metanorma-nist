@@ -11,7 +11,7 @@ module Asciidoctor
     class Converter < Standoc::Converter
 
       def datetypes
-        super << "abandoned"
+        super + %w(abandoned superseded)
       end
 
       def metadata_version(node, xml)
@@ -206,12 +206,10 @@ module Asciidoctor
         end
       end
 
-      # currently specific to drafts
       def metadata_superseding_doc(node, xml)
         xml.relation **{ type: "obsoletedBy" } do |r|
           r.bibitem do |b|
-            b.title asciidoc_sub(node.attr("superseding-title") ||
-                                 node.attr("title-main") || node.title)
+            metadata_superseding_titles(b, node)
             doi = node.attr("superseding-doi") and
               b.uri doi, **{ type: "doi" }
             url = node.attr("superseding-url") and
@@ -220,12 +218,49 @@ module Asciidoctor
             didl = xml&.parent&.at("./ancestor::bibdata/docidentifier[@type = 'nist-long']")&.text
             b.docidentifier did, **{ type: "nist" }
             b.docidentifier didl, **{ type: "nist-long" }
-            cdate = node.attr("superseding-circulated-date") and
-              b.date cdate, **{ type: "circulated" }
+            metadata_superseding_authors(b, node)
+            metadata_superseding_dates(b, node)
             b.status do |s|
               s.stage node.attr("superseding-status")
               iter = node.attr("superseding-iteration") and
                 s.iteration iter
+            end
+          end
+        end
+      end
+
+      def metadata_superseding_dates(b, node)
+        cdate = node.attr("superseding-circulated-date") and
+          b.date **{ type: "circulated" } do |d|
+          d.on cdate
+        end
+        cdate = node.attr("superseding-published-date") and
+          b.date **{ type: "published" } do |d|
+          d.on cdate
+        end
+      end
+
+      def metadata_superseding_titles(b, node)
+        if node.attr("superseding-title")
+          b.title asciidoc_sub(node.attr("superseding-title")), **{ type: "main" }
+          node.attr("superseding-subtitle") and
+            b.title asciidoc_sub(node.attr("superseding-subtitle")), **{ type: "subtitle" }
+        else
+          b.title asciidoc_sub(node.attr("title-main") || node.title), **{ type: "main" }
+          node.attr("title-sub") and
+            b.title asciidoc_sub(node.attr("title-sub")), **{ type: "subtitle" }
+        end
+      end
+
+      def metadata_superseding_authors(b, node)
+        node.attr("superseding-authors") and
+          node.attr("superseding-authors").split(/,\s*/).each do |a|
+          b.contributor do |c|
+            c.role nil, **{ type: "author" }
+            c.person do |p|
+              p.name do |f|
+                f.completename a
+              end
             end
           end
         end

@@ -121,14 +121,21 @@ module IsoDoc
           set("#{d['type']}date_mmddyyyy".to_sym, daterange_proc(val, :mmddyyyy))
           set("#{d['type']}date_MMMddyyyy".to_sym, daterange_proc(val, :MMMddyyyy))
         end
+        withdrawal_pending(isoxml)
+      end
+
+      def withdrawal_pending(isoxml)
+        d = isoxml&.at(ns("//bibdata/date[@type = 'obsoleted']"))&.text or return
+        date = Date.parse(d) or return
+        set(:withdrawal_pending, true) if date > Date.today
       end
 
       def daterange_proc(val, fn)
         m = /^(?<date1>[^&]+)(?<ndash>\&ndash;)?(?<date2>.*)$/.match val
         val_monthyear = self.send(fn, m[:date1])
-          val_monthyear += "&ndash;" if m[:ndash]
-          val_monthyear += self.send(fn, m[:date2]) unless m[:date2].empty?
-          val_monthyear
+        val_monthyear += "&ndash;" if m[:ndash]
+        val_monthyear += self.send(fn, m[:date2]) unless m[:date2].empty?
+        val_monthyear
       end
 
       def series(isoxml, _out)
@@ -209,19 +216,30 @@ module IsoDoc
           set(:superseding_docidentifier, docid)
         docid_long = d.at(ns("./docidentifier[@type = 'nist-long']"))&.text and
           set(:superseding_docidentifier_long, docid_long)
-        if cdate = d.at(ns("./date[@type = 'circulated']"))&.text
-          set(:superseding_circulated_date, cdate)
-          set(:superseding_circulated_date_monthyear, monthyr(cdate))
-        end
+        superseding_dates(d)
         doi = d.at(ns("./uri[@type = 'doi']"))&.text and
           set(:superseding_doi, doi)
         uri = d.at(ns("./uri[@type = 'uri']"))&.text and
           set(:superseding_uri, uri)
-        set(:superseding_title, d.at(ns("./title"))&.text ||
-            isoxml.at(ns("//bibdata/title")))
+        superseding_titles(isoxml, d)
+        authors = d.xpath(ns("./contributor[role/@type = 'author']/person"))
+        authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person")) if authors.empty?
+        set(:superseding_authors, extract_person_names(authors))
+      end
+
+      def superseding_titles(isoxml, d)
+        title = d.at(ns("./title[@type = 'main']"))&.text
+        if title
+          set(:superseding_title, d.at(ns("./title[@type = 'main']"))&.text)
+          set(:superseding_subtitle, d.at(ns("./title[@type = 'subtitle']"))&.text)
+        else
+          set(:superseding_title, isoxml.at(ns("//bibdata/title[@type = 'main']"))&.text)
+          set(:superseding_subtitle, isoxml.at(ns("//bibdata/title[@type = 'subtitle']"))&.text)
+        end
       end
 
       def superseding_iteration(d)
+        return unless d.at(ns("./status/stage"))&.text == "draft-public"
         iter = d.at(ns("./status/iteration"))&.text || "1"
         case iter.downcase
         when "1"
@@ -234,6 +252,17 @@ module IsoDoc
           set(:superseding_iteration_ordinal,
               iter.to_i.localize.to_rbnf_s("SpelloutRules", "spellout-ordinal"))
           set(:superseding_iteration_code, "#{iter}PD")
+        end
+      end
+
+      def superseding_dates(d)
+        if cdate = d.at(ns("./date[@type = 'circulated']/on"))&.text
+          set(:superseding_circulated_date, cdate)
+          set(:superseding_circulated_date_monthyear, monthyr(cdate))
+        end
+        if cdate = d.at(ns("./date[@type = 'published']/on"))&.text
+          set(:superseding_published_date, cdate)
+          set(:superseding_published_date_monthyear, monthyr(cdate))
         end
       end
 

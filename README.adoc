@@ -331,6 +331,12 @@ Format is document identifier, e.g. _SP 800-53A Rev. 1_
 Is *not* the relation between a withdrawn draft, and the next draft in the approval process
 (since the earlier draft is automatically no longer in effect).
 
+`:superseded-date:`::
+The date at which both this document and the document superseding it  come into effect,
+as a transition period before this document is withdrawn. May be identical to `:obsoleted-date:`,
+in which case there is no such transition period. Is indicated in withdrawn publication
+cover page; if not provided, the value of `:obsoleted-date:` is given.
+
 `:abandoned-date:`::
 The date at which work on a document is abandoned. At that date, the document is considered
 retired (`substage: retired`). In NIST, only drafts may be retired. If the document
@@ -344,18 +350,43 @@ The name of the organization that has sponsored the document, if applicable.
 The logo of the sponsoring organization, if applicable.
 
 `:superseding-status`: Document status/stage of the superseding document, if this document is
-superseded or withdrawn. Used for withdrawn drafts.
+superseded or withdrawn. Used for withdrawn drafts. Used for withdrawn published documents,
+if an entry for the superseding document is not available on the CSRC website (where it can be
+retrieved through the `:obsoleted-by:` document attribute.)
 `:superseding-iteration:`:: The iteration of the stage of the superseding document,
 in case there have been multiple drafts.  Can be a number, or text (e.g. "initial", "final").
-Used for withdrawn drafts.
+Used for withdrawn drafts. 
 `:superseding-title:`:: The title of the draft document superseding this document.
 If not supplied, the current title is assumed to have been retained. Used for withdrawn drafts.
+Used for withdrawn published documents,
+if an entry for the superseding document is not available on the CSRC website (where it can be
+retrieved through the `:obsoleted-by:` document attribute.)
+`:superseding-subtitle:`:: The subtitle of the draft document superseding this document.
+If not supplied, the current subtitle is assumed to have been retained. Used for withdrawn drafts.
+Used for withdrawn published documents,
+if an entry for the superseding document is not available on the CSRC website (where it can be
+retrieved through the `:obsoleted-by:` document attribute.)
 `:superseding-circulated-date:`::
 The date at which the draft document superseding this document is circulated. Used for withdrawn drafts.
+`:superseding-published-date:`::
+The date at which the document superseding this document is published.
+Used for withdrawn published documents,
+if an entry for the superseding document is not available on the CSRC website (where it can be
+retrieved through the `:obsoleted-by:` document attribute.)
 `:superseding-doi:`::
-The DOI of the draft document superseding this document. Used for withdrawn drafts.
+The DOI of the document superseding this document. Used for withdrawn drafts.
+Used for withdrawn published documents,
+if an entry for the superseding document is not available on the CSRC website (where it can be
+retrieved through the `:obsoleted-by:` document attribute.)
 `:superseding-url:`::
-The URL of the draft document superseding this document. Used for withdrawn drafts.
+The URL of the document superseding this document. Used for withdrawn drafts.
+Used for withdrawn published documents,
+if an entry for the superseding document is not available on the CSRC website (where it can be
+retrieved through the `:obsoleted-by:` document attribute.)
+`:superseding-authors:`::
+The authors of the superseding document. Comma-delimited. Used for withdrawn published documents,
+if an entry for the superseding document is not available on the CSRC website (where it can be
+retrieved through the `:obsoleted-by:` document attribute.)
 
 `:bib-additional-note:`:: Additional note (optional), used on coverpage of withdrawn and retired drafts.
 
@@ -587,7 +618,12 @@ using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 * For withdrawn drafts, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:`,
 `:superseding-status:`, `:superseding-iteration:` (if applicable), `:superseding-title:` (if applicable),
 `:superseding-circulated-date:`, `:superseding-doi:` (if applicable), `:superseding-url:`, `:bib-additional-note:` (if applicable)
-
+* For withdrawn published documents, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:` (when
+the current document is no longer in effect), `:superseded-date:` (when the transition period started, during which both
+documents were in effect, if applicable; if not, this has the same value as `:obsoleted-date:`),
+`:bib-additional-note:` (if applicable), `:obsoleted-by:` (giving the superseding document identifier). If the details
+of the superseding document are not available to be retrieved from the CSRC website), the following attributes must
+be provided: `:superseding-title:`, `:superseding-published-date:`
 
 
 

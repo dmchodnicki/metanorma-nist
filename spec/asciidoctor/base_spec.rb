@@ -352,13 +352,17 @@ OUTPUT
       :supersedes: NIST SP 800-179,NIST SP 800-53A Rev. 1
       :superseded-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
       :abandoned-date: 2021-01-01
+      :superseded-date: 2020-01-01
       :volume: 5
       :superseding-status: public-draft
       :superseding-iteration: final
       :superseding-title: Superseding Title
+      :superseding-subtitle: Superseding Subtitle
       :superseding-circulated-date: 2030-01-01
       :superseding-doi: http://doi.org/1
       :superseding-url: http://example.org/1
+      :superseding-published-date: 2031-01-01
+      :superseding-authors: Fred Nerk, Joe Bloggs
       :bib-additional-note: Additional Note
     INPUT
 
@@ -380,6 +384,9 @@ OUTPUT
          <docnumber>1000</docnumber>
          <date type="abandoned">
            <on>2021-01-01</on>
+         </date>
+         <date type="superseded">
+           <on>2020-01-01</on>
          </date>
          <contributor>
            <role type="author"/>
@@ -433,31 +440,44 @@ OUTPUT
              </organization>
            </owner>
          </copyright>
-         <editorialgroup>
-           <committee>TC</committee>
-           <subcommittee type="B" number="2">SC</subcommittee>
-           <workgroup type="C" number="3">WG</workgroup>
-         </editorialgroup>
          <relation type="obsoletes">
          #{NISTSP800179}
 </relation>
 <relation type="obsoletes">
   #{NISTSP80053ar1}
 </relation>
- <relation type="obsoletedBy">
-   <bibitem>
-     <title>Superseding Title</title>
-     <uri type="doi">http://doi.org/1</uri>
-     <uri type="uri">http://example.org/1</uri>
-     <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
-     <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
-     <date type="circulated">2030-01-01</date>
-     <status>
-       <stage>public-draft</stage>
-       <iteration>final</iteration>
-     </status>
-   </bibitem>
- </relation>
+<relation type="obsoletedBy">
+  <bibitem>
+    <title type="main">Superseding Title</title>
+    <title type="subtitle">Superseding Subtitle</title>
+    <uri type="doi">http://doi.org/1</uri>
+    <uri type="uri">http://example.org/1</uri>
+    <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
+    <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
+    <contributor>
+      <role type="author"/>
+      <person>
+        <name>
+          <completename>Fred Nerk</completename>
+        </name>
+      </person>
+    </contributor>
+    <contributor>
+      <role type="author"/>
+      <person>
+        <name>
+          <completename>Joe Bloggs</completename>
+        </name>
+      </person>
+    </contributor>
+    <date type="circulated"><on>2030-01-01</on></date>
+    <date type="published"><on>2031-01-01</on></date>
+    <status>
+      <stage>public-draft</stage>
+      <iteration>final</iteration>
+    </status>
+  </bibitem>
+</relation>
 <relation type="supersedes">
   #{NISTSP800179}
 </relation>
@@ -470,6 +490,11 @@ OUTPUT
 <relation type="supersededBy">
   #{NISTSP80053ar1}
 </relation>
+         <editorialgroup>
+           <committee>TC</committee>
+           <subcommittee type="B" number="2">SC</subcommittee>
+           <workgroup type="C" number="3">WG</workgroup>
+         </editorialgroup>
          <series type="main">
            <title>NIST Federal Information Processing Standards</title>
            <abbreviation>NIST FIPS</abbreviation>
