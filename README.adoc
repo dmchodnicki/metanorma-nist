@@ -626,12 +626,12 @@ In the following, parentheses indicate optional attributes.
 `:superseding-status:`, (`:superseding-iteration:`), (`:superseding-title:`), 
 (`:superseding-subtitle:`), `:superseding-circulated-date:`, (`:superseding-doi:`), 
 (`:superseding-url:`), (`:bib-additional-note:`)
-* For withdrawn published documents, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:` (when
+* For withdrawn published documents, the following attributes must be provided: `:published-date:`, `:obsoleted-date:` (when
 the current document is no longer in effect), `:superseded-date:` (when the transition period started, during which both
 documents were in effect, if applicable; if not, this has the same value as `:obsoleted-date:`), `:revdate:` (for
-when the withdrawal notice was added to the document),
-(`:bib-additional-note:`), `:obsoleted-by:` (giving the superseding document identifier), `:nist-division:`,
-(`:bib-withdrawal-note:`), (`:bib-withdrawal-announcement-link:`). If the details
+when the withdrawal notice was added to the document), (`:bib-additional-note:`) 
+("Related Information" in the withdrawn document coverpage), `:obsoleted-by:` (giving the superseding document identifier), 
+`:nist-division:`, (`:bib-withdrawal-note:`), (`:bib-withdrawal-announcement-link:`). If the details
 of the superseding document are not available to be retrieved from the CSRC website), the following attributes must
 be provided: `:superseding-title:`, (`:superseding-subtitle:`), `:superseding-published-date:`, `:superseding-status:`, 
 `:superseding-doi:`, `:superseding-url:`.
