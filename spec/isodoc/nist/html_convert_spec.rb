@@ -1026,7 +1026,7 @@ end
 
 it "cross-references recommendations" do
   expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
-        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <nist-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
     <p>
@@ -1086,7 +1086,7 @@ it "cross-references recommendations" do
   </recommendation>
     </clause>
     </annex>
-    </iso-standard>
+    </nist-standard>
 INPUT
   #{HTML_HDR}
 <br/>
@@ -1098,9 +1098,9 @@ INPUT
     <a href="#N">Section 1, Recommendation 3</a>
     <a href="#note1">Section 3.1, Recommendation 4</a>
     <a href="#note2">Section 3.1, Recommendation 5</a>
-    <a href="#AN">Appendix A.1, Recommendation A.1</a>
-    <a href="#Anote1">Appendix A.2, Recommendation A.2</a>
-    <a href="#Anote2">Appendix A.2, Recommendation A.3</a>
+    <a href="#AN">Appendix A.1, Recommendation A-1</a>
+    <a href="#Anote1">Appendix A.2, Recommendation A-2</a>
+    <a href="#Anote2">Appendix A.2, Recommendation A-3</a>
     </p>
     </div>
     <div id="intro">
@@ -1141,15 +1141,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="recommend"><title>Recommendation A.1:</title>
+    <div class="recommend"><title>Recommendation A-1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="recommend"><title>Recommendation A.2:</title>
+    <div class="recommend"><title>Recommendation A-2:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><title>Recommendation A.3:</title>
+    <div class="recommend"><title>Recommendation A-3:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
@@ -1186,7 +1186,7 @@ end
 
 it "cross-references requirements" do
   expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
-        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <nist-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
     <p>
@@ -1246,7 +1246,7 @@ it "cross-references requirements" do
   </requirement>
     </clause>
     </annex>
-    </iso-standard>
+    </nist-standard>
 INPUT
   #{HTML_HDR}
 <br/>
@@ -1258,9 +1258,9 @@ INPUT
     <a href="#N">Section 1, Requirement 3</a>
     <a href="#note1">Section 3.1, Requirement 4</a>
     <a href="#note2">Section 3.1, Requirement 5</a>
-    <a href="#AN">Appendix A.1, Requirement A.1</a>
-    <a href="#Anote1">Appendix A.2, Requirement A.2</a>
-    <a href="#Anote2">Appendix A.2, Requirement A.3</a>
+    <a href="#AN">Appendix A.1, Requirement A-1</a>
+    <a href="#Anote1">Appendix A.2, Requirement A-2</a>
+    <a href="#Anote2">Appendix A.2, Requirement A-3</a>
     </p>
     </div>
     <div id="intro">
@@ -1301,15 +1301,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="require"><title>Requirement A.1:</title>
+    <div class="require"><title>Requirement A-1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="require"><title>Requirement A.2:</title>
+    <div class="require"><title>Requirement A-2:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="require"><title>Requirement A.3:</title>
+    <div class="require"><title>Requirement A-3:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
@@ -1322,7 +1322,7 @@ end
 
 it "cross-references permissions" do
   expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
-        <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <nist-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
     <p>
@@ -1382,7 +1382,7 @@ it "cross-references permissions" do
   </permission>
     </clause>
     </annex>
-    </iso-standard>
+    </nist-standard>
 INPUT
   #{HTML_HDR}
 <br/>
@@ -1394,9 +1394,9 @@ INPUT
     <a href="#N">Section 1, Permission 3</a>
     <a href="#note1">Section 3.1, Permission 4</a>
     <a href="#note2">Section 3.1, Permission 5</a>
-    <a href="#AN">Appendix A.1, Permission A.1</a>
-    <a href="#Anote1">Appendix A.2, Permission A.2</a>
-    <a href="#Anote2">Appendix A.2, Permission A.3</a>
+    <a href="#AN">Appendix A.1, Permission A-1</a>
+    <a href="#Anote1">Appendix A.2, Permission A-2</a>
+    <a href="#Anote2">Appendix A.2, Permission A-3</a>
     </p>
     </div>
     <div id="intro">
@@ -1437,15 +1437,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="permission"><title>Permission A.1:</title>
+    <div class="permission"><title>Permission A-1:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="permission"><title>Permission A.2:</title>
+    <div class="permission"><title>Permission A-2:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="permission"><title>Permission A.3:</title>
+    <div class="permission"><title>Permission A-3:</title>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
@@ -1492,6 +1492,68 @@ it "cleans up requirements" do
        </body>
        </html>
   OUTPUT
+end
+
+it "captions assets in the executive summary separately" do
+    input = <<~"INPUT"
+          <nist-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+    <foreword id="fwd">
+    <p>
+        <permission id="N1">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+        <permission id="N2">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+    </p>
+    </foreword>
+        <executivesummary id="intro">
+        <permission id="N3">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+        <permission id="N4">
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  </permission>
+  </executivesummary>
+  </preface>
+  </nist-standard>
+INPUT
+
+output = <<~"OUTPUT"
+  #{HTML_HDR}
+      <br/>
+      <div id="fwd">
+        <h1 class="ForewordTitle">Foreword</h1>
+        <p>
+      <div class="permission"><title>Permission 1:</title>
+<img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+</div>
+      <div class="permission"><title>Permission 2:</title>
+<img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+</div>
+  </p>
+      </div>
+      <div id="intro">
+        <h1 class="NormalTitle"/>
+        <div class="permission"><title>Permission ES-1:</title>
+<img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+</div>
+        <div class="permission"><title>Permission ES-2:</title>
+<img src="rice_images/rice_image1.png" height="auto" width="auto"/>
+</div>
+      </div>
+    </div>
+  </body>
+OUTPUT
+
+expect(
+      IsoDoc::NIST::HtmlConvert.new({}).
+      convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+
 end
 
 end

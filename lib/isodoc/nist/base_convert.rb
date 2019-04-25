@@ -25,7 +25,7 @@ module IsoDoc
 
       FRONT_CLAUSE = "//*[parent::preface][not(local-name() = 'abstract')]".freeze
 
-       # All "[preface]" sections should have class "IntroTitle" to prevent
+      # All "[preface]" sections should have class "IntroTitle" to prevent
       # page breaks
       # But for the Exec Summary
       def preface(isoxml, out)
@@ -201,25 +201,12 @@ module IsoDoc
           t.tbody do |b|
             node.xpath(ns("./row")).each do |row|
               b.tr do |tr|
+                %w{date type change pages}.each do |hdr|
                 tr.td do |td|
-                  row&.at(ns("./date"))&.children.each do |n|
+                  row&.at(ns("./#{hdr}"))&.children.each do |n|
                     parse(n, td)
                   end
                 end
-                tr.td do |td|
-                  row&.at(ns("./type"))&.children.each do |n|
-                    parse(n, td)
-                  end
-                end
-                tr.td do |td|
-                  row&.at(ns("./change"))&.children.each do |n|
-                    parse(n, td)
-                  end
-                end
-                tr.td do |td|
-                  row&.at(ns("./pages"))&.children.each do |n|
-                    parse(n, td)
-                  end
                 end
               end
             end
@@ -255,7 +242,9 @@ module IsoDoc
         d.xpath("//xmlns:preface/child::*").each do |c|
           preface_names(c)
         end
-        sequential_asset_names(d.xpath("//xmlns:preface/child::*"))
+        @in_execsummary = true
+        hierarchical_asset_names(d.xpath("//xmlns:executivesummary"), "ES")
+        @in_execsummary = false
         clause_names(d, 0)
         middle_section_asset_names(d)
         termnote_anchor_names(d)
@@ -276,8 +265,8 @@ module IsoDoc
       end
 
       def middle_section_asset_names(d)
-        middle_sections = 
-          "//xmlns:preface/child::* | //xmlns:sections/child::*"
+        middle_sections = "//xmlns:preface/child::*[not(self::xmlns:executivesummary)] | "\
+"//xmlns:sections/child::*"
         sequential_asset_names(d.xpath(middle_sections))
       end
 
@@ -309,18 +298,10 @@ module IsoDoc
         end
       end
 
-
-      def hierarchical_asset_names(clause, num)
-        super
-        hierarchical_permission_names(clause, num)
-        hierarchical_requirement_names(clause, num)
-        hierarchical_recommendation_names(clause, num)
-      end
-
       def hierarchical_permission_names(clause, num)
         clause.xpath(ns(".//permission")).each_with_index do |t, i|
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+          @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
                                             t, "Permission", "permission")
         end
       end
@@ -328,7 +309,7 @@ module IsoDoc
       def hierarchical_requirement_names(clause, num)
         clause.xpath(ns(".//requirement")).each_with_index do |t, i|
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+          @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
                                             t, "Requirement", "requirement")
         end
       end
@@ -336,7 +317,7 @@ module IsoDoc
       def hierarchical_recommendation_names(clause, num)
         clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
           next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}.#{i + 1}",
+          @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
                                             t, "Recommendation", "recommendation")
         end
       end
