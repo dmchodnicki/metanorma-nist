@@ -41,10 +41,17 @@ module IsoDoc
         docnumber = isoxml.at(ns("//bibdata/docnumber"))&.text
         set(:docidentifier, docid)
         set(:docidentifier_long, docid_long)
+        set(:docidentifier_undated, stripdate(docid))
+        set(:docidentifier_long_undated, stripdate(docid_long))
         d = draft_prefix(isoxml) and set(:draft_prefix, d)
         d = iter_code(isoxml) and set(:iteration_code, d)
         d = iter_ordinal(isoxml) and set(:iteration_ordinal, d)
         set(:docnumber, docnumber)
+      end
+
+      def stripdate(id)
+        return if id.nil?
+        id.sub(/ \((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[^)]+\)$/, "")
       end
 
       def draft_prefix(isoxml)
@@ -125,6 +132,25 @@ module IsoDoc
           set("#{d['type']}date_MMMddyyyy".to_sym, daterange_proc(val, :MMMddyyyy))
         end
         withdrawal_pending(isoxml)
+        most_recent_date(isoxml)
+      end
+
+      def most_recent_date(isoxml)
+        date = most_recent_date1(isoxml) || return
+        val = Common::date_range(date)
+        return if val == "XXX"
+        set(:most_recent_date_monthyear, daterange_proc(val, :monthyr))
+        set(:most_recent_date_mmddyyyy, daterange_proc(val, :mmddyyyy))
+        set(:most_recent_date_MMMddyyyy, daterange_proc(val, :MMMddyyyy))
+      end
+
+      def most_recent_date1(isoxml)
+        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+        /^draft/.match(docstatus) ?
+          (isoxml.at(ns("//bibdata/date[@type = 'circulated']")) ||
+           isoxml.at(ns("//version/revision-date"))) :
+        (isoxml.at(ns("//bibdata/date[@type = 'updated']")) ||
+         isoxml.at(ns("//bibdata/date[@type = 'published']")))
       end
 
       def withdrawal_pending(isoxml)

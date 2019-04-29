@@ -78,34 +78,50 @@ module Asciidoctor
         did
       end
 
-      def metadata_id_compose(node, xml, dn0)
-        return unless dn0
-        s = node.attr("series")
-        e = node.attr("revision")
-        v = node.attr("volume")
-        xml.docidentifier add_id_parts(dn0, s, e, v, false),
-          **attr_code(type: "nist")
-        xml.docidentifier add_id_parts(dn0, s, e, v, true),
-          **attr_code(type: "nist-long")
-        xml.docidentifier add_id_parts_mr(dn0, s, e, v, node.attr("revdate")),
-          **attr_code(type: "nist-mr")
+      def id_args(node, dn0)
+        {
+          id: dn0,
+          series: node.attr("series"),
+          revision: node.attr("revision"),
+          vol: node.attr("volume"),
+          date: /^draft/.match(node.attr("stage")) ?
+          node.attr("updated-date") :
+          (node.attr("circulated-date") || node.attr("revdate"))
+        }
       end
 
-      def add_id_parts(dn, series, revision, vol, long)
+      def metadata_id_compose(node, xml, dn0)
+        return unless dn0
+        args = id_args(node, dn0)
+        xml.docidentifier add_id_parts(args, false), **attr_code(type: "nist")
+        xml.docidentifier add_id_parts(args, true),
+          **attr_code(type: "nist-long")
+        xml.docidentifier add_id_parts_mr(args), **attr_code(type: "nist-mr")
+      end
+
+      def MMMddyyyy(isodate)
+        return nil if isodate.nil?
+        Date.parse(isodate).strftime("%B %d, %Y")
+      end
+
+      def add_id_parts(args, long)
         vol_delim = " Volume "
         ed_delim = " Revision "
-        series and series_name = long ? SERIES.dig(series.to_sym) :
-          SERIES_ABBR.dig(series.to_sym)
-        dn = (series_name || "NIST #{series}")  + " " + dn
-        dn += "#{vol_delim}#{vol}" if vol
-        dn += "," if vol && revision
-        dn += "#{ed_delim}#{revision}" if revision
+        args[:series] and series_name = long ?
+          SERIES.dig(args[:series].to_sym) :
+          SERIES_ABBR.dig(args[:series].to_sym)
+        dn = (series_name || "NIST #{args[:series]}")  + " " + args[:id]
+        dn += "#{vol_delim}#{args[:vol]}" if args[:vol]
+        dn += "," if args[:vol] && args[:revision]
+        dn += "#{ed_delim}#{args[:revision]}" if args[:revision]
+        dn += " (#{MMMddyyyy(args[:date])})" if args[:date]
         dn
       end
 
-      def add_id_parts_mr(dn, series, revision, vol, revdate)
-        series and name = SERIES_ABBR.dig(series.to_sym).sub(/^NIST /, "")
-        "NIST.#{name}.#{vol}.#{revision}.#{revdate}"
+      def add_id_parts_mr(args)
+        args[:series] and
+          name = SERIES_ABBR.dig(args[:series].to_sym).sub(/^NIST /, "")
+        "NIST.#{name}.#{args[:vol]}.#{args[:revision]}.#{args[:date]}"
       end
 
       def metadata_author(node, xml)

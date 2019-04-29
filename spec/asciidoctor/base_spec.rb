@@ -381,8 +381,8 @@ OUTPUT
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
         <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
-         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
+         <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3 (January 01, 2000)</docidentifier>
+         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3 (January 01, 2000)</docidentifier>
          <docidentifier type="nist-mr">NIST.FIPS.5.3.2000-01-01</docidentifier>
          <docnumber>1000</docnumber>
          <date type="abandoned">
@@ -458,8 +458,8 @@ OUTPUT
     <title type="subtitle">Superseding Subtitle</title>
     <uri type="doi">http://doi.org/1</uri>
     <uri type="uri">http://example.org/1</uri>
-    <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
-    <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
+    <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3 (January 01, 2000)</docidentifier>
+    <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3 (January 01, 2000)</docidentifier>
     <contributor>
       <role type="author"/>
       <person>
@@ -518,6 +518,143 @@ OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to output
   end
+
+    it "processes default metadata for errata release" do
+            expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to <<~'OUTPUT'
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :no-isobib-cache:
+      :docnumber: 1000
+      :doctype: standard
+      :revision: 3
+      :revdate: 2000-05-01
+      :updated-date: 2000-02-01
+      :draft: 3.4
+      :technical-committee: TC
+      :technical-committee-number: 1
+      :technical-committee-type: A
+      :technical-committee_2: TC1
+      :technical-committee-number_2: 11
+      :technical-committee-type_2: A1
+      :subcommittee: SC
+      :subcommittee-number: 2
+      :subcommittee-type: B
+      :workgroup: WG
+      :workgroup-number: 3
+      :workgroup-type: C
+      :secretariat: SECRETARIAT
+      :copyright-year: 2001
+      :status: final
+      :iteration: 3
+      :language: en
+      :security: Client Confidential
+      :keywords: a, b, c
+      :fullname: Fred Flintstone
+      :role: author
+      :surname_2: Rubble
+      :givenname_2: Barney
+      :role_2: editor
+      :affiliation_2: Slate Rock and Gravel Company
+      :address_2: Bedrock
+      :title-main: Main Title
+      :title-sub: Subtitle
+      :title-document-class: Part
+      :title-main-short: Short Main Title
+      :title-sub-short: Short Subtitle
+      :partnumber: 2
+      :doc-email: email@example.com
+      :uri: http://www.example.com
+      :doi: http://www.example2.com
+      :series: nist-fips
+      :subseries: information-security
+      INPUT
+       <nist-standard xmlns="http://www.nist.gov/metanorma">
+       <bibdata type="standard">
+         <title language="en" format="text/plain" type="main">Main Title</title>
+         <title language="en" format="text/plain" type="short-title">Short Main Title</title>
+         <title language="en" format="text/plain" type="subtitle">Subtitle</title>
+         <title language="en" format="text/plain" type="short-subtitle">Short Subtitle</title>
+         <title language="en" format="text/plain" type="document-class">Part</title>
+         <uri>http://www.example.com</uri>
+         <uri type="email">email@example.com</uri>
+         <uri type="doi">http://www.example2.com</uri>
+         <docidentifier type="nist">NIST FIPS 1000 Revision 3 (May 01, 2000)</docidentifier>
+         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Revision 3 (May 01, 2000)</docidentifier>
+         <docidentifier type="nist-mr">NIST.FIPS..3.2000-05-01</docidentifier>
+         <docnumber>1000</docnumber>
+         <date type="updated">
+           <on>2000-02-01</on>
+         </date>
+         <contributor>
+           <role type="author"/>
+           <person>
+             <name>
+               <completename>Fred Flintstone</completename>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="editor"/>
+           <person>
+             <name>
+               <forename>Barney</forename>
+
+               <surname>Rubble</surname>
+             </name>
+             <affiliation>
+               <organization>
+                 <name>Slate Rock and Gravel Company</name>
+                 <address>
+                   <formattedAddress>Bedrock</formattedAddress>
+                 </address>
+               </organization>
+             </affiliation>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>NIST</name>
+           </organization>
+         </contributor>
+         <revision>3</revision>
+         <version>
+           <revision-date>2000-05-01</revision-date>
+           <draft>3.4</draft>
+         </version>
+         <language>en</language>
+         <script>Latn</script>
+         <status>
+           <stage>final</stage>
+           <substage>active</substage>
+           <iteration>3</iteration>
+         </status>
+         <copyright>
+           <from>2001</from>
+           <owner>
+             <organization>
+               <name>NIST</name>
+             </organization>
+           </owner>
+         </copyright>
+         <editorialgroup>
+           <committee>TC</committee>
+           <subcommittee type="B" number="2">SC</subcommittee>
+           <workgroup type="C" number="3">WG</workgroup>
+         </editorialgroup>
+         <series type="main">
+           <title>NIST Federal Information Processing Standards</title>
+           <abbreviation>NIST FIPS</abbreviation>
+         </series>
+         <keyword>a</keyword>
+         <keyword>b</keyword>
+         <keyword>c</keyword>
+       </bibdata>
+      OUTPUT
+end
 
     it "ignores unrecognised status, overrides docidentifier" do
         expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to <<~'OUTPUT'
@@ -700,8 +837,8 @@ OUTPUT
     <title type="main" language="en" format="text/plain">Document title</title>
   <uri type="email">email@example.com</uri>
   <uri type="doi">http://www.example.com</uri>
-  <docidentifier type="nist">NIST  ABC</docidentifier>
-  <docidentifier type="nist-long">NIST  ABC</docidentifier>
+  <docidentifier type="nist">NIST  ABC (January 01, 2013)</docidentifier>
+  <docidentifier type="nist-long">NIST  ABC (January 01, 2013)</docidentifier>
   <docidentifier type="nist-mr">NIST....2013-01-01</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>

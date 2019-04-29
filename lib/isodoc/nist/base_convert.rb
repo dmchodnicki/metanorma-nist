@@ -270,58 +270,6 @@ module IsoDoc
         sequential_asset_names(d.xpath(middle_sections))
       end
 
-      def sequential_asset_names(clause)
-        super
-        sequential_permission_names(clause)
-        sequential_requirement_names(clause)
-        sequential_recommendation_names(clause)
-      end
-
-      def sequential_permission_names(clause)
-        clause.xpath(ns(".//permission")).each_with_index do |t, i|
-          next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct(i + 1, t, "Permission", "permission")
-        end
-      end
-
-      def sequential_requirement_names(clause)
-        clause.xpath(ns(".//requirement")).each_with_index do |t, i|
-          next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct(i + 1, t, "Requirement", "requirement")
-        end
-      end
-
-      def sequential_recommendation_names(clause)
-        clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
-          next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct(i + 1, t, "Recommendation", "recommendation")
-        end
-      end
-
-      def hierarchical_permission_names(clause, num)
-        clause.xpath(ns(".//permission")).each_with_index do |t, i|
-          next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                            t, "Permission", "permission")
-        end
-      end
-
-      def hierarchical_requirement_names(clause, num)
-        clause.xpath(ns(".//requirement")).each_with_index do |t, i|
-          next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                            t, "Requirement", "requirement")
-        end
-      end
-
-      def hierarchical_recommendation_names(clause, num)
-        clause.xpath(ns(".//recommendation")).each_with_index do |t, i|
-          next if t["id"].nil? || t["id"].empty?
-          @anchors[t["id"]] = anchor_struct("#{num}#{hiersep}#{i + 1}",
-                                            t, "Recommendation", "recommendation")
-        end
-      end
-
       def clause_names(docxml, sect_num)
         q = "//xmlns:sections/child::*"
         docxml.xpath(q).each_with_index do |c, i|

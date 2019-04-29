@@ -8,8 +8,8 @@
 </authority1>
 
 <authority2>
-<p align="center">National Institute of Standards and Technology {{ docidentifier_long | remove: "NIST " }} <br/>
-Natl. Inst. Stand. Technol. {{ docidentifier | remove: "NIST " | replace: " Volume ", " Vol. " }}, ({{ revdate_monthyear }}) <br/>
+<p align="center">National Institute of Standards and Technology {{ docidentifier_long_undated | remove: "NIST " }} <br/>
+Natl. Inst. Stand. Technol. {{ docidentifier_undated | remove: "NIST " | replace: " Volume ", " Vol. " }}, ({{ most_recent_date_monthyear }}) <br/>
 CODEN: NSPUE2</p>
 
 {% if doi %}
