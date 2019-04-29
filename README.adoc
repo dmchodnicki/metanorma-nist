@@ -141,7 +141,7 @@ docnumber-edition (if edition is present)
 
 `:docidentifier:`:: The document identifier for the document. Normally this should not be supplied,
 as the document identifier is composed from the document series, document number, document volume,
-and edition/revision (e.g. _NIST SP 800 Revision 1_). 
+and edition/revision (e.g. _NIST SP 800 Revision 1_).
 If the `:docidentifier:` value is provided, it will override this composed value.
 
 `:edition:`:: Edition (revision) of the document. The value of
@@ -158,7 +158,7 @@ this attribute will be displayed as part of the heading, prefixed with "Revision
 * `final-review`
 --
 
-`:substage:`:: Document substage. Indicates active status of draft or publication. 
+`:substage:`:: Document substage. Indicates active status of draft or publication.
 If a draft or publication is inactive, that is reflected in the coverpage. The
 permitted types are:
 +
@@ -166,7 +166,7 @@ permitted types are:
 * `active` (default)
 * `retired` (applies only to drafts, when they are abandoned). The `:abandoned-date:` must
 be provided, to indicate when the draft was abandoned.
-* `withdrawn` (applies to drafts, when when they are superseded by the next draft stage, 
+* `withdrawn` (applies to drafts, when when they are superseded by the next draft stage,
 and to published documents when they are superseded or no longer valid.
 --
 
@@ -253,7 +253,7 @@ e.g. "Computer Security" for SP 800.
 `:doi:`:: DOI URL for document (distinct from `:uri:`, which is the URL that NIST
 publishes the document under.)
 
-`:call-for-patent-claims:`:: Include the Call for Patent Claims in document drafts, 
+`:call-for-patent-claims:`:: Include the Call for Patent Claims in document drafts,
 and the Patent Disclosure Notice in finalised documents.
 
 `:commitment-to-licence:`:: Indicate in the Patent Disclosure Notice that
@@ -268,26 +268,26 @@ Can be a number, or text (e.g. "initial", "final").
 `:series:`:: The publication series that the document belongs to. Legal values are:
 +
 --
-* nist-ams 
-*  building-science 
-*  nist-fips 
-*  nist-gcr 
-*  nist-hb 
-*  itl-bulletin 
-*  jpcrd 
-*  nist-jres 
-*  letter-circular 
-*  nist-monograph 
-*  nist-ncstar 
-*  nist-nsrds 
-*  nistir 
-*  product-stadnards 
-*  nist-sp  
-*  nist-tn 
-*  other 
-*  csrc-white-paper 
-*  csrc-book 
-*  csrc-use-case 
+* nist-ams
+*  building-science
+*  nist-fips
+*  nist-gcr
+*  nist-hb
+*  itl-bulletin
+*  jpcrd
+*  nist-jres
+*  letter-circular
+*  nist-monograph
+*  nist-ncstar
+*  nist-nsrds
+*  nistir
+*  product-stadnards
+*  nist-sp
+*  nist-tn
+*  other
+*  csrc-white-paper
+*  csrc-book
+*  csrc-use-case
 *  csrc-building-block
 --
 
@@ -350,40 +350,48 @@ The name of the organization that has sponsored the document, if applicable.
 `:sponsor-logo:`::
 The logo of the sponsoring organization, if applicable.
 
-`:superseding-status`: Document status/stage of the superseding document, if this document is
+`:superseding-status:`:: Document status/stage of the superseding document, if this document is
 superseded or withdrawn. Used for withdrawn drafts. Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
+
 `:superseding-iteration:`:: The iteration of the stage of the superseding document,
 in case there have been multiple drafts.  Can be a number, or text (e.g. "initial", "final").
-Used for withdrawn drafts. 
+Used for withdrawn drafts.
+
 `:superseding-title:`:: The title of the draft document superseding this document.
 If not supplied, the current title is assumed to have been retained. Used for withdrawn drafts.
 Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
+
 `:superseding-subtitle:`:: The subtitle of the draft document superseding this document.
 If not supplied, the current subtitle is assumed to have been retained. Used for withdrawn drafts.
 Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
+
 `:superseding-circulated-date:`::
 The date at which the draft document superseding this document is circulated. Used for withdrawn drafts.
+
 `:superseding-published-date:`::
 The date at which the document superseding this document is published.
 Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
+
 `:superseding-doi:`::
 The DOI of the document superseding this document. Used for withdrawn drafts.
 Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
+
 `:superseding-url:`::
 The URL of the document superseding this document. Used for withdrawn drafts.
 Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
+
 `:superseding-authors:`::
 The authors of the superseding document. Comma-delimited. Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
@@ -391,7 +399,9 @@ retrieved through the `:obsoleted-by:` document attribute.)
 
 `:bib-additional-note:`:: Additional note (optional), used on coverpage of withdrawn and retired drafts, and as
 "Related Information" on coverpage of withdrawn published documents.
+
 `:bib-withdrawal-note:`:: Withdrawal note, used on coverpage of withdrawn published documents.
+
 `:bib-withdrawal-announcement-link:`:: Hyperlink to announcement of withdrawal, used on coverpage of withdrawn published documents.
 
 == Asciidoctor features specific to NIST
@@ -415,7 +425,7 @@ by NIST...").
 The authority statement has been marked up in Metanorma XML rather than Asciidoctor because of its complexity.
 If you wish to supply a different authority statement, you will need to provide a piece of Metanorma XML corresponding
 to the existing default statement (available from link:lib/asciidoctor/nist/nist_intro.xml[]), and containing
-text corresponding to the sections given above. You can give the location of your own authority statement file 
+text corresponding to the sections given above. You can give the location of your own authority statement file
 relative to the current document through the document attribute `:boilerplate-authority:`.
 
 === Author affiliations
@@ -603,7 +613,7 @@ stem:[A= {x_1, x_2, ..., x_k}]:: The alphabet, i.e., the set of all possible sym
 === Document status
 
 The following table illustrates how transitions between stages of NIST documents are indicated
-using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`. 
+using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 
 |===
 | ISO stage | NIST | 93 Repeat current phase | 98 Abandon | 99 Proceed
@@ -615,30 +625,30 @@ using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 | 50 Approval | (NIST ERB review) | | `:status: draft-public`, `:substage: retired` | `:status: final`
 | 60 Publication | `:status: final`
 | 90 Review | `:status: final-review` | `:status: final`, `:confirmed-date: XXXX-XX-XX` | `:status: final`, `:substage: withdrawn` | `:status: draft-internal` (revise or amend)
-| 95 Withdrawal | `:status: final`, `:substage: withdrawn` | | | 
+| 95 Withdrawal | `:status: final`, `:substage: withdrawn` | | |
 |===
 
 In the following, parentheses indicate optional attributes.
 
-* For retired drafts, the following attributes must be provided: `:circulated-date:`, 
+* For retired drafts, the following attributes must be provided: `:circulated-date:`,
 `:abandoned-date:`, (`:bib-additional-note:`)
 * For withdrawn drafts, the following attributes must be provided: `:circulated-date:`, `:obsoleted-date:`,
-`:superseding-status:`, (`:superseding-iteration:`), (`:superseding-title:`), 
-(`:superseding-subtitle:`), `:superseding-circulated-date:`, (`:superseding-doi:`), 
+`:superseding-status:`, (`:superseding-iteration:`), (`:superseding-title:`),
+(`:superseding-subtitle:`), `:superseding-circulated-date:`, (`:superseding-doi:`),
 (`:superseding-url:`), (`:bib-additional-note:`)
 * For withdrawn published documents, the following attributes must be provided: `:published-date:`, `:obsoleted-date:` (when
 the current document is no longer in effect), `:superseded-date:` (when the transition period started, during which both
 documents were in effect, if applicable; if not, this has the same value as `:obsoleted-date:`), `:revdate:` (for
-when the withdrawal notice was added to the document), (`:bib-additional-note:`) 
-("Related Information" in the withdrawn document coverpage), `:obsoleted-by:` (giving the superseding document identifier), 
+when the withdrawal notice was added to the document), (`:bib-additional-note:`)
+("Related Information" in the withdrawn document coverpage), `:obsoleted-by:` (giving the superseding document identifier),
 `:nist-division:`, (`:bib-withdrawal-note:`), (`:bib-withdrawal-announcement-link:`). If the details
 of the superseding document are not available to be retrieved from the CSRC website), the following attributes must
-be provided: `:superseding-title:`, (`:superseding-subtitle:`), `:superseding-published-date:`, `:superseding-status:`, 
+be provided: `:superseding-title:`, (`:superseding-subtitle:`), `:superseding-published-date:`, `:superseding-status:`,
 `:superseding-doi:`, `:superseding-url:`.
 
 === Document identifier
 
-There are three identifiers automatically generated by Metanorma for NIST documents; they 
+There are three identifiers automatically generated by Metanorma for NIST documents; they
 can be overridden by providing a `:docidentifier:` value.
 
 * The NIST identifier is composed as follows:
