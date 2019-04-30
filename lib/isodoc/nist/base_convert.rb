@@ -346,6 +346,43 @@ module IsoDoc
           biblio_list(node, div, true)
         end
       end
+
+      NIST_PUBLISHER_XPATH = 
+        "./contributor[xmlns:role/@type = 'publisher']/"\
+        "organization[abbreviation = 'NIST' or xmlns:name = 'NIST']".freeze
+
+      # we are taking the ref number/code out as prefix to reference
+      def noniso_bibitem(list, b, ordinal, bibliography)
+        list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
+          if !b.at(ns("./formattedref"))
+            nist_reference_format(b, r)
+          else
+            reference_format(b, r)
+          end
+        end
+      end
+
+      def reference_format(b, r)
+        if ftitle = b.at(ns("./formattedref"))
+          ftitle&.children&.each { |n| parse(n, r) }
+        else
+          title = b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
+          r.i do |i|
+            title&.children&.each { |n| parse(n, i) }
+          end
+        end
+        r << "[#{iso_bibitem_ref_code(b)}] "
+      end
+
+      def omit_docid_prefix(prefix)
+        return true if prefix.nil? || prefix.empty?
+        return ["ISO", "IEC", "nist"].include? prefix
+      end
+
+      def nist_reference_format(b, r)
+        bibitem = b.dup.to_xml
+        r.parent.add_child ::Iso690Render.render(bibitem, true)
+      end
     end
   end
 end

@@ -3,6 +3,7 @@ require_relative "asciidoctor/nist/converter"
 require_relative "isodoc/nist/html_convert"
 require_relative "isodoc/nist/pdf_convert"
 require_relative "isodoc/nist/word_convert"
+require_relative "isodoc/nist/render"
 require_relative "metanorma/nist/version"
 
 if defined? Metanorma
