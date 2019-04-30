@@ -123,9 +123,8 @@ OUTPUT
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-    <preface>
     #{AUTHORITY}
-    </preface>
+    <preface/>
 <sections/>
 </nist-standard>
     OUTPUT
@@ -143,9 +142,8 @@ OUTPUT
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-    <preface>
     #{AUTHORITY}
-    </preface>
+    <preface/>
 <sections/>
 </nist-standard>
     OUTPUT
@@ -721,8 +719,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface>
              #{AUTHORITY}
+             <preface>
         <foreword obligation="informative">
          <title>Foreword</title>
          <p id="_">This is a preamble</p>
@@ -803,9 +801,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface>
 <authority>ABC</authority>
-</preface><sections/>
+<preface/><sections/>
 </nist-standard>
     OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
@@ -871,16 +868,17 @@ end
     <extended>2010-01-03</extended>
   </commentperiod>
 </bibdata>
-<preface><authority>
+<boilerplate>
+<legal-statement>
+<clause id="authority1" obligation="normative">
        <title>Authority</title>
 
-       <authority1>
        <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. § 3551 <em>et seq.</em>, Public Law (P.L.) 113-283. NIST is responsible for developing information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
 
        <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
-       </authority1>
+       </clause>
 
-       <authority2>
+       <clause id="authority2" obligation="normative">
        <p align="center" id="_">National Institute of Standards and Technology ABC <br/>
        Natl. Inst. Stand. Technol. ABC, (January 2013) <br/>
        CODEN: NSPUE2</p>
@@ -889,17 +887,19 @@ end
        <p align="center" id="_">This publication is available free of charge from: <br/>
          <link target="http://www.example.com"/></p>
 
-       </authority2>
+       </clause>
 
-       <authority3>
+       <clause id="authority3" obligation="normative">
        <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
 
        <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
 
        <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <link target="https://csrc.nist.gov/publications"/>
-       </p></authority3>
+       </p></clause>
+       </legal-statement>
 
-       <authority4>
+       <feedback-statement>
+       <clause id="authority4" obligation="normative">
 
        <p align="center" id="_">[2010-01-03: Comment period extended]</p>
 
@@ -907,9 +907,9 @@ end
 
        <p align="center" id="_"><strong>Public comment period: <em>2010-01-01</em> through <em>2010-01-02</em></strong></p>
 
-       </authority4>
+       </clause>
 
-       <authority5>
+       <clause id="authority5" obligation="normative">
        <p align="center" id="_"><strong>Comments on this publication may be submitted to:</strong></p>
 
        <p align="center" id="_">National Institute of Standards and Technology <br/>
@@ -918,9 +918,10 @@ end
        Email: <link target="mailto:email@example.com"/></p>
 
        <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
-       </authority5>
-       </authority>
-       </preface>
+       </clause>
+       </feedback-statement>
+       </boilerplate>
+       <preface/>
 
 <sections/>
 </nist-standard>
@@ -967,11 +968,11 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
+    #{AUTHORITY}
     <preface>
     <abstract id="_">
          <p id="_">This is an abstract</p>
        </abstract>
-    #{AUTHORITY}
 <foreword obligation="informative">
   <title>Reports on Computer Systems Technology</title>
   <p id="_">This is a preamble</p>
@@ -1019,9 +1020,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface>
     #{AUTHORITY}
-         </preface>
+             <preface/>
        <sections>
         <p id="_"><em>emphasis</em>
        <strong>strong</strong>
@@ -1061,9 +1061,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface>
     #{AUTHORITY}
-         </preface>
+             <preface/>
        <sections>
          <figure id="_" type="pseudocode"><name>Label</name><p id="_">
   <em>Input: S=(s1, sL)</em>
@@ -1100,9 +1099,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface>
     #{AUTHORITY}
-         </preface>
+             <preface/>
 <sections>
   <sourcecode id="_">&lt;xccdf:check system="<nistvariable>http://oval.mitre.org/XMLSchema/oval-definitions-5</nistvariable>"&gt;</sourcecode>
 </sections>
@@ -1126,9 +1124,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface>
     #{AUTHORITY}
-         </preface>
+             <preface/>
 <sections>
   <errata>
   <row>
@@ -1171,9 +1168,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-             <preface>
     #{AUTHORITY}
-         </preface>
+             <preface/>
          <sections>
 
 </sections><annex id="_" obligation="normative">
@@ -1211,9 +1207,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-            <preface>
     #{AUTHORITY}
-         </preface>
+            <preface/>
          <sections>
 
 </sections><annex id="_" obligation="normative">
@@ -1297,9 +1292,8 @@ end
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-         <preface>
     #{AUTHORITY}
-         </preface>
+         <preface/>
          <sections/>
 
          <annex id="_" obligation="normative">
@@ -1351,10 +1345,9 @@ end
 
       output = <<~"OUTPUT"
     #{BLANK_HDR}
-         <preface>
     #{AUTHORITY}
-
-         </preface><sections><clause id="_" obligation="normative">
+         <preface/>
+         <sections><clause id="_" obligation="normative">
   <title>Section</title>
   <ul id="_">
   <li>

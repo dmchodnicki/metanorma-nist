@@ -64,6 +64,7 @@ module IsoDoc
           info docxml, div2
           abstract docxml, div2
           keywords docxml, div2
+          boilerplate docxml, div2
           preface docxml, div2
           div2.p { |p| p << "&nbsp;" } # placeholder
         end
@@ -74,6 +75,11 @@ module IsoDoc
         insert = docxml.at("//div[@class = 'WordSection2']")
         auth = docxml&.at("//div[@class = 'authority']")&.remove || return
         insert.children.first.add_previous_sibling(auth)
+        a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
+        a = docxml.at("//div[@id = 'authority2']") and a["class"] = "authority2"
+        a = docxml.at("//div[@id = 'authority3']") and a["class"] = "authority3"
+        a = docxml.at("//div[@id = 'authority4']") and a["class"] = "authority4"
+        a = docxml.at("//div[@id = 'authority5']") and a["class"] = "authority5"
       end
 
       def cleanup(docxml)
@@ -193,10 +199,10 @@ module IsoDoc
           h2.name = "p"
           h2["class"] = "h1Preface"
         end
-         docxml.xpath("//h2[ancestor::div/@class = 'authority']").each do |h2|
+        docxml.xpath("//h2[ancestor::div/@class = 'authority']").each do |h2|
           h2.name = "p"
           h2["class"] = "h2Preface"
-         end
+        end
       end
 
       def word_cleanup(docxml)

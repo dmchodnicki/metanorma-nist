@@ -1,13 +1,14 @@
-<authority>
-<title>Authority</title>
+<boilerplate>
+  <legal-statement>
 
-<authority1>
+<clause id="authority1">
+<title>Authority</title>
 <p>This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. &#xa7; 3551 <em>et seq.</em>, Public Law (P.L.) 113-283. NIST is responsible for developing information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
 
 <p>Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
-</authority1>
+</clause>
 
-<authority2>
+<clause id="authority2">
 <p align="center">National Institute of Standards and Technology {{ docidentifier_long_undated | remove: "NIST " }} <br/>
 Natl. Inst. Stand. Technol. {{ docidentifier_undated | remove: "NIST " | replace: " Volume ", " Vol. " }}, ({{ most_recent_date_monthyear }}) <br/>
 CODEN: NSPUE2</p>
@@ -16,18 +17,20 @@ CODEN: NSPUE2</p>
 <p align="center">This publication is available free of charge from: <br/>
   <link target="{{doi}}"/></p>
 {% endif %}
-</authority2>
+</clause>
 
-<authority3>
+<clause id="authority3">
 <p>Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
 
 <p>There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
 
 <p>Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <link target="https://csrc.nist.gov/publications"/>
-</authority3>
+</clause>
+</legal-statement>
 
+<feedback-statement>
   {% if unpublished %}
-<authority4>
+<clause id="authority4">
 {% if comment_extended %}
 <p align="center">[{{ comment_extended}}: Comment period extended]</p>
 {% endif %}
@@ -39,10 +42,10 @@ CODEN: NSPUE2</p>
 <p align="center"><strong>Public comment period: from <em>{{ comment_from }}</em></strong></p>
 {% endif %}
 {% endif %}
-</authority4>
+</clause>
 {% endif %}
 
-<authority5>
+<clause id="authority5">
   <p align="center"><strong>Comments on this publication may be submitted to:</strong></p>
 
 <p align="center">National Institute of Standards and Technology <br/>
@@ -53,5 +56,6 @@ CODEN: NSPUE2</p>
   {% endif %}</p>
 
 <p align="center">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
-</authority5>
-</authority>
+</clause>
+</feedback-statement>
+</boilerplate>

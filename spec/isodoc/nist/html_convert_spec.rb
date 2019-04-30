@@ -506,20 +506,20 @@ RSpec.describe IsoDoc::NIST do
   end
 
   it "processes boilerplate" do
-    input = <<~"INPUT"
+      IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", false)
     <nist-standard xmlns="https://open.ribose.com/standards/example">
-<preface>
-    <authority>
+    <boilerplate>
+    <legal-statement>
+    <clause id="authority1">
        <title>Authority</title>
 
-       <authority1>
        <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. § 3551 <em>et seq.</em>, Public Law (P.L.) 113-283. NIST is responsible for develoo
 ping information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
 
        <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
-       </authority1>
+       </clause>
 
-       <authority2>
+       <clause id="authority2">
        <p align="center" id="_">National Institute of Standards and Technology ABC <br/>
        Natl. Inst. Stand. Technol. ABC, () <br/>
        CODEN: NSPUE2</p>
@@ -528,17 +528,19 @@ ping information security standards and guidelines, including minimum requiremen
        <p align="center" id="_">This publication is available free of charge from: <br/>
          <link target="http://www.example.com"/></p>
 
-       </authority2>
+       </clause>
 
-       <authority3>
+       <clause id="authority3">
        <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
 
        <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
 
        <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <link target="https://csrc.nist.gov/publications"/>
-       </p></authority3>
+       </p></clause>
+       </legal-statement>
 
-       <authority4>
+       <feedback-statement>
+       <clause id="authority4">
 
        <p align="center" id="_">[2010-01-03: Comment period extended]</p>
 
@@ -546,9 +548,9 @@ ping information security standards and guidelines, including minimum requiremen
 
        <p align="center" id="_"><strong>Public comment period: <em>2010-01-01</em> through <em>2010-01-02</em></strong></p>
 
-       </authority4>
+       </clause>
 
-       <authority5>
+       <clause id="authority5">
        <title>Comments on this publication may be submitted to:</title>
 
        <p align="center" id="_">National Institute of Standards and Technology <br/>
@@ -557,25 +559,25 @@ ping information security standards and guidelines, including minimum requiremen
        Email: <link target="mailto:email@example.com"/></p>
 
        <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
-       </authority5>
-       </authority>
-       </preface>
+       </clause>
+       </feedback-statement>
+       </boilerplate>
+       <preface/>
 </nist-standard>
     INPUT
 
     output = <<~"OUTPUT"
-        #{HTML_HDR}
              <div class="authority">
-              <h1>Authority</h1>
 
-              <div class="authority1">
+              <div id="authority1" class="authority1">
+              <h2>Authority</h2>
               <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. &#167; 3551 <i>et seq.</i>, Public Law (P.L.) 113-283. NIST is responsible for develoo
        ping information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
 
               <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
               </div>
 
-              <div class="authority2">
+              <div id="authority2" class="authority2"><h2/>
               <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology ABC <br/>
               Natl. Inst. Stand. Technol. ABC, () <br/>
               CODEN: NSPUE2</p>
@@ -586,7 +588,7 @@ ping information security standards and guidelines, including minimum requiremen
 
               </div>
 
-              <div class="authority3">
+              <div id="authority3" class="authority3"><h2/>
               <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
 
               <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
@@ -594,7 +596,7 @@ ping information security standards and guidelines, including minimum requiremen
               <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <a href="https://csrc.nist.gov/publications">https://csrc.nist.gov/publications</a>
               </p></div>
 
-              <div class="authority4">
+              <div id="authority4" class="authority4"><h2/>
 
               <p id="_" align="center" style="text-align:center">[2010-01-03: Comment period extended]</p>
 
@@ -604,7 +606,7 @@ ping information security standards and guidelines, including minimum requiremen
 
               </div>
 
-              <div class="authority5">
+              <div id="authority5" class="authority5">
               <h2>Comments on this publication may be submitted to:</h2>
 
               <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology <br/>
@@ -615,16 +617,12 @@ ping information security standards and guidelines, including minimum requiremen
               <p id="_" align="center" style="text-align:center">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
               </div>
               </div>
-           </div>
-         </body>
     OUTPUT
 
-    expect(
-      IsoDoc::NIST::HtmlConvert.new({}).
-      convert("test", input, true).
-      gsub(%r{^.*<body}m, "<body").
-      gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+      expect(File.exist?("test.html")).to be true
+  html = File.read("test.html", encoding: "utf-8").sub(/^.*<div class="authority">/m, '<div class="authority">').sub(/<nav>.*$/m, "")
+
+    expect(html).to be_equivalent_to output
   end
 
 
@@ -1171,9 +1169,8 @@ it "injects JS into blank html" do
 
   output = <<~"OUTPUT"
   #{BLANK_HDR}
-  <preface>
   #{AUTHORITY}
-  </preface>
+  <preface/>
 <sections/>
 </nist-standard>
   OUTPUT

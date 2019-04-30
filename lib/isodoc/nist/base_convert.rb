@@ -31,7 +31,6 @@ module IsoDoc
       def preface(isoxml, out)
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
           foreword(isoxml, out) and next if c.name == "foreword"
-          authority_parse(c, out) and next if c.name == "authority"
           next if skip_render(c, isoxml)
           title = c&.at(ns("./title"))
           patent = ["Call for Patent Claims", "Patent Disclosure Notice"].include? title&.text
@@ -113,20 +112,17 @@ module IsoDoc
         when "requirement" then requirement_parse(node, out)
         when "permission" then permission_parse(node, out)
         when "errata" then errata_parse(node, out)
-        when "authority" then authority_parse(node, out)
-        when "authority1" then authority1_parse(node, out, "authority1")
-        when "authority2" then authority1_parse(node, out, "authority2")
-        when "authority3" then authority1_parse(node, out, "authority3")
-        when "authority4" then authority1_parse(node, out, "authority4")
-        when "authority5" then authority1_parse(node, out, "authority5")
+        when "legal-statement" then children_parse(node, out)
+        when "feedback-statement" then children_parse(node, out)
         else
           super
         end
       end
 
-      def authority_parse(node, out)
+      def boilerplate(node, out)
+        boilerplate = node.at(ns("//boilerplate")) or return
         out.div **{class: "authority"} do |s|
-          node.children.each do |n|
+          boilerplate.children.each do |n|
             if n.name == "title"
               s.h1 do |h|
                 n.children.each { |nn| parse(nn, h) }
@@ -137,18 +133,10 @@ module IsoDoc
           end
         end
       end
-
-      def authority1_parse(node, out, classname)
-        out.div **{class: classname} do |s|
-          node.children.each do |n|
-            if n.name == "title"
-              s.h2 do |h|
-                n.children.each { |nn| parse(nn, h) }
-              end
-            else
-              parse(n, s)
-            end
-          end
+      
+      def children_parse(node, out)
+        node.children.each do |n|
+          parse(n, out)
         end
       end
 
@@ -239,7 +227,7 @@ module IsoDoc
         "//bibliography/clause".freeze
 
       def initial_anchor_names(d)
-        d.xpath("//xmlns:preface/child::*").each do |c|
+        d.xpath("//xmlns:boilerplate/child::* | //xmlns:preface/child::*").each do |c|
           preface_names(c)
         end
         @in_execsummary = true

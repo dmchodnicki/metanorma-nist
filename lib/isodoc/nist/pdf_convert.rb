@@ -85,6 +85,7 @@ module IsoDoc
         body.div **{ class: "main-section" } do |div3|
           abstract docxml, div3
           keywords docxml, div3
+          boilerplate docxml, div3
           preface docxml, div3
           middle docxml, div3
           footnotes div3
@@ -96,6 +97,11 @@ module IsoDoc
         dest = docxml.at("//div[@id = 'authority']") || return
         auth = docxml.at("//div[@class = 'authority']") || return
         dest.replace(auth.remove)
+                a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
+        a = docxml.at("//div[@id = 'authority2']") and a["class"] = "authority2"
+        a = docxml.at("//div[@id = 'authority3']") and a["class"] = "authority3"
+        a = docxml.at("//div[@id = 'authority4']") and a["class"] = "authority4"
+        a = docxml.at("//div[@id = 'authority5']") and a["class"] = "authority5"
       end
 
       def cleanup(docxml)

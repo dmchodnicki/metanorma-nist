@@ -48,17 +48,17 @@ module Asciidoctor
         end
       end
 
-      def move_authority_into_preface(x, preface)
-        if x.at("//authority")
-          boilerplate = x.at("//authority")
-          preface.add_child boilerplate.remove
+      def move_authority_before_preface(x, preface)
+        if x.at("//boilerplate")
+          boilerplate = x.at("//boilerplate")
+          preface.previous = boilerplate.remove
         else
-          preface.add_child boilerplate(x)
+          preface.previous = boilerplate(x)
         end
       end
 
       def move_sections_into_preface(x, preface)
-        move_authority_into_preface(x, preface)
+        move_authority_before_preface(x, preface)
         abstract = x.at("//abstract") and preface.add_child abstract.remove
         foreword = x.at("//foreword") and preface.add_child foreword.remove
         intro = x.at("//introduction") and preface.add_child intro.remove

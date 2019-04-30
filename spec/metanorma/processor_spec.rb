@@ -32,9 +32,8 @@ RSpec.describe Metanorma::NIST::Processor do
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
-    <preface>
     #{AUTHORITY}
-    </preface>
+    <preface/>
 <sections/>
 </nist-standard>
     OUTPUT
