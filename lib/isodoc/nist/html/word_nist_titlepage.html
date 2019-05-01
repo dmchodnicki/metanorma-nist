@@ -473,7 +473,7 @@ style='font-size:14.0pt'><o:p>&#xa0;</o:p></span></p>
   <td width="456" valign="top" style='width:342.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class="Default" style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
   margin-left:0cm'><span lang="EN-US" style='font-size:12.0pt;font-family:"Times New Roman",serif;
-  color:black;mso-themecolor:text1'>{{ superseding_published_date_monthyear }}<o:p></o:p></span></p>
+  color:black;mso-themecolor:text1'>{{ superseding_published_date_monthyear }}{% if superseding_updated_date_MMMddyyyy %}(including updates as of {{superseding_updated_date_MMMddyyyy}}){% endif %} <o:p></o:p></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
@@ -667,7 +667,13 @@ style='width:477.0pt;margin-left:-5.25pt;border-collapse:collapse;border:none;ms
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class="Default"><span lang="EN-US" style='font-size:11.0pt;font-family:"Calibri",sans-serif;
   mso-ascii-theme-font:major-latin;mso-hansi-theme-font:major-latin;mso-bidi-font-family:
-  "Times New Roman";color:black;mso-themecolor:text1'>{{ publisheddate_monthyear }}<o:p></o:p></span></p>
+  "Times New Roman";color:black;mso-themecolor:text1'>{{ publisheddate_monthyear }}<o:p></o:p></span>
+{% if confirmeddate and confirmeddate != "XXX" %}
+<span style="font-size:11.0pt;color:black;font-family:"Calibri",sans-serif;">(publication is current as of {{ confirmeddate_mmddyyyy }})</span>
+{% elsif errata and updateddate and updateddate != "XXX" %}
+ <span style="font-size:14.0pt;color:black;font-family:"Calibri",sans-serif;">(including updates as of {{ updateddate_mmddyyyy }})</span>
+{% endif %}
+  </p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
