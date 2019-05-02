@@ -254,8 +254,8 @@ module Asciidoctor
           b.date **{ type: "circulated" } do |d|
           d.on cdate
         end
-        cdate = node.attr("superseding-published-date") and
-          b.date **{ type: "published" } do |d|
+        cdate = node.attr("superseding-issued-date") and
+          b.date **{ type: "issued" } do |d|
           d.on cdate
         end
       end

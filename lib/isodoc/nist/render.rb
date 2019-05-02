@@ -138,7 +138,7 @@ module Iso690Render
 
   def self.date(doc)
     updated = date1(doc&.at("./date[@type = 'updated']"))
-    pub = date1(doc&.at("./date[@type = 'published']"))
+    pub = date1(doc&.at("./date[@type = 'issued']"))
     if pub
       ret = pub
       ret += " (updated #{updated})" if updated
@@ -273,7 +273,8 @@ module Iso690Render
     type = type(doc)
     container = doc.at("./relation[@type='includedIn']")
     if container && date(doc) && !date(container)
-      container("./bibitem") << doc.at("./date[@type = 'published']").remove
+      container("./bibitem") << 
+      ( doc.at("./date[@type = 'issued']").remove || doc.at("./date[@type = 'circulated']").remove )
     end
     ser = series_title(doc)
 

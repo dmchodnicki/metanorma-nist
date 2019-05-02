@@ -149,7 +149,7 @@ module IsoDoc
         /^draft/.match(docstatus) ?
           (isoxml.at(ns("//bibdata/date[@type = 'circulated']")) ||
            isoxml.at(ns("//version/revision-date"))) :
-        ( isoxml.at(ns("//bibdata/date[@type = 'published']")))
+        ( isoxml.at(ns("//bibdata/date[@type = 'issued']")))
       end
 
       def withdrawal_pending(isoxml)
@@ -288,9 +288,9 @@ module IsoDoc
           set(:superseding_circulated_date, cdate)
           set(:superseding_circulated_date_monthyear, monthyr(cdate))
         end
-        if cdate = d.at(ns("./date[@type = 'published']/on"))&.text
-          set(:superseding_published_date, cdate)
-          set(:superseding_published_date_monthyear, monthyr(cdate))
+        if cdate = d.at(ns("./date[@type = 'issued']/on"))&.text
+          set(:superseding_issued_date, cdate)
+          set(:superseding_issued_date_monthyear, monthyr(cdate))
         end
         if cdate = d.at(ns("./date[@type = 'updated']/on"))&.text
           set(:superseding_updated_date, cdate)

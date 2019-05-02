@@ -359,7 +359,7 @@ OUTPUT
       :superseding-circulated-date: 2030-01-01
       :superseding-doi: http://doi.org/1
       :superseding-url: http://example.org/1
-      :superseding-published-date: 2031-01-01
+      :superseding-issued-date: 2031-01-01
       :superseding-authors: Fred Nerk, Joe Bloggs
       :bib-additional-note: Additional Note
       :bib-withdrawal-note: Withdrawal Note
@@ -475,7 +475,7 @@ OUTPUT
       </person>
     </contributor>
     <date type="circulated"><on>2030-01-01</on></date>
-    <date type="published"><on>2031-01-01</on></date>
+    <date type="issued"><on>2031-01-01</on></date>
     <status>
       <stage>public-draft</stage>
       <iteration>final</iteration>

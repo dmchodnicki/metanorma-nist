@@ -130,8 +130,14 @@ introduced with `=`, is used.
 
 `:technical-committee:`:: The name of the relevant committee producing the document.
 
-`:published-date:`:: The publication date for the document. Only applies to public documents;
+`:issued-date:`:: The date on which the document was authorised to be published.
+Referred to within NIST as the "Publication Date". This is the date used on the document
+cover page. Only applies to public documents;
 drafts instead have a `:circulated-date:` attribute.
+
+`:published-date:`:: The publication date for the document, when it was physically released.
+Referred to within NIST as the "Release Date". This date is not used on the document cover
+page; `:issued-date:` is used instead. The Release Date is included in NIST bibliographic metadata.
 
 `:uri:`:: The URI to which this standard is published.
 
@@ -374,8 +380,8 @@ retrieved through the `:obsoleted-by:` document attribute.)
 `:superseding-circulated-date:`::
 The date at which the draft document superseding this document is circulated. Used for withdrawn drafts.
 
-`:superseding-published-date:`::
-The date at which the document superseding this document is published.
+`:superseding-issued-date:`::
+The date at which the document superseding this document was authorised to be published.
 Used for withdrawn published documents,
 if an entry for the superseding document is not available on the CSRC website (where it can be
 retrieved through the `:obsoleted-by:` document attribute.)
@@ -636,14 +642,14 @@ In the following, parentheses indicate optional attributes.
 `:superseding-status:`, (`:superseding-iteration:`), (`:superseding-title:`),
 (`:superseding-subtitle:`), `:superseding-circulated-date:`, (`:superseding-doi:`),
 (`:superseding-url:`), (`:bib-additional-note:`)
-* For withdrawn published documents, the following attributes must be provided: `:published-date:`, `:obsoleted-date:` (when
+* For withdrawn published documents, the following attributes must be provided: `:issued-date:`, `:obsoleted-date:` (when
 the current document is no longer in effect), `:superseded-date:` (when the transition period started, during which both
 documents were in effect, if applicable; if not, this has the same value as `:obsoleted-date:`), `:revdate:` (for
 when the withdrawal notice was added to the document), (`:bib-additional-note:`)
 ("Related Information" in the withdrawn document coverpage), `:obsoleted-by:` (giving the superseding document identifier),
 `:nist-division:`, (`:bib-withdrawal-note:`), (`:bib-withdrawal-announcement-link:`). If the details
 of the superseding document are not available to be retrieved from the CSRC website), the following attributes must
-be provided: `:superseding-title:`, (`:superseding-subtitle:`), `:superseding-published-date:`, `:superseding-status:`,
+be provided: `:superseding-title:`, (`:superseding-subtitle:`), `:superseding-issued-date:`, `:superseding-status:`,
 `:superseding-doi:`, `:superseding-url:`.
 
 === Document identifier
