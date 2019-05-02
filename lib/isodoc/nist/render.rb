@@ -105,9 +105,9 @@ module Iso690Render
   end
 
   def self.is_nist(doc)
-       publisher = doc&.at("./contributor[role/@type = 'publisher']/organization/name")&.text
+    publisher = doc&.at("./contributor[role/@type = 'publisher']/organization/name")&.text
     abbr = doc&.at("./contributor[role/@type = 'publisher']/organization/abbreviation")&.text
- publisher == "NIST" || abbr == "NIST"
+    publisher == "NIST" || abbr == "NIST"
   end
 
   def self.placepub(doc)
@@ -268,6 +268,40 @@ module Iso690Render
     Date.parse(isodate).strftime("%B %d, %Y")
   end
 
+  def self.draft(doc)
+    return nil unless is_nist(doc)
+    dr = doc&.at("./status/stage")&.text
+    iter = doc&.at("./status/iteration")&.text
+    return nil unless /^draft/.match(dr)
+    iterord = iter_ordinal(doc)
+    status = status_print(dr)
+    status = "#{iterord} #{status}" if iterord
+    status
+  end
+
+  def self.iter_ordinal(isoxml)
+    docstatus = isoxml.at(("./status/stage"))&.text
+    return nil unless docstatus == "draft-public"
+    iter = isoxml.at(("./status/iteration"))&.text || "1"
+    return "Initial" if iter == "1"
+    return "Final" if iter.downcase == "final"
+    iter.to_i.localize.to_rbnf_s("SpelloutRules", "spellout-ordinal").capitalize
+  end
+
+  def self.status_print(status)
+    case status
+    when "draft-internal" then "Internal Draft"
+    when "draft-wip" then "Work-in-Progress Draft"
+    when "draft-prelim" then "Preliminary Draft"
+    when "draft-public" then "Public Draft"
+    when "draft-retire" then "Retired Draft"
+    when "draft-withdrawn" then "Withdrawn Draft"
+    when "final" then "Final"
+    when "final-review" then "Under Review"
+    when "final-withdrawn" then "Withdrawn"
+    end
+  end
+
   def self.parse(doc, embedded = false)
     ret = ""
     type = type(doc)
@@ -277,6 +311,7 @@ module Iso690Render
       ( doc.at("./date[@type = 'issued']").remove || doc.at("./date[@type = 'circulated']").remove )
     end
     ser = series_title(doc)
+    dr = draft(doc)
 
     # NIST has seen fit to completely change rendering based on the type of publication.
     if ser == "NIST Federal Information Processing Standards"
@@ -285,12 +320,19 @@ module Iso690Render
       ret += embedded ? wrap(creatornames(doc), "", "") : wrap(creatornames(doc), "", "")
     end
 
+    if dr
+      mdy = MMMddyyyy(date(doc)) and ret += wrap(mdy, " (", ")")
+    else
     yr = year(date(doc)) and ret += wrap(yr, " (", ")")
+    end
     ret += included(type) ? wrap(title(doc)) : wrap(title(doc), " <I>", "</I>.")
     ret += wrap(medium(doc), " [", "].")
     #ret += wrap(edition(doc), "", " edition.")
     s = series(doc, type)
     ret += wrap(placepub(doc), " (", "),")
+    if dr
+      ret += " Draft (#{dr})"
+    end
     ret += wrap(series(doc, type), " ", "")
     ret += "," if series(doc, type) && date(doc)
     ret += wrap(date(doc))

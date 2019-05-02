@@ -84,10 +84,31 @@ module Asciidoctor
           series: node.attr("series"),
           revision: node.attr("revision"),
           vol: node.attr("volume"),
-          date: /^draft/.match(node.attr("stage")) ?
-          node.attr("updated-date") :
-          (node.attr("circulated-date") || node.attr("revdate"))
+          stage: node.attr("status"),
+          iter: node.attr("iteration"),
+          date: /^draft/.match(node.attr("status")) ?
+          (node.attr("circulated-date") || node.attr("revdate")) :
+          node.attr("updated-date")
         }
+      end
+
+      def stage_abbr(stage, iter)
+        case stage
+        when "draft-internal" then "Internal"
+        when "draft-wip" then "WIP"
+        when "draft-prelim" then "Prelim"
+        when "draft-public"
+          iter ||= "1"
+          iterabbr = case iter.downcase
+                     when "1" then "I"
+                     when "final" then "F"
+                     else
+                       iter
+                     end
+          "#{iterabbr}PD"
+        else
+          nil
+        end
       end
 
       def metadata_id_compose(node, xml, dn0)
@@ -114,6 +135,8 @@ module Asciidoctor
         dn += "#{vol_delim}#{args[:vol]}" if args[:vol]
         dn += "," if args[:vol] && args[:revision]
         dn += "#{ed_delim}#{args[:revision]}" if args[:revision]
+        stage = stage_abbr(args[:stage], args[:iter])
+        dn += " (#{stage})" if stage
         dn += " (#{MMMddyyyy(args[:date])})" if args[:date]
         dn
       end

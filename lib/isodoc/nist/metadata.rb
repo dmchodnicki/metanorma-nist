@@ -106,8 +106,6 @@ module IsoDoc
         when "draft-wip" then "Work-in-Progress Draft"
         when "draft-prelim" then "Preliminary Draft"
         when "draft-public" then "Public Draft"
-        when "draft-retire" then "Retired Draft"
-        when "draft-withdrawn" then "Withdrawn Draft"
         when "final" then "Final"
         when "final-review" then "Under Review"
         when "final-withdrawn" then "Withdrawn"
