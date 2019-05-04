@@ -690,7 +690,24 @@ of hyperlinks, as illustrated in the following:
 http://www.example.com[See the example.com link,title=tooltip text]
 --
 
+=== Tables
 
+For accessibility, NIST authors are expected to insert titles into tables in Word documents as summaries.
+The equivalent in Metanorma is to include alt text in any hyperlinks in Asciidoctor, using the `alt` attribute
+of tables, as illustrated in the following:
+
+[source,asciidoctor]
+--
+[[table-crossreference-id]]
+.Table caption
+[alt="Table summary, for use in accessible media"]
+|===
+| Head | Head
+
+| Body | Body
+| Body | Body
+|===
+--
 
 
 ////
