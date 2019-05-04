@@ -679,6 +679,21 @@ a full identifier in `:docidentifier:`.
 `:revdate:`, may be used instead; but document citation assumes that the document is stable enough to be cited
 only at the time it is formally released.
 
+=== Hyperlinks
+
+For accessibility, NIST authors are expected to insert tool tips into the hyperlinks they generate in Word documents.
+The equivalent in Metanorma is to include alt text in any hyperlinks in Asciidoctor, using the `title` attribute
+of hyperlinks, as illustrated in the following:
+
+[source,asciidoctor]
+--
+http://www.example.com[See the example.com link,title=tooltip text]
+--
+
+
+
+
+////
 === Sponsor
 
 The title page templates cater for at most one sponsoring organization and its logo. If more than one
@@ -695,9 +710,8 @@ line breaks:
 :sponsor-logo:fema.gif
 :sponsor: *Department of Homeland Security* \ + Janet Napolitano, _Secretary_ \ + *Federal Emergency Management Association* \ + Craig Fugate, _Administrator_ \ + *United States Fire Administration* \+ Kelvin J. Cochran, _Assistant Administrator_
 ----
-
-
 ////
+
 
 == Examples
 
