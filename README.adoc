@@ -351,7 +351,8 @@ is not currently retired (as indicated through `:substage: retired`),
 but will be in the future, that is still indicated in the rendering of the document.
 
 `:sponsor:`::
-The name of the organization that has sponsored the document, if applicable.
+The name of the organization that has sponsored the document, if applicable. The attribute can
+contain multiple lines and Metanorma formatting.
 
 `:sponsor-logo:`::
 The logo of the sponsoring organization, if applicable.
@@ -418,15 +419,15 @@ The following markup is specific to this gem:
 
 === Authority statement
 
-The authority statement in NIST consists of five sections, and these are marked up in
-Metanorma XML with the tags `<authority1>, <authority2>, <authority3>, <authority4>, <authority5>`:
+The authority statement in NIST consists of five sections. They are semantically encoded in Metanorma
+XML under the `boilerplate` tag, as subclauses:
 
-`authority1`:: The initial section of the authority section ("This publication has been developed
+`boilerplate/legal-statement/clause[@id = 'authority1']`:: The initial section of the authority section ("This publication has been developed
 by NIST...").
-`authority2`:: The identifier, revision date, and URL of the document.
-`authority3`:: The boxed disclaimer statement ("Any mention of commercial products or reference to commercial organizations...")
-`authority4`:: The public comment period, for drafts
-`authority5`:: The contact details for comments
+`boilerplate/legal-statement/clause[@id = 'authority2']`:: The identifier, revision date, and URL of the document.
+`boilerplate/legal-statement/clasue[@id = 'authority3']`:: The boxed disclaimer statement ("Any mention of commercial products or reference to commercial organizations...")
+`boilerplate/feedback-statement/clause[@id = 'authority4']`:: The public comment period, for drafts
+`boilerplate/feedback-statement/clause[@id = 'authority5']`:: The contact details for comments
 
 The authority statement has been marked up in Metanorma XML rather than Asciidoctor because of its complexity.
 If you wish to supply a different authority statement, you will need to provide a piece of Metanorma XML corresponding
@@ -663,7 +664,12 @@ can be overridden by providing a `:docidentifier:` value.
 ** "Volume " followed by the volume number, if present
 ** A comma, if there is both a volume number and a revision number
 ** "Revision " followed by the revision number, if present
-** The update date, in MMM dd, yyyy format, if present. The update date is:
+** The draft abbreviation in parentheses, if present:
+*** The iteration number. For public drafts, the first iteration is abbreviated I, the final iteration as F.
+For work-in-progress and preliminary drafts, the first iteration is not shown.
+*** The abbreviation of the draft stage: WD for Work-In-Progress, PreD for Preliminary, PD for public.
+*** So: WD, 2WD, 3WD, FWD; PreD, 2PreD, 3PreD, FPreD; IPD, 2PD, 3PD, FPD
+** The update date, in parentheses, MMM dd, yyyy format, if present. The update date is:
 *** If the document is published (`:status:` starts with `final`), the date of an errata release (`:update-date:`).
 If there is a revision published for the document, that revision is by default now identified by a revision
 number, rather than a publication date; but NIST practice varies, and this can be overridden by providing
@@ -672,6 +678,23 @@ a full identifier in `:docidentifier:`.
 (`:circulated-date:`). If `:circulated-date:` is not provided, the date the document was last revised,
 `:revdate:`, may be used instead; but document citation assumes that the document is stable enough to be cited
 only at the time it is formally released.
+
+=== Sponsor
+
+The title page templates cater for at most one sponsoring organization and its logo. If more than one
+sponsor is involved, manual intervention will be required on the title page.
+
+The sponsor logo (`:sponsor-logo:`) is an image file, and it appears on the left hand side of the Word
+title page, oppose the NIST logo. The sponsor name (`:sponsor:`) appears underneath the logo. The attribute
+can be just the name, or it can be a multi-line attribute, containing Asciidoctor markup. In that case,
+it should be entered using Asciidoctor conventions for multi-line document attributes, with `\ +` used for
+line breaks:
+
+[source,asciidoctor]
+----
+:sponsor-logo:fema.gif
+:sponsor: *Department of Homeland Security* \ + Janet Napolitano, _Secretary_ \ + *Federal Emergency Management Association* \ + Craig Fugate, _Administrator_ \ + *United States Fire Administration* \+ Kelvin J. Cochran, _Assistant Administrator_
+----
 
 
 ////

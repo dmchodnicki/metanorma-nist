@@ -92,25 +92,6 @@ module Asciidoctor
         }
       end
 
-      def stage_abbr(stage, iter)
-        case stage
-        when "draft-internal" then "Internal"
-        when "draft-wip" then "WIP"
-        when "draft-prelim" then "Prelim"
-        when "draft-public"
-          iter ||= "1"
-          iterabbr = case iter.downcase
-                     when "1" then "I"
-                     when "final" then "F"
-                     else
-                       iter
-                     end
-          "#{iterabbr}PD"
-        else
-          nil
-        end
-      end
-
       def metadata_id_compose(node, xml, dn0)
         return unless dn0
         args = id_args(node, dn0)
@@ -135,7 +116,7 @@ module Asciidoctor
         dn += "#{vol_delim}#{args[:vol]}" if args[:vol]
         dn += "," if args[:vol] && args[:revision]
         dn += "#{ed_delim}#{args[:revision]}" if args[:revision]
-        stage = stage_abbr(args[:stage], args[:iter])
+        stage = IsoDoc::NIST::Metadata.new(nil, nil, {}).stage_abbr(args[:stage], args[:iter])
         dn += " (#{stage})" if stage
         dn += " (#{MMMddyyyy(args[:date])})" if args[:date]
         dn

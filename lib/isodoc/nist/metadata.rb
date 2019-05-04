@@ -3,80 +3,115 @@ require "twitter_cldr"
 
 module IsoDoc
   module NIST
-
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)
         super
         set(:status, "XXX")
       end
 
-      def title(isoxml, out)
-        main = isoxml&.at(ns("//bibdata/title[@type = 'main']"))&.text
+      def iter_abbr(stage, iter)
+        return "F" if iter&.downcase == "final" &&
+          %w(draft-wip draft-prelim draft-public).include?(stage)
+        case stage
+        when "draft-wip", "draft-prelim"
+          iter || ""
+        when "draft-public"
+          iter ||= "1"
+          iter == "1" ? "I" : iter
+        else
+          ""
+        end
+      end
+
+      def stage_abbr(stage, iter)
+        case stage
+        when "draft-internal" then "Internal"
+        when "draft-wip" then "#{iter_abbr(stage, iter)}WD"
+        when "draft-prelim" then "#{iter_abbr(stage, iter)}PreD"
+        when "draft-public" then "#{iter_abbr(stage, iter)}PD"
+        else
+          nil
+        end
+      end
+
+      def title(ixml, out)
+        main = ixml&.at(ns("//bibdata/title[@type = 'main']"))&.text
         set(:doctitle, main)
-        short = isoxml&.at(ns("//bibdata/title[@type = 'short-title']"))&.text
+        short = ixml&.at(ns("//bibdata/title[@type = 'short-title']"))&.text
         set(:doctitle_short, short || main)
       end
 
-      def subtitle(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/title[@type = 'subtitle']"))&.text
+      def subtitle(ixml, _out)
+        main = ixml&.at(ns("//bibdata/title[@type = 'subtitle']"))&.text
         set(:docsubtitle, main) if main
-        short = isoxml&.at(ns("//bibdata/title[@type = 'short-subtitle']"))&.text
+        short = ixml&.at(ns("//bibdata/title[@type = 'short-subtitle']"))&.text
         set(:docsubtitle_short, short || main) if (short || main)
-        main = isoxml&.at(ns("//bibdata/title[@type = 'document-class']"))&.text
+        main = ixml&.at(ns("//bibdata/title[@type = 'document-class']"))&.text
         set(:docclasstitle, main) if main
       end
 
-      def author(isoxml, _out)
-        tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
+      def author(ixml, _out)
+        tc = ixml.at(ns("//bibdata/editorialgroup/committee"))
         set(:tc, tc.text.upcase) if tc
-        personal_authors(isoxml)
-        subdiv = isoxml.at(ns("//bibdata/contributor[role/@type = 'publisher']/organization/subdivision"))
+        personal_authors(ixml)
+        subdiv = ixml.at(ns("//bibdata/contributor[role/@type = 'publisher']/"\
+                            "organization/subdivision"))
         set(:nist_subdiv, subdiv.text) if subdiv
       end
 
-      def docid(isoxml, _out)
-        docid = isoxml.at(ns("//bibdata/docidentifier[@type = 'nist']"))&.text
-        docid_long = isoxml.at(ns("//bibdata/docidentifier"\
-                                  "[@type = 'nist-long']"))&.text
-        docnumber = isoxml.at(ns("//bibdata/docnumber"))&.text
+      def docid(ixml, _out)
+        docid = ixml.at(ns("//bibdata/docidentifier[@type = 'nist']"))&.text
+        docid_long = ixml.at(ns("//bibdata/docidentifier"\
+                                "[@type = 'nist-long']"))&.text
+        docnumber = ixml.at(ns("//bibdata/docnumber"))&.text
         set(:docidentifier, docid)
         set(:docidentifier_long, docid_long)
         set(:docidentifier_undated, stripdate(docid))
         set(:docidentifier_long_undated, stripdate(docid_long))
-        d = draft_prefix(isoxml) and set(:draft_prefix, d)
-        d = iter_code(isoxml) and set(:iteration_code, d)
-        d = iter_ordinal(isoxml) and set(:iteration_ordinal, d)
+        d = draft_prefix(ixml) and set(:draft_prefix, d)
+        d = iter_code(ixml) and set(:iteration_code, d)
+        d = iter_ordinal(ixml) and set(:iteration_ordinal, d)
         set(:docnumber, docnumber)
       end
 
       def stripdate(id)
         return if id.nil?
-        id.sub(/ \((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[^)]+\)$/, "")
+        id.sub(/ \((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[^)]+\)$/,
+               "")
       end
 
-      def draft_prefix(isoxml)
-        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+      def draft_prefix(ixml)
+        docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
         return nil unless docstatus && /^draft/.match(docstatus)
-        iter = iter_code(isoxml)
+        iter = iter_code(ixml)
         prefix = "DRAFT "
         iter and prefix += "(#{iter}) "
         prefix
       end
 
-      def iter_code(isoxml)
-        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+      def iter_code(ixml)
+        docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
         return nil unless docstatus == "draft-public"
-        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text || "1"
+        iter = ixml.at(ns("//bibdata/status/iteration"))&.text || "1"
         return "IPD" if iter == "1"
         return "FPD" if iter.downcase == "final"
         "#{iter}PD"
       end
 
-      def iter_ordinal(isoxml)
-        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
-        return nil unless docstatus == "draft-public"
-        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text || "1"
-        return "Initial" if iter == "1"
+      # override the above
+      def iter_code(ixml)
+        docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
+        iter = ixml.at(ns("//bibdata/status/iteration"))&.text
+        stage_abbr(docstatus, iter)
+      end
+
+      def iter_ordinal(ixml)
+        docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
+        #return nil unless docstatus == "draft-public"
+        iter = ixml.at(ns("//bibdata/status/iteration"))&.text
+        iter ||= "1" if docstatus == "draft-public"
+        return if iter.nil?
+        return "Initial" if iter == "1" && docstatus == "draft-public"
         return "Final" if iter.downcase == "final"
         iter.to_i.localize.to_rbnf_s("SpelloutRules", "spellout-ordinal")
       end
@@ -89,15 +124,15 @@ module IsoDoc
         IsoDoc::Function::I18n::l10n(draftinfo, @lang, @script)
       end
 
-      def docstatus(isoxml, _out)
-        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+      def docstatus(ixml, _out)
+        docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
         set(:unpublished, !/^draft/.match(docstatus).nil?)
-        substage = isoxml.at(ns("//bibdata/status/substage"))&.text
+        substage = ixml.at(ns("//bibdata/status/substage"))&.text
         substage and set(:substage, substage)
-        iter = isoxml.at(ns("//bibdata/status/iteration"))&.text
+        iter = ixml.at(ns("//bibdata/status/iteration"))&.text
         set(:iteration, iter) if iter
         set(:status, status_print(docstatus || "final"))
-        set(:errata, true) if isoxml.at(ns("//errata"))
+        set(:errata, true) if ixml.at(ns("//errata"))
       end
 
       def status_print(status)
@@ -112,29 +147,29 @@ module IsoDoc
         end
       end
 
-      def version(isoxml, _out)
+      def version(ixml, _out)
         super
-        set(:revision, isoxml&.at(ns("//bibdata/revision"))&.text)
+        set(:revision, ixml&.at(ns("//bibdata/revision"))&.text)
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
         set(:revdate_MMMddyyyy, MMMddyyyy(revdate))
       end
 
-      def bibdate(isoxml, _out)
+      def bibdate(ixml, _out)
         super
-        isoxml.xpath(ns("//bibdata/date")).each do |d|
+        ixml.xpath(ns("//bibdata/date")).each do |d|
           val = Common::date_range(d)
           next if val == "XXX"
           set("#{d['type']}date_monthyear".to_sym, daterange_proc(val, :monthyr))
           set("#{d['type']}date_mmddyyyy".to_sym, daterange_proc(val, :mmddyyyy))
           set("#{d['type']}date_MMMddyyyy".to_sym, daterange_proc(val, :MMMddyyyy))
         end
-        withdrawal_pending(isoxml)
-        most_recent_date(isoxml)
+        withdrawal_pending(ixml)
+        most_recent_date(ixml)
       end
 
-      def most_recent_date(isoxml)
-        date = most_recent_date1(isoxml) || return
+      def most_recent_date(ixml)
+        date = most_recent_date1(ixml) || return
         val = Common::date_range(date)
         return if val == "XXX"
         set(:most_recent_date_monthyear, daterange_proc(val, :monthyr))
@@ -142,16 +177,16 @@ module IsoDoc
         set(:most_recent_date_MMMddyyyy, daterange_proc(val, :MMMddyyyy))
       end
 
-      def most_recent_date1(isoxml)
-        docstatus = isoxml.at(ns("//bibdata/status/stage"))&.text
+      def most_recent_date1(ixml)
+        docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
         /^draft/.match(docstatus) ?
-          (isoxml.at(ns("//bibdata/date[@type = 'circulated']")) ||
-           isoxml.at(ns("//version/revision-date"))) :
-        ( isoxml.at(ns("//bibdata/date[@type = 'issued']")))
+          (ixml.at(ns("//bibdata/date[@type = 'circulated']")) ||
+           ixml.at(ns("//version/revision-date"))) :
+        ( ixml.at(ns("//bibdata/date[@type = 'issued']")))
       end
 
-      def withdrawal_pending(isoxml)
-        d = isoxml&.at(ns("//bibdata/date[@type = 'obsoleted']"))&.text or return
+      def withdrawal_pending(ixml)
+        d = ixml&.at(ns("//bibdata/date[@type = 'obsoleted']"))&.text or return
         date = Date.parse(d) or return
         set(:withdrawal_pending, true) if date > Date.today
       end
@@ -164,11 +199,11 @@ module IsoDoc
         val_monthyear
       end
 
-      def series(isoxml, _out)
-        series = isoxml.at(ns("//bibdata/series[@type = 'main']/title"))&.text
+      def series(ixml, _out)
+        series = ixml.at(ns("//bibdata/series[@type = 'main']/title"))&.text
         set(:series, series) if series
-        subseries = isoxml.at(ns("//bibdata/series[@type = 'secondary']/"\
-                                 "title"))&.text
+        subseries = ixml.at(ns("//bibdata/series[@type = 'secondary']/"\
+                               "title"))&.text
         set(:subseries, subseries) if subseries
       end
 
@@ -187,18 +222,18 @@ module IsoDoc
         Date.parse(isodate).strftime("%B %d, %Y")
       end
 
-      def keywords(isoxml, _out)
+      def keywords(ixml, _out)
         keywords = []
-        isoxml.xpath(ns("//bibdata/keyword")).each do |kw|
+        ixml.xpath(ns("//bibdata/keyword")).each do |kw|
           keywords << kw.text
         end
         set(:keywords, keywords)
       end
 
-      def commentperiod(isoxml, _out)
-        from = isoxml.at(ns("//bibdata/commentperiod/from"))&.text
-        to = isoxml.at(ns("//bibdata/commentperiod/to"))&.text
-        extended = isoxml.at(ns("//bibdata/commentperiod/extended"))&.text
+      def commentperiod(ixml, _out)
+        from = ixml.at(ns("//bibdata/commentperiod/from"))&.text
+        to = ixml.at(ns("//bibdata/commentperiod/to"))&.text
+        extended = ixml.at(ns("//bibdata/commentperiod/extended"))&.text
         set(:comment_from, from) if from
         set(:comment_to, to) if to
         set(:comment_extended, extended) if extended
@@ -212,28 +247,28 @@ module IsoDoc
           set(:url, a.text)
       end
 
-      def relations1(isoxml, type)
+      def relations1(ixml, type)
         ret = []
-        isoxml.xpath(ns("//bibdata/relation[@type = '#{type}']")).each do |x|
+        ixml.xpath(ns("//bibdata/relation[@type = '#{type}']")).each do |x|
           id = x&.at(ns(".//docidentifier"))&.text and ret << id
         end
         ret
       end
 
-      def relations(isoxml, _out)
-        ret = relations1(isoxml, "obsoletes")
+      def relations(ixml, _out)
+        ret = relations1(ixml, "obsoletes")
         set(:obsoletes, ret) unless ret.empty?
-        ret = relations1(isoxml, "obsoletedBy")
+        ret = relations1(ixml, "obsoletedBy")
         set(:obsoletedby, ret) unless ret.empty?
-        ret = relations1(isoxml, "supersedes")
+        ret = relations1(ixml, "supersedes")
         set(:supersedes, ret) unless ret.empty?
-        ret = relations1(isoxml, "supersededBy")
+        ret = relations1(ixml, "supersededBy")
         set(:supersededby, ret) unless ret.empty?
-        superseding_doc(isoxml)
+        superseding_doc(ixml)
       end
 
-      def superseding_doc(isoxml)
-        d = isoxml.at(ns("//bibdata/relation[@type = 'obsoletedBy']/bibitem"))
+      def superseding_doc(ixml)
+        d = ixml.at(ns("//bibdata/relation[@type = 'obsoletedBy']/bibitem"))
         return unless d
         set(:superseding_status,
             status_print(d.at(ns("./status/stage"))&.text || "final"))
@@ -247,20 +282,20 @@ module IsoDoc
           set(:superseding_doi, doi)
         uri = d.at(ns("./uri[@type = 'uri']"))&.text and
           set(:superseding_uri, uri)
-        superseding_titles(isoxml, d)
+        superseding_titles(ixml, d)
         authors = d.xpath(ns("./contributor[role/@type = 'author']/person"))
-        authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person")) if authors.empty?
+        authors = ixml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person")) if authors.empty?
         set(:superseding_authors, extract_person_names(authors))
       end
 
-      def superseding_titles(isoxml, d)
+      def superseding_titles(ixml, d)
         title = d.at(ns("./title[@type = 'main']"))&.text
         if title
           set(:superseding_title, d.at(ns("./title[@type = 'main']"))&.text)
           set(:superseding_subtitle, d.at(ns("./title[@type = 'subtitle']"))&.text)
         else
-          set(:superseding_title, isoxml.at(ns("//bibdata/title[@type = 'main']"))&.text)
-          set(:superseding_subtitle, isoxml.at(ns("//bibdata/title[@type = 'subtitle']"))&.text)
+          set(:superseding_title, ixml.at(ns("//bibdata/title[@type = 'main']"))&.text)
+          set(:superseding_subtitle, ixml.at(ns("//bibdata/title[@type = 'subtitle']"))&.text)
         end
       end
 

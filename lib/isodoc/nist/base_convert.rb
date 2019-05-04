@@ -190,11 +190,11 @@ module IsoDoc
             node.xpath(ns("./row")).each do |row|
               b.tr do |tr|
                 %w{date type change pages}.each do |hdr|
-                tr.td do |td|
-                  row&.at(ns("./#{hdr}"))&.children.each do |n|
-                    parse(n, td)
+                  tr.td do |td|
+                    row&.at(ns("./#{hdr}"))&.children.each do |n|
+                      parse(n, td)
+                    end
                   end
-                end
                 end
               end
             end
@@ -254,7 +254,7 @@ module IsoDoc
 
       def middle_section_asset_names(d)
         middle_sections = "//xmlns:preface/child::*[not(self::xmlns:executivesummary)] | "\
-"//xmlns:sections/child::*"
+          "//xmlns:sections/child::*"
         sequential_asset_names(d.xpath(middle_sections))
       end
 
