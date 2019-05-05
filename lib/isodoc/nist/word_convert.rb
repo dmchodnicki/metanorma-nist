@@ -162,7 +162,8 @@ module IsoDoc
       TOC
 
       def header_strip(h)
-        h = h.to_s.gsub(/<\/?p[^>]*>/, "").gsub(%r{<a [^>]+>[^<]+</a><aside>.*</aside>}, "")
+        h = h.to_s.gsub(/<\/?p[^>]*>/, "").
+          gsub(%r{<a [^>]+>[^<]+</a><aside>.*</aside>}m, "")
         super
       end
 
