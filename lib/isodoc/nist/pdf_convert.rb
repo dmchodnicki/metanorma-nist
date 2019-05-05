@@ -147,18 +147,6 @@ module IsoDoc
         end
       end
 
-      def pseudocode_parse(node, out)
-        @in_figure = true
-        name = node.at(ns("./name"))
-        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
-          node.children.each do |n|
-            parse(n, div) unless n.name == "name"
-          end
-          figure_name_parse(node, div, name) if name
-        end
-        @in_figure = false
-      end
-
       def termdef_parse(node, out)
         pref = node.at(ns("./preferred"))
         out.dl **{ class: "terms_dl" } do |dl|
