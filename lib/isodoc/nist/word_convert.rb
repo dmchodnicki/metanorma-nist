@@ -62,6 +62,7 @@ module IsoDoc
         body.div **{ class: "WordSection2" } do |div2|
           @prefacenum = 0
           info docxml, div2
+          foreword docxml, div2
           abstract docxml, div2
           keywords docxml, div2
           boilerplate docxml, div2
@@ -194,7 +195,8 @@ module IsoDoc
 
       def word_preface_cleanup(docxml)
         docxml.xpath("//h1[@class = 'AbstractTitle'] | "\
-                     "//h1[@class = 'IntroTitle'] |
+                     "//h1[@class = 'IntroTitle'] | "\
+                     "//h1[@class = 'ForewordTitle'] |
                      //h1[parent::div/@class = 'authority']").each do |h2|
           h2.name = "p"
           h2["class"] = "h1Preface"

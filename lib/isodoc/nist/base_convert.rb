@@ -23,14 +23,13 @@ module IsoDoc
         end
       end
 
-      FRONT_CLAUSE = "//*[parent::preface][not(local-name() = 'abstract')]".freeze
+      FRONT_CLAUSE = "//*[parent::preface][not(local-name() = 'abstract' or local-name() = 'foreword')]".freeze
 
       # All "[preface]" sections should have class "IntroTitle" to prevent
       # page breaks
       # But for the Exec Summary
       def preface(isoxml, out)
         isoxml.xpath(ns(FRONT_CLAUSE)).each do |c|
-          foreword(isoxml, out) and next if c.name == "foreword"
           next if skip_render(c, isoxml)
           title = c&.at(ns("./title"))
           patent = ["Call for Patent Claims", "Patent Disclosure Notice"].include? title&.text
@@ -132,6 +131,7 @@ module IsoDoc
             end
           end
         end
+        page_break(out)
       end
       
       def children_parse(node, out)
@@ -395,6 +395,18 @@ module IsoDoc
         end
         @in_figure = false
       end
+
+            def foreword(isoxml, out)
+      f = isoxml.at(ns("//foreword")) || return
+      out.div **attr_code(id: f["id"]) do |s|
+        title = f.at(ns("./title"))
+        s.h1(**{ class: "ForewordTitle" }) do |h1|
+          title.elements.each { |e| parse(e, h1) }
+        end
+        f.elements.each { |e| parse(e, s) unless e.name == "title" }
+      end
+    end
+
     end
   end
 end
