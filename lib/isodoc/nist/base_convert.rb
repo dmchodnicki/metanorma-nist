@@ -133,7 +133,7 @@ module IsoDoc
         end
         page_break(out)
       end
-      
+
       def children_parse(node, out)
         node.children.each do |n|
           parse(n, out)
@@ -387,29 +387,28 @@ module IsoDoc
         r.parent.add_child ::Iso690Render.render(bibitem, true)
       end
 
-            def pseudocode_parse(node, out)
+      def pseudocode_parse(node, out)
         @in_figure = true
         name = node.at(ns("./name"))
         out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
           node.children.each do |n|
             parse(n, div) unless n.name == "name"
           end
-          figure_name_parse(node, div, name) if name
+          figure_name_parse(node, div, name)
         end
         @in_figure = false
       end
 
-            def foreword(isoxml, out)
-      f = isoxml.at(ns("//foreword")) || return
-      out.div **attr_code(id: f["id"]) do |s|
-        title = f.at(ns("./title"))
-        s.h1(**{ class: "ForewordTitle" }) do |h1|
-          title.children.each { |e| parse(e, h1) }
+      def foreword(isoxml, out)
+        f = isoxml.at(ns("//foreword")) || return
+        out.div **attr_code(id: f["id"]) do |s|
+          title = f.at(ns("./title"))
+          s.h1(**{ class: "ForewordTitle" }) do |h1|
+            title.children.each { |e| parse(e, h1) }
+          end
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
-        f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end
-    end
-
     end
   end
 end
