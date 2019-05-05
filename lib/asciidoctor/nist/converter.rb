@@ -176,7 +176,7 @@ module Asciidoctor
         a = { id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node) }
         noko do |xml|
           case sectiontype(node)
-          when "normative references" then norm_ref_parse(a, xml, node)
+          #when "normative references" then norm_ref_parse(a, xml, node)
           when "glossary", "terminology"
             if node.attr("style") == "appendix" && node.level == 1
               @term_def = true
