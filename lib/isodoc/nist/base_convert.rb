@@ -401,7 +401,7 @@ module IsoDoc
       out.div **attr_code(id: f["id"]) do |s|
         title = f.at(ns("./title"))
         s.h1(**{ class: "ForewordTitle" }) do |h1|
-          title.elements.each { |e| parse(e, h1) }
+          title.children.each { |e| parse(e, h1) }
         end
         f.elements.each { |e| parse(e, s) unless e.name == "title" }
       end

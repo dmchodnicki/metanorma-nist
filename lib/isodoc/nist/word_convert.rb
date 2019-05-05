@@ -89,6 +89,7 @@ module IsoDoc
         requirement_cleanup(docxml)
         h1_cleanup(docxml)
         word_annex_cleanup(docxml) # need it earlier
+        word_preface_cleanup(docxml) # need it earlier, since early ToC insertion
         toc_insert(docxml, @wordToClevels)
       end
 
