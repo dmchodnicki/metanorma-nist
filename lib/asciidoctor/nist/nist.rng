@@ -62,17 +62,6 @@
         </choice>
       </element>
     </define>
-    <define name="status">
-      <element name="status">
-        <ref name="stage"/>
-        <optional>
-          <ref name="substage"/>
-        </optional>
-        <optional>
-          <ref name="iteration"/>
-        </optional>
-      </element>
-    </define>
     <define name="BibItemType" combine="choice">
       <value>standard</value>
     </define>

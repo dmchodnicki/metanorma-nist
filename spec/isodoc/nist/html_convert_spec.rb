@@ -387,9 +387,8 @@ RSpec.describe IsoDoc::NIST do
 
     output = <<~"OUTPUT"
     #{HTML_HDR}
-             <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <h1 class="ForewordTitle"/>
                <pre>ABC</pre>
              </div>
            </div>
@@ -415,9 +414,8 @@ RSpec.describe IsoDoc::NIST do
 
     output = <<~"OUTPUT"
     #{HTML_HDR}
-             <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <h1 class="ForewordTitle"/>
                <span class="keyword">ABC</span>
              </div>
            </div>
@@ -452,9 +450,8 @@ RSpec.describe IsoDoc::NIST do
 
     output = <<~"OUTPUT"
     #{HTML_HDR}
-                          <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <h1 class="ForewordTitle"/>
                <div id="1" class="pseudocode">
        <ol type="a">
        <li>A B C
@@ -489,9 +486,8 @@ RSpec.describe IsoDoc::NIST do
 
     output = <<~"OUTPUT"
     #{HTML_HDR}
-                          <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <h1 class="ForewordTitle"/>
                <pre id="_" class="prettyprint ">&lt;xccdf:check system="<span class="nistvariable">http://oval.mitre.org/XMLSchema/oval-definitions-5</span>"&gt;</pre>
        </div>
            </div>
@@ -652,11 +648,10 @@ it "processes errata tag" do
   INPUT
   output = <<~"OUTPUT"
   #{HTML_HDR}
-             <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <h1 class="ForewordTitle"/>
                <a name="errata_XYZZY"/>
-               <table id="" class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+               <table class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
                  <thead>
                    <tr>
                      <th>Date</th>
@@ -720,7 +715,7 @@ it "processes glossaries" do
              <br />
              <div id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" class="Section3">
                <h1 class="Annex"><b>Appendix A</b> &#x2014; <b>Glossary</b></h1>
-               <div id="_normal_terms_2"><h2>A.1. Normal Terms 2</h2>
+               <div id="_normal_terms_2"><h1>A. Normal Terms 2</h1>
      <p>For the purposes of this document, the following terms and definitions apply.</p>
          <dl class="terms_dl"><dt>Normal Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f6">Definition</p>
        <div id="_f22bc30c-a5a6-45ae-8bea-0792d7109470" class="example"><p class="example-title">EXAMPLE</p>
@@ -856,14 +851,13 @@ it "processes section names" do
 
   output = <<~"OUTPUT"
   #{HTML_HDR}
-             <div id="S1">
-               <h1 class="AbstractTitle">Abstract</h1>
-               <p id="AA">This is an Abstract</p>
-             </div>
-             <br/>
              <div id="S2">
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="A">This is a preamble</p>
+             </div>
+             <div id="S1">
+               <h1 class="AbstractTitle">Abstract</h1>
+               <p id="AA">This is an Abstract</p>
              </div>
              <div id="B">
                <h1 class="IntroTitle">Introduction</h1>
@@ -1088,9 +1082,8 @@ it "cross-references recommendations" do
     </nist-standard>
 INPUT
   #{HTML_HDR}
-<br/>
     <div id="fwd">
-    <h1 class="ForewordTitle">Foreword</h1>
+    <h1 class="ForewordTitle"/>
     <p>
     <a href="#N1">Introduction, Recommendation 1</a>
     <a href="#N2">Preparatory, Recommendation 2</a>
@@ -1247,9 +1240,8 @@ it "cross-references requirements" do
     </nist-standard>
 INPUT
   #{HTML_HDR}
-<br/>
     <div id="fwd">
-    <h1 class="ForewordTitle">Foreword</h1>
+    <h1 class="ForewordTitle"/>
     <p>
     <a href="#N1">Introduction, Requirement 1</a>
     <a href="#N2">Preparatory, Requirement 2</a>
@@ -1383,9 +1375,8 @@ it "cross-references permissions" do
     </nist-standard>
 INPUT
   #{HTML_HDR}
-<br/>
     <div id="fwd">
-    <h1 class="ForewordTitle">Foreword</h1>
+    <h1 class="ForewordTitle"/>
     <p>
     <a href="#N1">Introduction, Permission 1</a>
     <a href="#N2">Preparatory, Permission 2</a>
@@ -1520,9 +1511,8 @@ INPUT
 
 output = <<~"OUTPUT"
   #{HTML_HDR}
-      <br/>
       <div id="fwd">
-        <h1 class="ForewordTitle">Foreword</h1>
+    <h1 class="ForewordTitle"/>
         <p>
       <div class="permission"><title>Permission 1:</title>
 <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
@@ -1646,9 +1636,8 @@ end
 
   output = <<~"OUTPUT"
   #{HTML_HDR}
-      <br/>
       <div>
-        <h1 class="ForewordTitle">Foreword</h1>
+    <h1 class="ForewordTitle"/>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
          <a href="#ISO712">NIST SP 800-116 (June 01, 2018)</a>
          </p>
@@ -1764,9 +1753,8 @@ end
 
   output = <<~"OUTPUT"
   #{HTML_HDR}
-      <br/>
       <div>
-        <h1 class="ForewordTitle">Foreword</h1>
+    <h1 class="ForewordTitle"/>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
          <a href="#ISO712">NIST SP 800-116 (3PD) (June 01, 2018)</a>
          </p>
@@ -1881,9 +1869,8 @@ end
 
   output = <<~"OUTPUT"
   #{HTML_HDR}
-      <br/>
       <div>
-        <h1 class="ForewordTitle">Foreword</h1>
+    <h1 class="ForewordTitle"/>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
          <a href="#ISO712">NIST SP 800-116 (June 01, 2018)</a>
          </p>

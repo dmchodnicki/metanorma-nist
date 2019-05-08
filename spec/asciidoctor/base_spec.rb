@@ -4,7 +4,7 @@ require "fileutils"
 RSpec.describe Asciidoctor::NIST do
 
   NISTSP80053ar1=<<~OUTPUT
-<bibitem type="" id="SP800-53ARev.1">
+<bibitem type="standard" id="SP800-53ARev.1">
   <fetched>#{Date.today}</fetched>
   <title format="text/plain" language="en" script="Latn">Guide for Assessing the Security Controls in Federal Information Systems and Organizations: Building Effective Security Assessment Plans</title>
   <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-53a/rev-1/archive/2010-06-29</uri>
@@ -44,7 +44,7 @@ RSpec.describe Asciidoctor::NIST do
 
 
 NISTSP800179=<<~OUTPUT
-<bibitem type="" id="SP800-179Rev.1(DRAFT)">
+<bibitem type="standard" id="SP800-179Rev.1(DRAFT)">
   <fetched>#{Date.today}</fetched>
   <title format="text/plain" language="en" script="Latn">Guide to Securing Apple macOS 10.12 Systems for IT Professionals: A NIST Security Configuration Checklist</title>
   <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-179/rev-1/draft</uri>

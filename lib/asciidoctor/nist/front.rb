@@ -84,9 +84,9 @@ module Asciidoctor
           series: node.attr("series"),
           revision: node.attr("revision"),
           vol: node.attr("volume"),
-          stage: node.attr("status"),
+          stage: node.attr("status") || node.attr("docstage"),
           iter: node.attr("iteration"),
-          date: /^draft/.match(node.attr("status")) ?
+          date: /^draft/.match(node.attr("status") || node.attr("docstage")) ?
           (node.attr("circulated-date") || node.attr("revdate")) :
           node.attr("updated-date")
         }
@@ -161,7 +161,7 @@ module Asciidoctor
       end
 
       def metadata_status(node, xml)
-        status = node.attr("status") || "final"
+        status = node.attr("status") || node.attr("docstage") || "final"
         xml.status do |s|
           s.stage status 
           s.substage (node.attr("substage") || "active")
