@@ -16,7 +16,7 @@ module Asciidoctor
 
       def metadata_version(node, xml)
         xml.edition node.attr("edition") if node.attr("edition")
-        xml.revision node.attr("revision") if node.attr("revision")
+        xml.edition "Revision #{node.attr("revision")}" if node.attr("revision")
         xml.version do |v|
           v.revision_date node.attr("revdate") if node.attr("revdate")
           v.draft node.attr("draft") if node.attr("draft")
@@ -302,9 +302,9 @@ module Asciidoctor
           xml.note note, **{ type: "withdrawal-announcement-link" }
       end
 
-      def metadata(node, xml)
-        super
-        metadata_series(node, xml)
+      def metadata_ext(node, xml)
+        metadata_doctype(node, xml)
+        metadata_committee(node, xml)
         metadata_keywords(node, xml)
         metadata_commentperiod(node, xml)
       end

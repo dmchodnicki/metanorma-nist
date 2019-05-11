@@ -150,9 +150,6 @@ as the document identifier is composed from the document series, document number
 and edition/revision (e.g. _NIST SP 800 Revision 1_).
 If the `:docidentifier:` value is provided, it will override this composed value.
 
-`:edition:`:: Edition (revision) of the document. The value of
-this attribute will be displayed as part of the heading, prefixed with "Revision".
-
 `:status:`:: Document status/stage. The permitted types are:
 +
 --
@@ -233,7 +230,8 @@ Added to authority statement as document contact. Use line breaks (in Asciidocto
 ` + \`) if necessary. Default value is
 "100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930"
 
-`:revision:`:: The document revision; e.g. `1` (Revision 1).
+`:revision:`:: The document revision; e.g. `1` (Revision 1). Will be stored in Metanorma XML
+under the `<edition>` tag, with the prefix `Revision `.
 
 `:volume:`::
 The number of the volume of a standard. Is ignored if a precomposed

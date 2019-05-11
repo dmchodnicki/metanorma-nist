@@ -50,7 +50,7 @@ module IsoDoc
       end
 
       def author(ixml, _out)
-        tc = ixml.at(ns("//bibdata/editorialgroup/committee"))
+        tc = ixml.at(ns("//bibdata/ext/editorialgroup/committee"))
         set(:tc, tc.text.upcase) if tc
         personal_authors(ixml)
         subdiv = ixml.at(ns("//bibdata/contributor[role/@type = 'publisher']/"\
@@ -148,7 +148,8 @@ module IsoDoc
 
       def version(ixml, _out)
         super
-        set(:revision, ixml&.at(ns("//bibdata/revision"))&.text)
+        rev = ixml&.at(ns("//bibdata/edition"))&.text&.sub(/^Revision /, "")
+        set(:revision, rev) if rev
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
         set(:revdate_MMMddyyyy, MMMddyyyy(revdate))
@@ -223,16 +224,16 @@ module IsoDoc
 
       def keywords(ixml, _out)
         keywords = []
-        ixml.xpath(ns("//bibdata/keyword")).each do |kw|
+        ixml.xpath(ns("//bibdata/ext/keyword")).each do |kw|
           keywords << kw.text
         end
         set(:keywords, keywords)
       end
 
       def commentperiod(ixml, _out)
-        from = ixml.at(ns("//bibdata/commentperiod/from"))&.text
-        to = ixml.at(ns("//bibdata/commentperiod/to"))&.text
-        extended = ixml.at(ns("//bibdata/commentperiod/extended"))&.text
+        from = ixml.at(ns("//bibdata/ext/commentperiod/from"))&.text
+        to = ixml.at(ns("//bibdata/ext/commentperiod/to"))&.text
+        extended = ixml.at(ns("//bibdata/ext/commentperiod/extended"))&.text
         set(:comment_from, from) if from
         set(:comment_to, to) if to
         set(:comment_extended, extended) if extended

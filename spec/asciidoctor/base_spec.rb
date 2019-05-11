@@ -421,7 +421,7 @@ OUTPUT
              <subdivision>Ministry of Silly Walks</subdivision>
            </organization>
          </contributor>
-         <revision>3</revision>
+         <edition>Revisio 3</edition>
          <version>
            <revision-date>2000-01-01</revision-date>
            <draft>3.4</draft>
@@ -494,15 +494,17 @@ OUTPUT
 <relation type="supersededBy">
   #{NISTSP80053ar1}
 </relation>
+         <series type="main">
+           <title>NIST Federal Information Processing Standards</title>
+           <abbreviation>NIST FIPS</abbreviation>
+         </series>
+         <ext>
+         <doctype>standard</doctype>
          <editorialgroup>
            <committee>TC</committee>
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
-         <series type="main">
-           <title>NIST Federal Information Processing Standards</title>
-           <abbreviation>NIST FIPS</abbreviation>
-         </series>
          <keyword>a</keyword>
          <keyword>b</keyword>
          <keyword>c</keyword>
@@ -511,6 +513,7 @@ OUTPUT
            <to>2010-01-02</to>
            <extended>2010-01-03</extended>
          </commentperiod>
+         </ext>
        </bibdata>
     OUTPUT
 
@@ -527,7 +530,6 @@ OUTPUT
       :no-isobib-cache:
       :docnumber: 1000
       :doctype: standard
-      :revision: 3
       :revdate: 2000-05-01
       :updated-date: 2000-02-01
       :draft: 3.4
@@ -579,9 +581,9 @@ OUTPUT
          <uri>http://www.example.com</uri>
          <uri type="email">email@example.com</uri>
          <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist">NIST FIPS 1000 Revision 3 (February 01, 2000)</docidentifier>
-         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Revision 3 (February 01, 2000)</docidentifier>
-         <docidentifier type="nist-mr">NIST.FIPS..3.2000-02-01</docidentifier>
+         <docidentifier type="nist">NIST FIPS 1000 (February 01, 2000)</docidentifier>
+         <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 (February 01, 2000)</docidentifier>
+         <docidentifier type="nist-mr">NIST.FIPS...2000-02-01</docidentifier>
          <docnumber>1000</docnumber>
          <date type="updated">
            <on>2000-02-01</on>
@@ -618,7 +620,6 @@ OUTPUT
              <name>NIST</name>
            </organization>
          </contributor>
-         <revision>3</revision>
          <version>
            <revision-date>2000-05-01</revision-date>
            <draft>3.4</draft>
@@ -638,18 +639,21 @@ OUTPUT
              </organization>
            </owner>
          </copyright>
+         <series type="main">
+           <title>NIST Federal Information Processing Standards</title>
+           <abbreviation>NIST FIPS</abbreviation>
+         </series>
+         <ext>
+         <doctype>standard</doctype>
          <editorialgroup>
            <committee>TC</committee>
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
-         <series type="main">
-           <title>NIST Federal Information Processing Standards</title>
-           <abbreviation>NIST FIPS</abbreviation>
-         </series>
          <keyword>a</keyword>
          <keyword>b</keyword>
          <keyword>c</keyword>
+         </ext>
        </bibdata>
       OUTPUT
 end
@@ -664,7 +668,6 @@ end
       :docidentifier: NIST FIPS 1000-2
       :docnumber: 1000
       :doctype: standard
-      :revision: 2
       :revdate: 2000-01-01
       :draft: 3.4
       :copyright-year: 2001
@@ -685,7 +688,6 @@ end
       <name>NIST</name>
     </organization>
   </contributor>
-  <revision>2</revision>
 <version>
   <revision-date>2000-01-01</revision-date>
   <draft>3.4</draft>
@@ -705,6 +707,9 @@ end
       </organization>
     </owner>
   </copyright>
+  <ext>
+  <doctype>standard</doctype>
+</ext>
 </bibdata>
     OUTPUT
   end
@@ -862,11 +867,14 @@ end
       </organization>
     </owner>
   </copyright>
+  <ext>
+  <doctype>standard</doctype>
   <commentperiod>
     <from>2010-01-01</from>
     <to>2010-01-02</to>
     <extended>2010-01-03</extended>
   </commentperiod>
+  </ext>
 </bibdata>
 <boilerplate>
 <legal-statement>
