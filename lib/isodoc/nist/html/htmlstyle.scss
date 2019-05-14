@@ -277,11 +277,6 @@ table {
   text-transform: nonce;
 }
 
-nav p {
-  font-size: 14px;
-  padding: 5px 10px;
-}
-
 /*
     Document types + stages
 */
@@ -305,7 +300,7 @@ nav p {
     position: fixed;
     display: block;
     z-index: 98;
-    box-shadow: -5px 0px 10px #1d1d1d
+    box-shadow: -5px 0px 10px #1d1d1d;
 }
 
 .document-type {
@@ -333,7 +328,7 @@ p.document-type, p.document-stage {
 	-o-transform: rotate(180deg);
 	white-space:nowrap;
 	display:block;
-    bottom:0;
+    bottom: 0;
 }
 
 p.document-type {
@@ -343,12 +338,12 @@ p.document-type {
 
 #governance-band p.document-type {
     font-weight: 400;
-    height: 230px!important;
+    height: 230px !important;
 }
 
 p.document-stage {
     font-weight: 300;
-    height:160px;
+    height: 160px;
 }
 
 #standard-band p{
@@ -361,8 +356,8 @@ p.document-stage {
 
 
 #standard-band,  #final-band {
-color: rgb(123, 168, 18);
-  background-color: rgb(216, 236, 168); }
+color: #7ba812;
+  background-color: #d8eca8; }
 
   #standard, #final {
   color: #9ABD48; }
@@ -398,8 +393,13 @@ color: rgb(123, 168, 18);
 #public-draft-band, #initial-public-draft-band, #final-public-draft-band {
   background-color: #fd06fd; }
 
-#retired-draft {
-  border-bottom: solid 3px #fdf906; }
+          #withdrawal-pending-band {
+          background-color: #750697;
+          color: #fff;
+        }
+        #retired-draft-band {
+        background-color: #7e0d13;
+        color: white; }
 
 #retired-draft-band {
   background-color: #fdf906; }
@@ -425,13 +425,16 @@ color: rgb(123, 168, 18);
     }
 
 .logo-wrapper {
-  margin-left: 3em;
-}
-
-.logo-wrapper img {
-  display: block;
-  padding-bottom: 3em;
-}
+        margin-left: 3em;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        float: right; }
+      
+      
+      
+      img#NIST-logo {
+        margin-right: 50px;
+      }
 
 .logo-info {
   margin-left: 3em;
@@ -661,22 +664,20 @@ span.nistvariable {
     color: #141115;
     padding: 1.2em;
     margin: 1em 0 1em 0;
-
-    p {
+  }
+   .Note p {
         margin: 0;
     }
-}
 
 .Admonition {
     background-color: #ffcccc;
     color: #47430c;
     padding: 1.2em;
     margin: 1em 0 1em 0;
-
-    p {
+  }
+  .Admonition  p {
         margin: 0;
     }
-}
 
 
 /*
@@ -694,7 +695,7 @@ span.nistvariable {
     font-weight: 700;
     text-transform: uppercase;
     margin-top:0;
-    margin-left:-1.5em;
+    margin-left: -1.5em;
 }
 
 .example .Sourcecode {
@@ -898,7 +899,7 @@ h2 p {
 }
 
   .doc-number {
-      font-size: 0.5em;
+      font-size: 20px;
       font-family: $bodyfont;
       line-height: 1.6;
   margin: 1.5em 0;
@@ -935,6 +936,27 @@ h2 p {
   border-bottom: solid 1px #2677ea;
   text-transform: uppercase;
 }
+
+      .banner {
+        border-top: 1px solid #2677ea;
+        border-bottom: 1px solid #2677ea;
+        margin-right: 50px;
+        margin-top: 100px;
+      }
+      
+      .banner p {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 16px;
+        letter-spacing: 5px;
+        text-align: center;
+        color: #2677ea;
+        font-family: $monospacefont;
+      }
+      
+      .banner#inactive-draft {
+          display: none;
+      }
 
   .WordSection11 {
     padding: 0 2em 0 3em;
@@ -977,6 +999,7 @@ h2 p {
   .coverpage-doc-identity {
     font-size: 2em;
     line-height: 1.5em;
+    margin-bottom: 150px;
   }
 
   .coverpage-title .title-second {
@@ -991,6 +1014,24 @@ h2 p {
     text-transform: uppercase;
   }
 
+        .more-info {
+          margin-right: 50px;
+      }
+      
+      .more-info h2 {
+          text-align: center;
+          color: #2e81c2;
+          font-size: 20px;
+          font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+      
+      .more-info p {
+          font-size: 14px;
+      }
+      
+
 /*
     4.3 Draft Warning
 */
@@ -998,11 +1039,18 @@ h2 p {
   .coverpage-warning {
     border: #f36f36 solid 2px;
   color: #f36f36!important;
-  margin: 1em 2em;
+  margin: 50px 100px;
   color: #2e81c2;
-  padding: 2em 1em 1em 1em;
+  padding: 10px;
   border-radius: 25px;
+  text-align: center;
+  font-size: 14px;
   }
+
+  .coverpage-warning p {
+        margin: 0;
+        line-height: 1.6;
+      }
 
   .coverpage-warning .title {
     font-family: 'Source Sans Pro', sans-serif;
@@ -1010,6 +1058,47 @@ h2 p {
     text-transform: uppercase;
     font-size: 1.2em;
   }
+
+        .draft-state-container {
+          margin-bottom: 30px;
+          margin-top: -30px;
+      }
+
+      .draft-state {
+          font-size: 20px;
+          color: #f36f36;
+      }
+
+      .draft-state#inactive-draft {
+          color: #7e0d13;
+      }
+
+      .draft-state#inactive-final {
+          color: #750697;
+      }
+
+      .draft-description {
+          font-size: 14px;
+      }
+
+      #retired-draft, #retired-draft {
+          color: #7e0d13;
+      }
+
+      .draft-description p {
+          margin-top: 10px;
+          margin-bottom: 0;
+      }
+
+      p.blockQuote {
+          padding-left: 20px;
+      }
+
+      table.coverpage-table {
+          max-width: 500px;
+          font-size: 14px;
+
+      }
 
 
 /*
