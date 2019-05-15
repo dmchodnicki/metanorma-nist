@@ -43,28 +43,20 @@ module IsoDoc
         @meta = Metadata.new(lang, script, labels)
       end
 
-      def html_head()
+      def googlefonts
         <<~HEAD.freeze
-        <title>{{ doctitle }}</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!--TOC script import-->
-    <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
-    <script type="text/javascript">
-    function toclevel() { var i; var text = "";
-      for(i = 1; i <= #{@htmlToClevels}; i++) {
-        if (i > 1) { text += ","; } text += "h" + i + ":not(.TermNum)"; } }
-    </script>
-
-    <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,600i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700,700i" rel="stylesheet">
+        HEAD
+      end
 
-    <!--Font awesome import for the link icon-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-<style class="anchorjs"></style>
+      def toclevel
+        <<~HEAD.freeze
+    function toclevel() { var i; var text = "";
+      for(i = 1; i <= #{@htmlToClevels}; i++) {
+        if (i > 1) { text += ","; } text += "h" + i + ":not(:empty):not(.TermNum):not(.AbstractTitle):not(.IntroTitle):not(.ForewordTitle)"; }
+      return text;}
         HEAD
       end
 
@@ -98,7 +90,7 @@ module IsoDoc
         dest = docxml.at("//div[@id = 'authority']") || return
         auth = docxml.at("//div[@class = 'authority']") || return
         dest.replace(auth.remove)
-                a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
+        a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
         a = docxml.at("//div[@id = 'authority2']") and a["class"] = "authority2"
         a = docxml.at("//div[@id = 'authority3']") and a["class"] = "authority3"
         a = docxml.at("//div[@id = 'authority4']") and a["class"] = "authority4"

@@ -51,6 +51,15 @@ module IsoDoc
         HEAD
       end
 
+      def toclevel
+        <<~HEAD.freeze
+    function toclevel() { var i; var text = "";
+      for(i = 1; i <= #{@htmlToClevels}; i++) {
+        if (i > 1) { text += ","; } text += "h" + i + ":not(:empty):not(.TermNum):not(.AbstractTitle):not(.IntroTitle):not(.ForewordTitle)"; }
+      return text;}
+        HEAD
+      end
+
       def make_body(xml, docxml)
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
         xml.body **body_attr do |body|
@@ -67,6 +76,7 @@ module IsoDoc
       def authority_cleanup(docxml)
         dest = docxml.at("//div[@id = 'authority']") || return
         auth = docxml.at("//div[@class = 'authority']") || return
+        auth.xpath(".//h1 | .//h2").each { |h| h["class"] = "IntroTitle" }
         dest.replace(auth.remove)
         a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
         a = docxml.at("//div[@id = 'authority2']") and a["class"] = "authority2"
