@@ -10,9 +10,9 @@ module IsoDoc
 
       def iter_abbr(stage, iter)
         return "F" if iter&.downcase == "final" &&
-          %w(draft-wip draft-prelim draft-public).include?(stage)
+          %w(draft-wip draft-prelim draft-public draft-approval).include?(stage)
         case stage
-        when "draft-wip", "draft-prelim"
+        when "draft-wip", "draft-prelim", "dradt-internal", "draft-approval"
           iter || ""
         when "draft-public"
           iter ||= "1"
@@ -24,10 +24,11 @@ module IsoDoc
 
       def stage_abbr(stage, iter)
         case stage
-        when "draft-internal" then "Internal"
+        when "draft-internal" then "#{iter_abbr(stage, iter)}ID"
         when "draft-wip" then "#{iter_abbr(stage, iter)}WD"
         when "draft-prelim" then "#{iter_abbr(stage, iter)}PreD"
         when "draft-public" then "#{iter_abbr(stage, iter)}PD"
+        when "draft-approval" then "#{iter_abbr(stage, iter)}AD"
         else
           nil
         end
@@ -140,6 +141,7 @@ module IsoDoc
         when "draft-wip" then "Work-in-Progress Draft"
         when "draft-prelim" then "Preliminary Draft"
         when "draft-public" then "Public Draft"
+        when "draft-approval" then "Approval Draft"
         when "final" then "Final"
         when "final-review" then "Under Review"
         when "final-withdrawn" then "Withdrawn"

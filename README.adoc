@@ -157,6 +157,7 @@ If the `:docidentifier:` value is provided, it will override this composed value
 * `draft-wip`
 * `draft-prelim`
 * `draft-public`
+* `draft-approval`
 * `final` (default: document is published)
 * `final-review`
 --
@@ -624,10 +625,10 @@ using `:status:`, `:substage:`, `:iteration:`, and `:confirmed-date`.
 | ISO stage | NIST | 93 Repeat current phase | 98 Abandon | 99 Proceed
 
 | 00 Preliminary | `:status: draft-internal` | | (stop work) | `:status: draft-wip`, `:status: draft-public`, or `:status: final` (amend)
-| 10 Proposal | `:status: draft-wip` | | `:status: draft-wip`, `:substage: retired` | `:status: draft-wip`, `:substage: withdrawn`
-| 20 Preparatory | `status: draft-prelim` | | `status: draft-prelim`, `substage: retired` | `status: draft-prelim`, `substage: withdrawn`
-| 40 Enquiry | `status: draft-public` | `status: draft-public`, `:iteration: 2`, `:iteration: 3` ... `:iteration: final` | `:status: draft-public`, `:substage: retired` | `:status: draft-public`, `:substage: withdrawn`
-| 50 Approval | (NIST ERB review) | | `:status: draft-public`, `:substage: retired` | `:status: final`
+| 10 Proposal | `:status: draft-wip` | | `:status: draft-wip`, `:substage: retired` | `:status: draft-wip`, `:substage: withdrawn` or `status: draft-prelim`
+| 20 Preparatory | `status: draft-prelim` | | `status: draft-prelim`, `substage: retired` | `status: draft-prelim`, `substage: withdrawn` or `status: draft-public`
+| 40 Enquiry | `status: draft-public` | `status: draft-public`, `:iteration: 2`, `:iteration: 3` ... `:iteration: final` | `:status: draft-public`, `:substage: retired` | `:status: draft-public`, `:substage: withdrawn`  or `draft-approval`
+| 50 Approval | `status: draft-approval` | | `:status: draft-approval`, `:substage: retired` | `:status: final`
 | 60 Publication | `:status: final`
 | 90 Review | `:status: final-review` | `:status: final`, `:confirmed-date: XXXX-XX-XX` | `:status: final`, `:substage: withdrawn` | `:status: draft-internal` (revise or amend)
 | 95 Withdrawal | `:status: final`, `:substage: withdrawn` | | |
