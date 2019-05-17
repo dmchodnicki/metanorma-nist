@@ -1235,41 +1235,6 @@ end
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
-  it "warns that the references are not in the expected sequence" do
-    expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.to output(/Reference clauses[^\n\r]*do not follow expected pattern in NIST/).to_stderr
-      #{VALIDATING_BLANK_HDR}
-
-      [bibliography]
-      == Normative References
-
-      [bibliography]
-      == Normative References
-    INPUT
-  end
-
-  it "does not warn that the references are not in the expected sequence when they are acceptable" do
-    expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.not_to output(/Reference clauses[^\n\r]*do not follow expected pattern in NIST/).to_stderr
-      #{VALIDATING_BLANK_HDR}
-
-      [bibliography]
-      == References
-    INPUT
-  end
-
-  it "warns that first section in body is not Introduction" do
-    expect { Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true) }.to output(/First section of document body should be Introduction, not Untroduction/).to_stderr
-      #{VALIDATING_BLANK_HDR}
-
-      [preface]
-      == Preface
-
-      == Untroduction
-
-      [bibliography]
-      == References
-    INPUT
-  end
-
   it "processes bibliographies as appendixes in legacy format" do
     input = <<~"INPUT"
       = Document title

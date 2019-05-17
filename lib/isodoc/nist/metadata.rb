@@ -91,23 +91,12 @@ module IsoDoc
 
       def iter_code(ixml)
         docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
-        return nil unless docstatus == "draft-public"
-        iter = ixml.at(ns("//bibdata/status/iteration"))&.text || "1"
-        return "IPD" if iter == "1"
-        return "FPD" if iter.downcase == "final"
-        "#{iter}PD"
-      end
-
-      # override the above
-      def iter_code(ixml)
-        docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
         iter = ixml.at(ns("//bibdata/status/iteration"))&.text
         stage_abbr(docstatus, iter)
       end
 
       def iter_ordinal(ixml)
         docstatus = ixml.at(ns("//bibdata/status/stage"))&.text
-        #return nil unless docstatus == "draft-public"
         iter = ixml.at(ns("//bibdata/status/iteration"))&.text
         iter ||= "1" if docstatus == "draft-public"
         return if iter.nil?
