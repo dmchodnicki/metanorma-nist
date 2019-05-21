@@ -70,9 +70,10 @@ module IsoDoc
 
       def requirement_cleanup(docxml)
         docxml.xpath("//div[@class = 'recommend' or @class = 'require' "\
-                     "or @class = 'permission'][title]").each do |d|
-          title = d.at("./title")
+                     "or @class = 'permission']").each do |d|
+          title = d.at("./p[@class = 'AdmonitionTitle']") or next
           title.name = "b"
+          title.delete("class")
           n = title.next_element
           n&.children&.first&.add_previous_sibling(" ")
           n&.children&.first&.add_previous_sibling(title.remove)
@@ -146,39 +147,15 @@ module IsoDoc
         end
       end
 
-      def recommendation_parse(node, out)
-        name = node["type"]
-        out.div **{ class: "recommend" } do |t|
-          t.title { |b| b << "Recommendation #{get_anchors[node['id']][:label]}:" }
-          node.children.each do |n|
-            parse(n, t)
-          end
-        end
-      end
-
-      def requirement_parse(node, out)
-        name = node["type"]
-        out.div **{ class: "require" } do |t|
-          t.title { |b| b << "Requirement #{get_anchors[node['id']][:label]}:" }
-          node.children.each do |n|
-            parse(n, t)
-          end
-        end
-      end
-
-      def permission_parse(node, out)
-        name = node["type"]
-        out.div **{ class: "permission" } do |t|
-          t.title { |b| b << "Permission #{get_anchors[node['id']][:label]}:" }
-          node.children.each do |n|
-            parse(n, t)
-          end
-        end
-      end
-
       def errata_parse(node, out)
         out.a **{ name: "errata_XYZZY" }
         out.table **make_table_attr(node) do |t|
+          errata_head(t)
+          errata_body(t, node)
+        end
+      end
+
+      def errata_head(t)
           t.thead do |h|
             h.tr do |tr|
               %w(Date Type Change Pages).each do |hdr|
@@ -186,6 +163,9 @@ module IsoDoc
               end
             end
           end
+      end
+
+      def errata_body(t, node)
           t.tbody do |b|
             node.xpath(ns("./row")).each do |row|
               b.tr do |tr|
@@ -199,7 +179,6 @@ module IsoDoc
               end
             end
           end
-        end
       end
 
       MIDDLE_CLAUSE = "//clause[parent::sections] | "\

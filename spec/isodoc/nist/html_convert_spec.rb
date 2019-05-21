@@ -565,14 +565,14 @@ ping information security standards and guidelines, including minimum requiremen
              <div class="authority">
 
               <div id="authority1" class="authority1">
-              <h2>Authority</h2>
+              <h2 class="IntroTitle">Authority</h2>
               <p id="_">This publication has been developed by NIST in accordance with its statutory responsibilities under the Federal Information Security Modernization Act (FISMA) of 2014, 44 U.S.C. &#167; 3551 <i>et seq.</i>, Public Law (P.L.) 113-283. NIST is responsible for develoo
        ping information security standards and guidelines, including minimum requirements for federal information systems, but such standards and guidelines shall not apply to national security systems without the express approval of appropriate federal officials exercising policy authority over such systems. This guideline is consistent with the requirements of the Office of Management and Budget (OMB) Circular A-130.</p>
 
               <p id="_">Nothing in this publication should be taken to contradict the standards and guidelines made mandatory and binding on federal agencies by the Secretary of Commerce under statutory authority. Nor should these guidelines be interpreted as altering or superseding the existing authorities of the Secretary of Commerce, Director of the OMB, or any other federal official. This publication may be used by nongovernmental organizations on a voluntary basis and is not subject to copyright in the United States. Attribution would, however, be appreciated by NIST.</p>
               </div>
 
-              <div id="authority2" class="authority2"><h2/>
+              <div id="authority2" class="authority2"><h2 class="IntroTitle"/>
               <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology ABC <br/>
               Natl. Inst. Stand. Technol. ABC, () <br/>
               CODEN: NSPUE2</p>
@@ -583,7 +583,7 @@ ping information security standards and guidelines, including minimum requiremen
 
               </div>
 
-              <div id="authority3" class="authority3"><h2/>
+              <div id="authority3" class="authority3"><h2 class="IntroTitle"/>
               <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by the United States Government, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
 
               <p id="_">There may be references in this publication to other publications currently under development by NIST in accordance with its assigned statutory responsibilities. The information in this publication, including concepts and methodologies, may be used by Federal agencies even before the completion of such companion publications. Thus, until each publication is completed, current requirements, guidelines, and procedures, where they exist, remain operative. For planning and transition purposes, Federal agencies may wish to closely follow the development of these new publications by NIST.</p>
@@ -591,7 +591,7 @@ ping information security standards and guidelines, including minimum requiremen
               <p id="_">Organizations are encouraged to review all draft publications during public comment periods and provide feedback to NIST. Many NIST cybersecurity publications, other than the ones noted above, are available at <a href="https://csrc.nist.gov/publications">https://csrc.nist.gov/publications</a>
               </p></div>
 
-              <div id="authority4" class="authority4"><h2/>
+              <div id="authority4" class="authority4"><h2 class="IntroTitle"/>
 
               <p id="_" align="center" style="text-align:center">[2010-01-03: Comment period extended]</p>
 
@@ -602,7 +602,7 @@ ping information security standards and guidelines, including minimum requiremen
               </div>
 
               <div id="authority5" class="authority5">
-              <h2>Comments on this publication may be submitted to:</h2>
+              <h2 class="IntroTitle">Comments on this publication may be submitted to:</h2>
 
               <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology <br/>
               Attn: Computer Security Division, Information Technology Laboratory <br/>
@@ -1095,18 +1095,18 @@ INPUT
     </div>
     <div id="intro">
     <h1 class="IntroTitle"/>
-    <div class="recommend"><title>Recommendation 1:</title>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation 1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="recommend"><title>Recommendation 2:</title>
+               <div class="recommend"><p class="AdmonitionTitle">Recommendation 2:</p>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
              </div>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="recommend"><title>Recommendation 3:</title>
+               <div class="recommend"><p class="AdmonitionTitle">Recommendation 3:</p>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
@@ -1119,10 +1119,10 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="recommend"><title>Recommendation 4:</title>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation 4:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><title>Recommendation 5:</title>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation 5:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
          <p>    <a href="#note1">Recommendation 4</a> <a href="#note2">Recommendation 5</a> </p>
@@ -1131,15 +1131,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="recommend"><title>Recommendation A-1:</title>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation A-1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="recommend"><title>Recommendation A-2:</title>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation A-2:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="recommend"><title>Recommendation A-3:</title>
+    <div class="recommend"><p class="AdmonitionTitle">Recommendation A-3:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
@@ -1253,18 +1253,18 @@ INPUT
     </div>
     <div id="intro">
     <h1 class="IntroTitle"/>
-    <div class="require"><title>Requirement 1:</title>
+    <div class="require"><p class="AdmonitionTitle">Requirement 1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="require"><title>Requirement 2:</title>
+               <div class="require"><p class="AdmonitionTitle">Requirement 2:</p>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
              </div>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="require"><title>Requirement 3:</title>
+               <div class="require"><p class="AdmonitionTitle">Requirement 3:</p>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
@@ -1277,10 +1277,10 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="require"><title>Requirement 4:</title>
+    <div class="require"><p class="AdmonitionTitle">Requirement 4:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="require"><title>Requirement 5:</title>
+    <div class="require"><p class="AdmonitionTitle">Requirement 5:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
          <p>    <a href="#note1">Requirement 4</a> <a href="#note2">Requirement 5</a> </p>
@@ -1289,15 +1289,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="require"><title>Requirement A-1:</title>
+    <div class="require"><p class="AdmonitionTitle">Requirement A-1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="require"><title>Requirement A-2:</title>
+    <div class="require"><p class="AdmonitionTitle">Requirement A-2:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="require"><title>Requirement A-3:</title>
+    <div class="require"><p class="AdmonitionTitle">Requirement A-3:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
@@ -1388,18 +1388,18 @@ INPUT
     </div>
     <div id="intro">
     <h1 class="IntroTitle"/>
-    <div class="permission"><title>Permission 1:</title>
+    <div class="permission"><p class="AdmonitionTitle">Permission 1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <div id="xyz"><h2>Preparatory</h2>
-               <div class="permission"><title>Permission 2:</title>
+               <div class="permission"><p class="AdmonitionTitle">Permission 2:</p>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
        </div>
              </div>
              <div id="scope">
                <h1>1.&#160; Scope</h1>
-               <div class="permission"><title>Permission 3:</title>
+               <div class="permission"><p class="AdmonitionTitle">Permission 3:</p>
          <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
                <p>
@@ -1412,10 +1412,10 @@ INPUT
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
       <div id="widgets1"><h2>3.1. </h2>
-    <div class="permission"><title>Permission 4:</title>
+    <div class="permission"><p class="AdmonitionTitle">Permission 4:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="permission"><title>Permission 5:</title>
+    <div class="permission"><p class="AdmonitionTitle">Permission 5:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
          </div>
          <p>    <a href="#note1">Permission 4</a> <a href="#note2">Permission 5</a> </p>
@@ -1424,15 +1424,15 @@ INPUT
     <br/>
     <div id="annex1" class="Section3">
     <div id="annex1a"><h2>A.1. </h2>
-    <div class="permission"><title>Permission A-1:</title>
+    <div class="permission"><p class="AdmonitionTitle">Permission A-1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
     <div id="annex1b"><h2>A.2. </h2>
-    <div class="permission"><title>Permission A-2:</title>
+    <div class="permission"><p class="AdmonitionTitle">Permission A-2:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
-    <div class="permission"><title>Permission A-3:</title>
+    <div class="permission"><p class="AdmonitionTitle">Permission A-3:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
@@ -1448,15 +1448,15 @@ it "cleans up requirements" do
     <html>
     <body>
       <div class="recommend">
-        <title><i>Warning:</i></title>
+        <p class="AdmonitionTitle"><i>Warning:</i></p>
         <p>Text</p>
       </div>
       <div class="require">
-        <title><i>Warning:</i></title>
+        <p class="AdmonitionTitle"><i>Warning:</i></p>
         <p>Text</p>
       </div>
       <div class="permission">
-        <title><i>Warning:</i></title>
+        <p class="AdmonitionTitle"><i>Warning:</i></p>
         <p>Text</p>
       </div>
     </body>
@@ -1512,20 +1512,20 @@ output = <<~"OUTPUT"
       <div id="fwd">
     <h1 class="ForewordTitle"/>
         <p>
-      <div class="permission"><title>Permission 1:</title>
+      <div class="permission"><p class="AdmonitionTitle">Permission 1:</p>
 <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
 </div>
-      <div class="permission"><title>Permission 2:</title>
+      <div class="permission"><p class="AdmonitionTitle">Permission 2:</p>
 <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
 </div>
   </p>
       </div>
       <div id="intro">
         <h1 class="NormalTitle"/>
-        <div class="permission"><title>Permission ES-1:</title>
+        <div class="permission"><p class="AdmonitionTitle">Permission ES-1:</p>
 <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
 </div>
-        <div class="permission"><title>Permission ES-2:</title>
+        <div class="permission"><p class="AdmonitionTitle">Permission ES-2:</p>
 <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
 </div>
       </div>

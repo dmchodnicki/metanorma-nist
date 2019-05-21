@@ -33,6 +33,11 @@ module Asciidoctor
       end
 
       def move_clauses_into_preface(x, preface)
+        move_clauses_into_preface1(x, preface)
+        move_execsummary_into_preface(x, preface)
+      end
+
+       def move_clauses_into_preface1(x, preface)
         x.xpath("//clause[@preface]").each do |c|
           c.delete("preface")
           title = c&.at("./title")&.text.downcase
@@ -40,6 +45,9 @@ module Asciidoctor
           c.name = "executivesummary" if title == "executive summary"
           preface.add_child c.remove
         end
+       end
+
+       def move_execsummary_into_preface(x, preface)
         x.xpath("//clause[@executivesummary]").each do |c|
           c.delete("executivesummary")
           title = c&.at("./title")&.text.downcase
