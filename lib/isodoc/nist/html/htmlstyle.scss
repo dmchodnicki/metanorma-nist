@@ -447,6 +447,7 @@ color: #7ba812;
 
 #NIST-logo {
   width: 300px;
+  padding-top: 3m;
 }
 
 #commerce-logo {
@@ -460,6 +461,10 @@ color: #7ba812;
 .affiliation {
   font-style: italic;
   margin-bottom: 1em;
+}
+
+.main-section {
+    word-wrap:break-word;
 }
 
 /*
@@ -985,6 +990,11 @@ h2 p {
     text-transform: none;
     font-weight: 300;
   }
+
+  .coverpage-logo span {
+      display: block;
+      float: left;
+   }
 
   .coverpage-tc-name {
     font-size: 1.2em;
