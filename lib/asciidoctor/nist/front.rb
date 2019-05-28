@@ -64,7 +64,7 @@ module Asciidoctor
         did = node.attr("docidentifier")
         dn = node.attr("docnumber")
         if did
-          xml.docidentifier did, **attr_code(type: "nist")
+          xml.docidentifier did, **attr_code(type: "NIST")
           xml.docidentifier unabbreviate(did), **attr_code(type: "nist-long")
         else
           metadata_id_compose(node, xml, dn)
@@ -95,7 +95,7 @@ module Asciidoctor
       def metadata_id_compose(node, xml, dn0)
         return unless dn0
         args = id_args(node, dn0)
-        xml.docidentifier add_id_parts(args, false), **attr_code(type: "nist")
+        xml.docidentifier add_id_parts(args, false), **attr_code(type: "NIST")
         xml.docidentifier add_id_parts(args, true),
           **attr_code(type: "nist-long")
         xml.docidentifier add_id_parts_mr(args), **attr_code(type: "nist-mr")
@@ -236,12 +236,7 @@ module Asciidoctor
               b.uri doi, **{ type: "doi" }
             url = node.attr("superseding-url") and
               b.uri url, **{ type: "uri" }
-            did = xml&.parent&.at("./ancestor::bibdata/docidentifier"\
-                                  "[@type = 'nist']")&.text
-            didl = xml&.parent&.at("./ancestor::bibdata/docidentifier"\
-                                   "[@type = 'nist-long']")&.text
-            b.docidentifier did, **{ type: "nist" }
-            b.docidentifier didl, **{ type: "nist-long" }
+            metadata_superseding_ids(b, xml)
             metadata_superseding_authors(b, node)
             metadata_superseding_dates(b, node)
             b.status do |s|
@@ -251,6 +246,15 @@ module Asciidoctor
             end
           end
         end
+      end
+
+      def metadata_superseding_ids(b, xml)
+        did = xml&.parent&.at("./ancestor::bibdata/docidentifier"\
+                              "[@type = 'NIST']")&.text
+        didl = xml&.parent&.at("./ancestor::bibdata/docidentifier"\
+                               "[@type = 'nist-long']")&.text
+        b.docidentifier did, **{ type: "NIST" }
+        b.docidentifier didl, **{ type: "nist-long" }
       end
 
       def metadata_superseding_dates(b, node)

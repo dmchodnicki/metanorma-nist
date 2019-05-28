@@ -358,7 +358,7 @@ module IsoDoc
 
       def omit_docid_prefix(prefix)
         return true if prefix.nil? || prefix.empty?
-        return ["ISO", "IEC", "nist"].include? prefix
+        return ["ISO", "IEC", "NIST"].include? prefix
       end
 
       def nist_reference_format(b, r)

@@ -12,7 +12,7 @@ RSpec.describe IsoDoc::NIST do
   <title language="en" format="plain" type="subtitle">Subtitle</title>
   <title language="en" format="plain" type="short-subtitle">Short Subtitle</title>
   <title language="en" format="plain" type="document-class">Information Security</title>
-  <docidentifier type="nist">1000(wd) (January 2007)</docidentifier>
+  <docidentifier type="NIST">1000(wd) (January 2007)</docidentifier>
   <docidentifier type="nist-long">1000(wd) Long</docidentifier>
   <docnumber>1000</docnumber>
   <date type="confirmed">
@@ -112,7 +112,7 @@ RSpec.describe IsoDoc::NIST do
     <title type="subtitle">Superseding Subtitle</title>
     <uri type="doi">http://doi.org/1</uri>
     <uri type="uri">http://example.org/1</uri>
-    <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
+    <docidentifier type="NIST">NIST FIPS 1000 Volume 5, Revision 3</docidentifier>
     <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3</docidentifier>
     <contributor>
       <role type="author"/>
@@ -203,7 +203,7 @@ RSpec.describe IsoDoc::NIST do
 <bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
   <title type="subtitle" language="en" format="plain">Subtitle</title>
-  <docidentifier type="nist">1000(wd)</docidentifier>
+  <docidentifier type="NIST">1000(wd)</docidentifier>
   <docnumber>1000</docnumber>
   <date type="obsoleted">
   <on>3000-01-01</on>
@@ -257,7 +257,7 @@ RSpec.describe IsoDoc::NIST do
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
-  <docidentifier type="nist">1000(wd)</docidentifier>
+  <docidentifier type="NIST">1000(wd)</docidentifier>
   <docidentifier type="nist-long">1000(wd) Long</docidentifier>
   <docnumber>1000</docnumber>
   <version>
@@ -298,7 +298,7 @@ RSpec.describe IsoDoc::NIST do
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
-  <docidentifier type="nist">1000(wd)</docidentifier>
+  <docidentifier type="NIST">1000(wd)</docidentifier>
   <docidentifier type="nist-long">1000(wd) Long</docidentifier>
   <docnumber>1000</docnumber>
   <version>
@@ -339,7 +339,7 @@ RSpec.describe IsoDoc::NIST do
 <nist-standard xmlns="https://open.ribose.com/standards/example">
 <bibdata type="standard">
   <title type="main" language="en" format="plain">Main Title</title>
-  <docidentifier type="nist">1000(wd)</docidentifier>
+  <docidentifier type="NIST">1000(wd)</docidentifier>
   <docidentifier type="nist-long">1000(wd) Long</docidentifier>
   <docnumber>1000</docnumber>
   <version>
@@ -1557,7 +1557,7 @@ end
   <title language="en" format="text/plain" type="document-class">Information Security</title>
   <uri>https://doi.org/10.6028/NIST.SP.800-116r1</uri>
   <uri type="email">piv_comments@nist.gov</uri>
-  <docidentifier type="nist">NIST SP 800-116 (June 01, 2018)</docidentifier>
+  <docidentifier type="NIST">SP 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-long">NIST Special Publication 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
@@ -1637,7 +1637,7 @@ end
       <div>
     <h1 class="ForewordTitle"/>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
-         <a href="#ISO712">NIST SP 800-116 (June 01, 2018)</a>
+         <a href="#ISO712">SP 800-116 (June 01, 2018)</a>
          </p>
              </div>
              <br/>
@@ -1673,7 +1673,7 @@ end
   <title language="en" format="text/plain" type="document-class">Information Security</title>
   <uri>https://doi.org/10.6028/NIST.SP.800-116r1</uri>
   <uri type="email">piv_comments@nist.gov</uri>
-  <docidentifier type="nist">NIST SP 800-116 (3PD) (June 01, 2018)</docidentifier>
+  <docidentifier type="NIST">SP 800-116 (3PD) (June 01, 2018)</docidentifier>
   <docidentifier type="nist-long">NIST Special Publication 800-116 (3PD) (June 01, 2018)</docidentifier>
   <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
@@ -1754,7 +1754,7 @@ end
       <div>
     <h1 class="ForewordTitle"/>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
-         <a href="#ISO712">NIST SP 800-116 (3PD) (June 01, 2018)</a>
+         <a href="#ISO712">SP 800-116 (3PD) (June 01, 2018)</a>
          </p>
              </div>
              <br/>
@@ -1790,7 +1790,7 @@ end
   <title language="en" format="text/plain" type="document-class">Information Security</title>
   <uri>https://doi.org/10.6028/NIST.SP.800-116r1</uri>
   <uri type="email">piv_comments@nist.gov</uri>
-  <docidentifier type="nist">NIST SP 800-116 (June 01, 2018)</docidentifier>
+  <docidentifier type="NIST">SP 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-long">NIST Special Publication 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
@@ -1870,7 +1870,7 @@ end
       <div>
     <h1 class="ForewordTitle"/>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
-         <a href="#ISO712">NIST SP 800-116 (June 01, 2018)</a>
+         <a href="#ISO712">SP 800-116 (June 01, 2018)</a>
          </p>
              </div>
              <br/>

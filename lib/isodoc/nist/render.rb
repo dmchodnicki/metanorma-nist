@@ -191,6 +191,7 @@ module Iso690Render
 
   def self.standardidentifier(doc)
     ret = []
+    require "byebug"; byebug
     doc.xpath("./docidentifier").each do |id|
       next if %w(nist-mr nist-long).include? id["type"]
       ret << standardidentifier1(id)
@@ -200,8 +201,9 @@ module Iso690Render
 
   def self.standardidentifier1(id)
     r = ""
+    require "byebug"; byebug
     r += "#{id['type']} " if id["type"] and
-      !%w(ISO IEC nist).include? id["type"]
+      !%w(ISO IEC NIST).include? id["type"]
     r += id.text
     r
   end

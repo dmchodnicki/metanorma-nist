@@ -60,7 +60,7 @@ module IsoDoc
       end
 
       def docid(ixml, _out)
-        docid = ixml.at(ns("//bibdata/docidentifier[@type = 'nist']"))&.text
+        docid = ixml.at(ns("//bibdata/docidentifier[@type = 'NIST']"))&.text
         docid_long = ixml.at(ns("//bibdata/docidentifier"\
                                 "[@type = 'nist-long']"))&.text
         docnumber = ixml.at(ns("//bibdata/docnumber"))&.text
@@ -264,7 +264,7 @@ module IsoDoc
         set(:superseding_status,
             status_print(d.at(ns("./status/stage"))&.text || "final"))
         superseding_iteration(d)
-        docid = d.at(ns("./docidentifier[@type = 'nist']"))&.text and
+        docid = d.at(ns("./docidentifier[@type = 'NIST']"))&.text and
           set(:superseding_docidentifier, docid)
         docid_long = d.at(ns("./docidentifier[@type = 'nist-long']"))&.text and
           set(:superseding_docidentifier_long, docid_long)

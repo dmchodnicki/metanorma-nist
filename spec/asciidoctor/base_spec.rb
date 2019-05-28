@@ -379,7 +379,7 @@ OUTPUT
          <uri>http://www.example.com</uri>
         <uri type="email">email@example.com</uri>
         <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
+         <docidentifier type="NIST">NIST FIPS 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
          <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
          <docidentifier type="nist-mr">NIST.FIPS.5.3.2000-01-01</docidentifier>
          <docnumber>1000</docnumber>
@@ -456,7 +456,7 @@ OUTPUT
     <title type="subtitle">Superseding Subtitle</title>
     <uri type="doi">http://doi.org/1</uri>
     <uri type="uri">http://example.org/1</uri>
-    <docidentifier type="nist">NIST FIPS 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
+    <docidentifier type="NIST">NIST FIPS 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
     <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
     <contributor>
       <role type="author"/>
@@ -581,7 +581,7 @@ OUTPUT
          <uri>http://www.example.com</uri>
          <uri type="email">email@example.com</uri>
          <uri type="doi">http://www.example2.com</uri>
-         <docidentifier type="nist">NIST FIPS 1000 (February 01, 2000)</docidentifier>
+         <docidentifier type="NIST">NIST FIPS 1000 (February 01, 2000)</docidentifier>
          <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 (February 01, 2000)</docidentifier>
          <docidentifier type="nist-mr">NIST.FIPS...2000-02-01</docidentifier>
          <docnumber>1000</docnumber>
@@ -679,7 +679,7 @@ end
     <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
   <title type="main" language="en" format="text/plain">Main Title</title>
-  <docidentifier type="nist">NIST FIPS 1000-2</docidentifier>
+  <docidentifier type="NIST">NIST FIPS 1000-2</docidentifier>
   <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000-2</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
@@ -839,7 +839,7 @@ end
     <title type="main" language="en" format="text/plain">Document title</title>
   <uri type="email">email@example.com</uri>
   <uri type="doi">http://www.example.com</uri>
-  <docidentifier type="nist">NIST  ABC (IPD) (January 01, 2013)</docidentifier>
+  <docidentifier type="NIST">NIST  ABC (IPD) (January 01, 2013)</docidentifier>
   <docidentifier type="nist-long">NIST  ABC (IPD) (January 01, 2013)</docidentifier>
   <docidentifier type="nist-mr">NIST....2013-01-01</docidentifier>
   <docnumber>ABC</docnumber>
