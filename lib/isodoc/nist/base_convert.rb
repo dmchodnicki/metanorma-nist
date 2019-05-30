@@ -35,7 +35,7 @@ module IsoDoc
           patent = ["Call for Patent Claims", "Patent Disclosure Notice"].include? title&.text
           out.div **attr_code(id: c["id"]) do |s|
             page_break(s) if patent
-            clause_name(get_anchors[c['id']][:label], title&.content, s,
+            clause_name(anchor(c['id'], :label), title&.content, s,
                         class: (c.name == "executivesummary") ? "NormalTitle" :
                         "IntroTitle")
             c.elements.reject { |c1| c1.name == "title" }.each do |c1|
@@ -270,7 +270,7 @@ module IsoDoc
 
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
-          t << "#{get_anchors[annex['id']][:label]} &mdash; "
+          t << "#{anchor(annex['id'], :label)} &mdash; "
           t.b do |b|
             if @bibliographycount == 1 && annex.at(ns("./references"))
               b << "References"
