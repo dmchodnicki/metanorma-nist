@@ -421,7 +421,7 @@ OUTPUT
              <subdivision>Ministry of Silly Walks</subdivision>
            </organization>
          </contributor>
-         <edition>Revisio 3</edition>
+         <edition>Revision 3</edition>
          <version>
            <revision-date>2000-01-01</revision-date>
            <draft>3.4</draft>
