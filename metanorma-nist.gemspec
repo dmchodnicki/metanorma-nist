@@ -30,8 +30,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "twitter_cldr"
   spec.add_dependency "tzinfo-data" # we need this for windows only
 
-  spec.add_dependency "metanorma-standoc", "~> 1.1.0"
-  spec.add_dependency "isodoc", "~> 0.9.0"
+  spec.add_dependency "metanorma-standoc", "~> 1.2.0"
+  spec.add_dependency "isodoc", "~> 0.10.0"
+  spec.add_dependency "relaton-nist", "~> 0.2.0"
 
   spec.add_development_dependency "bundler", "~> 2.0.1"
   spec.add_development_dependency "byebug", "~> 9.1"
@@ -44,5 +45,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_development_dependency "timecop", "~> 0.9"
   spec.add_development_dependency "metanorma", "~> 0.3.0"
-  spec.add_development_dependency "nistbib", "~> 0.1.0"
 end

@@ -1394,14 +1394,14 @@ end
   private
 
   def mock_nistbib_get_nistsp80053ar1
-    expect(NistBib::NistBibliography).to receive(:get).with("NIST SP 800-53A Rev. 1", nil, {}) do
-      IsoBibItem::XMLParser.from_xml(NISTSP80053ar1)
+    expect(RelatonNist::NistBibliography).to receive(:get).with("NIST SP 800-53A Rev. 1", nil, {}) do
+      RelatonIsoBib::XMLParser.from_xml(NISTSP80053ar1)
     end.exactly(3).times
     end
 
   def mock_nistbib_get_nistsp800179
-    expect(NistBib::NistBibliography).to receive(:get).with("NIST SP 800-179", nil, {}) do
-      IsoBibItem::XMLParser.from_xml(NISTSP800179)
+    expect(RelatonNist::NistBibliography).to receive(:get).with("NIST SP 800-179", nil, {}) do
+      RelatonIsoBib::XMLParser.from_xml(NISTSP800179)
     end.exactly(3).times
     end
 
