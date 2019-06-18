@@ -172,7 +172,7 @@ module Iso690Render
     n = s.at("./number")
     p = s.at("./partnumber")
     dn = doc.at("./docnumber")
-    rev = doc&.at(".//edition")&.text.sub(/^Revision /, "")
+    rev = doc&.at(".//edition")&.text&.sub(/^Revision /, "")
     ret = ""
     if t
       title = included(type) ? wrap(t.text, " <I>", "</I>") : wrap(t.text, " ", "")
