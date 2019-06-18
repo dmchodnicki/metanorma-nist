@@ -256,17 +256,33 @@ module Iso690Render
 
   def self.monthyr(isodate)
     return nil if isodate.nil?
-    DateTime.parse(isodate).localize(:en).to_additional_s("yMMMM")
+    arr = isodate.split("-")
+    date = if arr.size == 2
+      DateTime.new(*arr.map(&:to_i))
+    else
+      DateTime.parse(isodate)
+    end
+    date.localize(:en).to_additional_s("yMMMM")
   end
 
   def self.mmddyyyy(isodate)
     return nil if isodate.nil?
-    Date.parse(isodate).strftime("%m-%d-%Y")
+    arr = isodate.split("-")
+    date = if arr.size == 2
+      Date.new(*arr.map(&:to_i)).strftime("%m-%Y")
+    else
+      Date.parse(isodate).strftime("%m-%d-%Y")
+    end
   end
 
   def self.MMMddyyyy(isodate)
     return nil if isodate.nil?
-    Date.parse(isodate).strftime("%B %d, %Y")
+    arr = isodate.split("-")
+    date = if arr.size == 2
+      Date.new(*arr.map(&:to_i)).strftime("%B, %Y")
+    else
+      Date.parse(isodate).strftime("%B %d, %Y")
+    end
   end
 
   def self.draft(doc)
