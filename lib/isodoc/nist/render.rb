@@ -33,7 +33,7 @@ module Iso690Render
     elsif initials.empty?
       given.map{ |m| m.text[0] }.join("")
     else
-      initials.map{ |m| m.text }.join("")
+      initials.map{ |m| m.text[0] }.join("")
     end
   end
 
