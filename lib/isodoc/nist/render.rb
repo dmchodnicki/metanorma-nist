@@ -99,17 +99,20 @@ module Iso690Render
     doc&.at("./medium")&.text
   end
 
+=begin
   def self.edition(doc)
     x = doc.at("./edition")
     return "" unless x
     return x.text unless /^\d+$/.match x.text
     x.text.to_i.localize.to_rbnf_s("SpelloutRules", "spellout-ordinal")
   end
+=end
 
   def self.is_nist(doc)
     publisher = doc&.at("./contributor[role/@type = 'publisher']/organization/name")&.text
     abbr = doc&.at("./contributor[role/@type = 'publisher']/organization/abbreviation")&.text
-    publisher == "NIST" || abbr == "NIST"
+    publisher == "NIST" || abbr == "NIST" ||
+      publisher == "National Institute of Standards and Technology"
   end
 
   def self.placepub(doc)
@@ -270,7 +273,9 @@ module Iso690Render
   def self.mmddyyyy(isodate)
     return nil if isodate.nil?
     arr = isodate.split("-")
-    date = if arr.size == 2
+    date = if arr.size == 1 and (/^\d+$/.match isodate)
+             Date.new(*arr.map(&:to_i)).strftime("%Y")
+      elsif arr.size == 2
       Date.new(*arr.map(&:to_i)).strftime("%m-%Y")
     else
       Date.parse(isodate).strftime("%m-%d-%Y")
@@ -280,11 +285,13 @@ module Iso690Render
   def self.MMMddyyyy(isodate)
     return nil if isodate.nil?
     arr = isodate.split("-")
-    date = if arr.size == 2
-      Date.new(*arr.map(&:to_i)).strftime("%B, %Y")
-    else
-      Date.parse(isodate).strftime("%B %d, %Y")
-    end
+    date = if arr.size == 1 and (/^\d+$/.match isodate)
+             Date.new(*arr.map(&:to_i)).strftime("%Y")
+           elsif arr.size == 2
+             Date.new(*arr.map(&:to_i)).strftime("%B, %Y")
+           else
+             Date.parse(isodate).strftime("%B %d, %Y")
+           end
   end
 
   def self.draft(doc)
@@ -354,7 +361,7 @@ module Iso690Render
       ret += " Draft (#{dr})"
     end
     ret += wrap(series(doc, type), " ", "")
-    ret += "," if series(doc, type) && date(doc)
+    ret += "," if !series(doc, type).empty? && date(doc)
     ret += wrap(date(doc))
     ret += wrap(standardidentifier(doc)) unless is_nist(doc)
     ret += wrap(uri(doc))

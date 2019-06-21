@@ -47,6 +47,67 @@ RSpec.describe IsoDoc::NIST do
 
 end
 
+ it "formats a non-NIST reference" do
+    input = <<~"INPUT"
+  <nist-standard xmlns="http://riboseinc.com/isoxml">
+  <preface><foreword>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+  <eref bibitemid="ISO712"/>
+  </p>
+  </foreword>
+  </preface>
+  <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
+  <bibitem id="ISO712" type="book">
+ <title>Canada Remembers the Korean War</title>
+  <docidentifier type="ISBN">0662674979</docidentifier>
+  <date type="published"><on>2003</on></date>
+  <contributor>
+    <role type="author"/>
+    <person><name>
+      <surname>Giesler</surname> 
+      <forename>Patricia</forename>
+    </name></person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Veterans Affairs Canada</name>
+    </organization> 
+  </contributor>
+  <place>Charlottetown, P.E.I.</place>
+  <classification type="Dewey">971.06 GIE 2003</classification>
+  </bibitem>
+  </references>
+  </bibliography>
+  </nist-standard>
+    INPUT
+
+  output = <<~"OUTPUT"
+  #{HTML_HDR}
+      <div>
+    <h1 class="ForewordTitle"/>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+         <a href="#ISO712">ISBN 0662674979</a>
+         </p>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">References</h1>
+               <p id="ISO712" class="NormRef">Giesler P (2003) <I>Canada Remembers the Korean War</I>. (Charlottetown, P.E.I.: Veterans Affairs Canada), 2003. ISBN 0662674979.</p>
+             </div>
+           </div>
+         </body>
+  OUTPUT
+
+  expect(
+    IsoDoc::NIST::HtmlConvert.new({}).
+    convert("test", input, true).
+    gsub(%r{^.*<body}m, "<body").
+    gsub(%r{</body>.*}m, "</body>")
+  ).to be_equivalent_to output
+
+end
+
 
 
   it "formats a NIST SP reference" do
