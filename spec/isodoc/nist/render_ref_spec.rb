@@ -47,7 +47,7 @@ RSpec.describe IsoDoc::NIST do
 
 end
 
- it "formats a non-NIST reference" do
+ it "formats a non-NIST reference: book" do
     input = <<~"INPUT"
   <nist-standard xmlns="http://riboseinc.com/isoxml">
   <preface><foreword>
@@ -60,6 +60,7 @@ end
   <bibitem id="ISO712" type="book">
  <title>Canada Remembers the Korean War</title>
   <docidentifier type="ISBN">0662674979</docidentifier>
+  <docidentifier type="IEC">IEC 10.11/12.13</docidentifier>
   <date type="published"><on>2003</on></date>
   <contributor>
     <role type="author"/>
@@ -94,7 +95,7 @@ end
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">Giesler P (2003) <I>Canada Remembers the Korean War</I>. (Charlottetown, P.E.I.: Veterans Affairs Canada), 2003. ISBN 0662674979. At: Library.</p>
+               <p id="ISO712" class="NormRef">Giesler P (2003) <I>Canada Remembers the Korean War</I>. (Charlottetown, P.E.I.: Veterans Affairs Canada), 2003. ISBN 0662674979. IEC 10.11/12.13. At: Library.</p>
              </div>
            </div>
          </body>
@@ -108,6 +109,105 @@ end
   ).to be_equivalent_to output
 
 end
+
+  it "formats a non-NIST reference: incollection" do
+    input = <<~"INPUT"
+      <nist-standard xmlns="http://riboseinc.com/isoxml">
+  <preface><foreword>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+  <eref bibitemid="ISO712"/>
+  </p>
+  </foreword>
+  </preface>
+  <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
+  <bibitem id="ISO712" type="incollection">
+   <title>Object play in great apes: Studies in nature and captivity</title>
+  <docidentifier>HSPD-12</docidentifier>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <surname>Ramsey</surname>
+        <initials>J. K.</initials>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <surname>McGrew</surname>
+        <initials>W. C.</initials>
+      </name>
+    </person>
+  </contributor>
+  <relation type="includedIn">
+    <bibitem>
+      <title>The nature of play: Great apes and humans</title>
+  <date type="published"><on>2005</on></date>
+      <contributor>
+        <role type="editor"/>
+        <person>
+          <name>
+            <surname>Pellegrini</surname>
+            <initials>A. D.</initials>
+          </name>
+        </person>
+      </contributor>
+      <contributor>
+        <role type="editor"/>
+        <person>
+          <name>
+            <surname>Smith</surname>
+            <initials>P. K.</initials>
+          </name>
+        </person>
+      </contributor>
+      <contributor>
+        <role type="publisher"/>
+        <organization>
+          <name>Guilford Press</name>
+        </organization>
+      </contributor>
+      <place>New York, NY</place>
+    </bibitem>
+  </relation>
+  <extent type="page">
+    <referenceFrom>89</referenceFrom>
+    <referenceTo>112</referenceTo>
+  </extent>
+</bibitem>
+  </references>
+  </bibliography>
+  </nist-standard>
+    INPUT
+
+  output = <<~"OUTPUT"
+  #{HTML_HDR}
+      <div>
+    <h1 class="ForewordTitle"/>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+         <a href="#ISO712">HSPD-12</a>
+         </p>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">References</h1>
+               <p id="ISO712" class="NormRef">Ramsey J, McGrew W (2005) Object play in great apes: Studies in nature and captivity. 2005. HSPD-12. In: Pellegrini A, Smith P (Eds.) <i>The nature of play: Great apes and humans</i>. (New York, NY: Guilford Press), pp. 89&#8211;112.</p>
+             </div>
+           </div>
+         </body>
+  OUTPUT
+
+  expect(
+    IsoDoc::NIST::HtmlConvert.new({}).
+    convert("test", input, true).
+    gsub(%r{^.*<body}m, "<body").
+    gsub(%r{</body>.*}m, "</body>")
+  ).to be_equivalent_to output
+
+end
+
 
 
 
@@ -129,13 +229,14 @@ end
   <docidentifier type="NIST">SP 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-long">NIST Special Publication 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
+  <docidentifier type="DOI">10.11/12.13</docidentifier>
   <docnumber>800-116</docnumber>
   <date type="issued">
     <from>2018-06-01</from>
     <to>2018-06-02</to>
   </date>
   <date type="updated">
-    <on>2018-11-13</on>
+    <on>2018-11</on>
   </date>
   <contributor>
     <role type="author"/>
@@ -222,7 +323,7 @@ end
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">Ferraiolo H, Ketan Mehta, FEMA (June 01, 2018&#8211;June 02, 2018 (updated November 13, 2018)) <i>Guidelines for the Use of PIV Credentials in Facility Access</i>. (National Institute of Standards and Technology, Gaithersburg, MD),  NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018&#8211;June 02, 2018 (updated November 13, 2018). https://doi.org/10.6028/NIST.SP.800-116r1.</p>
+               <p id="ISO712" class="NormRef">Ferraiolo H, Ketan Mehta, FEMA (June 01, 2018&#8211;June 02, 2018 (updated November 2018)) <i>Guidelines for the Use of PIV Credentials in Facility Access</i>. (National Institute of Standards and Technology, Gaithersburg, MD),  NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018&#8211;June 02, 2018 (updated November 2018). https://doi.org/10.6028/NIST.SP.800-116r1.</p>
              </div>
            </div>
          </body>

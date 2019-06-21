@@ -259,6 +259,7 @@ module Iso690Render
     ret.join(", ")
   end
 
+=begin
   def self.monthyr(isodate)
     return nil if isodate.nil?
     arr = isodate.split("-")
@@ -281,6 +282,7 @@ module Iso690Render
       Date.parse(isodate).strftime("%m-%d-%Y")
     end
   end
+=end
 
   def self.MMMddyyyy(isodate)
     return nil if isodate.nil?
@@ -288,7 +290,7 @@ module Iso690Render
     date = if arr.size == 1 and (/^\d+$/.match isodate)
              Date.new(*arr.map(&:to_i)).strftime("%Y")
            elsif arr.size == 2
-             Date.new(*arr.map(&:to_i)).strftime("%B, %Y")
+             Date.new(*arr.map(&:to_i)).strftime("%B %Y")
            else
              Date.parse(isodate).strftime("%B %d, %Y")
            end
@@ -333,9 +335,9 @@ module Iso690Render
 
     type = type(doc)
     container = doc.at("./relation[@type='includedIn']")
-    if container && date(doc) && !date(container)
-      container("./bibitem") << 
-      ( doc.at("./date[@type = 'issued']").remove || doc.at("./date[@type = 'circulated']").remove )
+    if container && !date(doc) && date(container&.at("./bibitem"))
+      doc << 
+      ( container&.at("./bibitem/date[@type = 'issued' or @type = 'published' or @type = 'circulated']")&.remove )
     end
     ser = series_title(doc)
     dr = draft(doc)
@@ -367,7 +369,7 @@ module Iso690Render
     ret += wrap(uri(doc))
     ret += wrap(accessLocation(doc), " At: ", ".")
     if container 
-      ret += wrap(parse(container.at("./bibitem").to_xml, true), " In:", "")
+      ret += wrap(parse(container.at("./bibitem"), true), " In: ", "")
       locality = container.xpath("./locality")
       locality.empty? and locality = doc.xpath("./extent")
       ret += wrap(extent(locality))
