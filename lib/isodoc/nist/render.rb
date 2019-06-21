@@ -147,7 +147,7 @@ module Iso690Render
     if pub
       ret = pub
       ret += " (updated #{updated})" if updated
-      return pub
+      return ret
     end
     pub = date1(doc&.at("./date[@type = 'circulated']")) and
       return pub
