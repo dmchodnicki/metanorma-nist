@@ -75,6 +75,7 @@ end
     </organization> 
   </contributor>
   <place>Charlottetown, P.E.I.</place>
+  <accessLocation>Library</accessLocation>
   <classification type="Dewey">971.06 GIE 2003</classification>
   </bibitem>
   </references>
@@ -93,7 +94,7 @@ end
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">Giesler P (2003) <I>Canada Remembers the Korean War</I>. (Charlottetown, P.E.I.: Veterans Affairs Canada), 2003. ISBN 0662674979.</p>
+               <p id="ISO712" class="NormRef">Giesler P (2003) <I>Canada Remembers the Korean War</I>. (Charlottetown, P.E.I.: Veterans Affairs Canada), 2003. ISBN 0662674979. At: Library.</p>
              </div>
            </div>
          </body>
@@ -255,7 +256,7 @@ end
   <docidentifier type="nist-long">NIST Special Publication 800-116 (3PD) (June 01, 2018)</docidentifier>
   <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
-  <date type="issued">
+  <date type="circulated">
     <on>2018-06-01</on>
   </date>
   <contributor>
@@ -427,6 +428,8 @@ end
   <series type="main">
     <title>NIST Federal Information Processing Standards</title>
     <abbreviation>FIPS</abbreviation>
+    <number>800-116</number>
+    <partnumber>1</partnumber>
   </series>
   <keyword>Conditioning functions</keyword>
   <keyword>entropy source</keyword>
@@ -452,7 +455,7 @@ end
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">National Institute of Standards and Technology (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (U.S. Department of Commerce, Washington, D.C.),  NIST Federal Information Processing Standards (FIPS) 800-116, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
+               <p id="ISO712" class="NormRef">National Institute of Standards and Technology (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (U.S. Department of Commerce, Washington, D.C.),  NIST Federal Information Processing Standards (FIPS) 800-116.1, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
              </div>
            </div>
          </body>
