@@ -353,7 +353,7 @@ module IsoDoc
             title&.children&.each { |n| parse(n, i) }
           end
         end
-        r << "[#{iso_bibitem_ref_code(b)}] "
+        r << " [#{iso_bibitem_ref_code(b)}] "
       end
 
       def omit_docid_prefix(prefix)

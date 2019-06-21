@@ -168,8 +168,8 @@ module Iso690Render
       doc.at("./series[not(@type)]") ||
       doc.at("./series")
     return "" unless s
-    f = s.at("./formattedref")
-    return f.text if f
+    #f = s.at("./formattedref")
+    #return f.text if f
     t = s.at("./title")
     a = s.at("./abbreviation")
     n = s.at("./number")
@@ -321,6 +321,9 @@ module Iso690Render
 
   def self.parse(doc, embedded = false)
     ret = ""
+    f = doc.at("./formattedref") and 
+      return embedded ? f.children.to_xml : "<p>#{f.children.to_xml}</p>"
+
     type = type(doc)
     container = doc.at("./relation[@type='includedIn']")
     if container && date(doc) && !date(container)
@@ -340,7 +343,7 @@ module Iso690Render
     if dr
       mdy = MMMddyyyy(date(doc)) and ret += wrap(mdy, " (", ")")
     else
-    yr = year(date(doc)) and ret += wrap(yr, " (", ")")
+      yr = year(date(doc)) and ret += wrap(yr, " (", ")")
     end
     ret += included(type) ? wrap(title(doc)) : wrap(title(doc), " <I>", "</I>.")
     ret += wrap(medium(doc), " [", "].")
