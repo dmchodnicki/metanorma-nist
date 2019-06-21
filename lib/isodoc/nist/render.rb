@@ -12,12 +12,14 @@ module Iso690Render
     parse(docxml.root, embedded)
   end
 
+=begin
   def self.multiplenames_and(names)
     return "" if names.length == 0
     return names[0] if names.length == 1
     return "#{names[0]} and #{names[1]}" if names.length == 2
     names[0..-2].join(", ") + " and #{names[-1]}"
   end
+=end
 
   def self.multiplenames(names)
     names.join(", ")
@@ -66,7 +68,7 @@ module Iso690Render
 
   def self.contributorRole(contributors)
     return "" unless contributors.length > 0
-    if contributors[0]["role"] == "editor"
+    if contributors[0]&.at("role/@type")&.text == "editor"
       return contributors.length > 1 ? " (Eds.)" : "(Ed.)"
     end
     ""

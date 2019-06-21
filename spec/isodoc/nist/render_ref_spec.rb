@@ -52,6 +52,12 @@ RSpec.describe IsoDoc::NIST do
     </person>
   </contributor>
   <contributor>
+    <role type="author"/>
+    <organization>
+      <name>FEMA</name>
+    </organization>
+  </contributor>
+  <contributor>
     <role type="publisher"/>
     <organization>
       <name>NIST</name>
@@ -103,7 +109,7 @@ RSpec.describe IsoDoc::NIST do
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">Ferraiolo H, Ketan Mehta (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (National Institute of Standards and Technology, Gaithersburg, MD),  NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
+               <p id="ISO712" class="NormRef">Ferraiolo H, Ketan Mehta, FEMA (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (National Institute of Standards and Technology, Gaithersburg, MD),  NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
              </div>
            </div>
          </body>
@@ -141,7 +147,7 @@ end
     <on>2018-06-01</on>
   </date>
   <contributor>
-    <role type="author"/>
+    <role type="editor"/>
     <person>
       <name>
         <initials>H.</initials>
@@ -156,7 +162,7 @@ end
     </person>
   </contributor>
   <contributor>
-    <role type="author"/>
+    <role type="editor"/>
     <person>
       <name>
         <completename>Ketan Mehta</completename>
@@ -221,7 +227,7 @@ end
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">Ferraiolo HJ, Ketan Mehta (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (National Institute of Standards and Technology, Gaithersburg, MD),  Draft (Third Public Draft) NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
+               <p id="ISO712" class="NormRef">Ferraiolo HJ, Ketan Mehta (Eds.) (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (National Institute of Standards and Technology, Gaithersburg, MD),  Draft (Third Public Draft) NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
              </div>
            </div>
          </body>
