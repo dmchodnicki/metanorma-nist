@@ -168,8 +168,8 @@ module Iso690Render
       doc.at("./series[not(@type)]") ||
       doc.at("./series")
     return "" unless s
-    #f = s.at("./formattedref")
-    #return f.text if f
+    f = s.at("./formattedref")
+    return f.text if f
     t = s.at("./title")
     a = s.at("./abbreviation")
     n = s.at("./number")
