@@ -130,7 +130,8 @@ end
   <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
   <date type="published">
-    <on>2018-06-01</on>
+    <from>2018-06-01</from>
+    <to>2018-06-02</to>
   </date>
   <contributor>
     <role type="author"/>
@@ -217,7 +218,7 @@ end
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">Ferraiolo H, Ketan Mehta, FEMA (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (National Institute of Standards and Technology, Gaithersburg, MD),  NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
+               <p id="ISO712" class="NormRef">Ferraiolo H, Ketan Mehta, FEMA (June 01, 2018&#8211;June 02, 2018) <i>Guidelines for the Use of PIV Credentials in Facility Access</i>. (National Institute of Standards and Technology, Gaithersburg, MD),  NIST Special Publication (SP) 800-116 Rev. 1, June 01, 2018&#8211;June 02, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
              </div>
            </div>
          </body>

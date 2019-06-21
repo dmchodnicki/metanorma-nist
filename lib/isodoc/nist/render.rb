@@ -137,7 +137,7 @@ module Iso690Render
     from = date&.at("./from")&.text
     to = date&.at("./to")&.text
     return MMMddyyyy(on) if on
-    return "#{MMMddyyyy(from)}&ndash;#{MMMMddyyyy(to)}" if from
+    return "#{MMMddyyyy(from)}&ndash;#{MMMddyyyy(to)}" if from
     nil
   end
 
