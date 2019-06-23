@@ -345,7 +345,17 @@ module IsoDoc
       end
 
       def reference_format(b, r)
-        if ftitle = b.at(ns("./formattedref"))
+        code = iso_bibitem_ref_code(b)
+        if /^\[\d+\]$/.match(code)
+          r << "#{code} "
+          insert_tab(r, 1)
+        end
+        reference_format1(b, r)
+        r << " [#{code}] " unless /^\[\d+\]$/.match(code)
+      end
+
+      def reference_format1(b, r)
+                if ftitle = b.at(ns("./formattedref"))
           ftitle&.children&.each { |n| parse(n, r) }
         else
           title = b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
@@ -353,7 +363,6 @@ module IsoDoc
             title&.children&.each { |n| parse(n, i) }
           end
         end
-        r << " [#{iso_bibitem_ref_code(b)}] "
       end
 
       def omit_docid_prefix(prefix)
