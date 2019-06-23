@@ -291,7 +291,7 @@ OUTPUT
 
   it "processes default metadata" do
     mock_nistbib_get_nistsp80053ar1
-    mock_nistbib_get_nistsp800179
+    mock_nistbib_get_nistsp800179(3)
     input = <<~"INPUT"
       = Document title
       Author
@@ -1289,6 +1289,195 @@ end
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
+    it "inserts prefix before SP and FIPS" do
+      mock_nistbib_get_nistsp800179(2)
+  input = <<~"INPUT"
+  = Document title
+  Author
+  :obsoletes: SP 800-179
+  :docfile: test.adoc
+  :nodoc:
+  :novalid:
+  :no-isobib-cache:
+
+  == Section
+
+  * <<ref1>>
+  * <<ref2>>
+
+  [bibliography]
+  == Bibliography
+  * [[[ref1,SP 800-179]]], _NIST A_
+  INPUT
+
+      output = <<~"OUTPUT"
+             <nist-standard xmlns="http://www.nist.gov/metanorma">
+       <bibdata type="standard">
+         <title language="en" format="text/plain" type="main">Document title</title>
+
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>NIST</name>
+           </organization>
+         </contributor>
+
+         <language>en</language>
+         <script>Latn</script>
+         <status>
+           <stage>final</stage>
+           <substage>active</substage>
+         </status>
+         <copyright>
+           <from>2019</from>
+           <owner>
+             <organization>
+               <name>NIST</name>
+             </organization>
+           </owner>
+         </copyright>
+         <relation type="obsoletes">
+       <bibitem id="SP800-179Rev.1(DRAFT)" type="standard">
+         <fetched>2019-06-23</fetched>
+         <title format="text/plain" language="en" script="Latn">Guide to Securing Apple macOS 10.12 Systems for IT Professionals: A NIST Security Configuration Checklist</title>
+         <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-179/rev-1/draft</uri>
+         <uri type="obp">/CSRC/media/Publications/sp/800-179/rev-1/draft/documents/sp800-179r1-draft.pdf</uri>
+         <docidentifier type="NIST">SP 800-179 Rev. 1 (DRAFT)</docidentifier>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>National Institute of Standards and Technology</name>
+             <abbreviation>NIST</abbreviation>
+             <uri>www.nist.gov</uri>
+           </organization>
+         </contributor>
+         <language>en</language>
+         <script>Latn</script>
+         <status>
+           <stage>20</stage>
+           <substage>20</substage>
+         </status>
+         <copyright>
+           <from>2018</from>
+           <owner>
+             <organization>
+               <name>National Institute of Standards and Technology</name>
+               <abbreviation>NIST</abbreviation>
+               <uri>www.nist.gov</uri>
+             </organization>
+           </owner>
+         </copyright>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>SP 800-70 Rev. 4</formattedref>
+           </bibitem>
+         </relation>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>ITL Bulletin </formattedref>
+           </bibitem>
+         </relation>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>NISTIR 7692</formattedref>
+           </bibitem>
+         </relation>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>NISTIR 7275 Rev. 4</formattedref>
+           </bibitem>
+         </relation>
+         <relation type="instance">
+           <bibitem>
+             <formattedref>SP 800-179 Rev. 1 (DRAFT)</formattedref>
+           </bibitem>
+         </relation>
+       </bibitem>
+       </relation>
+         <ext>
+           <doctype>standard</doctype>
+         </ext>
+       </bibdata>
+       #{AUTHORITY}
+       <preface/><sections><clause id="_" obligation="normative">
+         <title>Section</title>
+         <ul id="_">
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref1" citeas="SP 800-179 Rev. 1 (DRAFT)"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <xref target="ref2"/>
+           </p>
+         </li>
+       </ul>
+       </clause>
+       </sections><bibliography><references id="_" obligation="informative"><title>Bibliography</title>
+       <bibitem id="ref1" type="standard">
+         <fetched>2019-06-23</fetched>
+         <title format="text/plain" language="en" script="Latn">Guide to Securing Apple macOS 10.12 Systems for IT Professionals: A NIST Security Configuration Checklist</title>
+         <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-179/rev-1/draft</uri>
+         <uri type="obp">/CSRC/media/Publications/sp/800-179/rev-1/draft/documents/sp800-179r1-draft.pdf</uri>
+         <docidentifier type="NIST">SP 800-179 Rev. 1 (DRAFT)</docidentifier>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>National Institute of Standards and Technology</name>
+             <abbreviation>NIST</abbreviation>
+             <uri>www.nist.gov</uri>
+           </organization>
+         </contributor>
+         <language>en</language>
+         <script>Latn</script>
+         <status>
+           <stage>20</stage>
+           <substage>20</substage>
+         </status>
+         <copyright>
+           <from>2018</from>
+           <owner>
+             <organization>
+               <name>National Institute of Standards and Technology</name>
+               <abbreviation>NIST</abbreviation>
+               <uri>www.nist.gov</uri>
+             </organization>
+           </owner>
+         </copyright>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>SP 800-70 Rev. 4</formattedref>
+           </bibitem>
+         </relation>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>ITL Bulletin </formattedref>
+           </bibitem>
+         </relation>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>NISTIR 7692</formattedref>
+           </bibitem>
+         </relation>
+         <relation type="updates">
+           <bibitem>
+             <formattedref>NISTIR 7275 Rev. 4</formattedref>
+           </bibitem>
+         </relation>
+         <relation type="instance">
+           <bibitem>
+             <formattedref>SP 800-179 Rev. 1 (DRAFT)</formattedref>
+           </bibitem>
+         </relation>
+       </bibitem> </references></bibliography>
+       </nist-standard>
+   OUTPUT
+
+       expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+
+    end
+
   it "removes revisions and revision dates from citations where unambiguous" do
   input = <<~"INPUT"
   = Document title
@@ -1399,10 +1588,10 @@ end
     end.exactly(3).times
     end
 
-  def mock_nistbib_get_nistsp800179
+  def mock_nistbib_get_nistsp800179(n)
     expect(RelatonNist::NistBibliography).to receive(:get).with("NIST SP 800-179", nil, {}) do
       RelatonIsoBib::XMLParser.from_xml(NISTSP800179)
-    end.exactly(3).times
+    end.exactly(n).times
     end
 
 end

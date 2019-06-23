@@ -146,7 +146,8 @@ module Asciidoctor
 
       def clause_parse(attrs, xml, node)
         attrs[:preface] = true if node.attr("style") == "preface"
-        attrs[:executivesummary] = true if node.attr("style") == "executive-summary"
+        attrs[:executivesummary] = true if node.attr("style") ==
+          "executive-summary"
         super
       end
 
@@ -231,6 +232,19 @@ module Asciidoctor
             terms << node.content
           end
         end
+      end
+
+      NIST_PREFIX_REFS = "SP|FIPS"
+
+      def refitem(xml, item, node)
+        item.sub!(Regexp.new("^(<ref[^>]+>)\\[(#{NIST_PREFIX_REFS}) "),
+                  "\\1[NIST \\2 ")
+        super
+      end
+      
+      def fetch_ref(xml, code, year, **opts)
+        code.sub!(Regexp.new("^(#{NIST_PREFIX_REFS}) "), "NIST \\1 ")
+        super
       end
 
       def html_converter(node)
