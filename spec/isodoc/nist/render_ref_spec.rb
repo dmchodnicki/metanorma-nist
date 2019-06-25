@@ -518,7 +518,7 @@ end
   <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
   <date type="issued">
-    <on>2018-06-01</on>
+    <on>2018-06</on>
   </date>
   <contributor>
     <role type="author"/>
@@ -600,7 +600,7 @@ end
              <br/>
              <div>
                <h1 class="Section3">References</h1>
-               <p id="ISO712" class="NormRef">National Institute of Standards and Technology (June 01, 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (U.S. Department of Commerce, Washington, D.C.),  NIST Federal Information Processing Standards (FIPS) 800-116.1, June 01, 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
+               <p id="ISO712" class="NormRef">National Institute of Standards and Technology (June 2018) <I>Guidelines for the Use of PIV Credentials in Facility Access</I>. (U.S. Department of Commerce, Washington, D.C.),  NIST Federal Information Processing Standards (FIPS) 800-116.1, June 2018. https://doi.org/10.6028/NIST.SP.800-116r1.</p>
              </div>
            </div>
          </body>

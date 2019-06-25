@@ -1338,7 +1338,7 @@ end
          </copyright>
          <relation type="obsoletes">
        <bibitem id="SP800-179Rev.1(DRAFT)" type="standard">
-         <fetched>2019-06-23</fetched>
+         <fetched>#{Date.today}</fetched>
          <title format="text/plain" language="en" script="Latn">Guide to Securing Apple macOS 10.12 Systems for IT Professionals: A NIST Security Configuration Checklist</title>
          <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-179/rev-1/draft</uri>
          <uri type="obp">/CSRC/media/Publications/sp/800-179/rev-1/draft/documents/sp800-179r1-draft.pdf</uri>
@@ -1416,7 +1416,7 @@ end
        </clause>
        </sections><bibliography><references id="_" obligation="informative"><title>Bibliography</title>
        <bibitem id="ref1" type="standard">
-         <fetched>2019-06-23</fetched>
+         <fetched>#{Date.today}</fetched>
          <title format="text/plain" language="en" script="Latn">Guide to Securing Apple macOS 10.12 Systems for IT Professionals: A NIST Security Configuration Checklist</title>
          <uri type="src">https://csrc.nist.gov/publications/detail/sp/800-179/rev-1/draft</uri>
          <uri type="obp">/CSRC/media/Publications/sp/800-179/rev-1/draft/documents/sp800-179r1-draft.pdf</uri>
