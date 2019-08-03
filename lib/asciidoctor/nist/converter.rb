@@ -177,7 +177,7 @@ module Asciidoctor
       end
 
       def section(node)
-        a = { id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node) }
+        a = section_attributes(node)
         noko do |xml|
           case sectiontype(node)
           #when "normative references" then norm_ref_parse(a, xml, node)
