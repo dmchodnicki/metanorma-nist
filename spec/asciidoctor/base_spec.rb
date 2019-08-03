@@ -498,6 +498,9 @@ OUTPUT
            <title>NIST Federal Information Processing Standards</title>
            <abbreviation>NIST FIPS</abbreviation>
          </series>
+         <keyword>a</keyword>
+         <keyword>b</keyword>
+         <keyword>c</keyword>
          <ext>
          <doctype>standard</doctype>
          <editorialgroup>
@@ -505,9 +508,6 @@ OUTPUT
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
-         <keyword>a</keyword>
-         <keyword>b</keyword>
-         <keyword>c</keyword>
          <commentperiod>
            <from>2010-01-01</from>
            <to>2010-01-02</to>
@@ -643,6 +643,9 @@ OUTPUT
            <title>NIST Federal Information Processing Standards</title>
            <abbreviation>NIST FIPS</abbreviation>
          </series>
+         <keyword>a</keyword>
+         <keyword>b</keyword>
+         <keyword>c</keyword>
          <ext>
          <doctype>standard</doctype>
          <editorialgroup>
@@ -650,9 +653,6 @@ OUTPUT
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
-         <keyword>a</keyword>
-         <keyword>b</keyword>
-         <keyword>c</keyword>
          </ext>
        </bibdata>
       OUTPUT

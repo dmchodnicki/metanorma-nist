@@ -182,13 +182,6 @@ module Asciidoctor
         end
       end
 
-      def metadata_keywords(node, xml)
-        return unless node.attr("keywords")
-        node.attr("keywords").split(/,[ ]*/).each do |kw|
-          xml.keyword kw
-        end
-      end
-
       def metadata_source(node, xml)
         super
         node.attr("doc-email") && xml.uri(node.attr("doc-email"), type: "email")
@@ -309,7 +302,6 @@ module Asciidoctor
       def metadata_ext(node, xml)
         metadata_doctype(node, xml)
         metadata_committee(node, xml)
-        metadata_keywords(node, xml)
         metadata_commentperiod(node, xml)
       end
     end

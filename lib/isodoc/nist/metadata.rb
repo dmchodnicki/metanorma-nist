@@ -215,7 +215,7 @@ module IsoDoc
 
       def keywords(ixml, _out)
         keywords = []
-        ixml.xpath(ns("//bibdata/ext/keyword")).each do |kw|
+        ixml.xpath(ns("//bibdata/keyword")).each do |kw|
           keywords << kw.text
         end
         set(:keywords, keywords)

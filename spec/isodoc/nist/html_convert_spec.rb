@@ -156,10 +156,10 @@ RSpec.describe IsoDoc::NIST do
 </relation>
   <series type="main"><title>NIST Federal Information Processing Standards</title>
   <abbreviation>NIST FIPS</abbreviation></series>
-  <ext>
-  <doctype>standard</doctype>
            <keyword>A</keyword>
          <keyword>B</keyword>
+  <ext>
+  <doctype>standard</doctype>
          <commentperiod>
          <from>2001-01-01</from>
          <to>2001-01-02</to>
