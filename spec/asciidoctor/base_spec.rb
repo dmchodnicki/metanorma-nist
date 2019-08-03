@@ -964,7 +964,7 @@ end
 
       This is Conformance Testing
 
-      [executive-summary]
+      [.executive-summary]
       == Executive Summary
 
       This is an executive summary
@@ -1055,7 +1055,7 @@ end
       #{ASCIIDOC_BLANK_HDR}
 
       .Label
-      [pseudocode]
+      [.pseudocode]
       ====
       _Input: S=(s1, sL)_
 
@@ -1121,7 +1121,7 @@ end
   it "processes errata" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
-      [errata]
+      [.errata]
       |===
       |Pages |Change |Type |Date
 
@@ -1162,6 +1162,9 @@ end
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
 
+      [.glossary]
+      a:: b
+
       [appendix]
       == Glossary
 
@@ -1172,13 +1175,21 @@ end
       ====
       Example
       ====
+
     INPUT
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
     #{AUTHORITY}
-             <preface/>
-         <sections>
+         <preface><foreword obligation="informative">
+  <title>Foreword</title>
+  <dl id="_" type="glossary">
+  <dt>a</dt>
+  <dd>
+    <p id="_">b</p>
+  </dd>
+</dl>
+</foreword></preface><sections>
 
 </sections><annex id="_" obligation="normative">
   <title>Glossary</title>

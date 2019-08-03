@@ -522,12 +522,12 @@ of Standards and Technology (NIST) promotes the U.S. economy and public welfare.
 
 === Executive Summary
 
-This is any section that appears with the style attribute `[executive-summary]`.
+This is any section that appears with the role attribute `[.executive-summary]`.
 It is rendered after all other preface sections:
 
 [source,asciidoctor]
 ----
-[executive-summary]
+[.executive-summary]
 == Executive Summary
 
 This is an executive summary
@@ -541,11 +541,11 @@ title "Glossary" or "Terminology" is treated as a Terms & Definitions section.
 
 === Pseudocode
 
-Pseudocode shall be marked up as an example, with style attribute "pseudocode":
+Pseudocode shall be marked up as an example, with role attribute `[.pseudocode]`:
 
 [source,asciidoctor]
 ----
-[pseudocode]
+[.pseudocode]
 ====
 _Input: S=(s1,...,sL)_
 
@@ -593,12 +593,12 @@ which will be converted to the tag `nistvariable` in Metanorma XML:
 
 === Errata
 
-Errata are marked up as an Asciidoctor table with style attribute `[errata]`.
+Errata are marked up as an Asciidoctor table with role attribute `[.errata]`.
 Errata tables must have a header row containing the headings _Date, Type, Change, Pages_:
 
 [source, asciidoctor]
 ----
-[errata]
+[.errata]
 |===
 |Date |Type |Change |Page
 
@@ -608,11 +608,11 @@ Errata tables must have a header row containing the headings _Date, Type, Change
 
 === Glosaries
 
-Glossaries are given as definition lists with style attribute `glossary`:
+Glossaries are given as definition lists with role attribute `[.glossary]`:
 
 [source,asciidoctor]
 ----
-[glossary]
+[.glossary]
 stem:[A= {x_1, x_2, ..., x_k}]:: The alphabet, i.e., the set of all possible symbols that a (digitized) noise source produces.
 ----
 

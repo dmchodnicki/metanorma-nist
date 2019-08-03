@@ -16,7 +16,8 @@ module Asciidoctor
       register_for "nist"
 
       def example(node)
-        return pseudocode_example(node) if node.attr("style") == "pseudocode"
+        role = node.role || node.attr("style")
+        return pseudocode_example(node) if role == "pseudocode"
         super
       end
 
@@ -31,7 +32,8 @@ module Asciidoctor
       end
 
       def table(node)
-        return errata(node) if node.attr("style") == "errata"
+        role = node.role || node.attr("style")
+        return errata(node) if role == "errata"
         super
       end
 
@@ -68,7 +70,8 @@ module Asciidoctor
       end
 
       def dlist(node)
-        return glossary(node) if node.attr("style") == "glossary"
+        role = node.role || node.attr("style")
+        return glossary(node) if role == "glossary"
         super
       end
 
@@ -145,9 +148,9 @@ module Asciidoctor
       end
 
       def clause_parse(attrs, xml, node)
-        attrs[:preface] = true if node.attr("style") == "preface"
-        attrs[:executivesummary] = true if node.attr("style") ==
-          "executive-summary"
+        role = node.role || node.attr("style")
+        attrs[:preface] = true if role == "preface"
+        attrs[:executivesummary] = true if role == "executive-summary"
         super
       end
 
