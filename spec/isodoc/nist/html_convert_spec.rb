@@ -1033,11 +1033,11 @@ it "cross-references recommendations" do
     </foreword>
         <introduction id="intro">
         <recommendation id="N1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
   <clause id="xyz"><title>Preparatory</title>
         <recommendation id="N2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
 </clause>
     </introduction>
@@ -1045,7 +1045,7 @@ it "cross-references recommendations" do
     <sections>
     <clause id="scope"><title>Scope</title>
         <recommendation id="N">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
 <p><xref target="N"/></p>
     </clause>
@@ -1053,10 +1053,10 @@ it "cross-references recommendations" do
     <clause id="widgets"><title>Widgets</title>
     <clause id="widgets1">
         <recommendation id="note1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
     <recommendation id="note2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </clause>
@@ -1065,15 +1065,15 @@ it "cross-references recommendations" do
     <annex id="annex1">
     <clause id="annex1a">
         <recommendation id="AN">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
     </clause>
     <clause id="annex1b">
         <recommendation id="Anote1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
     <recommendation id="Anote2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </recommendation>
     </clause>
     </annex>
@@ -1191,11 +1191,11 @@ it "cross-references requirements" do
     </foreword>
         <introduction id="intro">
         <requirement id="N1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
   <clause id="xyz"><title>Preparatory</title>
         <requirement id="N2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
 </clause>
     </introduction>
@@ -1203,7 +1203,7 @@ it "cross-references requirements" do
     <sections>
     <clause id="scope"><title>Scope</title>
         <requirement id="N">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
 <p><xref target="N"/></p>
     </clause>
@@ -1211,10 +1211,10 @@ it "cross-references requirements" do
     <clause id="widgets"><title>Widgets</title>
     <clause id="widgets1">
         <requirement id="note1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
     <requirement id="note2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </clause>
@@ -1223,15 +1223,15 @@ it "cross-references requirements" do
     <annex id="annex1">
     <clause id="annex1a">
         <requirement id="AN">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
     </clause>
     <clause id="annex1b">
         <requirement id="Anote1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
     <requirement id="Anote2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </requirement>
     </clause>
     </annex>
@@ -1326,11 +1326,11 @@ it "cross-references permissions" do
     </foreword>
         <introduction id="intro">
         <permission id="N1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
   <clause id="xyz"><title>Preparatory</title>
         <permission id="N2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
 </clause>
     </introduction>
@@ -1338,7 +1338,7 @@ it "cross-references permissions" do
     <sections>
     <clause id="scope"><title>Scope</title>
         <permission id="N">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
 <p><xref target="N"/></p>
     </clause>
@@ -1346,10 +1346,10 @@ it "cross-references permissions" do
     <clause id="widgets"><title>Widgets</title>
     <clause id="widgets1">
         <permission id="note1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
     <permission id="note2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
   <p>    <xref target="note1"/> <xref target="note2"/> </p>
     </clause>
@@ -1358,15 +1358,15 @@ it "cross-references permissions" do
     <annex id="annex1">
     <clause id="annex1a">
         <permission id="AN">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
     </clause>
     <clause id="annex1b">
         <permission id="Anote1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
     <permission id="Anote2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
     </clause>
     </annex>
@@ -1488,19 +1488,19 @@ it "captions assets in the executive summary separately" do
     <foreword id="fwd">
     <p>
         <permission id="N1">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
         <permission id="N2">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
     </p>
     </foreword>
         <executivesummary id="intro">
         <permission id="N3">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
         <permission id="N4">
-  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" imagetype="PNG"/>
+  <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
   </permission>
   </executivesummary>
   </preface>
