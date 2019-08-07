@@ -52,13 +52,25 @@ module IsoDoc
       end
 
       def toclevel
-        <<~HEAD.freeze
-    function toclevel() { var i; var text = "";
-      for(i = 1; i <= #{@htmlToClevels}; i++) {
-        if (i > 1) { text += ","; } text += "h" + i + ":not(:empty):not(.TermNum):not(.AbstractTitle):not(.IntroTitle):not(.ForewordTitle)"; }
-      return text;}
-        HEAD
+      ret = toclevel_classes.map { |l| "#{l}:not(:empty):not(.TermNum):not(.AbstractTitle):not(.IntroTitle):not(.ForewordTitle)" }
+      <<~HEAD.freeze
+    function toclevel() { return "#{ret.join(',')}";}
+      HEAD
+    end
+
+      def html_toc(docxml)
+      idx = docxml.at("//div[@id = 'toc']") or return docxml
+      toc = "<ul>"
+      path = toclevel_classes.map do |l|
+        "//main//#{l}[not(@class = 'TermNum')][not(text())][not(@class = 'AbstractTitle')][not(@class = 'IntroTitle')][not(@class = 'ForewordTitle')]"
       end
+      docxml.xpath(path.join(" | ")).each_with_index do |h, tocidx|
+        h["id"] ||= "toc#{tocidx}"
+        toc += html_toc_entry(h.name, h)
+      end
+      idx.children = "#{toc}</ul>"
+      docxml
+    end
 
       def make_body(xml, docxml)
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
