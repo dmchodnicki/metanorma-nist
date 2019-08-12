@@ -458,7 +458,7 @@ RSpec.describe IsoDoc::NIST do
        </ol>
        </li>
        </ol>
-       <p class="FigureTitle" align="center">Figure 1&#160;&#8212; First figure</p>
+       <p class="FigureTitle" style="text-align:center;">Figure 1&#160;&#8212; First figure</p>
        </div>
        </div>
            </div>
@@ -573,12 +573,12 @@ ping information security standards and guidelines, including minimum requiremen
               </div>
 
               <div id="authority2" class="authority2"><h2 class="IntroTitle"/>
-              <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology ABC <br/>
+              <p id="_" style="text-align:center;">National Institute of Standards and Technology ABC <br/>
               Natl. Inst. Stand. Technol. ABC, () <br/>
               CODEN: NSPUE2</p>
 
 
-              <p id="_" align="center" style="text-align:center">This publication is available free of charge from: <br/>
+              <p id="_" style="text-align:center;">This publication is available free of charge from: <br/>
                 <a href="http://www.example.com">http://www.example.com</a></p>
 
               </div>
@@ -593,23 +593,23 @@ ping information security standards and guidelines, including minimum requiremen
 
               <div id="authority4" class="authority4"><h2 class="IntroTitle"/>
 
-              <p id="_" align="center" style="text-align:center">[2010-01-03: Comment period extended]</p>
+              <p id="_" style="text-align:center;">[2010-01-03: Comment period extended]</p>
 
 
 
-              <p id="_" align="center" style="text-align:center"><b>Public comment period: <i>2010-01-01</i> through <i>2010-01-02</i></b></p>
+              <p id="_" style="text-align:center;"><b>Public comment period: <i>2010-01-01</i> through <i>2010-01-02</i></b></p>
 
               </div>
 
               <div id="authority5" class="authority5">
               <h2 class="IntroTitle">Comments on this publication may be submitted to:</h2>
 
-              <p id="_" align="center" style="text-align:center">National Institute of Standards and Technology <br/>
+              <p id="_" style="text-align:center;">National Institute of Standards and Technology <br/>
               Attn: Computer Security Division, Information Technology Laboratory <br/>
               100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
               Email: <a href="mailto:email@example.com">email@example.com</a></p>
 
-              <p id="_" align="center" style="text-align:center">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
+              <p id="_" style="text-align:center;">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
               </div>
               </div>
     OUTPUT
