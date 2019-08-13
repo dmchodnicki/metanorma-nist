@@ -649,7 +649,7 @@ it "processes errata tag" do
              <div>
                <h1 class="ForewordTitle"/>
                <a name="errata_XYZZY"/>
-               <table class="MsoISOTable" border="1" cellspacing="0" cellpadding="0">
+               <table class="MsoISOTable" style="border-width:1px;border-spacing:0;">
                  <thead>
                    <tr>
                      <th>Date</th>
