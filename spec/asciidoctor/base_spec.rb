@@ -1301,7 +1301,8 @@ end
   end
 
     it "inserts prefix before SP and FIPS" do
-      mock_nistbib_get_nistsp800179(2)
+      mock_nistbib_get_nistsp800179(1)
+      mock_nistbib_get_nistsp800179_b(1)
   input = <<~"INPUT"
   = Document title
   Author
@@ -1601,6 +1602,12 @@ end
 
   def mock_nistbib_get_nistsp800179(n)
     expect(RelatonNist::NistBibliography).to receive(:get).with("NIST SP 800-179", nil, {}) do
+      RelatonIsoBib::XMLParser.from_xml(NISTSP800179)
+    end.exactly(n).times
+    end
+
+  def mock_nistbib_get_nistsp800179_b(n = 1)
+    expect(RelatonNist::NistBibliography).to receive(:get).with("NIST SP 800-179", nil, {:title=>"<em>NIST A</em>"}) do
       RelatonIsoBib::XMLParser.from_xml(NISTSP800179)
     end.exactly(n).times
     end

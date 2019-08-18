@@ -1,5 +1,6 @@
 require "isodoc"
 require_relative "metadata"
+require_relative "xrefs"
 require "fileutils"
 
 module IsoDoc
@@ -58,10 +59,6 @@ module IsoDoc
         else
           div << term_defs_boilerplate_cont(source, term)
         end
-      end
-
-      def i18n_init(lang, script)
-        super
       end
 
       def fileloc(loc)
@@ -156,29 +153,29 @@ module IsoDoc
       end
 
       def errata_head(t)
-          t.thead do |h|
-            h.tr do |tr|
-              %w(Date Type Change Pages).each do |hdr|
-                tr.th hdr
-              end
+        t.thead do |h|
+          h.tr do |tr|
+            %w(Date Type Change Pages).each do |hdr|
+              tr.th hdr
             end
           end
+        end
       end
 
       def errata_body(t, node)
-          t.tbody do |b|
-            node.xpath(ns("./row")).each do |row|
-              b.tr do |tr|
-                %w{date type change pages}.each do |hdr|
-                  tr.td do |td|
-                    row&.at(ns("./#{hdr}"))&.children.each do |n|
-                      parse(n, td)
-                    end
+        t.tbody do |b|
+          node.xpath(ns("./row")).each do |row|
+            b.tr do |tr|
+              %w{date type change pages}.each do |hdr|
+                tr.td do |td|
+                  row&.at(ns("./#{hdr}"))&.children.each do |n|
+                    parse(n, td)
                   end
                 end
               end
             end
           end
+        end
       end
 
       MIDDLE_CLAUSE = "//clause[parent::sections] | "\
@@ -200,50 +197,6 @@ module IsoDoc
         super
       end
 
-      SECTIONS_XPATH =
-        "//foreword | //introduction | //reviewnote | //executivesummary | //annex | "\
-        "//sections/clause | //bibliography/references | "\
-        "//bibliography/clause".freeze
-
-      def initial_anchor_names(d)
-        d.xpath("//xmlns:boilerplate/child::* | //xmlns:preface/child::*").each do |c|
-          preface_names(c)
-        end
-        @in_execsummary = true
-        hierarchical_asset_names(d.xpath("//xmlns:executivesummary"), "ES")
-        @in_execsummary = false
-        clause_names(d, 0)
-        middle_section_asset_names(d)
-        termnote_anchor_names(d)
-        termexample_anchor_names(d)
-      end
-
-      def back_anchor_names(docxml)
-        docxml.xpath(ns("//annex")).each_with_index do |c, i|
-          annex_names(c, (65 + i).chr.to_s)
-        end
-        docxml.xpath(ns("//bibliography/clause | "\
-                        "//bibliography/references")).each do |b|
-          preface_names(b)
-        end
-        docxml.xpath(ns("//bibitem[not(ancestor::bibitem)]")).each do |ref|
-          reference_names(ref)
-        end
-      end
-
-      def middle_section_asset_names(d)
-        middle_sections = "//xmlns:preface/child::*[not(self::xmlns:executivesummary)] | "\
-          "//xmlns:sections/child::*"
-        sequential_asset_names(d.xpath(middle_sections))
-      end
-
-      def clause_names(docxml, sect_num)
-        q = "//xmlns:sections/child::*"
-        docxml.xpath(q).each_with_index do |c, i|
-          section_names(c, (i + sect_num), 1)
-        end
-      end
-
       def get_linkend(node)
         link = anchor_linkend(node, docid_l10n(node["target"] || "[#{node['citeas']}]"))
         link += eref_localities(node.xpath(ns("./locality")), link)
@@ -262,47 +215,6 @@ module IsoDoc
               YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
             end
         super.merge(y)
-      end
-
-      def annex_name_lbl(clause, num)
-        l10n("<b>#{@annex_lbl} #{num}</b>")
-      end
-
-      def annex_name(annex, name, div)
-        div.h1 **{ class: "Annex" } do |t|
-          t << "#{anchor(annex['id'], :label)} &mdash; "
-          t.b do |b|
-            if @bibliographycount == 1 && annex.at(ns("./references"))
-              b << "References"
-            else
-              name&.children&.each { |c2| parse(c2, b) }
-            end
-          end
-        end
-      end
-
-      def hiersep
-        "-"
-      end
-
-      def annex_names(clause, num)
-        @anchors[clause["id"]] = { label: annex_name_lbl(clause, num), type: "clause",
-                                   xref: "#{@annex_lbl} #{num}", level: 1 }
-        clause.xpath(ns("./clause")).each_with_index do |c, i|
-          annex_names1(c, "#{num}.#{i + 1}", 2)
-        end
-        clause.xpath(ns("./terms | ./term | ./references")).each_with_index do |c, i|
-          annex_names1(c, "#{num}", 1)
-        end
-        hierarchical_asset_names(clause, num)
-      end
-
-      def annex_names1(clause, num, level)
-        @anchors[clause["id"]] = { label: num, xref: "#{@annex_lbl} #{num}",
-                                   level: level, type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term | ./references")).each_with_index do |c, i|
-          annex_names1(c, "#{num}.#{i + 1}", level + 1)
-        end
       end
 
       def terms_parse(node, out)
@@ -334,7 +246,7 @@ module IsoDoc
         "organization[abbreviation = 'NIST' or xmlns:name = 'NIST']".freeze
 
       # we are taking the ref number/code out as prefix to reference
-      def noniso_bibitem(list, b, ordinal, bibliography)
+      def nonstd_bibitem(list, b, ordinal, bibliography)
         list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
           if !b.at(ns("./formattedref"))
             nist_reference_format(b, r)
@@ -344,18 +256,22 @@ module IsoDoc
         end
       end
 
+      def std_bibitem_entry(list, b, ordinal, biblio)
+        nonstd_bibitem(list, b, ordinal, biblio)
+      end
+
       def reference_format(b, r)
-        code = iso_bibitem_ref_code(b)
-        if /^\[\d+\]$/.match(code)
-          r << "#{code} "
+        code = bibitem_ref_code(b)
+        if /^\d+$/.match(code)
+          r << "[#{code}] "
           insert_tab(r, 1)
         end
         reference_format1(b, r)
-        r << " [#{code}] " unless /^\[\d+\]$/.match(code)
+        r << " [#{code}] " unless /^\d+$/.match(code)
       end
 
       def reference_format1(b, r)
-                if ftitle = b.at(ns("./formattedref"))
+        if ftitle = b.at(ns("./formattedref"))
           ftitle&.children&.each { |n| parse(n, r) }
         else
           title = b.at(ns("./title[@language = '#{@language}']")) || b.at(ns("./title"))
@@ -367,7 +283,7 @@ module IsoDoc
 
       def omit_docid_prefix(prefix)
         return true if prefix.nil? || prefix.empty?
-        return ["ISO", "IEC", "NIST"].include? prefix
+        super || prefix == "NIST"
       end
 
       def nist_reference_format(b, r)
