@@ -94,8 +94,6 @@ module IsoDoc
         out.div **attr_code(id: node["id"]) do |div|
           node.at(ns("./title")) and
             clause_parse_title(node, div, node.at(ns("./title")), out)
-          term_defs_boilerplate(div, node.xpath(ns(".//termdocsource")),
-                                node.at(ns(".//term")), node.at(ns("./p")))
           node.elements.each do |e|
             parse(e, div) unless %w{title source}.include? e.name
           end

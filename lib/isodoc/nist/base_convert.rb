@@ -53,14 +53,6 @@ module IsoDoc
         /^final/.match status
       end
 
-      def term_defs_boilerplate(div, source, term, preface)
-        if source.empty? && term.nil?
-          div << @no_terms_boilerplate
-        else
-          div << term_defs_boilerplate_cont(source, term)
-        end
-      end
-
       def fileloc(loc)
         File.join(File.dirname(__FILE__), loc)
       end
@@ -221,8 +213,6 @@ module IsoDoc
         out.div **attr_code(id: node["id"]) do |div|
           node.at(ns("./title")) and
             clause_parse_title(node, div, node.at(ns("./title")), out)
-          term_defs_boilerplate(div, node.xpath(ns(".//termdocsource")),
-                                node.at(ns(".//term")), node.at(ns("./p")))
           node.elements.each do |e|
             parse(e, div) unless %w{title source}.include? e.name
           end

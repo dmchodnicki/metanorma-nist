@@ -1193,6 +1193,7 @@ end
 
 </sections><annex id="_" obligation="normative">
   <title>Glossary</title>
+  <p>For the purposes of this document, the following terms and definitions apply.</p>
     <terms id="_" obligation="normative">
   <term id="_"><preferred>Normal Terms</preferred><definition><p id="_">Definition</p></definition>
 <termexample id="_">
@@ -1232,6 +1233,7 @@ end
 
 </sections><annex id="_" obligation="normative">
   <title>Glossary</title>
+  <p>For the purposes of this document, the following terms and definitions apply.</p>
     <terms id="_" obligation="normative">
   <title>Normal Terms</title>
   <term id="_"><preferred>Normal Terms</preferred><definition><p id="_">Definition</p></definition>

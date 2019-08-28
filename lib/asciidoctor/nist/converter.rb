@@ -237,6 +237,22 @@ module Asciidoctor
         end
       end
 
+      TERM_CLAUSE = "//sections/terms | "\
+        "//sections/clause[descendant::terms] | "\
+        "//annex/terms | "\
+        "//annex/clause[descendant::terms] ".freeze
+
+      def boilerplate_cleanup(xmldoc)
+        isodoc = IsoDoc::Convert.new({})
+        @lang = xmldoc&.at("//bibdata/language")&.text
+        @script = xmldoc&.at("//bibdata/script")&.text
+        isodoc.i18n_init(@lang, @script)
+        f = xmldoc.at(self.class::TERM_CLAUSE) and
+          term_defs_boilerplate(f.at("../title"),
+                                xmldoc.xpath(".//termdocsource"),
+                                f.at(".//term"), f.at(".//p"), isodoc)
+      end
+
       NIST_PREFIX_REFS = "SP|FIPS"
 
       def refitem(xml, item, node)
