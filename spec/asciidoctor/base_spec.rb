@@ -1594,6 +1594,207 @@ end
 
   end
 
+    it "sort numeric citations by order of citation" do
+  input = <<~"INPUT"
+  = Document title
+  Author
+  :no-isobib:
+  :docfile: test.adoc
+  :nodoc:
+  :novalid:
+
+  == Section
+
+  * <<ref1>>
+  * <<ref2>>
+  * <<ref3>>
+  * <<ref4>>
+  * <<ref5>>
+
+  [bibliography]
+  == Bibliography
+
+  * [[[ref3,3]]], _NIST A_
+  * [[[ref2,2]]], _NIST B_
+  * [[[ref1,1]]], _NIST C_
+  * [[[ref5,5]]], _NIST D_
+  * [[[ref4,4]]], _NIST E_
+  INPUT
+
+      output = <<~"OUTPUT"
+    #{BLANK_HDR}
+    #{AUTHORITY}
+    <preface/><sections><clause id="_" obligation="normative">
+         <title>Section</title>
+         <ul id="_">
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref1" citeas="[1]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref2" citeas="[2]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref3" citeas="[3]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref4" citeas="[4]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref5" citeas="[5]"/>
+           </p>
+         </li>
+       </ul>
+       </clause>
+       </sections><bibliography><references id="_" obligation="informative">
+         <title>Bibliography</title><bibitem id="ref1">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST C</em>
+         </formattedref>
+         <docidentifier type="metanorma">[1]</docidentifier>
+       </bibitem><bibitem id="ref2">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST B</em>
+         </formattedref>
+         <docidentifier type="metanorma">[2]</docidentifier>
+       </bibitem><bibitem id="ref3">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST A</em>
+         </formattedref>
+         <docidentifier type="metanorma">[3]</docidentifier>
+       </bibitem><bibitem id="ref4">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST E</em>
+         </formattedref>
+         <docidentifier type="metanorma">[4]</docidentifier>
+       </bibitem><bibitem id="ref5">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST D</em>
+         </formattedref>
+         <docidentifier type="metanorma">[5]</docidentifier>
+       </bibitem>
+
+
+
+
+
+       </references></bibliography>
+       </nist-standard>
+
+OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+
+    end
+
+ it "sort alphanumeric citations alphabetically" do
+  input = <<~"INPUT"
+  = Document title
+  Author
+  :no-isobib:
+  :docfile: test.adoc
+  :nodoc:
+  :novalid:
+
+  == Section
+
+  * <<ref1>>
+  * <<ref2>>
+  * <<ref3>>
+  * <<ref4>>
+  * <<ref5>>
+
+  [bibliography]
+  == Bibliography
+
+  * [[[ref3,(A5)]]], _NIST A_
+  * [[[ref2,(A4)]]], _NIST B_
+  * [[[ref1,(A3)]]], _NIST C_
+  * [[[ref5,(A2)]]], _NIST D_
+  * [[[ref4,(A1)]]], _NIST E_
+  INPUT
+
+      output = <<~"OUTPUT"
+    #{BLANK_HDR}
+    #{AUTHORITY}
+    <preface/><sections><clause id="_" obligation="normative">
+         <title>Section</title>
+         <ul id="_">
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref1" citeas="[A3]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref2" citeas="[A4]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref3" citeas="[A5]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref4" citeas="[A1]"/>
+           </p>
+         </li>
+         <li>
+           <p id="_">
+             <eref type="inline" bibitemid="ref5" citeas="[A2]"/>
+           </p>
+         </li>
+       </ul>
+       </clause>
+       </sections>
+<bibliography><references id="_" obligation="informative">
+         <title>Bibliography</title>
+        <bibitem id="ref4">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST E</em>
+         </formattedref>
+         <docidentifier type="metanorma">[A1]</docidentifier>
+       </bibitem><bibitem id="ref5">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST D</em>
+         </formattedref>
+         <docidentifier type="metanorma">[A2]</docidentifier>
+       </bibitem>
+        <bibitem id="ref1">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST C</em>
+         </formattedref>
+         <docidentifier type="metanorma">[A3]</docidentifier>
+       </bibitem>
+        <bibitem id="ref2">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST B</em>
+         </formattedref>
+         <docidentifier type="metanorma">[A4]</docidentifier>
+       </bibitem><bibitem id="ref3">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST A</em>
+         </formattedref>
+         <docidentifier type="metanorma">[A5]</docidentifier>
+       </bibitem>
+
+       </references></bibliography>
+       </nist-standard>
+OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    end
+
+
   private
 
   def mock_nistbib_get_nistsp80053ar1

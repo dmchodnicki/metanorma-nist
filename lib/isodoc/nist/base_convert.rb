@@ -251,13 +251,14 @@ module IsoDoc
       end
 
       def reference_format(b, r)
-        code = bibitem_ref_code(b)
-        if /^\d+$/.match(code)
+        id = bibitem_ref_code(b)
+        code = render_identifier(id)
+        if id["type"] == "metanorma"
           r << "[#{code}] "
           insert_tab(r, 1)
         end
         reference_format1(b, r)
-        r << " [#{code}] " unless /^\d+$/.match(code)
+        r << " [#{code}] " unless id["type"] == "metanorma"
       end
 
       def reference_format1(b, r)

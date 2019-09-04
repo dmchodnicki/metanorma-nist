@@ -59,7 +59,7 @@ end
   <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
   <bibitem id="ISO712" type="standard">
   <formattedref format="application/x-isodoc+xml">Homeland Security Presidential Directive 12, <em>Policy for a Common Identification Standard for Federal Employees and Contractors</em>, August 27, 2004. <link target="https://www.dhs.gov/homeland-security-presidential-directive-12"/> [accessed 5/16/18]</formattedref>
-  <docidentifier>[1]</docidentifier>
+  <docidentifier type="metanorma">[1]</docidentifier>
   </bibitem>
   </references>
   </bibliography>
@@ -91,6 +91,52 @@ end
   ).to be_equivalent_to output
 
 end
+
+                it "formats a preformatted NIST SP reference with alphanumeric cross-reference" do
+    input = <<~"INPUT"
+  <nist-standard xmlns="http://riboseinc.com/isoxml">
+  <preface><foreword>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+  <eref bibitemid="ISO712"/>
+  </p>
+  </foreword>
+  </preface>
+  <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
+  <bibitem id="ISO712" type="standard">
+  <formattedref format="application/x-isodoc+xml">Homeland Security Presidential Directive 12, <em>Policy for a Common Identification Standard for Federal Employees and Contractors</em>, August 27, 2004. <link target="https://www.dhs.gov/homeland-security-presidential-directive-12"/> [accessed 5/16/18]</formattedref>
+  <docidentifier type="metanorma">[A]</docidentifier>
+  </bibitem>
+  </references>
+  </bibliography>
+  </nist-standard>
+    INPUT
+
+  output = <<~"OUTPUT"
+  #{HTML_HDR}
+      <div>
+    <h1 class="ForewordTitle"/>
+        <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+         <a href="#ISO712">[A]</a>
+         </p>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">References</h1>
+               <p id="ISO712" class="NormRef">[A] &#160; Homeland Security Presidential Directive 12, <i>Policy for a Common Identification Standard for Federal Employees and Contractors</i>, August 27, 2004. <a href="https://www.dhs.gov/homeland-security-presidential-directive-12">https://www.dhs.gov/homeland-security-presidential-directive-12</a> [accessed 5/16/18]</p>
+             </div>
+           </div>
+         </body>
+  OUTPUT
+
+  expect(
+    IsoDoc::NIST::HtmlConvert.new({}).
+    convert("test", input, true).
+    gsub(%r{^.*<body}m, "<body").
+    gsub(%r{</body>.*}m, "</body>")
+  ).to be_equivalent_to output
+
+end
+
  it "formats a non-NIST reference: book" do
     input = <<~"INPUT"
   <nist-standard xmlns="http://riboseinc.com/isoxml">
@@ -133,7 +179,7 @@ end
       <div>
     <h1 class="ForewordTitle"/>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
-         <a href="#ISO712">ISBN 0662674979</a>
+         <a href="#ISO712">IEC 10.11/12.13</a>
          </p>
              </div>
              <br/>
@@ -614,6 +660,8 @@ end
   ).to be_equivalent_to output
 
 end
+
+
 
 
 end

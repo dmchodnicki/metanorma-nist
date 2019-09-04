@@ -135,6 +135,45 @@ module Asciidoctor
         end
         ret
       end
+
+      TERM_CLAUSE = "//sections/terms | "\
+        "//sections/clause[descendant::terms] | "\
+        "//annex/terms | "\
+        "//annex/clause[descendant::terms] ".freeze
+
+      def boilerplate_cleanup(xmldoc)
+        isodoc = IsoDoc::Convert.new({})
+        @lang = xmldoc&.at("//bibdata/language")&.text
+        @script = xmldoc&.at("//bibdata/script")&.text
+        isodoc.i18n_init(@lang, @script)
+        f = xmldoc.at(self.class::TERM_CLAUSE) and
+          term_defs_boilerplate(f.at("../title"),
+                                xmldoc.xpath(".//termdocsource"),
+                                f.at(".//term"), f.at(".//p"), isodoc)
+      end
+
+      def sort_biblio(bib)
+        require "byebug"; byebug
+        @citation_order = {}
+        bib.document.xpath("//xref | //origin").each_with_index do |x, i|
+          cit = x["target"] || x["bibitemid"]
+          next unless refid? cit
+          @citation_order[cit] ||= i
+        end
+        bib.sort do |a, b|
+          sort_biblio_key(a) <=> sort_biblio_key(b)
+        end
+      end
+
+      # if numeric citation, order by appearance. if alphanumeric, sort alphabetically
+      def sort_biblio_key(bib)
+        if metaid = bib&.at("./docidentifier[@type = 'metanorma']")&.text&.gsub(%r{[\[\]]}, "")
+          key = /^\[\d+\]$/.match(metaid) ? ( @citation_order[metaid] % "09%d" ) : metaid
+        end
+        title = bib&.at("./title[@type = 'main']")&.text ||
+          bib&.at("./title")&.text || bib&.at("./formattedref")&.text
+        "#{key} :: #{title}"
+      end
     end
   end
 end
