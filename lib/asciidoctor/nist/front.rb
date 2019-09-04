@@ -26,28 +26,28 @@ module Asciidoctor
       def title_subtitle(node, t, at)
         return unless node.attr("title-sub")
         t.title(**attr_code(at.merge(type: "subtitle"))) do |t1|
-          t1 << asciidoc_sub(node.attr("title-sub"))
+          t1 << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title-sub"))
         end
         node.attr("title-sub-short") and
           t.title(**attr_code(at.merge(type: "short-subtitle"))) do |t1|
-          t1 << asciidoc_sub(node.attr("title-sub-short"))
+          t1 << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title-sub-short"))
         end
       end
 
       def title_document_class(node, t, at)
         return unless node.attr("title-document-class")
         t.title(**attr_code(at.merge(type: "document-class"))) do |t1|
-          t1 << asciidoc_sub(node.attr("title-document-class"))
+          t1 << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title-document-class"))
         end
       end
 
       def title_main(node, t, at)
         t.title(**attr_code(at.merge(type: "main"))) do |t1|
-          t1 << asciidoc_sub(node.attr("title-main") || node.title)
+          t1 << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title-main") || node.title)
         end
         node.attr("title-main-short") and
           t.title(**attr_code(at.merge(type: "short-title"))) do |t1|
-          t1 << asciidoc_sub(node.attr("title-main-short"))
+          t1 << Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title-main-short"))
         end
       end
 
@@ -263,16 +263,16 @@ module Asciidoctor
 
       def metadata_superseding_titles(b, node)
         if node.attr("superseding-title")
-          b.title asciidoc_sub(node.attr("superseding-title")),
+          b.title Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("superseding-title")),
             **{ type: "main" }
           node.attr("superseding-subtitle") and
-            b.title asciidoc_sub(node.attr("superseding-subtitle")),
+            b.title Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("superseding-subtitle")),
             **{ type: "subtitle" }
         else
-          b.title asciidoc_sub(node.attr("title-main") || node.title),
+          b.title Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title-main") || node.title),
             **{ type: "main" }
           node.attr("title-sub") and
-            b.title asciidoc_sub(node.attr("title-sub")), **{ type: "subtitle" }
+            b.title Asciidoctor::Standoc::Utils::asciidoc_sub(node.attr("title-sub")), **{ type: "subtitle" }
         end
       end
 

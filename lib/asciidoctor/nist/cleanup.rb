@@ -153,7 +153,6 @@ module Asciidoctor
       end
 
       def sort_biblio(bib)
-        require "byebug"; byebug
         @citation_order = {}
         bib.document.xpath("//xref | //origin").each_with_index do |x, i|
           cit = x["target"] || x["bibitemid"]
