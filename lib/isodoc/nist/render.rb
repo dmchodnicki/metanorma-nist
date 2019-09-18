@@ -241,8 +241,9 @@ module Iso690Render
 
   def self.extent1(type, from, to)
     ret = ""
-    if type == "page"
-      type = to ? "pp." : "p"
+    case type 
+    when "page" then type = to ? "pp." : "p."
+    when "volume" then type = to ? "Vols." : "Vol."
     end
     ret += "#{type} "
     ret += from.text if from

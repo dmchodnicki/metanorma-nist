@@ -165,9 +165,16 @@ module Asciidoctor
       end
 
       # if numeric citation, order by appearance. if alphanumeric, sort alphabetically
+      # if identifier, zero-pad numeric component for NIST ids
       def sort_biblio_key(bib)
         if metaid = bib&.at("./docidentifier[@type = 'metanorma']")&.text&.gsub(%r{[\[\]]}, "")
           key = /^\[\d+\]$/.match(metaid) ? ( @citation_order[metaid] % "09%d" ) : metaid
+        elsif metaid = bib&.at("./docidentifier[@type = 'NIST']")&.text
+          key = metaid.sub(/-(\d+)/) {|m| sprintf "-%09d", ($1.to_i) }
+        else
+          metaid = bib&.at("./docidentifier[not(@type = 'DOI' or "\
+                           "@type = 'metanorma' or @type = 'ISSN' or @type = 'ISBN')]")&.text
+          key = metaid.sub(/-(\d+)/) {|m| sprintf "-%09d", ($1.to_i) }
         end
         title = bib&.at("./title[@type = 'main']")&.text ||
           bib&.at("./title")&.text || bib&.at("./formattedref")&.text

@@ -1492,7 +1492,7 @@ end
 
     end
 
-  it "removes revisions and revision dates from citations where unambiguous" do
+  it "removes revisions and revision dates from citations where unambiguous; sorts biblio by identifiers with numeric id components" do
   input = <<~"INPUT"
   = Document title
   Author
@@ -1513,8 +1513,8 @@ end
   == Bibliography
 
   * [[[ref1,NIST SP 800-10]]], _NIST A_
-  * [[[ref2,NIST SP 800-10 Volume 5]]], _NIST B_
-  * [[[ref3,NIST SP 800-10 Revision 8]]], _NIST C_
+  * [[[ref2,NIST SP 800-11 Volume 5]]], _NIST B_
+  * [[[ref3,NIST SP 800-100 Revision 8]]], _NIST C_
   * [[[ref4,NIST SP 800-10 (May 2007)]]], _NIST D_
   * [[[ref5,NIST SP 800-11 (May 2007)]]], _NIST E_
   INPUT
@@ -1533,12 +1533,12 @@ end
   </li>
   <li>
     <p id="_">
-      <eref type="inline" bibitemid="ref2" citeas="SP 800-10 Volume 5"/>
+      <eref type="inline" bibitemid="ref2" citeas="SP 800-11 Volume 5"/>
     </p>
   </li>
   <li>
     <p id="_">
-      <eref type="inline" bibitemid="ref3" citeas="SP 800-10 Revision 8"><locality type="section"><referenceFrom>4</referenceFrom></locality></eref>
+      <eref type="inline" bibitemid="ref3" citeas="SP 800-100 Revision 8"><locality type="section"><referenceFrom>4</referenceFrom></locality></eref>
     </p>
   </li>
   <li>
@@ -1553,41 +1553,36 @@ end
   </li>
 </ul>
 </clause></sections>
-<bibliography><references id="_" obligation="informative">
-  <title>Bibliography</title>
-  <bibitem id="ref1">
-  <formattedref format="application/x-isodoc+xml">
-    <em>NIST A</em>
-  </formattedref>
-  <docidentifier>NIST SP 800-10</docidentifier>
-</bibitem>
-  <bibitem id="ref2">
-  <formattedref format="application/x-isodoc+xml">
-    <em>NIST B</em>
-  </formattedref>
-  <docidentifier>NIST SP 800-10 Volume 5</docidentifier>
-</bibitem>
-  <bibitem id="ref3">
-  <formattedref format="application/x-isodoc+xml">
-    <em>NIST C</em>
-  </formattedref>
-  <docidentifier>NIST SP 800-10 Revision 8</docidentifier>
-</bibitem>
-  <bibitem id="ref4">
-  <formattedref format="application/x-isodoc+xml">
-    <em>NIST D</em>
-  </formattedref>
-  <docidentifier>NIST SP 800-10 (May 2007)</docidentifier>
-</bibitem>
-  <bibitem id="ref5">
-  <formattedref format="application/x-isodoc+xml">
-    <em>NIST E</em>
-  </formattedref>
-  <docidentifier>NIST SP 800-11 (May 2007)</docidentifier>
-</bibitem>
-</references></bibliography>
-</nist-standard>
 
+<bibliography><references id="_" obligation="informative">
+         <title>Bibliography</title><bibitem id="ref4">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST D</em>
+         </formattedref>
+         <docidentifier>NIST SP 800-10 (May 2007)</docidentifier>
+       </bibitem><bibitem id="ref1">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST A</em>
+         </formattedref>
+         <docidentifier>NIST SP 800-10</docidentifier>
+       </bibitem><bibitem id="ref5">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST E</em>
+         </formattedref>
+         <docidentifier>NIST SP 800-11 (May 2007)</docidentifier>
+       </bibitem><bibitem id="ref2">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST B</em>
+         </formattedref>
+         <docidentifier>NIST SP 800-11 Volume 5</docidentifier>
+       </bibitem><bibitem id="ref3">
+         <formattedref format="application/x-isodoc+xml">
+           <em>NIST C</em>
+         </formattedref>
+         <docidentifier>NIST SP 800-100 Revision 8</docidentifier>
+       </bibitem>
+       </references></bibliography>
+       </nist-standard>
     OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
