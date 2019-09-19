@@ -138,7 +138,7 @@ module Asciidoctor
         unless node.attr("nodoc") || !node.attr("docfile")
           filename = node.attr("docfile").gsub(/\.adoc/, ".xml").
             gsub(%r{^.*/}, "")
-          File.open(filename, "w") { |f| f.write(ret) }
+          File.open(filename, "w:UTF-8") { |f| f.write(ret) }
           html_converter(node).convert filename unless node.attr("nodoc")
           word_converter(node).convert filename unless node.attr("nodoc")
           pdf_converter(node).convert filename unless node.attr("nodoc")

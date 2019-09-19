@@ -345,10 +345,10 @@ OUTPUT
       :comment-from: 2010-01-01
       :comment-to: 2010-01-02
       :comment-extended: 2010-01-03
-      :obsoletes: NIST SP 800-179,NIST SP 800-53A Rev. 1
-      :obsoleted-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
-      :supersedes: NIST SP 800-179,NIST SP 800-53A Rev. 1
-      :superseded-by: NIST SP 800-179,NIST SP 800-53A Rev. 1
+      :obsoletes: NIST SP 800-179;NIST SP 800-53A Rev. 1
+      :obsoleted-by: NIST SP 800-179;NIST SP 800-53A Rev. 1
+      :supersedes: NIST SP 800-179;NIST SP 800-53A Rev. 1
+      :superseded-by: NIST SP 800-179;NIST SP 800-53A Rev. 1
       :abandoned-date: 2021-01-01
       :superseded-date: 2020-01-01
       :volume: 5
