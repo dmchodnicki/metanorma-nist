@@ -267,7 +267,7 @@ module IsoDoc
       def term_cleanup(docxml)
         docxml.xpath("//table[@class = 'terms_dl']").each do |d|
           prev = d.previous_element
-          next unless prev.name == "table" and prev["class"] == "terms_dl"
+          next unless prev and prev.name == "table" and prev["class"] == "terms_dl"
           d.children.each { |n| prev.add_child(n.remove) }
           d.remove
         end
