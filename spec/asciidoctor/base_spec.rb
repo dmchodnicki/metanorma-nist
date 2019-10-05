@@ -132,6 +132,87 @@ OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
+  it "processes a blank CSWP document" do
+    input = <<~"INPUT"
+    = Document title
+    Author
+    :docfile: test.adoc
+    :nodoc:
+    :novalid:
+    :series: nist-cswp
+    INPUT
+
+    output = <<~"OUTPUT"
+    <?xml version="1.0" encoding="UTF-8"?>
+       <nist-standard xmlns="http://www.nist.gov/metanorma">
+       <bibdata type="standard">
+         <title language="en" format="text/plain" type="main">Document title</title>
+
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>NIST</name>
+           </organization>
+         </contributor>
+
+         <language>en</language>
+         <script>Latn</script>
+         <status>
+           <stage>final</stage>
+           <substage>active</substage>
+         </status>
+         <copyright>
+           <from>2019</from>
+           <owner>
+             <organization>
+               <name>NIST</name>
+             </organization>
+           </owner>
+         </copyright>
+         <series type="main">
+           <title>NIST Cybersecurity White Paper</title>
+           <abbreviation>NIST CSWP</abbreviation>
+         </series>
+         <ext>
+           <doctype>standard</doctype>
+         </ext>
+       </bibdata>
+       <boilerplate>
+         <legal-statement>
+
+       <clause id="authority3" obligation="normative">
+       <title>Disclaimer</title>
+       <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by NIST, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
+       </clause>
+
+       <clause id="authority3a" obligation="normative">
+         <title>Additional Information</title>
+         <p id="_">For additional information on NIST’s Cybersecurity programs, projects and publications, visit the https://csrc.nist.gov[Computer Security Resource Center]. Information on other efforts at https://www.nist.gov[NIST] and in the https://www.nist.gov/itl[Information Technology Laboratory] (ITL) is also available.</p>
+       </clause>
+       </legal-statement>
+
+       <feedback-statement>
+
+
+       <clause id="authority5" obligation="normative">
+         <p align="center" id="_"><strong>Comments on this publication may be submitted to:</strong></p>
+
+       <p align="center" id="_">National Institute of Standards and Technology <br/>
+         Attn: Computer Security Division, Information Technology Laboratory <br/>
+         100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930 <br/>
+         </p>
+
+       <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
+       </clause>
+       </feedback-statement>
+       </boilerplate>
+       <preface/><sections/>
+       </nist-standard>
+    OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
   it "converts a blank document" do
     input = <<~"INPUT"
       = Document title
@@ -707,6 +788,10 @@ end
       </organization>
     </owner>
   </copyright>
+  <series type="main">
+           <title>NIST Special Publication</title>
+           <abbreviation>NIST SP</abbreviation>
+         </series>
   <ext>
   <doctype>standard</doctype>
 </ext>
@@ -867,6 +952,10 @@ end
       </organization>
     </owner>
   </copyright>
+  <series type="main">
+           <title>NIST Special Publication</title>
+           <abbreviation>NIST SP</abbreviation>
+         </series>
   <ext>
   <doctype>standard</doctype>
   <commentperiod>
@@ -934,6 +1023,123 @@ end
 <sections/>
 </nist-standard>
 
+    OUTPUT
+    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  end
+
+   it "populates initial boilerplate for CSWP" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :novalid:
+      :script: Hans
+      :revdate: 2013-01-01
+      :issued-date: 2019-01-15
+      :doi: http://www.example.com
+      :comment-from: 2010-01-01
+      :comment-to: 2010-01-02
+      :comment-extended: 2010-01-03
+      :doc-email: email@example.com
+      :status: draft-public
+      :nist-division: Ministry of Silly Walks
+      :nist-division-address: Camelot
+      :series: nist-cswp
+    INPUT
+
+    output = <<~"OUTPUT"
+    <nist-standard xmlns="http://www.nist.gov/metanorma">
+       <bibdata type="standard">
+         <title language="en" format="text/plain" type="main">Document title</title>
+         <uri type="email">email@example.com</uri>
+         <uri type="doi">http://www.example.com</uri>
+         <docidentifier type="NIST">NIST CSWP January 15, 2019 (IPD) (January 01, 2013)</docidentifier>
+         <docidentifier type="nist-long">NIST Cybersecurity White Paper January 15, 2019 (IPD) (January 01, 2013)</docidentifier>
+         <docidentifier type="nist-mr">NIST.CSWP...2013-01-01</docidentifier>
+
+         <date type="issued">
+           <on>2019-01-15</on>
+         </date>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>NIST</name>
+             <subdivision>Ministry of Silly Walks</subdivision>
+           </organization>
+         </contributor>
+         <version>
+           <revision-date>2013-01-01</revision-date>
+         </version>
+         <language>en</language>
+         <script>Hans</script>
+         <status>
+           <stage>draft-public</stage>
+           <substage>active</substage>
+         </status>
+         <copyright>
+           <from>2019</from>
+           <owner>
+             <organization>
+               <name>NIST</name>
+             </organization>
+           </owner>
+         </copyright>
+         <series type="main">
+           <title>NIST Cybersecurity White Paper</title>
+           <abbreviation>NIST CSWP</abbreviation>
+         </series>
+         <ext>
+           <doctype>standard</doctype>
+           <commentperiod>
+             <from>2010-01-01</from>
+             <to>2010-01-02</to>
+             <extended>2010-01-03</extended>
+           </commentperiod>
+         </ext>
+       </bibdata>
+       <boilerplate>
+         <legal-statement>
+
+       <clause id="authority3" obligation="normative">
+       <title>Disclaimer</title>
+       <p id="_">Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by NIST, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
+       </clause>
+
+       <clause id="authority3a" obligation="normative">
+         <title>Additional Information</title>
+         <p id="_">For additional information on NIST’s Cybersecurity programs, projects and publications, visit the https://csrc.nist.gov[Computer Security Resource Center]. Information on other efforts at https://www.nist.gov[NIST] and in the https://www.nist.gov/itl[Information Technology Laboratory] (ITL) is also available.</p>
+       </clause>
+       </legal-statement>
+
+       <feedback-statement>
+
+       <clause id="authority4" obligation="normative">
+
+       <p align="center" id="_">[2010-01-03: Comment period extended]</p>
+
+
+
+       <p align="center" id="_"><strong>Public comment period: <em>2010-01-01</em> through <em>2010-01-02</em></strong></p>
+
+       </clause>
+
+
+       <clause id="authority5" obligation="normative">
+         <p align="center" id="_"><strong>Comments on this publication may be submitted to:</strong></p>
+
+       <p align="center" id="_">National Institute of Standards and Technology <br/>
+         Attn: Ministry of Silly Walks <br/>
+         Camelot <br/>
+
+         Email: <link target="mailto:email@example.com"/>
+         </p>
+
+       <p align="center" id="_">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
+       </clause>
+       </feedback-statement>
+       </boilerplate>
+       <preface/><sections/>
+       </nist-standard>
     OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
@@ -1350,6 +1556,10 @@ end
              </organization>
            </owner>
          </copyright>
+         <series type="main">
+           <title>NIST Special Publication</title>
+           <abbreviation>NIST SP</abbreviation>
+         </series>
          <relation type="obsoletes">
        <bibitem id="SP800-179Rev.1(DRAFT)" type="standard">
          <fetched>#{Date.today}</fetched>

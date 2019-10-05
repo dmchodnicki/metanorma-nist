@@ -151,9 +151,12 @@ module IsoDoc
         ixml.xpath(ns("//bibdata/date")).each do |d|
           val = Common::date_range(d)
           next if val == "XXX"
-          set("#{d['type']}date_monthyear".to_sym, daterange_proc(val, :monthyr))
-          set("#{d['type']}date_mmddyyyy".to_sym, daterange_proc(val, :mmddyyyy))
-          set("#{d['type']}date_MMMddyyyy".to_sym, daterange_proc(val, :MMMddyyyy))
+          set("#{d['type']}date_monthyear".to_sym,
+              daterange_proc(val, :monthyr))
+          set("#{d['type']}date_mmddyyyy".to_sym,
+              daterange_proc(val, :mmddyyyy))
+          set("#{d['type']}date_MMMddyyyy".to_sym,
+              daterange_proc(val, :MMMddyyyy))
         end
         withdrawal_pending(ixml)
         most_recent_date(ixml)
@@ -193,6 +196,9 @@ module IsoDoc
       def series(ixml, _out)
         series = ixml.at(ns("//bibdata/series[@type = 'main']/title"))&.text
         set(:series, series) if series
+        seriesabbr =
+          ixml.at(ns("//bibdata/series[@type = 'main']/abbreviation"))&.text
+        set(:seriesabbr, seriesabbr) if seriesabbr
         subseries = ixml.at(ns("//bibdata/series[@type = 'secondary']/"\
                                "title"))&.text
         set(:subseries, subseries) if subseries
@@ -275,7 +281,8 @@ module IsoDoc
           set(:superseding_uri, uri)
         superseding_titles(ixml, d)
         authors = d.xpath(ns("./contributor[role/@type = 'author']/person"))
-        authors = ixml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person")) if authors.empty?
+        authors.empty? and authors =
+          ixml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person"))
         set(:superseding_authors, extract_person_names(authors))
       end
 
@@ -283,10 +290,13 @@ module IsoDoc
         title = d.at(ns("./title[@type = 'main']"))&.text
         if title
           set(:superseding_title, d.at(ns("./title[@type = 'main']"))&.text)
-          set(:superseding_subtitle, d.at(ns("./title[@type = 'subtitle']"))&.text)
+          set(:superseding_subtitle,
+              d.at(ns("./title[@type = 'subtitle']"))&.text)
         else
-          set(:superseding_title, ixml.at(ns("//bibdata/title[@type = 'main']"))&.text)
-          set(:superseding_subtitle, ixml.at(ns("//bibdata/title[@type = 'subtitle']"))&.text)
+          set(:superseding_title,
+              ixml.at(ns("//bibdata/title[@type = 'main']"))&.text)
+          set(:superseding_subtitle,
+              ixml.at(ns("//bibdata/title[@type = 'subtitle']"))&.text)
         end
       end
 
@@ -328,7 +338,8 @@ module IsoDoc
           set(:additional_note, note)
         note = xml.at(ns("//bibdata/note[@type = 'withdrawal-note']"))&.text and
           set(:withdrawal_note, note)
-        note = xml.at(ns("//bibdata/note[@type = 'withdrawal-announcement-link']"))&.text and
+        note = xml.at(ns("//bibdata/note[@type = "\
+                         "'withdrawal-announcement-link']"))&.text and
           set(:withdrawal_announcement_link, note)
       end
     end
