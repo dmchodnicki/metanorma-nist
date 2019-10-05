@@ -75,6 +75,7 @@ module Asciidoctor
       end
 
       def callforpatentclaims(x, preface)
+        return if @series == "nist-cswp"
         if @callforpatentclaims
           docemail = x&.at("//uri[@type = 'email']")&.text || "???"
           docnumber = x&.at("//docnumber")&.text || "???"

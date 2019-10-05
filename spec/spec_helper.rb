@@ -81,6 +81,10 @@ BLANK_HDR = <<~"HDR"
              </organization>
            </owner>
          </copyright>
+         <series type="main">
+           <title>NIST Special Publication</title>
+           <abbreviation>NIST SP</abbreviation>
+         </series>
          <ext>
   <doctype>standard</doctype>
         </ext>

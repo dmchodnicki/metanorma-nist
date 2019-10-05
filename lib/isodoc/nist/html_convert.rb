@@ -93,6 +93,7 @@ module IsoDoc
         a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
         a = docxml.at("//div[@id = 'authority2']") and a["class"] = "authority2"
         a = docxml.at("//div[@id = 'authority3']") and a["class"] = "authority3"
+        a = docxml.at("//div[@id = 'authority3a']") and a["class"] = "authority3"
         a = docxml.at("//div[@id = 'authority4']") and a["class"] = "authority4"
         a = docxml.at("//div[@id = 'authority5']") and a["class"] = "authority5"
       end

@@ -128,6 +128,7 @@ module Asciidoctor
           "Computer Security Division, Information Technology Laboratory"
         @nistdivisionaddress = node.attr("nist-division-address") ||
           "100 Bureau Drive (Mail Stop 8930) Gaithersburg, MD 20899-8930"
+        @series = node.attr("series")
         super
       end
 

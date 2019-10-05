@@ -16,10 +16,21 @@ module IsoDoc
       end
 
       def convert1(docxml, filename, dir)
-        @bibliographycount = docxml.xpath(ns("//bibliography/references | //annex/references | //bibliography/clause/references")).size
-        FileUtils.cp html_doc_path("logo.png"), "#{@localdir}/logo.png"
+        @series =  docxml&.at(ns("//bibdata/series/abbreviation"))&.text
+        @bibliographycount =
+          docxml.xpath(ns("//bibliography/references | //annex/references | "\
+                          "//bibliography/clause/references")).size
+        FileUtils.cp html_doc_path(@series == "NIST CSWP" ? "logo_cswp.png" :
+                                   "logo.png"), "#{@localdir}/logo.png"
         FileUtils.cp html_doc_path("deptofcommerce.png"),
           "#{@localdir}/deptofcommerce.png"
+        if @series == "NIST CSWP"
+          @wordstylesheet_name = html_doc_path("wordstyle_cswp.scss")
+          @standardstylesheet_name = html_doc_path("nist_cswp.scss")
+          @wordcoverpage = html_doc_path("word_nist_titlepage_cswp.html")
+          @wordintropage = html_doc_path("word_nist_intro_cswp.html")
+          @header = html_doc_path("header_cswp.html")
+        end
         super
       end
 
@@ -27,9 +38,9 @@ module IsoDoc
         {
           bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' :
                      '"Times New Roman",serif'),
-                     headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
                                   '"Arial",sans-serif'),
-                                  monospacefont: '"Courier New",monospace'
+          monospacefont: '"Courier New",monospace'
         }
       end
 
@@ -74,11 +85,15 @@ module IsoDoc
 
       def authority_cleanup(docxml)
         insert = docxml.at("//div[@class = 'WordSection2']")
-        auth = docxml&.at("//div[@class = 'authority']")&.remove || return
-        insert.children.first.add_previous_sibling(auth)
+        if @series != "NIST CSWP"
+          auth = docxml&.at("//div[@class = 'authority']")&.remove || return
+          insert.children.first.add_previous_sibling(auth)
+        end
         a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
         a = docxml.at("//div[@id = 'authority2']") and a["class"] = "authority2"
         a = docxml.at("//div[@id = 'authority3']") and a["class"] = "authority3"
+        a = docxml.at("//div[@id = 'authority3a']") and
+          a["class"] = "authority3"
         a = docxml.at("//div[@id = 'authority4']") and a["class"] = "authority4"
         a = docxml.at("//div[@id = 'authority5']") and a["class"] = "authority5"
       end
@@ -89,7 +104,7 @@ module IsoDoc
         requirement_cleanup(docxml)
         h1_cleanup(docxml)
         word_annex_cleanup(docxml) # need it earlier
-        word_preface_cleanup(docxml) # need it earlier, since early ToC insertion
+        word_preface_cleanup(docxml) # ditto, since early ToC insertion
         toc_insert(docxml, @wordToClevels)
       end
 
@@ -267,7 +282,8 @@ module IsoDoc
       def term_cleanup(docxml)
         docxml.xpath("//table[@class = 'terms_dl']").each do |d|
           prev = d.previous_element
-          next unless prev and prev.name == "table" and prev["class"] == "terms_dl"
+          next unless prev and prev.name == "table" and
+            prev["class"] == "terms_dl"
           d.children.each { |n| prev.add_child(n.remove) }
           d.remove
         end

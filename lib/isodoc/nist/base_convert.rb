@@ -228,7 +228,7 @@ module IsoDoc
             div.h2 title, **{ class: "Section3" }
           end
           node.elements.reject do |e|
-            ["reference", "title", "bibitem"].include? e.name
+            %w(reference title bibitem note).include? e.name
           end.each { |e| parse(e, div) }
           biblio_list(node, div, true)
         end

@@ -23,6 +23,7 @@ module Asciidoctor
         "csrc-book": "CSRC Book",
         "csrc-use-case": "CSRC Use Case",
         "csrc-building-block": "CSRC Building Block",
+        "nist-cswp": "NIST Cybersecurity White Paper",
       }.freeze
 
       SERIES_ABBR = {
@@ -47,6 +48,7 @@ module Asciidoctor
         "csrc-book": "CSRC Book",
         "csrc-use-case": "CSRC Use Case",
         "csrc-building-block": "CSRC Building Block",
+        "nist-cswp": "NIST CSWP",
       }.freeze
 
       CALL_FOR_PATENT_CLAIMS = <<~END.freeze
@@ -100,7 +102,7 @@ module Asciidoctor
         conv.labels = {nist_division: @nistdivision,
                        nist_division_address: @nistdivisionaddress}
         file = @boilerplateauthority ? "#{@localdir}/#{@boilerplateauthority}" :
-          File.join(File.dirname(__FILE__),"nist_intro.xml")
+          File.join(File.dirname(__FILE__), @series == "nist-cswp" ? "nist_intro_cswp.xml" : "nist_intro.xml")
           conv.populate_template((File.read(file, encoding: "UTF-8")), nil)
       end
     end
