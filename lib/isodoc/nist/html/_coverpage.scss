@@ -1,0 +1,327 @@
+.coverpage-maturity, .coverpage-stage {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0 0 2em 0;
+  text-transform: uppercase;
+}
+
+.coverpage-maturity {
+  font-family: $bodyfont;
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0 0 2em 0;
+  text-transform: uppercase;
+}
+
+.coverpage-warning {
+  border: #f36f36 solid 2px;
+  color: #f36f36!important;
+  margin: 50px 100px;
+  color: #2e81c2;
+  padding: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 14px;
+
+  p {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .title {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 1.2em;
+  }
+}
+
+.logo-wrapper {
+  margin-left: 3em;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  float: right;
+}
+
+img#NIST-logo {
+  width: 300px;
+  height: auto;
+  padding-top: 3m;
+  margin-right: 50px;
+}
+
+.logo-info {
+  margin-left: 3em;
+  margin-bottom: 1.5em;
+}
+
+.logo-info p {
+  margin: 0;
+}
+
+#commerce-logo {
+  width: 150px;
+  height: auto;
+}
+
+.authors-container {
+  margin-top: 2em;
+}
+
+.affiliation {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+
+.main-section {
+  word-wrap: break-word;
+}
+
+.coverpage-title {
+  font-family: $headerfont;
+
+  span {
+    font-family: $headerfont;
+    font-size: 1.1em;
+    line-height: 1;
+  }
+}
+
+.wrapper-top {
+  background: #fff;
+  color: #141115;
+  padding: 7em 0;
+  margin-left: 3em;
+}
+
+.doc-number {
+  font-size: 20px;
+  font-family: $bodyfont;
+  line-height: 1.6;
+  margin: 1.5em 0;
+}
+
+.title-second {
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 1.5em;
+}
+
+.download-info {
+  margin-top: 2em;
+}
+
+.category {
+  color: #2677ea;
+  margin-top: 4em;
+  margin-right: 2em;
+  padding: 0.7em 1em;
+  text-align: center;
+  border-top: solid 1px #2677ea;
+  border-bottom: solid 1px #2677ea;
+  text-transform: uppercase;
+}
+
+.banner {
+  border-top: 1px solid #2677ea;
+  border-bottom: 1px solid #2677ea;
+  margin-right: 50px;
+  margin-top: 100px;
+
+  &#inactive-draft {
+    display: none;
+  }
+
+  p {
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 5px;
+    text-align: center;
+    color: #2677ea;
+    font-family: $monospacefont;
+  }
+}
+      
+.WordSection11 {
+  padding: 0 2em 0 3em;
+}
+
+.info-section {
+  padding: 0;
+}
+
+.prefatory-section {
+  padding: 0 3em 0 6em;
+}
+
+
+.zzSTDTitle1, .MsoCommentText {
+  display: none;
+}
+
+.coverpage {
+  text-align: left;
+  padding-left: 1.5em;
+}
+
+
+.coverpage-logo, .coverpage-tc-name {
+  span {
+    font-family: $bodyfont;
+    text-transform: none;
+    font-weight: 300;
+  }
+}
+
+.coverpage-logo span {
+  display: block;
+  float: left;
+ }
+
+.coverpage-tc-name {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin: 0.25em 0;
+}
+
+
+.coverpage-doc-identity {
+  font-size: 2em;
+  line-height: 1.5em;
+  margin-bottom: 150px;
+}
+
+.coverpage-stage-block {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 1.25em;
+  margin: 2em 0em 2em 0em;
+  text-transform: uppercase;
+}
+
+
+.copyright {
+  padding: 1em;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+
+table.coverpage-table {
+  max-width: 500px;
+  font-size: 14px;
+}
+
+.more-info {
+  margin-right: 50px;
+
+  h2 {
+    text-align: center;
+    color: #2e81c2;
+    font-size: 20px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+
+// Contact Info
+
+.contact-info, .authority5 {
+  padding: 2em;
+  margin-top: 5em;
+
+  text-align: left;
+  color: #2677ea!important;
+  background-color: #f1f8ff;
+  border-radius: 25px;
+
+  a, a:hover {
+    color: #2677ea;
+  }
+}
+
+.authority5 h2 {
+  text-align: center;
+}
+
+.authority3 {
+  border: solid;
+  padding: 1em;
+}
+
+.contact-info {
+  width: 280px;
+
+  a:hover {
+    text-decoration: underline;
+    background: none;
+    box-shadow: 0 0 0 0;
+  }
+
+  p, a {
+    font-family: $monospacefont;
+    font-variant-ligatures: none;
+    font-weight: 400;
+  }
+
+  .name {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .address {
+    font-size: 12px;
+    line-height: 1.3em;
+    margin-top:0;
+  }
+}
+
+
+// Draft state
+
+.draft-state-container {
+  margin-bottom: 30px;
+  margin-top: -30px;
+}
+
+.draft-state {
+  font-size: 20px;
+  color: #f36f36;
+
+  &#inactive-draft {
+    color: #7e0d13;
+  }
+
+  &#inactive-final {
+    color: #750697;
+  }
+}
+
+.draft-description {
+  font-size: 14px;
+
+  p {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+}
+
+#retired-draft {
+  color: #7e0d13;
+}
+
+@media print {
+  .coverpage {
+    height: 23cm;
+  }
+}
