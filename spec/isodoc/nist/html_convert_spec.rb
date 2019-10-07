@@ -1541,4 +1541,41 @@ expect(
 
 end
 
+it "wraps citations in brackets" do
+    input = <<~"INPUT"
+          <nist-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+    <foreword id="fwd">
+             <eref type="inline" bibitemid="ref4" citeas="[4]"/>
+             <eref type="inline" bibitemid="ref4" citeas="4"/>
+    <p>
+    </p>
+    </foreword>
+  </preface>
+  </nist-standard>
+INPUT
+
+output = <<~"OUTPUT"
+#{HTML_HDR}
+<div id="fwd">
+               <h1 class="ForewordTitle"/>
+               <a href="#ref4">[4]</a>
+               <a href="#ref4">[4]</a>
+               <p>
+         </p>
+             </div>
+           </div>
+         </body>
+OUTPUT
+
+expect(
+      IsoDoc::NIST::HtmlConvert.new({}).
+      convert("test", input, true).
+      gsub(%r{^.*<body}m, "<body").
+      gsub(%r{</body>.*}m, "</body>")
+    ).to be_equivalent_to output
+
+end
+
+
 end

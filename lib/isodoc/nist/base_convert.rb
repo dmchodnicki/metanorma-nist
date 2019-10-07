@@ -189,8 +189,13 @@ module IsoDoc
         super
       end
 
+      def wrap_brackets(txt)
+        return txt if /^\[.*\]$/.match txt
+        "[#{txt}]"
+      end
+
       def get_linkend(node)
-        link = anchor_linkend(node, docid_l10n(node["target"] || "[#{node['citeas']}]"))
+        link = anchor_linkend(node, docid_l10n(node["target"] || wrap_brackets(node['citeas'])))
         link += eref_localities(node.xpath(ns("./locality")), link)
         contents = node.children.select { |c| c.name != "locality" }
         return link if contents.nil? || contents.empty?
