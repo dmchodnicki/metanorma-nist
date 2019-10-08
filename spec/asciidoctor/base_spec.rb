@@ -187,7 +187,7 @@ OUTPUT
 
        <clause id="authority3a" obligation="normative">
          <title>Additional Information</title>
-         <p id="_">For additional information on NIST’s Cybersecurity programs, projects and publications, visit the https://csrc.nist.gov[Computer Security Resource Center]. Information on other efforts at https://www.nist.gov[NIST] and in the https://www.nist.gov/itl[Information Technology Laboratory] (ITL) is also available.</p>
+         <p id="_">For additional information on NIST’s Cybersecurity programs, projects and publications, visit the <link target="https://csrc.nist.gov">Computer Security Resource Center</link>. Information on other efforts at <link target="https://www.nist.gov">NIST</link> and in the <link target="https://www.nist.gov/itl">Information Technology Laboratory</link> (ITL) is also available.</p>
        </clause>
        </legal-statement>
 
@@ -1107,7 +1107,7 @@ end
 
        <clause id="authority3a" obligation="normative">
          <title>Additional Information</title>
-         <p id="_">For additional information on NIST’s Cybersecurity programs, projects and publications, visit the https://csrc.nist.gov[Computer Security Resource Center]. Information on other efforts at https://www.nist.gov[NIST] and in the https://www.nist.gov/itl[Information Technology Laboratory] (ITL) is also available.</p>
+         <p id="_">For additional information on NIST’s Cybersecurity programs, projects and publications, visit the <link target="https://csrc.nist.gov">Computer Security Resource Center</link>. Information on other efforts at <link target="https://www.nist.gov">NIST</link> and in the <link target="https://www.nist.gov/itl">Information Technology Laboratory</link> (ITL) is also available.</p>
        </clause>
        </legal-statement>
 
