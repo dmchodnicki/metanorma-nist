@@ -148,7 +148,11 @@ docnumber-edition (if edition is present)
 `:docidentifier:`:: The document identifier for the document. Normally this should not be supplied,
 as the document identifier is composed from the document series, document number, document volume,
 and edition/revision (e.g. _NIST SP 800 Revision 1_).
+
 If the `:docidentifier:` value is provided, it will override this composed value.
+
+CSWP publications do not have a distinct `:docidentifier:` or `:docnumber:`: they are identified
+by their `:issued-date:`.
 
 `:status:`:: Document status/stage. The permitted types are:
 +
@@ -259,13 +263,13 @@ e.g. "Computer Security" for SP 800.
 publishes the document under.)
 
 `:call-for-patent-claims:`:: Include the Call for Patent Claims in document drafts,
-and the Patent Disclosure Notice in finalised documents.
+and the Patent Disclosure Notice in finalised documents. (Not applicable to CSWP.)
 
 `:commitment-to-licence:`:: Indicate in the Patent Disclosure Notice that
-notice and commitment to license have been received.
+notice and commitment to license have been received. (Not applicable to CSWP.)
 
 `:patent-contact:`:: Contact for the Call for Patent Claims or Patent Disclosure Notice.
-If not supplied, `:doc-email:` is used.
+If not supplied, `:doc-email:` is used. (Not applicable to CSWP.)
 
 `:iteration:`:: The iteration of a stage, in case there have been multiple drafts.
 Can be a number, or text (e.g. "initial", "final").
@@ -294,7 +298,12 @@ Can be a number, or text (e.g. "initial", "final").
 *  csrc-book
 *  csrc-use-case
 *  csrc-building-block
+*  nist-cswp
 --
+
+Documents belonging to different series are expected to be rendered differently. As of this
+writing, styling has been provided for `nist-cswp` (Cybersecurity White Papers) and for 
+`nist-sp` (SP-800).
 
 `:comment-from:`:: The beginning of the period during which comments may be submitted to the NIST
 document draft. ISO-8601 date.
@@ -311,7 +320,8 @@ forward. If present, bibliographies are treated in the legacy manner: they are t
 and are given an appendix number according to where in the document they occur.
 
 `:boilerplate-authority:`:: Nominate a Metanorma XML file encoding the authority statement of the document,
-to overwrite the default authority statement included in the gem (link:lib/asciidoctor/nist/nist_intro.xml[]),
+to overwrite the default authority statement included in the gem 
+(link:lib/asciidoctor/nist/nist_intro.xml[], link:lib/asciidoctor/nist/nist_intro_cswp.xml[]),
 in case the document is historical, and needs to be generated with a previous authority statement.
 
 `:obsoletes:`::
@@ -422,15 +432,15 @@ The authority statement in NIST consists of five sections. They are semantically
 XML under the `boilerplate` tag, as subclauses:
 
 `boilerplate/legal-statement/clause[@id = 'authority1']`:: The initial section of the authority section ("This publication has been developed
-by NIST...").
-`boilerplate/legal-statement/clause[@id = 'authority2']`:: The identifier, revision date, and URL of the document.
+by NIST..."). (Not applicable to CSWP.)
+`boilerplate/legal-statement/clause[@id = 'authority2']`:: The identifier, revision date, and URL of the document. (Not applicanble to CSWP.)
 `boilerplate/legal-statement/clasue[@id = 'authority3']`:: The boxed disclaimer statement ("Any mention of commercial products or reference to commercial organizations...")
 `boilerplate/feedback-statement/clause[@id = 'authority4']`:: The public comment period, for drafts
 `boilerplate/feedback-statement/clause[@id = 'authority5']`:: The contact details for comments
 
 The authority statement has been marked up in Metanorma XML rather than Asciidoctor because of its complexity.
 If you wish to supply a different authority statement, you will need to provide a piece of Metanorma XML corresponding
-to the existing default statement (available from link:lib/asciidoctor/nist/nist_intro.xml[]), and containing
+to the existing default statement (available from link:lib/asciidoctor/nist/nist_intro.xml[] and link:lib/asciidoctor/nist/nist_intro_cswp.xml[]), and containing
 text corresponding to the sections given above. You can give the location of your own authority statement file
 relative to the current document through the document attribute `:boilerplate-authority:`.
 

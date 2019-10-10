@@ -4,11 +4,13 @@ require "fileutils"
 
 module Asciidoctor
   module NIST
-
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
-    #
+
     class Converter < Standoc::Converter
+      def doctype(node)
+        node.attr("doctype") || "sp-800"
+      end
 
       def datetypes
         super + %w(abandoned superseded)
@@ -63,6 +65,7 @@ module Asciidoctor
       def metadata_id(node, xml)
         did = node.attr("docidentifier")
         dn = node.attr("docnumber")
+        dn = Iso690Render.MMMddyyyy(node.attr("issued-date")) if @series == "nist-cswp" and !dn
         if did
           xml.docidentifier did, **attr_code(type: "NIST")
           xml.docidentifier unabbreviate(did), **attr_code(type: "nist-long")
@@ -189,8 +192,7 @@ module Asciidoctor
       end
 
       def metadata_series(node, xml)
-        series = node.attr("series")
-        series || return
+        series = node.attr("series") || "nist-sp"
         series and xml.series **{ type: "main" } do |s|
           s.title (SERIES.dig(series.to_sym) || series)
           SERIES_ABBR.dig(series.to_sym) and

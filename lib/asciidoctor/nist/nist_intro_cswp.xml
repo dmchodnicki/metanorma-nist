@@ -1,0 +1,45 @@
+<boilerplate>
+  <legal-statement>
+
+<clause id="authority3">
+<title>Disclaimer</title>
+<p>Any mention of commercial products or reference to commercial organizations is for information only; it does not imply recommendation or endorsement by NIST, nor does it imply that the products mentioned are necessarily the best available for the purpose.</p>
+</clause>
+
+<clause id="authority3a">
+  <title>Additional Information</title>
+  <p>For additional information on NIST's Cybersecurity programs, projects and publications, visit the <link target="https://csrc.nist.gov">Computer Security Resource Center</link>. Information on other efforts at <link target="https://www.nist.gov">NIST</link> and in the <link target="https://www.nist.gov/itl">Information Technology Laboratory</link> (ITL) is also available.</p>
+</clause>
+</legal-statement>
+
+<feedback-statement>
+  {% if unpublished %}
+<clause id="authority4">
+{% if comment_extended %}
+<p align="center">[{{ comment_extended}}: Comment period extended]</p>
+{% endif %}
+
+{% if comment_from and comment_to %}
+<p align="center"><strong>Public comment period: <em>{{ comment_from }}</em> through <em>{{comment_to}}</em></strong></p>
+{% else %}
+{% if comment_from %}
+<p align="center"><strong>Public comment period: from <em>{{ comment_from }}</em></strong></p>
+{% endif %}
+{% endif %}
+</clause>
+{% endif %}
+
+<clause id="authority5">
+  <p align="center"><strong>Comments on this publication may be submitted to:</strong></p>
+
+<p align="center">National Institute of Standards and Technology <br/>
+  Attn: {{ nist_division }} <br/>
+  {{ nist_division_address }} <br/>
+  {% if email %}
+  Email: <link target="mailto:{{ email }}"/>
+  {% endif %}</p>
+
+<p align="center">All comments are subject to release under the Freedom of Information Act (FOIA).</p>
+</clause>
+</feedback-statement>
+</boilerplate>

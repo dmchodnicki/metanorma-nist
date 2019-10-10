@@ -15,13 +15,13 @@
 {% endif %}
 {% endif %}
 {% else %}
-<div class="document-stage-band" id='{{ status | downcase | replace: " ", "-" }}-band'>
+<div class="document-stage-band" id="{{ status | downcase | replace: ' ', '-' }}-band">
   <p class="document-stage">{{ status }}</p>
 </div>
 {% endif %}
 
-<div class="document-type-band" id='{{ doctype | downcase | replace: " ", "-" }}-band'>
-  <p class="document-type">NIST {{ doctype }}</p>
+<div class="document-type-band" id="{{ seriesabbr | downcase | replace: ' ', '-' }}-band">
+  <p class="document-type">{{ series }}</p>
 </div>
 
 
