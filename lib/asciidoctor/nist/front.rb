@@ -124,7 +124,7 @@ module Asciidoctor
 
       def add_id_parts_mr(args)
         args[:series] and
-          name = SERIES_ABBR.dig(args[:series].to_sym).sub(/^NIST /, "")
+          name = SERIES_ABBR&.dig(args[:series].to_sym)&.sub(/^NIST /, "")
         "NIST.#{name}.#{args[:vol]}.#{args[:revision]}.#{args[:date]}"
       end
 
