@@ -713,7 +713,7 @@ it "processes glossaries" do
              <br />
              <div id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" class="Section3">
                <h1 class="Annex"><b>Appendix A</b> &#x2014; <b>Glossary</b></h1>
-               <div id="_normal_terms_2"><h1>A. Normal Terms 2</h1>
+               <div id="_normal_terms_2"><h1>A.&#xA0; Normal Terms 2</h1>
          <dl class="terms_dl"><dt>Normal Terms</dt><dd><p id="_4883de72-6054-4227-a111-b8966759b0f6">Definition</p>
        <div id="_f22bc30c-a5a6-45ae-8bea-0792d7109470" class="example"><p class="example-title">EXAMPLE</p>
          <p id="_16555fc3-3570-4b16-8fff-ac95941b62b1">Example</p>
@@ -884,10 +884,10 @@ it "processes section names" do
              </div>
              <div id="M">
                <h1>2.&#160; Clause 4</h1>
-               <div id="N"><h2>2.1. Introduction</h2>
+               <div id="N"><h2>2.1.&#160; Introduction</h2>
 
           </div>
-          <div id="O"><h2>2.2. Clause 4.2</h2>
+          <div id="O"><h2>2.2.&#160; Clause 4.2</h2>
 
           </div>
              </div>
@@ -904,9 +904,9 @@ it "processes section names" do
              <br/>
              <div id="P" class="Section3">
                <h1 class="Annex"><b>Appendix A</b> &#8212; <b>Annex</b></h1>
-               <div id="Q"><h2>A.1. Annex A.1</h2>
+               <div id="Q"><h2>A.1.&#160; Annex A.1</h2>
 
-            <div id="Q1"><h3>A.1.1. Annex A.1a</h3>
+            <div id="Q1"><h3>A.1.1.&#160; Annex A.1a</h3>
 
             </div>
           </div>
@@ -1117,7 +1117,7 @@ INPUT
       </div>
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
-      <div id="widgets1"><h2>3.1. </h2>
+      <div id="widgets1"><h2>3.1.&#160; </h2>
     <div class="recommend"><p class="AdmonitionTitle">Recommendation 4:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
@@ -1129,12 +1129,12 @@ INPUT
     </div>
     <br/>
     <div id="annex1" class="Section3">
-    <div id="annex1a"><h2>A.1. </h2>
+    <div id="annex1a"><h2>A.1.&#160; </h2>
     <div class="recommend"><p class="AdmonitionTitle">Recommendation A-1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
-    <div id="annex1b"><h2>A.2. </h2>
+    <div id="annex1b"><h2>A.2.&#160; </h2>
     <div class="recommend"><p class="AdmonitionTitle">Recommendation A-2:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
@@ -1275,7 +1275,7 @@ INPUT
       </div>
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
-      <div id="widgets1"><h2>3.1. </h2>
+      <div id="widgets1"><h2>3.1.&#160; </h2>
     <div class="require"><p class="AdmonitionTitle">Requirement 4:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
@@ -1287,12 +1287,12 @@ INPUT
     </div>
     <br/>
     <div id="annex1" class="Section3">
-    <div id="annex1a"><h2>A.1. </h2>
+    <div id="annex1a"><h2>A.1.&#160; </h2>
     <div class="require"><p class="AdmonitionTitle">Requirement A-1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
-    <div id="annex1b"><h2>A.2. </h2>
+    <div id="annex1b"><h2>A.2.&#160; </h2>
     <div class="require"><p class="AdmonitionTitle">Requirement A-2:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
@@ -1410,7 +1410,7 @@ INPUT
       </div>
     <div id="widgets">
     <h1>3.&#160; Widgets</h1>
-      <div id="widgets1"><h2>3.1. </h2>
+      <div id="widgets1"><h2>3.1.&#160; </h2>
     <div class="permission"><p class="AdmonitionTitle">Permission 4:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
@@ -1422,12 +1422,12 @@ INPUT
     </div>
     <br/>
     <div id="annex1" class="Section3">
-    <div id="annex1a"><h2>A.1. </h2>
+    <div id="annex1a"><h2>A.1.&#160; </h2>
     <div class="permission"><p class="AdmonitionTitle">Permission A-1:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
     </div>
-    <div id="annex1b"><h2>A.2. </h2>
+    <div id="annex1b"><h2>A.2.&#160; </h2>
     <div class="permission"><p class="AdmonitionTitle">Permission A-2:</p>
     <img src="rice_images/rice_image1.png" height="auto" width="auto"/>
     </div>
