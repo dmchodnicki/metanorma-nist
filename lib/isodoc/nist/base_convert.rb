@@ -70,11 +70,6 @@ module IsoDoc
         docxml
       end
 
-      def figure_parse(node, out)
-        return pseudocode_parse(node, out) if node["type"] == "pseudocode"
-        super
-      end
-
       def dl_parse(node, out)
         return glossary_parse(node, out) if node["type"] == "glossary"
         super
@@ -288,18 +283,6 @@ module IsoDoc
       def nist_reference_format(b, r)
         bibitem = b.dup.to_xml
         r.parent.add_child ::Iso690Render.render(bibitem, true)
-      end
-
-      def pseudocode_parse(node, out)
-        @in_figure = true
-        name = node.at(ns("./name"))
-        out.div **attr_code(id: node["id"], class: "pseudocode") do |div|
-          node.children.each do |n|
-            parse(n, div) unless n.name == "name"
-          end
-          figure_name_parse(node, div, name)
-        end
-        @in_figure = false
       end
 
       def foreword(isoxml, out)

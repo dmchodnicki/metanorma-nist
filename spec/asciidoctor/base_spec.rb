@@ -1278,7 +1278,7 @@ end
     #{AUTHORITY}
              <preface/>
        <sections>
-         <figure id="_" type="pseudocode"><name>Label</name><p id="_">
+         <figure id="_" class="pseudocode"><name>Label</name><p id="_">
   <em>Input: S=(s1, sL)</em>
 </p>
 <p id="_"><em>Output:</em> Shuffled <em>S=(s1, sL)</em></p>

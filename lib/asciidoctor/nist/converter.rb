@@ -15,22 +15,6 @@ module Asciidoctor
 
       register_for "nist"
 
-      def example(node)
-        role = node.role || node.attr("style")
-        return pseudocode_example(node) if role == "pseudocode"
-        super
-      end
-
-      def pseudocode_example(node)
-        noko do |xml|
-          xml.figure **{id: Asciidoctor::Standoc::Utils::anchor_or_uuid(node), 
-                        type: "pseudocode"} do |ex|
-            figure_title(node, ex)
-            wrap_in_para(node, ex)
-          end
-        end.join("\n")
-      end
-
       def table(node)
         role = node.role || node.attr("style")
         return errata(node) if role == "errata"
