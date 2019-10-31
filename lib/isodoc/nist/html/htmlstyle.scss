@@ -241,6 +241,10 @@ p.Biblio, p.NormRef {
   @include sourceBlock(#f6f6f6);
 }
 
+.pseudocode {
+  @include pseudocodeBlock(#f6f6f6);
+}
+
 .Note {
   background-color: #ffca3a;
   color: #141115;
@@ -286,7 +290,7 @@ p.blockQuote {
   margin: 2em 0 1em 0;
   padding-left: 2em;
 
-  .Sourcecode {
+  .Sourcecode, .pseudocode {
     background: none;
   }
 
@@ -313,7 +317,9 @@ p.blockQuote {
   }
 }
 
-
+.example .Sourcecode, .example .pseudocode {
+      background: none;
+}
 
 /* Tables */
 
@@ -385,7 +391,7 @@ span.keyword {
     margin-top: 1.2em;
   }
 
-  .note, .figure, .Sourcecode, table {
+  .note, .figure, .Sourcecode, .pseudocode, table {
     page-break-inside: avoid;
   }
 
