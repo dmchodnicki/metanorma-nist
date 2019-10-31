@@ -551,11 +551,12 @@ title "Glossary" or "Terminology" is treated as a Terms & Definitions section.
 
 === Pseudocode
 
-Pseudocode shall be marked up as an example, with role attribute `[.pseudocode]`:
+Pseudocode shall be marked up as an example, with style attribute `[pseudocode]`
+(implemented as a macro):
 
 [source,asciidoctor]
 ----
-[.pseudocode]
+[pseudocode]
 ====
 _Input: S=(s1,...,sL)_
 
@@ -567,7 +568,20 @@ _Output:_ Shuffled _S=(s1,...,sL)_
 ====
 ----
 
-They will be rendered as figures, and included in the count of figures of the document.
+Pseudocode will respect initial indentation in paragraph lines, with line breaks:
+
+[source,asciidoctor]
+----
+[pseudocode]
+====
+  *def* __increment__(x) +
+    x = x + 1 +
+  *enddef*
+====
+----
+
+They will be rendered as figures, but are not included in the count of figures of the document.
+(If they must be included, embed them within another figure.)
 
 === Recommendations, requirements, and permissions
 
