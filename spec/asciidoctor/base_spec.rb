@@ -1256,52 +1256,6 @@ end
     expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
   end
 
-  it "processes pseudocode" do
-    input = <<~"INPUT"
-      #{ASCIIDOC_BLANK_HDR}
-
-      .Label
-      [.pseudocode]
-      ====
-      _Input: S=(s1, sL)_
-
-      _Output:_ Shuffled _S=(s1, sL)_
-
-      . *for* _i_ *from* _L_ *downto* 1 *do*
-      .. Generate a random integer _j_ such that 1 < _j_ < _i_
-      .. Swap _s~j~_ and _s~i~_
-      ====
-    INPUT
-
-    output = <<~"OUTPUT"
-    #{BLANK_HDR}
-    #{AUTHORITY}
-             <preface/>
-       <sections>
-         <figure id="_" class="pseudocode"><name>Label</name><p id="_">
-  <em>Input: S=(s1, sL)</em>
-</p>
-<p id="_"><em>Output:</em> Shuffled <em>S=(s1, sL)</em></p>
-<ol id="_" type="arabic">
-  <li>
-    <p id="_"><strong>for</strong> <em>i</em> <strong>from</strong> <em>L</em> <strong>downto</strong> 1 <strong>do</strong></p>
-    <ol id="_" type="alphabet">
-  <li>
-    <p id="_">Generate a random integer <em>j</em> such that 1 &lt; <em>j</em> &lt; <em>i</em></p>
-  </li>
-  <li>
-    <p id="_">Swap <em>s<sub>j</sub></em> and <em>s<sub>i</sub></em></p>
-  </li>
-</ol>
-  </li>
-</ol></figure>
-       </sections>
-       </nist-standard>
-    OUTPUT
-
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
-  end
-
   it "processes variables within sourcecode" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
