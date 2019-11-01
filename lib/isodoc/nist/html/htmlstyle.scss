@@ -241,11 +241,9 @@ p.Biblio, p.NormRef {
   @include sourceBlock(#f6f6f6);
 }
 
-/*
 .pseudocode {
   @include pseudocodeBlock(#f6f6f6);
 }
-*/
 
 .Note {
   background-color: #ffca3a;
