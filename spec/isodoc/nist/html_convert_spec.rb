@@ -188,12 +188,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:abandoneddate=>"2005-01-01", :abandoneddate_MMMddyyyy=>"January 01, 2005", :abandoneddate_mmddyyyy=>"01-01-2005", :abandoneddate_monthyear=>"January 2005", :accesseddate=>"XXX", :additional_note=>"Additional Note", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"XXX", :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"2005-01-01", :confirmeddate_MMMddyyyy=>"January 01, 2005", :confirmeddate_mmddyyyy=>"01-01-2005", :confirmeddate_monthyear=>"January 2005", :copieddate=>"XXX", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd) (January 2007)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Short Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Short Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draft_prefix=>"DRAFT (3WD) ", :draftinfo=>" draft 3.4", :edition=>"Revision 2", :email=>"email@example.com", :errata=>true, :implementeddate=>"XXX", :issueddate=>"2004-01-01", :issueddate_MMMddyyyy=>"January 01, 2004", :issueddate_mmddyyyy=>"01-01-2004", :issueddate_monthyear=>"January 2004", :iteration=>"3", :iteration_code=>"3WD", :iteration_ordinal=>"third", :keywords=>["A", "B"], :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :nist_subdiv=>"Ministry of Silly Walks", :obsoletedby=>["NIST FIPS 1000 Volume 5, Revision 3", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"1000-01-01", :obsoleteddate_MMMddyyyy=>"January 01, 1000", :obsoleteddate_mmddyyyy=>"01-01-1000", :obsoleteddate_monthyear=>"January 1000", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :revision=>"2", :series=>"NIST Federal Information Processing Standards", :seriesabbr=>"NIST FIPS", :status=>"Work-in-Progress Draft", :substage=>"withdrawn", :supersededby=>["NIST SP 800-53A Rev. 1"], :supersededdate=>"2005-01-01", :supersededdate_MMMddyyyy=>"January 01, 2005", :supersededdate_mmddyyyy=>"01-01-2005", :supersededdate_monthyear=>"January 2005", :supersedes=>["NIST SP 800-53A Rev. 1"], :superseding_authors=>["Fred Nerk", "Joe Bloggs"], :superseding_circulated_date=>"2030-01-01", :superseding_circulated_date_monthyear=>"January 2030", :superseding_docidentifier=>"NIST FIPS 1000 Volume 5, Revision 3", :superseding_docidentifier_long=>"NIST Federal Information Processing Standards 1000 Volume 5, Revision 3", :superseding_doi=>"http://doi.org/1", :superseding_issued_date=>"2031-01-01", :superseding_issued_date_monthyear=>"January 2031", :superseding_iteration_code=>"FPD", :superseding_iteration_ordinal=>"Final", :superseding_status=>"Public Draft", :superseding_subtitle=>"Superseding Subtitle", :superseding_title=>"Superseding Title", :superseding_updated_date=>"2032-01-01", :superseding_updated_date_MMMddyyyy=>"January 01, 2032", :superseding_updated_date_monthyear=>"January 2032", :superseding_uri=>"http://example.org/1", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :withdrawal_note=>"Withdrawal Note"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
   it "processes initial public draft; gives default values for short titles; withdrawal pending; default superseding title" do
@@ -243,12 +243,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :authors=>["Fred Nurk"], :authors_affiliations=>{""=>["Fred Nurk"]}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>nil, :docidentifier_long_undated=>nil, :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (IPD) ", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"1", :iteration_code=>"IPD", :iteration_ordinal=>"Initial", :keywords=>[], :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :obsoletedby=>["NIST SP 800-53A Rev. 1"], :obsoleteddate=>"3000-01-01", :obsoleteddate_MMMddyyyy=>"January 01, 3000", :obsoleteddate_mmddyyyy=>"01-01-3000", :obsoleteddate_monthyear=>"January 3000", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Public Draft", :substage=>"active", :superseding_authors=>["Fred Nurk"], :superseding_status=>"Final", :superseding_subtitle=>"Subtitle", :superseding_title=>"Main Title", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :withdrawal_pending=>true}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
     it "processes second public draft" do
@@ -284,12 +284,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (2PD) ", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :iteration_code=>"2PD", :iteration_ordinal=>"second", :keywords=>[], :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Public Draft", :substage=>"active", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
   it "processes final public draft" do
@@ -325,12 +325,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (FPD) ", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"final", :iteration_code=>"FPD", :iteration_ordinal=>"Final", :keywords=>[], :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Public Draft", :substage=>"active", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
   it "processes published" do
@@ -364,12 +364,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>[], :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Final", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
 
@@ -383,7 +383,7 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{HTML_HDR}
              <div>
                <h1 class="ForewordTitle"/>
@@ -393,12 +393,12 @@ RSpec.describe IsoDoc::NIST do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::NIST::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "processes keyword" do
@@ -410,7 +410,7 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{HTML_HDR}
              <div>
                <h1 class="ForewordTitle"/>
@@ -420,12 +420,12 @@ RSpec.describe IsoDoc::NIST do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::NIST::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "processes nistvariable tag" do 
@@ -437,7 +437,7 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{HTML_HDR}
              <div>
                <h1 class="ForewordTitle"/>
@@ -447,12 +447,12 @@ RSpec.describe IsoDoc::NIST do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::NIST::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "processes boilerplate" do
@@ -516,7 +516,7 @@ ping information security standards and guidelines, including minimum requiremen
 </nist-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
              <div class="authority">
 
               <div id="authority1" class="authority1">
@@ -572,7 +572,7 @@ ping information security standards and guidelines, including minimum requiremen
       expect(File.exist?("test.html")).to be true
   html = File.read("test.html", encoding: "utf-8").sub(/^.*<div class="authority">/m, '<div class="authority">').sub(/<nav>.*$/m, "")
 
-    expect(html).to be_equivalent_to output
+    expect(xmlpp(html)).to be_equivalent_to output
   end
 
 
@@ -599,7 +599,7 @@ it "processes errata tag" do
 </foreword></preface>
 </nist-standard>
   INPUT
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
              <div>
                <h1 class="ForewordTitle"/>
@@ -633,12 +633,12 @@ it "processes errata tag" do
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 end
 
 it "processes glossaries" do
@@ -663,7 +663,7 @@ it "processes glossaries" do
 </nist-standard>
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
          <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
              <br />
              <div id="_32d7b4db-f3fb-4a11-a418-74f365b96d4b" class="Section3">
@@ -681,7 +681,7 @@ it "processes glossaries" do
 
   expect(File.exist?("test.html")).to be true
   html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
-  expect(html).to be_equivalent_to output
+  expect(xmlpp(html)).to be_equivalent_to output
 
 end
 
@@ -707,7 +707,7 @@ it "processes appendix bibliographies" do
        </annex>
        </nist-standard>
   INPUT
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
         <main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
       <br />
       <div id="A" class="Section3">
@@ -734,7 +734,7 @@ it "processes appendix bibliographies" do
 
   expect(File.exist?("test.html")).to be true
   html = File.read("test.html", encoding: "utf-8").sub(/^.*<main /m, "<main ").sub(/<\/main>.*$/m, "</main>")
-  expect(html).to be_equivalent_to output
+  expect(xmlpp(html)).to be_equivalent_to output
 
 
 end
@@ -801,7 +801,7 @@ it "processes section names" do
        </nist-standard>
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
              <div id="S2">
                <h1 class="ForewordTitle">Foreword</h1>
@@ -870,11 +870,11 @@ it "processes section names" do
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 end
 
 it "skips Note to Reviewers if not draft" do
@@ -895,7 +895,7 @@ it "skips Note to Reviewers if not draft" do
       </nist-standard>
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
         <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
     <div class="title-section">
       <p>&#160;</p>
@@ -914,11 +914,11 @@ it "skips Note to Reviewers if not draft" do
   </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 end
 
 it "renders Note to Reviewers if draft" do
@@ -939,7 +939,7 @@ it "renders Note to Reviewers if draft" do
       </nist-standard>
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
             <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
     <div class="title-section">
       <p>&#160;</p>
@@ -962,15 +962,15 @@ it "renders Note to Reviewers if draft" do
   </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 end
 
 it "cross-references recommendations" do
-  expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+  expect(xmlpp(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <nist-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -1100,7 +1100,6 @@ INPUT
     </div>
     </div>
     </body>
-    </html>
   OUTPUT
 end
 
@@ -1113,7 +1112,7 @@ it "injects JS into blank html" do
       :novalid:
   INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{BLANK_HDR}
   #{AUTHORITY}
   <preface/>
@@ -1121,14 +1120,14 @@ it "injects JS into blank html" do
 </nist-standard>
   OUTPUT
 
-  expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+  expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   html = File.read("test.html", encoding: "utf-8")
   expect(html).to match(%r{jquery\.min\.js})
   expect(html).to match(%r{Baskerville})
 end
 
 it "cross-references requirements" do
-  expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+  expect(xmlpp(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <nist-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -1258,12 +1257,11 @@ INPUT
     </div>
     </div>
     </body>
-    </html>
   OUTPUT
 end
 
 it "cross-references permissions" do
-  expect(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+  expect(xmlpp(IsoDoc::NIST::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <nist-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
     <foreword id="fwd">
@@ -1393,12 +1391,11 @@ INPUT
     </div>
     </div>
     </body>
-    </html>
   OUTPUT
 end
 
 it "cleans up requirements" do
-  expect(IsoDoc::NIST::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s).to be_equivalent_to <<~"OUTPUT"
+  expect(xmlpp(IsoDoc::NIST::HtmlConvert.new({}).cleanup(Nokogiri::XML(<<~"INPUT")).to_s)).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <html>
     <body>
       <div class="recommend">
@@ -1461,7 +1458,7 @@ it "captions assets in the executive summary separately" do
   </nist-standard>
 INPUT
 
-output = <<~"OUTPUT"
+output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div id="fwd">
     <h1 class="ForewordTitle"/>
@@ -1487,12 +1484,12 @@ output = <<~"OUTPUT"
   </body>
 OUTPUT
 
-expect(
+expect(xmlpp(
       IsoDoc::NIST::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
 
 end
 
@@ -1510,7 +1507,7 @@ it "wraps citations in brackets" do
   </nist-standard>
 INPUT
 
-output = <<~"OUTPUT"
+output = xmlpp(<<~"OUTPUT")
 #{HTML_HDR}
 <div id="fwd">
                <h1 class="ForewordTitle"/>
@@ -1523,12 +1520,12 @@ output = <<~"OUTPUT"
          </body>
 OUTPUT
 
-expect(
+expect(xmlpp(
       IsoDoc::NIST::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
 
 end
 

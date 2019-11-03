@@ -111,9 +111,9 @@ OUTPUT
   #  FileUtils.cd "spec/examples"
   #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"nist"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-nist"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
   #  FileUtils.cd "../.."
-  #  expect(File.exist?("spec/examples/rfc6350.doc")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.html")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.pdf")).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.doc"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.html"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.pdf"))).to be true
   #end
 
   it "processes a blank document" do
@@ -121,7 +121,7 @@ OUTPUT
     #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
     <preface/>
@@ -129,7 +129,7 @@ OUTPUT
 </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes a blank CSWP document" do
@@ -142,7 +142,7 @@ OUTPUT
     :series: nist-cswp
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
        <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
@@ -210,7 +210,7 @@ OUTPUT
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -221,7 +221,7 @@ OUTPUT
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
     <preface/>
@@ -230,7 +230,7 @@ OUTPUT
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -245,20 +245,17 @@ OUTPUT
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
        <clause obligation="normative"><title>Patent Disclosure Notice</title>
              <p id="_">NOTICE: ITL has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication.</p>
        <p id="_">As of the date of publication and following call(s) for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, no such patent claims have been identified to ITL.</p>
        <p id="_">No representation is made or implied by ITL that licenses are not required to avoid patent infringement in the use of this publication.</p>
        </clause>
-       </preface><sections/>
-       </nist-standard>
-
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
-               sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>')).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+                                                                                                                                                                                   sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>').sub(%r{</clause>.*$}m, "</clause>"))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -275,7 +272,7 @@ OUTPUT
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
             <clause obligation="normative"><title>Patent Disclosure Notice</title>
              <p id="_">NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
        <p id="_">Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
@@ -283,14 +280,11 @@ OUTPUT
        <p id="_">Details may be obtained from The Patent Office, NIST, (1) 555 6666. </p>
        <p id="_">No representation is made or implied that this is the only license that may be required to avoid patent infringement in the use of this publication. </p>
        </clause>
-       </preface><sections/>
-       </nist-standard>
-
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
-                         sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>')).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+                         sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>').sub(%r{</clause>.*$}m, "</clause>"))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -307,7 +301,7 @@ OUTPUT
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
             <clause obligation="normative"><title>Patent Disclosure Notice</title>
              <p id="_">NOTICE: The Information Technology Laboratory (ITL) has requested that holders of patent claims whose use may be required for compliance with the guidance or requirements of this publication disclose such patent claims to ITL. However, holders of patents are not obligated to respond to ITL calls for patents and ITL has not undertaken a patent search in order to identify which, if any, patents may apply to this publication. </p>
        <p id="_">Following the ITL call for the identification of patent claims whose use may be required for compliance with the guidance or requirements of this publication, notice of one or more such claims has been received. </p>
@@ -315,14 +309,11 @@ OUTPUT
        <p id="_">Details may be obtained from x@example.com. </p>
        <p id="_">No representation is made or implied that this is the only license that may be required to avoid patent infringement in the use of this publication. </p>
        </clause>
-       </preface><sections/>
-       </nist-standard>
-
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
-                         sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>')).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+                         sub(%r{^.*<clause obligation="normative"><title>Patent Disclosure Notice</title>}m, '<clause obligation="normative"><title>Patent Disclosure Notice</title>').sub(%r{</clause>.*$}m, "</clause>"))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -338,7 +329,7 @@ OUTPUT
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
            <clause obligation="normative"><title>Call for Patent Claims</title>
              <p id="_">This public review includes a call for information on essential patent claims (claims whose use would be required for compliance with the guidance or requirements in this Information Technology Laboratory (ITL) draft publication). Such guidance and/or requirements may be directly stated in this ITL Publication or by reference to another publication. This call also includes disclosure, where known, of the existence of pending U.S. or foreign patent applications relating to this ITL draft publication and of any relevant unexpired U.S. or foreign patents.</p>
 
@@ -359,13 +350,11 @@ OUTPUT
 
        <p id="_">Such statements should be addressed to: x@example.com, with the Subject: ABC Call for Patent Claims.</p>
        </clause>
-       </preface><sections/>
-       </nist-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
-                         sub(%r{^.*<clause obligation="normative"><title>Call for Patent Claims</title>}m, '<clause obligation="normative"><title>Call for Patent Claims</title>')).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).
+                         sub(%r{^.*<clause obligation="normative"><title>Call for Patent Claims</title>}m, '<clause obligation="normative"><title>Call for Patent Claims</title>').sub(%r{</clause>.*$}m, "</clause>"))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -448,7 +437,7 @@ OUTPUT
       :nist-division: Ministry of Silly Walks
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
            <?xml version="1.0" encoding="UTF-8"?>
        <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
@@ -596,13 +585,14 @@ OUTPUT
          </commentperiod>
          </ext>
        </bibdata>
+       </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)).sub(%r{</bibdata>.*}m, "</bibdata></nist-standard>"))).to be_equivalent_to output
   end
 
     it "processes default metadata for errata release" do
-            expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to <<~'OUTPUT'
+            expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata></nist-standard>"))).to be_equivalent_to <<~'OUTPUT'
       = Document title
       Author
       :docfile: test.adoc
@@ -736,11 +726,12 @@ OUTPUT
          </editorialgroup>
          </ext>
        </bibdata>
+       </nist-standard>
       OUTPUT
 end
 
     it "ignores unrecognised status, overrides docidentifier" do
-        expect(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata>")).to be_equivalent_to <<~'OUTPUT'
+        expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :nist, header_footer: true).sub(%r{</bibdata>.*}m, "</bibdata></nist-standard>"))).to be_equivalent_to <<~'OUTPUT'
       = Document title
       Author
       :docfile: test.adoc
@@ -796,6 +787,7 @@ end
   <doctype>standard</doctype>
 </ext>
 </bibdata>
+</nist-standard>
     OUTPUT
   end
 
@@ -807,7 +799,7 @@ end
       == Section 1
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
              #{AUTHORITY}
              <preface>
@@ -821,7 +813,7 @@ end
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -889,13 +881,13 @@ end
       :boilerplate-authority: spec/assets/authority.xml
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <authority>ABC</authority>
 <preface/><sections/>
 </nist-standard>
     OUTPUT
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
 
   end
 
@@ -918,7 +910,7 @@ end
       :nist-division-address: Camelot
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
       <nist-standard xmlns="http://www.nist.gov/metanorma">
 <bibdata type="standard">
     <title type="main" language="en" format="text/plain">Document title</title>
@@ -1024,7 +1016,7 @@ end
 </nist-standard>
 
     OUTPUT
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
    it "populates initial boilerplate for CSWP" do
@@ -1047,7 +1039,7 @@ end
       :series: nist-cswp
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
          <title language="en" format="text/plain" type="main">Document title</title>
@@ -1141,7 +1133,7 @@ end
        <preface/><sections/>
        </nist-standard>
     OUTPUT
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "recognises preface sections" do
@@ -1180,7 +1172,7 @@ end
       This is a clause
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
     <preface>
@@ -1212,7 +1204,7 @@ end
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes inline_quoted formatting" do
@@ -1232,7 +1224,7 @@ end
       [smallcap]#smallcap#
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
              <preface/>
@@ -1253,7 +1245,7 @@ end
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes variables within sourcecode" do
@@ -1265,7 +1257,7 @@ end
       ----
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
              <preface/>
@@ -1275,7 +1267,7 @@ end
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes errata" do
@@ -1290,7 +1282,7 @@ end
       |===
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
              <preface/>
@@ -1315,7 +1307,7 @@ end
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes glossaries" do
@@ -1338,7 +1330,7 @@ end
 
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
          <preface><foreword obligation="informative">
@@ -1364,7 +1356,7 @@ end
 </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes nested glossaries" do
@@ -1385,7 +1377,7 @@ end
       ====
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
             <preface/>
@@ -1405,7 +1397,7 @@ end
 </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes bibliographies as appendixes in legacy format" do
@@ -1436,7 +1428,7 @@ end
 
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
          <preface/>
@@ -1459,7 +1451,7 @@ end
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
   end
 
     it "inserts prefix before SP and FIPS" do
@@ -1484,7 +1476,7 @@ end
   * [[[ref1,SP 800-179]]], _NIST A_
   INPUT
 
-      output = <<~"OUTPUT"
+      output = xmlpp(<<~"OUTPUT")
              <nist-standard xmlns="http://www.nist.gov/metanorma">
        <bibdata type="standard">
          <title language="en" format="text/plain" type="main">Document title</title>
@@ -1652,7 +1644,7 @@ end
        </nist-standard>
    OUTPUT
 
-       expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+       expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
 
     end
 
@@ -1683,7 +1675,7 @@ end
   * [[[ref5,NIST SP 800-11 (May 2007)]]], _NIST E_
   INPUT
 
-      output = <<~"OUTPUT"
+      output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
          <preface/>
@@ -1749,7 +1741,7 @@ end
        </nist-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
 
   end
 
@@ -1780,7 +1772,7 @@ end
   * [[[ref4,4]]], _NIST E_
   INPUT
 
-      output = <<~"OUTPUT"
+      output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
     <preface/><sections><clause id="_" obligation="normative">
@@ -1850,7 +1842,7 @@ end
 
 OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
 
     end
 
@@ -1881,7 +1873,7 @@ OUTPUT
   * [[[ref4,(A1)]]], _NIST E_
   INPUT
 
-      output = <<~"OUTPUT"
+      output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     #{AUTHORITY}
     <preface/><sections><clause id="_" obligation="normative">
@@ -1950,7 +1942,7 @@ OUTPUT
        </nist-standard>
 OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
     end
 
 

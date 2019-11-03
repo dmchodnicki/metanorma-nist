@@ -21,7 +21,7 @@ RSpec.describe IsoDoc::NIST do
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -38,12 +38,12 @@ RSpec.describe IsoDoc::NIST do
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
 end
 
@@ -66,7 +66,7 @@ end
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -83,12 +83,12 @@ end
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
 end
 
@@ -111,7 +111,7 @@ end
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -128,12 +128,12 @@ end
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
 end
 
@@ -174,7 +174,7 @@ end
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -191,12 +191,12 @@ end
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
 end
 
@@ -272,7 +272,7 @@ end
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -289,12 +289,12 @@ end
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
 end
 
@@ -402,7 +402,7 @@ end
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -419,12 +419,12 @@ end
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
 end
 
@@ -518,7 +518,7 @@ end
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -535,12 +535,12 @@ end
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
     end
 
@@ -635,7 +635,7 @@ end
   </nist-standard>
     INPUT
 
-  output = <<~"OUTPUT"
+  output = xmlpp(<<~"OUTPUT")
   #{HTML_HDR}
       <div>
     <h1 class="ForewordTitle"/>
@@ -652,12 +652,12 @@ end
          </body>
   OUTPUT
 
-  expect(
+  expect(xmlpp(
     IsoDoc::NIST::HtmlConvert.new({}).
     convert("test", input, true).
     gsub(%r{^.*<body}m, "<body").
     gsub(%r{</body>.*}m, "</body>")
-  ).to be_equivalent_to output
+  )).to be_equivalent_to output
 
 end
 
