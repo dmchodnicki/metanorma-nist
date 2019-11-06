@@ -1,11 +1,11 @@
 = metanorma-nist: Metanorma processor for the NIST SP 800 document classes
 
 image:https://img.shields.io/gem/v/metanorma-nist.svg["Gem Version", link="https://rubygems.org/gems/metanorma-nist"]
-image:https://img.shields.io/travis/metanorma/metanorma-nist/master.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-nist"]
-image:https://ci.appveyor.com/api/projects/status/c5e8e3qtn689a5h0?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/metanorma-nist"]
+image:https://travis-ci.com/metanorma/metanorma-nist.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-nist"]
+image:https://ci.appveyor.com/api/projects/status/vflfr333319tofbi?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/metanorma/metanorma-nist"]
 image:https://codeclimate.com/github/metanorma/metanorma-nist/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-nist"]
-
-WARNING: This gem is still under development.
+image:https://img.shields.io/github/issues-pr-raw/metanorma/metanorma-nist.svg["Pull Requests", link="https://github.com/metanorma/metanorma-nist/pulls"]
+image:https://img.shields.io/github/commits-since/metanorma/metanorma-nist/latest.svg["Commits since latest",link="https://github.com/metanorma/metanorma-nist/releases"]
 
 == Functionality
 
