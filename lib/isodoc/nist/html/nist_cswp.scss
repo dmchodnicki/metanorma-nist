@@ -741,10 +741,6 @@ div.WordSection2
 	mso-paper-source:0;}
 div.WordSection3
 	{page:WordSection3;}
-ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
 table.MsoISOTable
 	{mso-style-name:"Table NIST";
 	mso-tstyle-rowband-size:0;
@@ -765,8 +761,6 @@ table.MsoISOTable
 	mso-border-insidev:.75pt solid windowtext;
 	font-size:10.0pt;
 	font-family:$bodyfont;}
-table.MsoISOTable tr
-    {page-break-inside:avoid;}
 table.MsoISOTable th
     {border:solid windowtext 1pt;
       background: black;
@@ -795,20 +789,10 @@ table.MsoTableGrid
 	mso-pagination:widow-orphan;
 	font-size:10.0pt;
 	font-family:$bodyfont;}
-td { page-break-inside:avoid; }
-tr { page-break-after:avoid; }
-span.stem
-    {font-family:"Cambria Math",serif;
-    mso-ascii-font-family:"Cambria Math";
-    font-style:
-    italic;}
 div.formula
     {tab-stops:right 487.45pt;}
 body
     {tab-interval:36.0pt;}
-dt
-    {page-break-inside:avoid;
-    page-break-after:avoid}
 dl.glossary dt {
   font-weight: bold;
 }
