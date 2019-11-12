@@ -15,10 +15,10 @@ module IsoDoc
 
       def convert1(docxml, filename, dir)
         @bibliographycount = docxml.xpath(ns("//bibliography/references | //annex/references | //bibliography/clause/references")).size
-        FileUtils.cp html_doc_path('logo.png'), "#{@localdir}/logo.png"
-        FileUtils.cp html_doc_path('commerce-logo-color.png'), "#{@localdir}/commerce-logo-color.png"
-        @files_to_delete << "#{@localdir}/logo.png"
-        @files_to_delete << "#{@localdir}/commerce-logo-color.png"
+        #FileUtils.cp html_doc_path('logo.png'), "#{@localdir}/logo.png"
+        #FileUtils.cp html_doc_path('commerce-logo-color.png'), "#{@localdir}/commerce-logo-color.png"
+        #@files_to_delete << "#{@localdir}/logo.png"
+        #@files_to_delete << "#{@localdir}/commerce-logo-color.png"
         super
       end
 

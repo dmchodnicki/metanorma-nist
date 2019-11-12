@@ -6,6 +6,15 @@ module IsoDoc
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)
         super
+        here = File.dirname(__FILE__)
+        set(:logo_nist,
+            File.expand_path(File.join(here, "html", "logo.png")))
+        set(:logo_cswp,
+            File.expand_path(File.join(here, "html", "logo_cswp.png")))
+        set(:logo_commerce,
+            File.expand_path(File.join(here, "html", "commerce-logo-color.png")))
+        set(:logo_commerce_word,
+            File.expand_path(File.join(here, "html", "deptofcommerce.png")))
       end
 
       def iter_abbr(stage, iter)
@@ -340,7 +349,7 @@ module IsoDoc
           set(:withdrawal_note, note)
         note = xml.at(ns("//bibdata/note[@type = "\
                          "'withdrawal-announcement-link']"))&.text and
-          set(:withdrawal_announcement_link, note)
+                        set(:withdrawal_announcement_link, note)
       end
     end
   end
