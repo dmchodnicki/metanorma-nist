@@ -20,10 +20,10 @@ module IsoDoc
         @bibliographycount =
           docxml.xpath(ns("//bibliography/references | //annex/references | "\
                           "//bibliography/clause/references")).size
-        FileUtils.cp html_doc_path(@series == "NIST CSWP" ? "logo_cswp.png" :
-                                   "logo.png"), "#{@localdir}/logo.png"
-        FileUtils.cp html_doc_path("deptofcommerce.png"),
-          "#{@localdir}/deptofcommerce.png"
+        #FileUtils.cp html_doc_path(@series == "NIST CSWP" ? "logo_cswp.png" :
+                                   #"logo.png"), "#{@localdir}/logo.png"
+        #FileUtils.cp html_doc_path("deptofcommerce.png"),
+          #"#{@localdir}/deptofcommerce.png"
         if @series == "NIST CSWP"
           @wordstylesheet_name = html_doc_path("wordstyle_cswp.scss")
           @standardstylesheet_name = html_doc_path("nist_cswp.scss")
