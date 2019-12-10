@@ -318,7 +318,7 @@ end
   <uri type="email">piv_comments@nist.gov</uri>
   <docidentifier type="NIST">SP 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-long">NIST Special Publication 800-116 (June 01, 2018)</docidentifier>
-  <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
+  <docidentifier type="nist-mr">NIST.SP.800-116...2018-06-01</docidentifier>
   <docidentifier type="DOI">10.11/12.13</docidentifier>
   <docnumber>800-116</docnumber>
   <date type="issued">
@@ -445,7 +445,7 @@ end
   <uri type="email">piv_comments@nist.gov</uri>
   <docidentifier type="NIST">SP 800-116 (3PD) (June 01, 2018)</docidentifier>
   <docidentifier type="nist-long">NIST Special Publication 800-116 (3PD) (June 01, 2018)</docidentifier>
-  <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
+  <docidentifier type="nist-mr">NIST.SP.800-116...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
   <date type="circulated">
     <on>2018-06-01</on>
@@ -561,7 +561,7 @@ end
   <uri type="email">piv_comments@nist.gov</uri>
   <docidentifier type="NIST">SP 800-116 (June 01, 2018)</docidentifier>
   <docidentifier type="nist-long">NIST Special Publication 800-116 (June 01, 2018)</docidentifier>
-  <docidentifier type="nist-mr">NIST.SP...2018-06-01</docidentifier>
+  <docidentifier type="nist-mr">NIST.FIPS.800-116...2018-06-01</docidentifier>
   <docnumber>800-116</docnumber>
   <date type="issued">
     <on>2018-06</on>

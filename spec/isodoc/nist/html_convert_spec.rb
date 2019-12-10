@@ -16,6 +16,7 @@ RSpec.describe IsoDoc::NIST do
   <title language="en" format="plain" type="document-class">Information Security</title>
   <docidentifier type="NIST">1000(wd) (January 2007)</docidentifier>
   <docidentifier type="nist-long">1000(wd) Long</docidentifier>
+  <docidentifier type="nist-mr">NIST.FIPS.1000.5.3.2000-01-01</docidentifier>
   <docnumber>1000</docnumber>
   <date type="confirmed">
   <on>2005-01-01</on>

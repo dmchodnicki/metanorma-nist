@@ -451,7 +451,7 @@ OUTPUT
         <uri type="doi">http://www.example2.com</uri>
          <docidentifier type="NIST">NIST FIPS 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
          <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 Volume 5, Revision 3 (3PD) (January 01, 2000)</docidentifier>
-         <docidentifier type="nist-mr">NIST.FIPS.5.3.2000-01-01</docidentifier>
+         <docidentifier type="nist-mr">NIST.FIPS.1000.5.3.2000-01-01</docidentifier>
          <docnumber>1000</docnumber>
          <date type="abandoned">
            <on>2021-01-01</on>
@@ -654,7 +654,7 @@ OUTPUT
          <uri type="doi">http://www.example2.com</uri>
          <docidentifier type="NIST">NIST FIPS 1000 (February 01, 2000)</docidentifier>
          <docidentifier type="nist-long">NIST Federal Information Processing Standards 1000 (February 01, 2000)</docidentifier>
-         <docidentifier type="nist-mr">NIST.FIPS...2000-02-01</docidentifier>
+         <docidentifier type="nist-mr">NIST.FIPS.1000...2000-02-01</docidentifier>
          <docnumber>1000</docnumber>
          <date type="updated">
            <on>2000-02-01</on>
@@ -918,7 +918,7 @@ end
   <uri type="doi">http://www.example.com</uri>
   <docidentifier type="NIST">NIST  ABC (IPD) (January 01, 2013)</docidentifier>
   <docidentifier type="nist-long">NIST  ABC (IPD) (January 01, 2013)</docidentifier>
-  <docidentifier type="nist-mr">NIST....2013-01-01</docidentifier>
+  <docidentifier type="nist-mr">NIST..ABC...2013-01-01</docidentifier>
   <docnumber>ABC</docnumber>
   <contributor>
     <role type="publisher"/>
@@ -1047,7 +1047,7 @@ end
          <uri type="doi">http://www.example.com</uri>
          <docidentifier type="NIST">NIST CSWP January 15, 2019 (IPD) (January 01, 2013)</docidentifier>
          <docidentifier type="nist-long">NIST Cybersecurity White Paper January 15, 2019 (IPD) (January 01, 2013)</docidentifier>
-         <docidentifier type="nist-mr">NIST.CSWP...2013-01-01</docidentifier>
+         <docidentifier type="nist-mr">NIST.CSWP.January 15, 2019...2013-01-01</docidentifier>
 
          <date type="issued">
            <on>2019-01-15</on>
