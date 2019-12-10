@@ -84,6 +84,13 @@ module IsoDoc
       end
 
       def authority_cleanup(docxml)
+        docxml.xpath("//div[@class = 'authority']//h1 | //div[@class = 'authority']//h2").each do |h|
+          h.name = p
+          h["class"] = "IntroTitle"
+        end
+        dest1 = docxml.xpath("//div[@class = 'authority6']")
+        auth1 = docxml&.at("//div[@id = 'authority6']")&.remove
+        dest1 and auth1 and dest1.each { |d| d.replace(auth1) }
         insert = docxml.at("//div[@class = 'WordSection2']")
         if @series != "NIST CSWP"
           auth = docxml&.at("//div[@class = 'authority']")&.remove || return
@@ -96,6 +103,7 @@ module IsoDoc
           a["class"] = "authority3"
         a = docxml.at("//div[@id = 'authority4']") and a["class"] = "authority4"
         a = docxml.at("//div[@id = 'authority5']") and a["class"] = "authority5"
+        a = docxml.at("//div[@id = 'authority6']") and a["class"] = "authority6"
       end
 
       def cleanup(docxml)

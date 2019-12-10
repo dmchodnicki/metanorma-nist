@@ -85,8 +85,10 @@
       {% if substage == "retired" or substage == "withdrawn" %}
       {% if unpublished %}
       <div class="coverpage-warning">
-        <div class="title">Warning Notice</div>
+        <!--
         <p>{% if substage == "retired" %}{{draft-retired-boilerplate}}{% else %}{{draft-withdrawn-boilerplate}}{% endif %}</p>
+        -->
+        <div class="authority6"/>
 
         <div class="retired-date"><b>{% if substage == "retired" %}Retired Date{% else %}Withdrawal Date{% endif %}:</b> 
           {% if substage == "retired" %}{{ abandoneddate_MMMddyyyy }}{% else %}{{ obsoleteddate_MMMddyyyy}}{% endif %}</div>
@@ -101,12 +103,14 @@
       </div>
       {% else %}  
       <div class="coverpage-warning">
-        <div class="title">Warning Notice</div>
+        <!--
         {% if withdrawal_pending %}
         <p>{{ withdrawal-pending-boilerplate}}</p>
         {% else %}
         <p>{{ publication-withdrawn-boilerplate }}</p>
         {% endif %}
+        -->
+        <div class="authority6"/>
 
         <div class="retired-date"><b>Retired date:</b> {{ obsoleteddate_MMMddyyyy }}</div>
         <div class="retired-date"><b>Superseded date:</b> {% if superseded_date %}{{ supersededdate_MMMddyyyy}}{% else %}{{ obsoleteddate_MMMddyyyy}}{% endif %}</div>
@@ -150,6 +154,14 @@
       </div>
       {% endif %}            
       {% else %}          
+
+      {% if unpublished %}
+<div class="coverpage-warning">
+        <div class="authority6"/>
+        </div>
+        {% endif %}
+
+
       {% unless unpublished %}         
       <div class="coverpage-logo">
         <span>{{ issueddate_monthyear }}</span>

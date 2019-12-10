@@ -97,10 +97,11 @@ module Asciidoctor
         x.root.add_namespace(nil, EXAMPLE_NAMESPACE)
         x = Nokogiri::XML(x.to_xml)
         conv = IsoDoc::NIST::HtmlConvert.new({})
+        conv.i18n_init("en", "Latn")
         conv.metadata_init("en", "Latn", {})
         conv.info(x, nil)
-        conv.labels = {nist_division: @nistdivision,
-                       nist_division_address: @nistdivisionaddress}
+        conv.labels = conv.labels.merge({nist_division: @nistdivision,
+                       nist_division_address: @nistdivisionaddress})
         file = @boilerplateauthority ? "#{@localdir}/#{@boilerplateauthority}" :
           File.join(File.dirname(__FILE__), @series == "nist-cswp" ? "nist_intro_cswp.xml" : "nist_intro.xml")
           conv.populate_template((File.read(file, encoding: "UTF-8")), nil)

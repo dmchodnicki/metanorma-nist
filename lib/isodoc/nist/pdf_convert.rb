@@ -89,6 +89,10 @@ module IsoDoc
       def authority_cleanup(docxml)
         dest = docxml.at("//div[@id = 'authority']") || return
         auth = docxml.at("//div[@class = 'authority']") || return
+        auth.xpath(".//h1 | .//h2").each { |h| h["class"] = "IntroTitle" }
+        dest1 = docxml.xpath("//div[@class = 'authority6']")
+        auth1 = docxml&.at("//div[@id = 'authority6']")&.remove
+        dest1 and auth1 and dest1.each { |d| d.replace(auth1) }
         dest.replace(auth.remove)
         a = docxml.at("//div[@id = 'authority1']") and a["class"] = "authority1"
         a = docxml.at("//div[@id = 'authority2']") and a["class"] = "authority2"
@@ -96,6 +100,7 @@ module IsoDoc
         a = docxml.at("//div[@id = 'authority3a']") and a["class"] = "authority3"
         a = docxml.at("//div[@id = 'authority4']") and a["class"] = "authority4"
         a = docxml.at("//div[@id = 'authority5']") and a["class"] = "authority5"
+        a = docxml.at("//div[@id = 'authority6']") and a["class"] = "authority6"
       end
 
       def cleanup(docxml)
