@@ -97,6 +97,7 @@ module IsoDoc
         when "permission" then permission_parse(node, out)
         when "errata" then errata_parse(node, out)
         when "legal-statement" then children_parse(node, out)
+        when "license-statement" then children_parse(node, out)
         when "feedback-statement" then children_parse(node, out)
         else
           super

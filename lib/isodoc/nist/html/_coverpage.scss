@@ -29,7 +29,8 @@
     line-height: 1.6;
   }
 
-  .title {
+  .title, .authority6 h1, .authority6 h2 {
+    margin-top: 0em;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
     text-transform: uppercase;

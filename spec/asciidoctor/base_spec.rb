@@ -1016,7 +1016,7 @@ end
 </nist-standard>
 
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true).sub(%r{<license-statement>.*</license-statement>}m, "")))).to be_equivalent_to output
   end
 
    it "populates initial boilerplate for CSWP" do
@@ -1133,7 +1133,7 @@ end
        <preface/><sections/>
        </nist-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :nist, header_footer: true).sub(%r{<license-statement>.*</license-statement>}m, "")))).to be_equivalent_to output
   end
 
   it "recognises preface sections" do

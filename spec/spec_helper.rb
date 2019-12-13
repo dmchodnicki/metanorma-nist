@@ -101,6 +101,7 @@ BLANK_HDR = <<~"HDR"
 
 AUTHORITY = <<~"HDR"
        <boilerplate>
+
        <legal-statement>
        <clause id="authority1" obligation="normative">
        <title>Authority</title>

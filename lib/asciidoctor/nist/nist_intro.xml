@@ -1,4 +1,33 @@
 <boilerplate>
+  {%if substage == "retired" or substage == "withdrawn" or status == "Internal Draft" or status == "Work-in-Progress Draft" or status == "Preliminary Draft" or status == "Public Draft" or status == "Approval Draft" %}
+  <license-statement>
+    <clause id="authority6">
+      <title>Warning Notice</title>
+    <p>
+    {%- if substage == "retired" or substage == "withdrawn" -%}
+    {%- if unpublished -%}
+    {%- if substage == "retired" %}{{draft-retired-boilerplate}}{% else %}{{draft-withdrawn-boilerplate}}{% endif -%}  
+    {%- else -%}
+    {%- if withdrawal_pending %}{{ withdrawal-pending-boilerplate}}{% else %}{{ publication-withdrawn-boilerplate }}{% endif -%}
+    {%- endif -%}
+    {%- else -%}
+    {%- if status == "Internal Draft" -%}
+    {{- draft-internal-boilerplate -}}
+    {%- elsif status == "Work-in-Progress Draft" -%}
+    {{- draft-wip-boilerplate -}}
+    {%- elsif status == "Preliminary Draft" -%}
+    {{- draft-prelim-boilerplate -}}
+    {%- elsif status == "Public Draft" -%}
+    {{- draft-public-boilerplate -}}
+    {%- elsif status == "Approval Draft" -%}
+    {{- draft-public-boilerplate -}}
+    {%- endif -%}
+    {%- endif -%}
+  </p>
+</clause>
+</license-statement>
+{% endif %}
+
   <legal-statement>
 
 <clause id="authority1">
