@@ -14,7 +14,7 @@ module IsoDoc
       end
 
       def convert1(docxml, filename, dir)
-        @bibliographycount = docxml.xpath(ns("//bibliography/references | //annex/references | //bibliography/clause/references")).size
+        @bibliographycount = docxml.xpath(ns("//references")).size
         super
       end
 
@@ -129,8 +129,7 @@ module IsoDoc
         isoxml.xpath(ns("//bibliography/clause | //bibliography/references")).each do |f|
           out.div do |div|
             div.h1 **{ class: "Section3" } do |h1|
-              if @bibliographycount == 1
-                h1 << "References"
+              if @bibliographycount == 1 then h1 << "References"
               else
                 f&.at(ns("./title"))&.children.each { |n| parse(n, h1) }
               end
