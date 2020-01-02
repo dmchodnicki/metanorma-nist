@@ -135,6 +135,18 @@ span.nistvariable {
   margin: 2em 0 1em 0;
 }
 
+.recommend {
+  @include recommendationBlock();
+}
+
+.require {
+  @include recommendationBlock();
+}
+
+.permission {
+  @include recommendationBlock();
+}
+
 
 /* TYPOGRAPHY */
 
