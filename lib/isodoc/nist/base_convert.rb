@@ -60,7 +60,7 @@ module IsoDoc
       def requirement_cleanup(docxml)
         docxml.xpath("//div[@class = 'recommend' or @class = 'require' "\
                      "or @class = 'permission']").each do |d|
-          title = d.at("./p[@class = 'AdmonitionTitle']") or next
+          title = d.at("./p[@class = 'RecommendationTitle']") or next
           title.name = "b"
           title.delete("class")
           n = title.next_element
