@@ -162,7 +162,7 @@ OUTPUT
            <substage>active</substage>
          </status>
          <copyright>
-           <from>2019</from>
+           <from>#{Date.today.year}</from>
            <owner>
              <organization>
                <name>NIST</name>
@@ -937,7 +937,7 @@ end
     <substage>active</substage>
   </status>
   <copyright>
-    <from>2019</from>
+    <from>#{Date.today.year}</from>
     <owner>
       <organization>
         <name>NIST</name>
@@ -1069,7 +1069,7 @@ end
            <substage>active</substage>
          </status>
          <copyright>
-           <from>2019</from>
+           <from>#{Date.today.year}</from>
            <owner>
              <organization>
                <name>NIST</name>
@@ -1495,7 +1495,7 @@ end
            <substage>active</substage>
          </status>
          <copyright>
-           <from>2019</from>
+           <from>#{Date.today.year}</from>
            <owner>
              <organization>
                <name>NIST</name>
