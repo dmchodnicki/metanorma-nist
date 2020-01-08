@@ -1,6 +1,6 @@
 require "spec_helper"
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "itu", "html"))
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "nist", "html"))
 
 RSpec.describe IsoDoc::NIST do
 
@@ -191,12 +191,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = <<~"OUTPUT"
     {:abandoneddate=>"2005-01-01", :abandoneddate_MMMddyyyy=>"January 01, 2005", :abandoneddate_mmddyyyy=>"01-01-2005", :abandoneddate_monthyear=>"January 2005", :accesseddate=>"XXX", :additional_note=>"Additional Note", :authors=>["Barney Rubble", "Fred Flintstone"], :authors_affiliations=>{"Bedrock Inc., Bedrock"=>["Barney Rubble"], ""=>["Fred Flintstone"]}, :circulateddate=>"XXX", :comment_extended=>"2001-01-03", :comment_from=>"2001-01-01", :comment_to=>"2001-01-02", :confirmeddate=>"2005-01-01", :confirmeddate_MMMddyyyy=>"January 01, 2005", :confirmeddate_mmddyyyy=>"01-01-2005", :confirmeddate_monthyear=>"January 2005", :copieddate=>"XXX", :createddate=>"XXX", :docclasstitle=>"Information Security", :docidentifier=>"1000(wd) (January 2007)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Short Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Short Main Title", :doctype=>"Standard", :docyear=>"2001", :doi=>"http://www.example2.com", :draft=>"3.4", :draft_prefix=>"DRAFT (3WD) ", :draftinfo=>" draft 3.4", :edition=>"Revision 2", :email=>"email@example.com", :errata=>true, :implementeddate=>"XXX", :issueddate=>"2004-01-01", :issueddate_MMMddyyyy=>"January 01, 2004", :issueddate_mmddyyyy=>"01-01-2004", :issueddate_monthyear=>"January 2004", :iteration=>"3", :iteration_code=>"3WD", :iteration_ordinal=>"third", :keywords=>["A", "B"], :logo_commerce=>"#{File.join(logoloc, "commerce-logo-color.png")}", :logo_commerce_word=>"#{File.join(logoloc, "deptofcommerce.png")}", :logo_cswp=>"#{File.join(logoloc, "logo_cswp.png")}", :logo_nist=>"#{File.join(logoloc, "logo.png")}", :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :nist_subdiv=>"Ministry of Silly Walks", :obsoletedby=>["NIST FIPS 1000 Volume 5, Revision 3", "NIST SP 800-53A Rev. 1"], :obsoleteddate=>"1000-01-01", :obsoleteddate_MMMddyyyy=>"January 01, 1000", :obsoleteddate_mmddyyyy=>"01-01-1000", :obsoleteddate_monthyear=>"January 1000", :obsoletes=>["NIST SP 800", "NIST SP 800-53A Rev. 1"], :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :revision=>"2", :series=>"NIST Federal Information Processing Standards", :seriesabbr=>"NIST FIPS", :status=>"Work-in-Progress Draft", :substage=>"withdrawn", :supersededby=>["NIST SP 800-53A Rev. 1"], :supersededdate=>"2005-01-01", :supersededdate_MMMddyyyy=>"January 01, 2005", :supersededdate_mmddyyyy=>"01-01-2005", :supersededdate_monthyear=>"January 2005", :supersedes=>["NIST SP 800-53A Rev. 1"], :superseding_authors=>["Fred Nerk", "Joe Bloggs"], :superseding_circulated_date=>"2030-01-01", :superseding_circulated_date_monthyear=>"January 2030", :superseding_docidentifier=>"NIST FIPS 1000 Volume 5, Revision 3", :superseding_docidentifier_long=>"NIST Federal Information Processing Standards 1000 Volume 5, Revision 3", :superseding_doi=>"http://doi.org/1", :superseding_issued_date=>"2031-01-01", :superseding_issued_date_monthyear=>"January 2031", :superseding_iteration_code=>"FPD", :superseding_iteration_ordinal=>"Final", :superseding_status=>"Public Draft", :superseding_subtitle=>"Superseding Subtitle", :superseding_title=>"Superseding Title", :superseding_updated_date=>"2032-01-01", :superseding_updated_date_MMMddyyyy=>"January 01, 2032", :superseding_updated_date_monthyear=>"January 2032", :superseding_uri=>"http://example.org/1", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :withdrawal_note=>"Withdrawal Note"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
   it "processes initial public draft; gives default values for short titles; withdrawal pending; default superseding title" do
@@ -246,12 +246,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = <<~"OUTPUT"
     {:accesseddate=>"XXX", :authors=>["Fred Nurk"], :authors_affiliations=>{""=>["Fred Nurk"]}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>nil, :docidentifier_long_undated=>nil, :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :docsubtitle=>"Subtitle", :docsubtitle_short=>"Subtitle", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (IPD) ", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"1", :iteration_code=>"IPD", :iteration_ordinal=>"Initial", :keywords=>[], :logo_commerce=>"#{File.join(logoloc, "commerce-logo-color.png")}", :logo_commerce_word=>"#{File.join(logoloc, "deptofcommerce.png")}", :logo_cswp=>"#{File.join(logoloc, "logo_cswp.png")}", :logo_nist=>"#{File.join(logoloc, "logo.png")}", :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :obsoletedby=>["NIST SP 800-53A Rev. 1"], :obsoleteddate=>"3000-01-01", :obsoleteddate_MMMddyyyy=>"January 01, 3000", :obsoleteddate_mmddyyyy=>"01-01-3000", :obsoleteddate_monthyear=>"January 3000", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Public Draft", :substage=>"active", :superseding_authors=>["Fred Nurk"], :superseding_status=>"Final", :superseding_subtitle=>"Subtitle", :superseding_title=>"Main Title", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :withdrawal_pending=>true}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
     it "processes second public draft" do
@@ -287,12 +287,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = <<~"OUTPUT"
     {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (2PD) ", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"2", :iteration_code=>"2PD", :iteration_ordinal=>"second", :keywords=>[], :logo_commerce=>"#{File.join(logoloc, "commerce-logo-color.png")}", :logo_commerce_word=>"#{File.join(logoloc, "deptofcommerce.png")}", :logo_cswp=>"#{File.join(logoloc, "logo_cswp.png")}", :logo_nist=>"#{File.join(logoloc, "logo.png")}", :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Public Draft", :substage=>"active", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
   it "processes final public draft" do
@@ -328,12 +328,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = <<~"OUTPUT"
     {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draft_prefix=>"DRAFT (FPD) ", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :iteration=>"final", :iteration_code=>"FPD", :iteration_ordinal=>"Final", :keywords=>[], :logo_commerce=>"#{File.join(logoloc, "commerce-logo-color.png")}", :logo_commerce_word=>"#{File.join(logoloc, "deptofcommerce.png")}", :logo_cswp=>"#{File.join(logoloc, "logo_cswp.png")}", :logo_nist=>"#{File.join(logoloc, "logo.png")}", :most_recent_date_MMMddyyyy=>"January 01, 2000", :most_recent_date_mmddyyyy=>"01-01-2000", :most_recent_date_monthyear=>"January 2000", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Public Draft", :substage=>"active", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
   it "processes published" do
@@ -367,12 +367,12 @@ RSpec.describe IsoDoc::NIST do
 </nist-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-    {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>[], :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Final", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
+    output = <<~"OUTPUT"
+    {:accesseddate=>"XXX", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docidentifier=>"1000(wd)", :docidentifier_long=>"1000(wd) Long", :docidentifier_long_undated=>"1000(wd) Long", :docidentifier_undated=>"1000(wd)", :docnumber=>"1000", :doctitle=>"Main Title", :doctitle_short=>"Main Title", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" draft 3.4", :edition=>nil, :implementeddate=>"XXX", :issueddate=>"XXX", :keywords=>[], :logo_commerce=>"#{File.join(logoloc, "commerce-logo-color.png")}", :logo_commerce_word=>"#{File.join(logoloc, "deptofcommerce.png")}", :logo_cswp=>"#{File.join(logoloc, "logo_cswp.png")}", :logo_nist=>"#{File.join(logoloc, "logo.png")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :status=>"Final", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>false, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
 
